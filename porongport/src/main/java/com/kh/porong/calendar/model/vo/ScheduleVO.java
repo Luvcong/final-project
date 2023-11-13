@@ -16,5 +16,4 @@ public class ScheduleVO {
 	private Date schStart;		//SCH_START	DATE
 	private Date schEnd;		//SCH_END	DATE
 	private String schStatus;	//SCH_STATUS	VARCHAR2(1 BYTE)
-	private String branch;
 }
