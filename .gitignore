@@ -10,7 +10,10 @@ tmp/
 *~.nib
 local.properties
 # .settings/
+.classpath
+.project
 .loadpath
+.target
 .recommenders
 /Servers
 # External tool builders
