@@ -161,13 +161,16 @@
                         캘린더
                     </div>
                     <div class="sub-menu d-none" data-group="calendar">
-                        <div class="sub-item" data-url="calendar1">
-                            나의 일정
+                    	<div class="sub-item" data-url="calendar1">
+                            <a href="calendar">전체 일정 확인</a>
                         </div>
                         <div class="sub-item" data-url="calendar2">
-                            부서 일정
+                            나의 일정 추가
                         </div>
-                        <div class="sub-item"data-url="calendar3">
+                        <div class="sub-item" data-url="calendar3">
+                            부서 일정 추가
+                        </div>
+                        <div class="sub-item"data-url="calendar4">
                            회의실 예약
                         </div>
                     </div>
