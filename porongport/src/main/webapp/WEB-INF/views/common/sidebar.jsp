@@ -212,7 +212,7 @@
 
         // 2) 모든 item의 active 상태를 해제 (여러 개의 메뉴가 선택되어 있으면 안되니까)
         let items = document.querySelectorAll('.pp-sidebar .item');
-        for(let item of items){
+        for(let item in items){
             item.classList.remove('active');
         }
 
