@@ -22,13 +22,13 @@
 			</div>
 			<div class="cal_wrap">
 				<div class="days">
+			      	<div class="day nocurrent">SUN</div>
 					<div class="day nocurrent">MON</div>
 			      	<div class="day nocurrent">TUE</div>
 			      	<div class="day nocurrent">WED</div>
 			      	<div class="day nocurrent">THU</div>
 			      	<div class="day nocurrent">FRI</div>
 			      	<div class="day nocurrent">SAT</div>
-			      	<div class="day nocurrent">SUN</div>
 			    </div>
 			<div class="dates"></div>
 			</div>
@@ -81,7 +81,7 @@
 	            // 이전 달의 마지막 날 날짜와 요일 구하기
 	            var startDay = new Date(currentYear, currentMonth, 0);
 	            var prevDate = startDay.getDate();
-	            var prevDay = startDay.getDay();
+	            var prevDay = startDay.getDay()+1;
 	
 	            // 이번 달의 마지막날 날짜와 요일 구하기
 	            var endDay = new Date(currentYear, currentMonth + 1, 0);
@@ -98,7 +98,7 @@
 	            calendar.innerHTML = '';
 	            
 	            // 지난달
-	            for (var i = prevDate - prevDay + 1; i <= prevDate; i++) {
+	            for (var i = prevDate - prevDay +1 ; i <= prevDate; i++) {
 	                calendar.innerHTML = calendar.innerHTML + '<div class="day prev disable">' + i + '</div>'
 	            }
 	            // 이번달
@@ -114,7 +114,7 @@
 	            if (today.getMonth() == currentMonth) {
 	                todayDate = today.getDate();
 	                var currentMonthDate = document.querySelectorAll('.dates .current');
-	                currentMonthDate[todayDate -1].classList.add('today');
+	                currentMonthDate[todayDate-1].classList.add('today');
 	            }
 	        }
 	
