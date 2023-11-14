@@ -204,6 +204,13 @@
 </body>
 
 <script>
+	
+	$(function() {
+		let path_arr = window.location.pathname.split('/');
+		let len = path_arr.length;
+		let url = path_arr[len -1];
+		console.log(url);
+	});
 
 	//<!-- pp-content(자식요소)를 pp-main안으로 이동시킨다 -->
 	$(function(){
