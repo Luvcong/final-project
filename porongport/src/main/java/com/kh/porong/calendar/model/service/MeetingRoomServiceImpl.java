@@ -59,4 +59,22 @@ public class MeetingRoomServiceImpl implements MeetingRoomService {
 		return 0;
 	}
 
+	@Override
+	public MeetingRoomVO selectDetailMeetingRoom(MeetingRoomVO room) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public MeetingRoomVO selectDetailReservation(MeetingRoomVO room) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public MeetingRoomVO selectDetailApprovalList(MeetingRoomVO room) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
