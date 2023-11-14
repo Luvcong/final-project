@@ -21,7 +21,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <!-- 메인화면 css-->
     <link rel="stylesheet" href="resources/css/main.css">
-
 </head>
 <body>
     <div class="pp-outter">
@@ -187,7 +186,6 @@
 
         </div>  <!-- pp-main -->
     </div>  <!-- pp-outter -->
-
 
 </body>
 

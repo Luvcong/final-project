@@ -4,12 +4,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>포롱포트</title>
+<title>Home>캘린더</title>
 </head>
 <body>
 
-	<jsp:include page="common/sidebar.jsp" />
-	
+	<jsp:forward page="WEB-INF/views/common/sidebar.jsp" />
 
 </body>
 </html>
