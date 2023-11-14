@@ -8,11 +8,14 @@
 
 	<typeAliases>
 		<typeAlias type="com.kh.porong.employee.model.vo.Employee" alias="emp"/>
-
+		<typeAlias type="com.kh.porong.calendar.model.vo.ScheduleVO" alias="schedule"/>
+		<typeAlias type="com.kh.porong.calendar.model.vo.MeetingRoomVO" alias="meetingRoom"/>
 	</typeAliases>
 	
 	<mappers>
-		<mapper resource="/mapper/member-mapper.xml"/> 
+		<mapper resource="/mappers/employee/emp-mapper.xml"/> 
+		<mapper resource="/mappers/calendar/schedule-mapper.xml"/> 
+		<mapper resource="/mappers/calendar/meetingRoom-mapper.xml"/> 
 	</mappers>
 
 </configuration>
