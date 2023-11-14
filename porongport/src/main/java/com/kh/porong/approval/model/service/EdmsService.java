@@ -7,11 +7,15 @@ import com.kh.porong.approval.model.vo.VacationVO;
 
 public interface EdmsService {
 	
+	// 결재중인 서류 리스트 조회
+	ArrayList<EdmsVO> selectEdmsEndList(EdmsVO edms);
+	
 	// 결재서류 리스트 조회
-	ArrayList<EdmsVO> selectEdmsList(EdmsVO edms);
+	ArrayList<EdmsVO> selectEdmsIngList(EdmsVO edms);
 	
 	// ---------결재서류 상세보기-------
 	// 휴가신청서 상세보기
+	EdmsVO selectEdmsDetail(EdmsVO edms);
 	
 	// 지출결의서 상세보기
 	
@@ -29,7 +33,7 @@ public interface EdmsService {
 	// 출장보고서 등록
 	
 	
-	// ---------수정/삭제------------
+	// ---------결재상태------------
 	// 결재승인
 	
 	// 결재반려

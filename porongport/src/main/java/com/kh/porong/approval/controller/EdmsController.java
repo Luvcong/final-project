@@ -12,11 +12,10 @@ public class EdmsController {
 	@Autowired
 	private EdmsService edmsService;
 	
-	@RequestMapping("list.ap")
+	@RequestMapping("approval")
 	public String selectEdmsList() {
 		
-		
-		return "";
+		return "approval/approvalMain";
 	}
 
 }

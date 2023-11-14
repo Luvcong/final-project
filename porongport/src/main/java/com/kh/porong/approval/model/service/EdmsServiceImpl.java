@@ -11,7 +11,19 @@ import com.kh.porong.approval.model.vo.VacationVO;
 public class EdmsServiceImpl implements EdmsService{
 
 	@Override
-	public ArrayList<EdmsVO> selectEdmsList(EdmsVO edms) {
+	public ArrayList<EdmsVO> selectEdmsEndList(EdmsVO edms) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ArrayList<EdmsVO> selectEdmsIngList(EdmsVO edms) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public EdmsVO selectEdmsDetail(EdmsVO edms) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -21,5 +33,7 @@ public class EdmsServiceImpl implements EdmsService{
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
+
 
 }
