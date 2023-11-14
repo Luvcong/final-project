@@ -11,6 +11,9 @@ public interface ScheduleService {
 	// 개인 스케줄 조회
 	ArrayList<ScheduleVO> selectIndividual(ScheduleVO schedule);
 	
+	// 스케줄 디테일뷰
+	ScheduleVO selectDatilView(ScheduleVO schedule);
+	
 	// -------- 입력--------
 	// 부서스케줄 입력
 	int insertDepartment(ScheduleVO schedule);

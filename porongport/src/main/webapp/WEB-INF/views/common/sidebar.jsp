@@ -152,6 +152,7 @@
                         </div>
                     </div>
                 </div>
+                
                 <div class="item" data-group=" ">
                     <div class="icon">
                         <i class="fa-solid fa-calendar-days"></i>
@@ -172,6 +173,16 @@
                     </div>
                 </div>
             </div>  <!-- sidebar -->
+            
+            <script>
+            	function calendar-main(){
+            		$('#postForm').attr('action', 'updateForm.bo').submit();
+            	};
+            </script>
+            
+            
+            
+            
 
             <!-- 대분류 메뉴 클릭시 펼쳐지는 사이드바 영역 -->
             <div class="pp-sub-sidebar">
