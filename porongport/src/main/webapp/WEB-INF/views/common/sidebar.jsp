@@ -194,9 +194,9 @@
                 -->
             </div>  <!-- pp-sub-sidebar -->
 
-            <div class="pp-content">
+            <!-- <div class="pp-content">
             
-            </div>  <!-- content -->
+            </div> -->  <!-- content -->
 
         </div>  <!-- pp-main -->
     </div>  <!-- pp-outter -->
