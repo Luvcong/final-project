@@ -17,7 +17,7 @@
 		<table border="1">
 			<div class="icon">
 				<th><i class="fa-sharp fa-solid fa-house fa-3x" style="color: #e35f21;"></i></th>
-				<th><a href="../porong" >HOME</a> > <a href="../porong/approval">전자결재</a></th>
+				<th><a href="../porong" style="font-size:25px">HOME</a> > <a href="../porong/approval" style="font-size:40px">전자결재</a></th>
 			</div>
 		</table>
 		<table border="1">
