@@ -4,11 +4,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>포롱포트</title>
+<title>Insert title here</title>
 </head>
 <body>
-
-	<jsp:include page="common/sidebar.jsp" />
 
 </body>
 </html>
