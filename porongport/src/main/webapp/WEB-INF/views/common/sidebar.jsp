@@ -22,13 +22,142 @@
     <!-- 메인화면 css-->
     <link rel="stylesheet" href="main.css">
 
+	<style>
+	/* --------------------------------------------- */
+	/* 메인화면 기본 설정 CSS */
+	body {
+	    margin: 0;
+	}
+	.pp-outter{
+	    width: 100vw;
+	    height: 100vh;
+	}
+	.pp-outter .pp-header{
+	    width: 100%;
+	    height: 60px;
+	    background-color: rgb(0, 0, 0);
+	}
+	.pp-outter .pp-main{
+	    display: flex;
+	    width: 100%;
+	    height: calc(100% - 60px);
+	}
+	
+	/* --------------------------------------------- */
+	/* 헤더 & 사이드바 드래그 방지 CSS */
+	.pp-header, .pp-sidebar, .pp-sub-sidebar {
+	    -webkit-user-select: none;
+	}
+	
+	/* --------------------------------------------- */
+	/* 헤더 관련 CSS */
+	.pp-header{
+	    color: white;
+	    font-size: 25px;
+	}
+	.pp-header .logo{
+	    display: inline-block;
+	    
+	}
+	.pp-header .logo img{
+	    width: 165px;
+	    height: 60px;
+	    margin-left: 90px;
+	}
+	.pp-header .setting {
+	    display: flex;
+	    float: right;
+	    margin-right: 16px;
+	}
+	.pp-header .icon:hover{
+	    cursor: pointer;
+	    color: rgb(227, 95, 33);
+	}
+	.pp-header .profile:hover{
+	    cursor: pointer;
+	}
+	.pp-header .setting .profile{
+	    margin-right: 24px;
+	    font-size: 14px;
+	    margin-top: 16px;
+	    font-weight: bold;
+	}
+	.pp-header .setting .profile img {
+	    width: 30px;
+	    height: 30px;
+	    border-radius: 50%;
+	    margin-right: 4px;
+	    margin-left:10px;
+	}
+	.pp-header .setting .icon {
+	    margin-top: 10px;
+	}
+	
+	/* --------------------------------------------- */
+	/* 사이드바 관련 CSS */
+	.pp-outter .pp-main .pp-sidebar{
+	    min-width: 70px;
+	    width: 70px;
+	    height: 100%;
+	    background-color: rgb(0, 0, 0);
+	}
+	.pp-sidebar .item {
+	    width: 100%;
+	    height: 70px;
+	    text-align: center;
+	    color: white;
+	}
+	.pp-sidebar .item:hover {
+	    background-color: rgb(227, 95, 33);
+	    cursor: pointer;
+	}
+	.pp-sidebar .item.active {
+	    background-color: rgb(227, 95, 33);
+	}
+	.pp-sidebar .item .icon{
+	    width: 100%;
+	    height: 45px;
+	    font-size: 25px;
+	}
+	.pp-sidebar .item .icon i {
+	    padding-top: 10px;
+	}
+	.pp-sidebar .item .menu-name {
+	    font-size: 12px;
+	    font-weight: bold;
+	}
+	
+	/* --------------------------------------------- */
+	/* 서브 사이드바(펼쳐지는 사이드바 영역) CSS */
+	.pp-sub-sidebar {
+	    width: 200px;
+	    min-width: 200px;
+	    background-color: #eeeeee;
+	    transition: width 0.5s ease;
+	}
+	.pp-sub-sidebar .sub-item {
+	    height: 40px;
+	    padding: 4px 12px;
+	    border-bottom: 1px solid black;
+	}
+	.pp-sub-sidebar .sub-item:hover {
+	    cursor: pointer;
+	    color: white;
+	    background-color: rgb(227, 95, 33);
+	}
+	.pp-outter .pp-main .pp-content{
+	    width: 100%;
+	    height: 100%;
+	}
+	</style>
+
 </head>
 <body>
     <div class="pp-outter">
         <!-- 메인화면 상단 헤더 영역 -->
         <div class="pp-header">         
             <div class="logo">          <!-- 프롱포트 로고 영역 -->
-                <img src="logo.png">
+                <img src="resources\images\logo.png">
             </div>
             <div class="setting">       <!-- 프로필이미지 & 직급명 & 로그아웃 영역 -->
                 <div class="profile">
@@ -63,17 +192,17 @@
                         <i class="fa-solid fa-clipboard-user"></i>
                     </div>
                     <div class="menu-name">
-                        근태
+                        내정보
                     </div>
                     <div class="sub-menu d-none">
                         <div class="sub-item">
-                            근태
+                            내정보 관리
                         </div>
                         <div class="sub-item">
-                            근태2
+                            근태 관리
                         </div>
                         <div class="sub-item">
-                            근태3
+                            연차 관리
                         </div>
                     </div>
                 </div>
@@ -86,13 +215,13 @@
                     </div>
                     <div class="sub-menu d-none">
                         <div class="sub-item">
-                            전자결재1
+                            기안문 작성
                         </div>
                         <div class="sub-item">
-                            전자결재2
+                            결제 진행함
                         </div>
                         <div class="sub-item">
-                            전자결재3
+                            전체문서함
                         </div>
                     </div>
                 </div>
@@ -162,13 +291,13 @@
                     </div>
                     <div class="sub-menu d-none" data-group="calendar">
                         <div class="sub-item" data-url="calendar1">
-                            캘린더1
+                            나의 일정
                         </div>
                         <div class="sub-item" data-url="calendar2">
-                            캘린더2
+                            부서 일정
                         </div>
                         <div class="sub-item"data-url="calendar3">
-                            캘린더3
+                           회의실 예약
                         </div>
                     </div>
                 </div>

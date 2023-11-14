@@ -8,7 +8,8 @@
 </head>
 <body>
 
-	<jsp:forward page="WEB-INF/views/main.jsp" />
+	<jsp:include page="common/sidebar.jsp" />
+	
 
 </body>
 </html>
