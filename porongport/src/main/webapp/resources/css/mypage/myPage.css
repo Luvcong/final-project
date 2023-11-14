@@ -1,0 +1,146 @@
+*{margin: 0; padding: 0; box-sizing: border-box;}
+a{text-decoration: none;}
+li, ul, ol{list-style: none;}
+
+/* myPageUpdateForm */
+#myPage{
+    width: 600px;
+    margin: auto;
+}
+#updateForm{
+    width: 100%;
+    height: 100%;
+}
+#updateForm>input{
+    display: block;
+    margin-bottom: 15px;
+    width: 70%;
+    height: 25px;
+}
+
+#updateAddForm>input{
+    margin-bottom: 10px;
+    height: 30px;
+}
+#postNo{width: 60%;}
+#updateAddForm>button{width: 20%; }
+#address{
+    display: block;
+    width: 70%;
+}
+
+.btn_area{
+    width: 100%;
+    display: inline-block;
+    text-align: center;
+}
+.btn_area>button{
+    width: 45%;
+    margin: 10px;
+}
+
+/* myPageInsertEmp */
+#empInsertForm{
+    width: 800px;
+    margin: auto;
+}
+#empInsertForm>form{
+    width: 100%;
+    background-color: rgb(227, 95, 33);
+    border-radius: 5px;
+    
+}
+#empInsertForm fieldset{
+    text-align: center;
+    font-weight: 400;
+    font-size: 25px;
+    background-color: #333;
+    border-radius: 5px;
+    color: #fff;
+    padding: 5px 0;
+}
+
+#form_wrap{
+    width: 500px;
+    margin: auto;
+    padding: 20px 0;
+}
+#form_wrap>div{
+    margin-bottom: 20px;
+}
+
+.btn_area{
+    width: 100%;
+    display: inline-block;
+    text-align: center;
+}
+.btn_area>button{
+    width: 45%;
+    margin-top: 10px;
+}
+#checkEmail_btn{
+    position: absolute;
+}
+
+/* myPageAttendance */
+.outer{
+    width: 1000px;
+    margin: auto;
+}
+
+.content_top{
+    position: relative;
+    display: inline-block;
+}
+
+#profile{
+    display: inline-block;
+    width: 40%;
+}
+#EDMSprogress{
+    display: inline-block;
+}
+#EDMSprogress>div{
+    display: inline-block;
+}
+
+.content_top::after{
+    content: "";
+    position: absolute;
+    left: 0px;
+    bottom: -2px;
+    height: 3px;
+    width: 100%;
+    background: #666;
+    transform: scaleX(1);
+    transition: transform 500ms ease;
+    transform-origin: left;
+}
+
+.content_bottom{
+    text-align: center;
+}
+.content_bottom>table{
+    vertical-align: center;
+    text-align: center;
+}
+
+.arrow-next {
+    position: relative;
+    float:left;
+    width:100px;
+    height:100px;
+    margin-right:5px;
+}
+
+.arrow-next::after {
+    position: absolute;
+    left: 10px; 
+    top: 50px; 
+    content: '';
+    width: 30px; /* 사이즈 */
+    height: 30px; /* 사이즈 */
+    border-top: 5px solid #666; /* 선 두께 */
+    border-right: 5px solid #666; /* 선 두께 */
+    transform: rotate(45deg); /* 각도 */
+}
