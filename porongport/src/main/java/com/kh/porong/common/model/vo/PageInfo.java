@@ -1,4 +1,4 @@
-package com.kh.spring.common.model.vo;
+package com.kh.porong.common.model.vo;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
