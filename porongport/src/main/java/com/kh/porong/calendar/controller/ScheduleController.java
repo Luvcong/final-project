@@ -6,7 +6,7 @@ import org.springframework.stereotype.Controller;
 import com.kh.porong.calendar.model.service.ScheduleService;
 
 @Controller
-public class Schedulecontroller {
+public class ScheduleController {
 	
 	@Autowired
 	private ScheduleService scheduleService;
