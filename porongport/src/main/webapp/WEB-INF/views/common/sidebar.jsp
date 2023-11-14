@@ -33,7 +33,7 @@
             <div class="setting">       <!-- 프로필이미지 & 직급명 & 로그아웃 영역 -->
                 <div class="profile">
                     <img src="resources\images\profile.png">
-                    <span>김진희 대리</span>
+                    <span>이승철 팀장</span>
                 </div>
                 <div class="icon">
                     <i class="fa-solid fa-right-from-bracket"></i>
@@ -175,14 +175,14 @@
             </div>  <!-- sidebar -->
 
             <!-- 대분류 메뉴 클릭시 펼쳐지는 사이드바 영역 -->
-            <div class="pp-sub-sidebar d-none">
+            <div class="pp-sub-sidebar">
                 <!--
                     script에 작성되어 있는 onclick_item() 메소드로 해당 영역에 sub-menu가 이동됨
                 -->
             </div>  <!-- pp-sub-sidebar -->
 
             <div class="pp-content">
-                페이지 내용이 들어갈 공간
+            
             </div>  <!-- content -->
 
         </div>  <!-- pp-main -->
@@ -193,17 +193,23 @@
 
 <script>
 
+	//<!-- pp-content(자식요소)를 pp-main안으로 이동시킨다 -->
+	$(function(){
+	    let main = document.querySelector('.pp-main');
+	    let content = document.querySelector('.pp-content');
+	    main.appendChild(content);
+	});
+
     // 사이드바 메뉴 아이콘 클릭시 onclick_item() 메소드 실행되도록 즉시실행 함수 작성
     $(function () {
 
         let items = document.querySelectorAll('.pp-sidebar .item');
 
-        for(let item in items){
+        for(let item of items){
             item.addEventListener('click', onclick_item);
         }
     });
 
-    // 임시 테스트용..
     function onclick_item(){
 
         // 1) 현재 선택한 item을 target 변수에 저장 > 선택한 item class명에 .active 이 포함되어 있는지 확인
@@ -212,7 +218,7 @@
 
         // 2) 모든 item의 active 상태를 해제 (여러 개의 메뉴가 선택되어 있으면 안되니까)
         let items = document.querySelectorAll('.pp-sidebar .item');
-        for(let item in items){
+        for(let item of items){
             item.classList.remove('active');
         }
 
@@ -234,18 +240,8 @@
         // 5) sub_sidebar의 숨김 처리를 해제
         // 단, 같은 item을 선택한 경우는 숨김 **
         if(is_checked)
-            sub_sidebar.classList.toggle('d-none'); 
-        else
             sub_sidebar.classList.remove('d-none');
-    }
-
-    
-
-    // // 메뉴 클릭시 새로고침 발생 > 액티브 되어 있는 메뉴 유지시키기 위한 메소드 필요 - 각 메뉴마다 식별 매핑값 필요
-    // function mappingActive(){
-
-    //     }
-    // }
+    	}
 
 </script>
 </html>
