@@ -84,6 +84,8 @@
     width: calc(100% / 7);
     text-align: left;
     color: #999;
+    padding-top:5px;
+    padding-left:5px;
     font-size: 12px;
     text-align: center;
     border-radius:5px
@@ -93,12 +95,14 @@
     justify-content: center;
 }
 
-.current.today {background: rgb(242 242 242);}
+.current.today {
+ 	background: rgb(242 242 242);
+ }
 
 .sec_cal .cal_wrap .dates {
     display: flex;
     flex-flow: wrap;
-    height: 650px;
+    height: 620px;
 }
 
 .sec_cal .cal_wrap .day:nth-child(7n) {
@@ -112,3 +116,26 @@
 .sec_cal .cal_wrap .day.disable {
     color: #ddd;
 }
+.selectMySchdule{
+	background: rgb(155 89 182);
+	font-size: 12px;
+	width:100%;
+	height:20px;
+	align: bottom;
+}
+.selectMyDepartment{
+	z-index: 1;
+	background: rgb(52 152 219);
+	font-size: 12px;
+	width:100%;
+	height:20px;
+	align: bottom;
+}
+.selectMeetingRoom{
+	background: rgb(241 196 15);
+	font-size: 12px;
+	width:100%;
+	height:20px;
+	align: bottom;
+}
+
