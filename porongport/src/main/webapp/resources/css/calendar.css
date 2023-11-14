@@ -98,7 +98,7 @@
 .sec_cal .cal_wrap .dates {
     display: flex;
     flex-flow: wrap;
-    height: 600px;
+    height: 650px;
 }
 
 .sec_cal .cal_wrap .day:nth-child(7n) {

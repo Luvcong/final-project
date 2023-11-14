@@ -84,7 +84,7 @@
 	            var prevDay = startDay.getDay()+1;
 	
 	            // 이번 달의 마지막날 날짜와 요일 구하기
-	            var endDay = new Date(currentYear, currentMonth + 1, 0);
+	            var endDay = new Date(currentYear, currentMonth+1, 0);
 	            var nextDate = endDay.getDate();
 	            var nextDay = endDay.getDay();
 	
@@ -106,7 +106,7 @@
 	                calendar.innerHTML = calendar.innerHTML + '<div class="day current">' + i + '</div>'
 	            }
 	            // 다음달
-	            for (var i = 1; i <= (7 - nextDay == 7 ? 0 : 7 - nextDay); i++) {
+	            for (var i = 1; i < (7 - nextDay == 7 ? 0 : 7 - nextDay); i++) {
 	                calendar.innerHTML = calendar.innerHTML + '<div class="day next disable">' + i + '</div>'
 	            }
 	
