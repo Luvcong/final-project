@@ -5,8 +5,10 @@
 <head>
 <meta charset="UTF-8">
 <title>Home>캘린더</title>
-
-	 <link rel="stylesheet" href="resources/css/calendar.css">
+	<!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+	<!-- css-->
+	<link rel="stylesheet" href="resources/css/calendar.css">
 </head>
 <body>
 
@@ -132,6 +134,14 @@
 	    }
     </script>
     
+    
+    <script>
+	 	// 오늘 날짜에 class속성 추가하기
+	    if (today.getMonth() == currentMonth) {
+	    	var selectDay = document.querySelectorAll('.dates .current .today');
+	    	selectDay[todayDate-1].classList.add('selectDate');
+	    }
+    </script>
     
 </body>
 </html>
