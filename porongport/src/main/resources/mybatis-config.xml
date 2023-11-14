@@ -13,9 +13,9 @@
 	</typeAliases>
 	
 	<mappers>
-		<mapper resource="/mapper/employee/emp-mapper.xml"/> 
-		<mapper resource="/mapper/calendar/schedule-mapper.xml"/> 
-		<mapper resource="/mapper/calendar/meetingRoom-mapper.xml"/> 
+		<mapper resource="/mappers/employee/emp-mapper.xml"/> 
+		<mapper resource="/mappers/calendar/schedule-mapper.xml"/> 
+		<mapper resource="/mappers/calendar/meetingRoom-mapper.xml"/> 
 	</mappers>
 
 </configuration>
