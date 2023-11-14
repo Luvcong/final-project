@@ -1,7 +1,7 @@
 /* section calendar */
 
 .sec_cal {
-    width: 360px;
+    width: 1000px;
     margin: 0 auto;
     font-family: "NotoSansR";
 }
@@ -81,8 +81,6 @@
 
 .sec_cal .cal_wrap .day {
     display:flex;
-    align-items: center;
-    justify-content: center;
     width: calc(100% / 7);
     text-align: left;
     color: #999;
@@ -90,13 +88,17 @@
     text-align: center;
     border-radius:5px
 }
+.nocurrent{
+	align-items: center;
+    justify-content: center;
+}
 
 .current.today {background: rgb(242 242 242);}
 
 .sec_cal .cal_wrap .dates {
     display: flex;
     flex-flow: wrap;
-    height: 290px;
+    height: 600px;
 }
 
 .sec_cal .cal_wrap .day:nth-child(7n -1) {
