@@ -5,8 +5,10 @@
 <head>
 <meta charset="UTF-8">
 <title>Home>캘린더</title>
-
-	 <link rel="stylesheet" href="resources/css/calendar.css">
+	<!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+	<!-- css-->
+	<link rel="stylesheet" href="resources/css/calendar.css">
 </head>
 <body>
 
@@ -84,7 +86,7 @@
 	            var prevDay = startDay.getDay()+1;
 	
 	            // 이번 달의 마지막날 날짜와 요일 구하기
-	            var endDay = new Date(currentYear, currentMonth + 1, 0);
+	            var endDay = new Date(currentYear, currentMonth+1, 0);
 	            var nextDate = endDay.getDate();
 	            var nextDay = endDay.getDay();
 	
@@ -106,7 +108,7 @@
 	                calendar.innerHTML = calendar.innerHTML + '<div class="day current">' + i + '</div>'
 	            }
 	            // 다음달
-	            for (var i = 1; i <= (7 - nextDay == 7 ? 0 : 7 - nextDay); i++) {
+	            for (var i = 1; i < (7 - nextDay == 7 ? 0 : 7 - nextDay); i++) {
 	                calendar.innerHTML = calendar.innerHTML + '<div class="day next disable">' + i + '</div>'
 	            }
 	
@@ -132,6 +134,14 @@
 	    }
     </script>
     
+    
+    <script>
+	 	// 오늘 날짜에 class속성 추가하기
+	    if (today.getMonth() == currentMonth) {
+	    	var selectDay = document.querySelectorAll('.dates .current .today');
+	    	selectDay[todayDate-1].classList.add('selectDate');
+	    }
+    </script>
     
 </body>
 </html>
