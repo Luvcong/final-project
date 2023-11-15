@@ -81,13 +81,6 @@
 			       <div class="sub-item" data-url='main'>메인메뉴1</div>
 				   <div class="sub-item" data-url='main2'>메인메뉴2</div>
 				   <div class="sub-item" data-url='main3'>메인메뉴3</div>
-				   
-			    <ul data-group='main'>
-					<li class="sub-item"><a href="main" data-url='main'>메인메뉴1 a태그방식</a></li>
-					<li class="sub-item"><a href="main2" data-url='main2'>메인메뉴2 a태그방식</a></li>
-					<li class="sub-item"><a href="main3" data-url='main3'>메인메뉴3 a태그방식</a></li>
-			    </ul>
-				   
 				</div>
 				<div class="sub-menu d-none" data-group='mypage'>
 			        <div class="sub-item" data-url='mypage1'>내정보 관리</div>
