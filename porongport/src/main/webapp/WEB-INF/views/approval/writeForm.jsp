@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>전자결재</title>
+<title>기안문 작성</title>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 	<!-- font-awesome (icon) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
@@ -19,7 +19,7 @@
 		<table border="1">
 			<div class="icon">
 				<th><i class="fa-sharp fa-solid fa-house fa-3x" style="color: #e35f21;"></i></th>
-				<th><a href="../porong/main" style="font-size:25px" class="app_home">HOME</a> > <a href="../porong/approval" style="font-size:40px" class="app_sp">전자결재</a></th>
+				<th><a href="../porong/approval" style="font-size:25px" class="app_home">전자결재</a> > <a href="../porong/document1" style="font-size:40px" class="app_sp">기안문 작성</a></th>
 			</div>
 		</table>
 		<br><br><br><br><br><br><br><br><br>
