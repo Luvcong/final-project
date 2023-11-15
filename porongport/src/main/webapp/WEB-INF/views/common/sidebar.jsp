@@ -75,14 +75,24 @@
 
             <!-- 서브 사이드바 영역 -->
             <!-- .data-group : 아이콘 영역 클릭시 이동하려는 jsp의 매핑값 작성
-            	 .data-url   : 해당 메뉴 클릭시 이동하려는 jsp의 매핑값 작성 -->
+            	 .data-url   : 해당 메뉴 클릭시 이동하려는 jsp의 매핑값 작성
+            	 
+            	 ********* 매핑값 작성시 주의사항 *********
+            	  아이콘 영역의 data-group 매핑값과
+            	  서브타이틀의 data-url의 매핑값이 동일해야합니다!
+            	  data-url 매핑값 중 data-group 매핑값과 동일한게 하나라도 있어야
+            	  사이드바에 서브메뉴가 출력됩니다.. 🥹
+            	 ******************************************
+            -->
             <div class="pp-sub-sidebar">
-				<div class="sub-menu d-none" data-group='main'>
-			       <div class="sub-item" data-url='main'>메인메뉴1</div>
+				<div class="sub-menu d-none" data-group='main'>						<!-- 여기 아이콘 영역의 data-group 매핑값과  -->
+				   <div class="sub-item sub-title" data-url='main'>서브타이틀</div> <!-- 여기 서브타이틀의 data-url의 매핑값이 동일해야함 -->
+			       <div class="sub-item" data-url='main'>메인메뉴1</div>			
 				   <div class="sub-item" data-url='main2'>메인메뉴2</div>
 				   <div class="sub-item" data-url='main3'>메인메뉴3</div>
 				</div>
 				<div class="sub-menu d-none" data-group='mypage'>
+					<div class="sub-item sub-title" data-url='mypage'>서브타이틀</div>
 			        <div class="sub-item" data-url='mypage1'>내정보 관리</div>
 				    <div class="sub-item" data-url='mypage2'>근태 관리</div>
 		       		<div class="sub-item" data-url='mypage3'>연차 관리</div>
@@ -103,6 +113,7 @@
 			        <div class="sub-item" data-url='deleteMessage'>휴지통</div>
 				</div>
 				<div class="sub-menu d-none" data-group='board'>
+					<div class="sub-item sub-title" data-url='board'>메시지함</div>
 			        <div class="sub-item" data-url='board1'>게시판1</div>
 			        <div class="sub-item" data-url='board2'>게시판2</div>
 			        <div class="sub-item" data-url='board3'>게시판3</div>
