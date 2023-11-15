@@ -24,7 +24,7 @@
 		<table border="1">
 			<div style="border:1px solid; padding:100px 10px 100px 550px; magin: 100px;">
 				<div class="icon">
-					<i class="fa-sharp fa-regular fa-clipboard fa-8x" style="color: #000000;" margin-right="100px;"><h5>휴가신청서</h5></i>
+					<i class="fa-sharp fa-regular fa-clipboard fa-8x" style="color: #000000;" margin-right="100px;"><a href="../porong/vacation"><h5>휴가신청서</h5></a></i>
 					<i class="fa-sharp fa-regular fa-clipboard fa-8x" style="color: #000000;" margin="0px 0px 0px 300px;"><h5>지출결의서</h5></i>
 					<i class="fa-sharp fa-regular fa-clipboard fa-8x" style="color: #000000;" margin="0px 0px 0px 300px;"><h5>인사발령서</h5></i>
 					<i class="fa-sharp fa-regular fa-clipboard fa-8x" style="color: #000000;" margin="0px 0px 0px 300px;"><h5>출장보고서</h5></i>
