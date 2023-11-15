@@ -144,7 +144,6 @@
 }
 
  
- 
 .selectMySchdule{
    background: rgb(155 89 182);
    font-size: 12px;
@@ -158,7 +157,7 @@
    font-size: 12px;
    width:100%;
    height:20px;
-   align: bottom;
+   align: bottom;	
 }
 .selectMeetingRoom{
    background: rgb(241 196 15);

@@ -113,7 +113,8 @@
 
 			    	<div class="sub-title" data-url='calendar'>캘린더</div>
 
-			        <div class="sub-item" data-url='calendar'>나의 일정 추가</div>
+			        <div class="sub-item" hidden data-url='calendar' >전체보기</div>
+			        <div class="sub-item" data-url='calendar1'>나의 일정 추가</div>
 			        <div class="sub-item" data-url='calendar2'>부서 일정 추가</div>
 			        <div class="sub-item"data-url='calendar3'>회의실 예약</div>
 			        <c:if test="${loginUser.empAdmin eq 'A' and loginUser.deptId eq 'PD'}">
