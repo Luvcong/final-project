@@ -118,42 +118,12 @@
                     {
                     groupId: 999,
                     title: 'Repeating Event',
-                    start: '20223-11-18T16:00:00'
+                    start: '2023-11-18T16:00:00'
                     },
                     {
                     title: 'Conference',
                     start: '2023-11-20',
                     end: '2023-11-23'
-                    },
-                    {
-                    title: 'Meeting',
-                    start: '2022-07-12T10:30:00',
-                    end: '2022-07-12T12:30:00'
-                    },
-                    {
-                    title: 'Lunch',
-                    start: '2022-07-12T12:00:00'
-                    },
-                    {
-                    title: 'Meeting',
-                    start: '2022-07-12T14:30:00'
-                    },
-                    {
-                    title: 'Happy Hour',
-                    start: '2022-07-12T17:30:00'
-                    },
-                    {
-                    title: 'Dinner',
-                    start: '2022-07-12T20:00:00'
-                    },
-                    {
-                    title: 'Birthday Party',
-                    start: '2022-07-13T07:00:00'
-                    },
-                    {
-                    title: 'Click for Google',
-                    url: 'http://google.com/',
-                    start: '2022-07-28'
                     }
                 ]
             });
