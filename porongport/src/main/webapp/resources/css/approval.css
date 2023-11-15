@@ -36,3 +36,7 @@
 
 #enrollForm>table {width:100%;}
 #enrollForm>table * {margin:5px;}
+
+.openRejectionWhy{
+	text-align: right;
+}

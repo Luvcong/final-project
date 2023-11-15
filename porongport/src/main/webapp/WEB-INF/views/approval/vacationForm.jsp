@@ -12,6 +12,38 @@
 	<jsp:include page="../common/sidebar.jsp" />
 	
 	<div class="pp-content">
+	        <div id="button">
+           <input type="hidden" name="appNo" value = "${approval.appNo}"/>
+              
+           <%-- <c:if test="${loginMember.user_name eq approval.firstApprover || approval.interimApprover || approval.finalApprover}">
+                 --%><c:choose>
+                   <c:when test="${!empty approval.appReason}">
+                      <button type="button" class="openRejectionWhy">반려사유</button>
+                    <input type="text" style="border: none; width: 40px;" disabled>
+                 </c:when>
+                 <c:otherwise>
+                    <c:choose>
+                       <c:when test="${(loginMember.user_name eq approval.firstApprover && approval.appPresent eq 'A') || 
+                                (loginMember.user_name eq approval.interimApprover && approval.appPresent eq 'B') ||
+                                (loginMember.user_name eq approval.finalApprover && approval.appPresent eq 'C')}">
+                          <button type="button" id="approveddone">결재</button>
+                            <input type="text" style="border: none; width: 40px;"disabled >
+                            <button type="button" style="color:red" id="openRejection">반려</button>
+                          <input type="text" style="border: none; width: 40px;" disabled>
+                       </c:when>
+                       <c:otherwise>
+                          <button type="button" id="approveddone" disabled>결재</button>
+                            <input type="text" style="border: none; width: 40px;"disabled >
+                            <button type="button" id="openRejection" disabled>반려</button>
+                          <input type="text" style="border: none; width: 40px;" disabled>
+                       </c:otherwise>
+                    </c:choose>
+                 </c:otherwise>
+              </c:choose>
+         <%-- </c:if> --%>
+         
+         <button><a href="${path}/porong/document1" style="color:black">취소</a></button>
+        </div>
 	
 	<c:if test="${!empty approval.appReason}">
       <div style="position:absolute; margin-left:400px; margin-top:30px">
@@ -92,6 +124,8 @@
                </table>
            </div>
        </form>
+       
+
            
        </div>
    
