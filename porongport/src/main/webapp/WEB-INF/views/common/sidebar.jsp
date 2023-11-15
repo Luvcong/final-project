@@ -109,12 +109,11 @@
 				</div>
 				<div class="sub-menu d-none" data-group='calendar'>
 			    	<div class="sub-item2" data-url='calendar'>캘린더</div>
-			    	<div class="sub-item" data-url='calendar'>전체 일정 확인</div>
-			        <div class="sub-item" data-url='calendar2'>나의 일정 추가</div>
-			        <div class="sub-item" data-url='calendar3'>부서 일정 추가</div>
-			        <div class="sub-item"data-url='calendar4'>회의실 예약</div>
+			        <div class="sub-item" data-url='calendar'>나의 일정 추가</div>
+			        <div class="sub-item" data-url='calendar2'>부서 일정 추가</div>
+			        <div class="sub-item"data-url='calendar3'>회의실 예약</div>
 			        <c:if test="${loginUser.empAdmin eq 'A' and loginUser.deptId eq 'PD'}">
-                <div class="sub-item" data-url='calendar5'>회의실 일정 관리</div>
+                <div class="sub-item" data-url='calendar4'>회의실 일정 관리</div>
                 </c:if>
 				</div>
             </div>  <!-- pp-sub-sidebar -->

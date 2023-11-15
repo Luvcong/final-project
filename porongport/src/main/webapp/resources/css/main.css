@@ -161,9 +161,5 @@ li a{
 	text-decoration:none;
 	color: black;
 }
-a:hover{
-	    cursor: pointer;
-    color: white;
-    background-color: rgb(227, 95, 33);
-}
+
 
