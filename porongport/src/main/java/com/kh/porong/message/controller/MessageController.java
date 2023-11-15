@@ -1,5 +1,8 @@
 package com.kh.porong.message.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,18 +26,78 @@ public class MessageController {
 	 * @Date : 2023. 11. 14
 	 */
 	@RequestMapping("receivedMessage")
-	public String messageReceived(@RequestParam(value="page", defaultValue="1") int currentPage, Model model) {
+	public String receivedMessage(@RequestParam(value="page", defaultValue="1") int currentPage, String condition, String keyword, Model model) {
 		
 		int listCount = messageService.receivedListCount();
-		int boardLimit = 5;
-		int pageLimit = 5;
+		int boardLimit = 10;
+		int pageLimit = 10;
+		
 		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, boardLimit, pageLimit);
 		
 		model.addAttribute("list", messageService.receivedMessageList(pi));
 		model.addAttribute("pi", pi);
 		
+		if(keyword != null) {
+			Map<String, String> map = new HashMap<String, String>();
+			map.put("condition", condition);
+			
+			map.put("keyword", keyword);
+			
+			PageInfo keywordPage = Pagination.getPageInfo(messageService.searchReceivedListCount(map), currentPage, boardLimit, pageLimit);
+			
+			model.addAttribute("list", messageService.searchReceivedMessage(map, keywordPage));
+			model.addAttribute("pi", keywordPage);
+			model.addAttribute("condition", condition);
+			model.addAttribute("keyword", keyword);
+		}
+		
+		
 		return "message/receivedMessage";
 	}	// messageReceived
+	
+	
+	@RequestMapping("searchReceivedMessage")
+	public String searchReceivedMessage(@RequestParam(value="page", defaultValue="1") int currentPage, String condition, String keyword, Model model) {
+		
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("condition", condition);
+		map.put("keyword", keyword);
+		
+		PageInfo pi = Pagination.getPageInfo(messageService.searchReceivedListCount(map), currentPage, 10, 10);
+		
+		model.addAttribute("list", messageService.searchReceivedMessage(map, pi));
+		model.addAttribute("pi", pi);
+		model.addAttribute("condition", condition);
+		model.addAttribute("keyword", keyword);
+		
+		return "message/receivedMessage";
+	}	// searchReceivedMessage
+	
+	
+	
+	
+	
+	@RequestMapping("storeMessageBox")
+	public String receivedMessageBox(@RequestParam(value="page", defaultValue="1") int currentPage, int messageNo, Model model) {
+		
+		PageInfo pi = Pagination.getPageInfo(messageService.receivedListCount(), currentPage, 10, 10);
+		
+		 model.addAttribute("list", messageService.storeMessage(pi, messageNo));
+
+		 
+		 
+		
+		
+		return "message/storeMessageBox";
+	}	// receivedMessageBox
+	
+	
+	
+	
+	
+	
+	
+	
 
 	
 
