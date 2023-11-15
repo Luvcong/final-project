@@ -13,6 +13,13 @@ public interface ScheduleService {
 	
 	// 스케줄 디테일뷰
 	ScheduleVO selectDatilView(ScheduleVO schedule);
+
+	// 부서 스케줄 디테일뷰
+	ScheduleVO selectDailDepartment(ScheduleVO schedule);
+	
+	// 개인 스케줄 디테일뷰
+	ScheduleVO selectDailIndividual(ScheduleVO schedule);
+
 	
 	// -------- 입력--------
 	// 부서스케줄 입력

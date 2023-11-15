@@ -5,10 +5,21 @@
 <head>
 <meta charset="UTF-8">
 <title>Home>캘린더</title>
+	<!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+	<!-- css-->
+	<link rel="stylesheet" href="resources/css/calendar.css">
+	
 
 	 <link rel="stylesheet" href="resources/css/calendar.css">
 </head>
 <body>
+
+
+
+<!-- 참고용: https://eastshine12.tistory.com/48 -->
+	<!-- 풀캘린더사용법: https://chobopark.tistory.com/245#google_vignette -->
+	<!-- 풀캘린더사용법: https://velog.io/@faulty337/Spring-boot-fullCalendar-ajax-%ED%99%9C%EC%9A%A9 -->
 
 	<jsp:include page="../common/sidebar.jsp" />
 	
@@ -66,7 +77,10 @@
 	        var currentDate = thisMonth.getDate(); // 달력에서 표기하는 일
 	
 	        // kst 기준 현재시간
-	        // console.log(thisMonth);
+	        //console.log(thisMonth);
+	        //console.log(currentYear+'.'+(currentMonth+1)+'.'+currentDate);
+	        var selectDay = currentYear+'.'+(currentMonth+1)+'.'+currentDate;
+	        console.log(selectDay);
 	
 	        // 캘린더 렌더링
 	        renderCalender(thisMonth);
@@ -88,7 +102,7 @@
 	            var nextDate = endDay.getDate();
 	            var nextDay = endDay.getDay();
 	
-	            // console.log(prevDate, prevDay, nextDate, nextDay);
+	            //console.log(prevDate, prevDay, nextDate, nextDay);
 	
 	            // 현재 월 표기
 	            $('.year-month').text(currentYear + '.' + (currentMonth + 1));
@@ -105,6 +119,7 @@
 	            for (var i = 1; i <= nextDate; i++) {
 	                calendar.innerHTML = calendar.innerHTML + '<div class="day current">' + i + '</div>'
 	            }
+	            //console.log(calendar);
 	            // 다음달
 	            for (var i = 1; i < (7 - nextDay == 7 ? 0 : 7 - nextDay); i++) {
 	                calendar.innerHTML = calendar.innerHTML + '<div class="day next disable">' + i + '</div>'
@@ -116,6 +131,14 @@
 	                var currentMonthDate = document.querySelectorAll('.dates .current');
 	                currentMonthDate[todayDate-1].classList.add('today');
 	            }
+	            
+	         	// 오늘 날짜에 class추가
+	            if (today.getMonth() == currentMonth) {
+	                todayDate = today.getDate();
+	                var currentMonthDate = document.querySelectorAll('.dates .current');
+	                currentMonthDate[todayDate].classList.add('selectMeetingRoom');
+	            }
+	            
 	        }
 	
 	        // 이전달로 이동
@@ -129,9 +152,9 @@
 	            thisMonth = new Date(currentYear, currentMonth + 1, 1);
 	            renderCalender(thisMonth); 
 	        });
+	        
 	    }
     </script>
-    
     
 </body>
 </html>

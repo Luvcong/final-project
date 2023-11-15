@@ -1,15 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<c:set var="path" value="${ pageContext.request.contextPath }" />
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>프롱포트</title>
-
-    <!-- 프롱포트 프로젝트 공통 화면 HTML (헤더 & 사이드바) 입니다.
-         현재 구성했던 화면 디자인이랑 동일하게 틀만 작업해놓은 상태이고,
-         디테일한 부분은 프로젝트 시작시 수정이 필요합니다!😊 -->
+    <title>포롱포트</title>
 
     <!-- jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
@@ -25,235 +25,183 @@
 <body>
     <div class="pp-outter">
         <!-- 메인화면 상단 헤더 영역 -->
-        <div class="pp-header">         
-            <div class="logo">          <!-- 프롱포트 로고 영역 -->
-                <img src="resources\images\logo.png">
-            </div>
-            <div class="setting">       <!-- 프로필이미지 & 직급명 & 로그아웃 영역 -->
+        <div class="pp-header">      
+        	<!-- 프롱포트 로고 영역 -->   
+            <div class="logo"><img src="resources\images\logo.png"></div>
+            <!-- 프로필이미지 & 직급명 & 로그아웃 영역 -->
+            <div class="setting">       
                 <div class="profile">
-                    <img src="resources\images\profile.png">
+                	<img src="resources\images\profile.png">
                     <span>이승철 팀장</span>
                 </div>
-                <div class="icon">
-                    <i class="fa-solid fa-right-from-bracket"></i>
-                </div>
+                <div class="icon"><i class="fa-solid fa-right-from-bracket"></i></div>
             </div>
         </div>  <!-- pp-header -->
 
-        <!-- 메인화면 왼쪽 사이드바 영역-->
-        <!--
-            .menu-name : 대분류 메뉴 작성 영역
-            .sub-item  : 소분류 메뉴 작성 영역 (아이콘 클릭시 펼쳐지는 사이드바 메뉴 부분)
-            
-            ** 펼쳐지는 사이드바 영역은 화면 디테일 구성이 안되어있어서 단순틀만 작업되어 있는 상태(css적용x)
-        -->
+        <!-- 메인화면 메인 사이드바 영역-->
+        <!-- .data-group : 아이콘 영역 클릭시 이동하려는 jsp의 매핑값 작성 -->
         <div class="pp-main">
             <div class="pp-sidebar">
-                <div class="item">
-                    <div class="icon">
-                        <i class="fa-solid fa-house"></i>
-                    </div>
-                    <div class="menu-name">
-                        Home
-                    </div>
+                <div class="item" data-group='main'>
+                    <div class="icon"><i class="fa-solid fa-house"></i></div>
+                    <div class="menu-name">Home</div>
                 </div>
-                <div class="item">
-                    <div class="icon">
-                        <i class="fa-solid fa-clipboard-user"></i>
-                    </div>
-                    <div class="menu-name">
-                        내정보
-                    </div>
-                    <div class="sub-menu d-none">
-                        <div class="sub-item">
-                            내정보 관리
-                        </div>
-                        <div class="sub-item">
-                            근태 관리
-                        </div>
-                        <div class="sub-item">
-                            연차 관리
-                        </div>
-                    </div>
+                <div class="item" data-group='mypage'>
+                    <div class="icon"><i class="fa-solid fa-clipboard-user"></i></div>
+                    <div class="menu-name">내정보</div>
                 </div>
-                <div class="item">
-                    <div class="icon">
-                        <i class="fa-solid fa-paste"></i>
-                    </div>
-                    <div class="menu-name">
-                        전자결재
-                    </div>
-                    <div class="sub-menu d-none">
-                        <div class="sub-item">
-                            기안문 작성
-                        </div>
-                        <div class="sub-item">
-                            결제 진행함
-                        </div>
-                        <div class="sub-item">
-                            전체문서함
-                        </div>
-                    </div>
+                <div class="item" data-group='document'>
+                    <div class="icon"><i class="fa-solid fa-paste"></i></div>
+                    <div class="menu-name">전자결재</div>
                 </div>
-                <div class="item">
-                    <div class="icon">
-                        <i class="fa-solid fa-envelope"></i>
-                    </div>
-                    <div class="menu-name">
-                        쪽지함
-                    </div>
-                    <div class="sub-menu d-none">
-                        <div class="sub-item">
-                            쪽지함1
-                        </div>
-                        <div class="sub-item">
-                            쪽지함2
-                        </div>
-                        <div class="sub-item">
-                            쪽지함3
-                        </div>
-                    </div>
+                <div class="item" data-group='messageReceived'>
+                    <div class="icon"><i class="fa-solid fa-envelope"></i></div>
+                    <div class="menu-name">쪽지함</div>
                 </div>
-                <div class="item">
-                    <div class="icon">
-                        <i class="fa-solid fa-pen-to-square"></i>
-                    </div>
-                    <div class="menu-name">
-                        게시판
-                    </div>
-                    <div class="sub-menu d-none">
-                        <div class="sub-item">
-                            게시판1
-                        </div>
-                        <div class="sub-item">
-                            게시판2
-                        </div>
-                        <div class="sub-item">
-                            게시판3
-                        </div>
-                    </div>
+                <div class="item" data-group='board'>
+                    <div class="icon"><i class="fa-solid fa-pen-to-square"></i></div>
+                    <div class="menu-name">게시판</div>
                 </div>
-                <div class="item">
-                    <div class="icon">
-                        <i class="fa-solid fa-address-book"></i>
-                    </div>
-                    <div class="menu-name">
-                        주소록
-                    </div>
-                    <div class="sub-menu d-none">
-                        <div class="sub-item">
-                            주소록1
-                        </div>
-                        <div class="sub-item">
-                            주소록2
-                        </div>
-                        <div class="sub-item">
-                            주소록3
-                        </div>
-                    </div>
+                <div class="item" data-group='address'>
+                    <div class="icon"><i class="fa-solid fa-address-book"></i></div>
+                    <div class="menu-name">주소록</div>
                 </div>
-                
-                <div class="item" data-group=" ">
-                    <div class="icon">
-                        <i class="fa-solid fa-calendar-days"></i>
-                    </div>
-                    <div class="menu-name">
-                        캘린더
-                    </div>
-                    <div class="sub-menu d-none" data-group="calendar">
-                    	<div class="sub-item" data-url="calendar1">
-                            <a href="calendar">전체 일정 확인</a>
-                        </div>
-                        <div class="sub-item" data-url="calendar2">
-                            나의 일정 추가
-                        </div>
-                        <div class="sub-item" data-url="calendar3">
-                            부서 일정 추가
-                        </div>
-                        <div class="sub-item"data-url="calendar4">
-                           회의실 예약
-                        </div>
-                    </div>
+                 <div class="item" data-group='calendar'>
+                    <div class="icon"><i class="fa-solid fa-calendar-days"></i></div>
+                    <div class="menu-name">캘린더</div>
                 </div>
-            </div>  <!-- sidebar -->
-            
-            <script>
-            	function calendar-main(){
-            		$('#postForm').attr('action', 'updateForm.bo').submit();
-            	};
-            </script>
-            
-            
-            
-            
+            </div>  <!-- pp-sidebar -->
 
-            <!-- 대분류 메뉴 클릭시 펼쳐지는 사이드바 영역 -->
+
+            <!-- 서브 사이드바 영역 -->
+            <!-- .data-group : 아이콘 영역 클릭시 이동하려는 jsp의 매핑값 작성
+            	 .data-url   : 해당 메뉴 클릭시 이동하려는 jsp의 매핑값 작성 -->
             <div class="pp-sub-sidebar">
-                <!--
-                    script에 작성되어 있는 onclick_item() 메소드로 해당 영역에 sub-menu가 이동됨
-                -->
+				<div class="sub-menu d-none" data-group='main'>
+			       <div class="sub-item" data-url='main'>메인메뉴1</div>
+				   <div class="sub-item" data-url='main2'>메인메뉴2</div>
+				   <div class="sub-item" data-url='main3'>메인메뉴3</div>
+				   
+			    <ul data-group='main'>
+					<li class="sub-item"><a href="main" data-url='main'>메인메뉴1 a태그방식</a></li>
+					<li class="sub-item"><a href="main2" data-url='main2'>메인메뉴2 a태그방식</a></li>
+					<li class="sub-item"><a href="main3" data-url='main3'>메인메뉴3 a태그방식</a></li>
+			    </ul>
+				   
+				</div>
+				<div class="sub-menu d-none" data-group='mypage'>
+			        <div class="sub-item" data-url='mypage1'>내정보 관리</div>
+				    <div class="sub-item" data-url='mypage2'>근태 관리</div>
+		       		<div class="sub-item" data-url='mypage3'>연차 관리</div>
+				</div>
+				 <div class="sub-menu d-none" data-group='document'>
+		         	<div class="sub-item" data-url='document1'>기안문 작성</div>
+			        <div class="sub-item" data-url='document2'>결제 진행함</div>
+			        <div class="sub-item" data-url='document3'>전체문서함</div>
+				</div>
+				<div class="sub-menu d-none" data-group='messageReceived'>
+			        <div class="sub-item" data-url='messageReceived'>쪽지함1</div>
+			        <div class="sub-item" data-url='messageReceived2'>쪽지함2</div>
+			        <div class="sub-item" data-url='messageReceived3'>쪽지함3</div>
+				</div>
+				<div class="sub-menu d-none" data-group='board'>
+			        <div class="sub-item" data-url='board1'>게시판1</div>
+			        <div class="sub-item" data-url='board2'>게시판2</div>
+			        <div class="sub-item" data-url='board3'>게시판3</div>
+				</div>
+				<div class="sub-menu d-none" data-group='address'>
+					<div class="sub-item" data-url='address1'>주소록1</div>
+					<div class="sub-item" data-url='address2'>주소록2</div>
+					<div class="sub-item" data-url='address3'>주소록3</div>
+				</div>
+				<div class="sub-menu d-none" data-group='calendar'>
+			    	<div class="sub-item" data-url='calendar'>전체 일정 확인</div>
+			        <div class="sub-item" data-url='calendar2'>나의 일정 추가</div>
+			        <div class="sub-item" data-url='calendar3'>부서 일정 추가</div>
+			        <div class="sub-item"data-url='calendar4'>회의실 예약</div>
+				</div>
             </div>  <!-- pp-sub-sidebar -->
-
-            <!-- <div class="pp-content">
             
-            </div> -->  <!-- content -->
-
+            <!-- <div class="pp-content"></div> -->
+            
         </div>  <!-- pp-main -->
     </div>  <!-- pp-outter -->
-
 </body>
 
 <script>
+	function calendar-main(){
+		$('#postForm').attr('action', 'updateForm.bo').submit();
+	};
+</script>
 
-	//<!-- pp-content(자식요소)를 pp-main안으로 이동시킨다 -->
+<!-- 사이드바 관련 스크립트 -->
+<script>
+	// pp-content(자식요소)를 pp-main안으로 이동
 	$(function(){
 	    let main = document.querySelector('.pp-main');
 	    let content = document.querySelector('.pp-content');
 	    main.appendChild(content);
 	});
 
-    // 사이드바 메뉴 아이콘 클릭시 onclick_item() 메소드 실행되도록 즉시실행 함수 작성
+    // 사이드바 메뉴 아이콘 클릭시 init_navbar() 메소드가 실행되도록 즉시실행 함수 작성
     $(function () {
-
-        let items = document.querySelectorAll('.pp-sidebar .item');
-
-        for(let item of items){
-            item.addEventListener('click', onclick_item);
-        }
+    	init_navbar();
     });
-
-    function onclick_item(){
-
-        // 1) 현재 선택한 item을 target 변수에 저장 > 선택한 item class명에 .active 이 포함되어 있는지 확인
-        let target = event.currentTarget; 
-        let is_checked = target.classList.contains('active');
-
-        // 2) 모든 item의 active 상태를 해제 (여러 개의 메뉴가 선택되어 있으면 안되니까)
-        let items = document.querySelectorAll('.pp-sidebar .item');
-        for(let item of items){
-            item.classList.remove('active');
-        }
-
-        // 3) 선택한 item만 active class 추가 - active된 menu는 background-color 적용
-        target.classList.add('active');
-
-        // 4-1) 선택한 item의 숨겨진 sub_menu를 이동시키기 위해 변수 저장 후 옮김
-        let sub_menu = target.querySelector('.sub-menu');
-        let sub_sidebar = document.querySelector('.pp-sub-sidebar');
-        sub_sidebar.innerHTML = sub_menu.innerHTML;
-        
-        // 4-2) sub_menu가 없는 경우 sub_sidebar를 비운뒤 숨김
-        if(sub_menu == null) {
-            sub_sidebar.innerHTML = '';
-            sub_sidebar.classList.add('d-none'); 
-            return;
-        }
-
-        // 5) sub_sidebar의 숨김 처리를 해제
-        // 단, 같은 item을 선택한 경우는 숨김 **
-        if(is_checked)
-            sub_sidebar.classList.remove('d-none');
+    
+    function init_navbar() {
+    	// { "group_key" : [item1, item2, item3 ]}
+    	
+    	let group_list = {};
+    	
+    	// .sub-menu에 해당하는 요소들을 가져와 groups 변수에 저장
+    	let groups = document.querySelectorAll('.sub-menu');
+    	
+    	for(let group of groups){
+    		let group_key = group.getAttribute('data-group');
+    		group_list[group_key] = [];
+    		
+    		for(let item of group.children) {
+    			group_list[group_key].push(item.getAttribute('data-url'));
+    		}
     	}
-
+    	console.log(group_list);
+    	
+    	// 1) 현재 url을 구하기
+        let path_arr = window.location.pathname.split('/');
+		let len = path_arr.length;
+		let url = path_arr[len -1];
+		
+    	// 2) 현재 선택한 item을 sub_menus 변수에 저장
+    	//    .sub-menu 클래스 중 data-url이 현재 url과 일치하는 요소를 찾은 후 d-none 클래스 제거
+    	let sub_menus = document.querySelectorAll('.sub-item');
+    	
+    	for(let menu of sub_menus) {
+    		let data_url = menu.getAttribute('data-url');
+    		
+    		menu.addEventListener('click', function() {
+    			location.href = data_url;
+    		});
+    		
+    		if(data_url != null && data_url == url) {
+    			menu.parentElement.classList.remove('d-none');
+    		}
+    	}
+		
+		// 3) item 클래스에 onclick 이벤트 등록
+		//    현재 url과 일치하는 item에 active 클래스를 추가
+    	let items = document.querySelectorAll('.item');
+		
+    	for(let item of items) {
+    		let data_group = item.getAttribute('data-group');
+    		item.addEventListener('click', function() {
+    			location.href = data_group;
+    		});
+    		
+    		let values = group_list[data_group];
+    		if(values != null && values.includes(url)){
+    			item.classList.add('active');
+        	}
+    	}
+    }
 </script>
 </html>

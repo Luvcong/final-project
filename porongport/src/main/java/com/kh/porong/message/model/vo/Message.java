@@ -13,7 +13,7 @@ public class Message {
 	private String defaultDate;
 	private String messageStatus;
 	private int sendUser;
-	private int reciveUser;
+	private int receiveUser;
 	private int fileNo;
 	
 }	// end class
