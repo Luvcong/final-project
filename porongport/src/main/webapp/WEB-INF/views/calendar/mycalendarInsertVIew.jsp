@@ -5,9 +5,13 @@
 <head>
 <meta charset="UTF-8">
 <title>캘린더>나의 일정 추가</title>
+	<!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 	<!-- 부트스트립트 -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	<!-- font-awesome (icon) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 	<!-- css-->
 	<link rel="stylesheet" href="resources/css/myCalendar.css">
 </head>
@@ -18,34 +22,54 @@
 		<div>
 		
 			<form id="insertCalendar" method="post" action="insertMyCalendar">
+				<div class="myCalendar-btn">
+					<button type="submit" class="btn btn-sm btn-secondary">일정추가</button>
+				</div>
+				<br>
 				<div class="calendarWidth">
-					<table class="table table-sm table-bordered">
+					<table class="table table-sm">
 						<tr>
-							<th>일정제목</th>
-							<td colspan="3"><input type="text" name="" id="" class="mycalendar_input"></td>
+							<th><i class="fa-solid fa-pen"></i></th>
+							<td colspan="3"><input type="text" name="" id="" class="mycalendar_input mycalendar_width" placeholder="제목 추가"></td>
 						</tr>
 						<tr>
-							<th>작성자</th>
-							<td><input type="text" name="empName" id="empName" readonly value="${loginUser.empName}" class="mycalendar_input"></td>
-							<th>부서</th>
-							<td><input type="text" name="deptId" id="deptId" readonly value="${loginUser.deptName}" class="mycalendar_input"></td>
+							<th><i class="fa-solid fa-user"></i></th>
+							<td><input type="text" name="empName" id="empName" readonly value="${loginUser.empName}" class="mycalendar_input mycalendar_width"></td>
+							<th><i class="fa-solid fa-user-tag"></i></th>
+							<td><input type="text" name="deptId" id="deptId" readonly value="${loginUser.deptName}" class="mycalendar_input mycalendar_width time_block"></td>
 						</tr>
 						<tr>
-							<th>시작일</th>
-							<td><input type="date" name="" id="" class="mycalendar_input"></td>
-							<th>종료일</th>
-							<td><input type="date" name="" id="" class="mycalendar_input"></td>
+							<th><i class="fa-solid fa-clock"></i></th>
+							<td colspan="3">
+								<input type="date" name="startDate" id="startDate" class="mycalendar_input2 mycalendar_width2">
+								<input type="time" name="startTime" id="startTime" class="mycalendar_input2 mycalendar_width2" value="09:00">
+								<label class="switch">
+									<input type="checkbox">
+									<span class="slider round"></span>
+								</label><p>하루종일</p><p style="display:none;">하루종일</p>
+
+								<script>
+									var check = $("input[type='checkbox']");
+									check.click(()=>{
+										$("p").toggle();
+										$("input[type='time']").toggle();
+										$("input[type='date']").attr("style", "width:45%");
+									});
+	
+								</script>
+								<br>
+								<input type="date" name="endDate" id="endDate" class="mycalendar_input2 mycalendar_width2">
+								<input type="time" name="endTime" id="endTime" class="mycalendar_input2 mycalendar_width2" value="18:00">
+							</td>
+							
 						</tr>
 						
 						<tr>
-							<th>일정내용</th>
-							<td colspan="3"><textarea type="text" name="" id="" class="mycalendar_input calendarTextarea"></textarea></td>
+							<th><i class="fa-solid fa-file"></i></th>
+							<td colspan="3"><textarea type="text" name="" id="" class="mycalendar_input calendarTextarea" placeholder="설명 추가"></textarea></td>
 						</tr>
+						<tr><th></th><td colspan="3"></td></tr>
 					</table>
-				</div>
-				<br>
-				<div class="myCalendar-btn">
-					<button type="submit" class="btn btn-sm btn-secondary">일정추가</button>
 				</div>
 			</form>
 			
