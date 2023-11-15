@@ -1,6 +1,22 @@
 .app_col{
 	color: #000000;
 }
+
 .app_mar{
 	margin-right: 100px;
+}
+
+.app_home{
+	text-decoration-line: none;
+	color: black;
+}
+
+.app_sp{
+	text-decoration-line: none;
+	color: black;
+}
+
+.app_vct{
+	text-decoration-line: none;
+	color: black;
 }

@@ -38,21 +38,6 @@ public class MeetingRoomServiceImpl implements MeetingRoomService {
 	}
 
 	@Override
-	public int updateAccept(String schStatus) {
-		return 0;
-	}
-
-	@Override
-	public int updateRejection(String schStatus) {
-		return 0;
-	}
-
-	@Override
-	public int updateCancel(String schStatus) {
-		return 0;
-	}
-
-	@Override
 	public MeetingRoomVO selectDetailMeetingRoom(MeetingRoomVO room) {
 		// TODO Auto-generated method stub
 		return null;
@@ -71,9 +56,21 @@ public class MeetingRoomServiceImpl implements MeetingRoomService {
 	}
 
 	@Override
-	public MeetingRoomVO selectDetailApproval(MeetingRoomVO room) {
+	public int updateAccept(MeetingRoomVO room) {
 		// TODO Auto-generated method stub
-		return null;
+		return 0;
+	}
+
+	@Override
+	public int updateRejection(MeetingRoomVO room) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int updateCancel(MeetingRoomVO room) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 

@@ -59,19 +59,16 @@ public class ScheduleServiceImple implements ScheduleService {
 
 	@Override
 	public ScheduleVO selectDatilView(ScheduleVO schedule) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public ScheduleVO selectDailDepartment(ScheduleVO schedule) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public ScheduleVO selectDailIndividual(ScheduleVO schedule) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

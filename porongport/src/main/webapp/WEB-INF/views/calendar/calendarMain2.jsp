@@ -28,8 +28,8 @@
 
                 selectable: true,
                 selectMirror: true,
-                navLinks: true,
-                editable: true,
+                navLinks: false,
+                editable: false,
                 
                 select: function (arg) {
                     Swal.fire({
@@ -98,7 +98,7 @@
                         }
                     });
                 },
-                dayMaxEvents: true, // allow "more" link when too many events
+                dayMaxEvents: true, 
                 // 이벤트 객체 필드 document : https://fullcalendar.io/docs/event-object
                 events: [
                     {
@@ -111,6 +111,7 @@
                     end: '2023-11-16'
                     },
                     {
+                   	// 그룹아이디: 999이 회의실 예약
                     groupId: 999,
                     title: 'Repeating Event',
                     start: '2023-11-17T16:00:00'
@@ -135,8 +136,6 @@
 </html>
 </head>
 <body>
-
-
 
 	<!-- 참고용: https://eastshine12.tistory.com/48 -->
 	<!-- 풀캘린더사용법: https://chobopark.tistory.com/245#google_vignette -->

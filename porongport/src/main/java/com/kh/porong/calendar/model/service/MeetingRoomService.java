@@ -31,13 +31,13 @@ public interface MeetingRoomService {
 	MeetingRoomVO selectDetailApprovalList(MeetingRoomVO room);
 	
 	
-	// ----------- 수정/삭제 -----------
+	// ----------- 승인/취소/반려 -----------
 	// 예약승인
-	int updateAccept(String schStatus);
+	int updateAccept(MeetingRoomVO room);
 	
 	// 예약반려
-	int updateRejection(String schStatus);
+	int updateRejection(MeetingRoomVO room);
 	
 	// 예약 승인 취소
-	int updateCancel(String schStatus);
+	int updateCancel(MeetingRoomVO room);
 }
