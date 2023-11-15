@@ -54,7 +54,7 @@
                     <div class="icon"><i class="fa-solid fa-paste"></i></div>
                     <div class="menu-name">전자결재</div>
                 </div>
-                <div class="item" data-group='messageReceived'>
+                <div class="item" data-group='receivedMessage'>
                     <div class="icon"><i class="fa-solid fa-envelope"></i></div>
                     <div class="menu-name">쪽지함</div>
                 </div>
@@ -92,10 +92,10 @@
 			        <div class="sub-item" data-url='document2'>결제 진행함</div>
 			        <div class="sub-item" data-url='document3'>전체문서함</div>
 				</div>
-				<div class="sub-menu d-none" data-group='messageReceived'>
-					<div class="sub-title" data-url='messageReceived'>메시지함</div>
-			        <div class="sub-item" data-url='messageReceived'>받은 메시지</div>
-			        <div class="sub-item" data-url='messageReceived2'>보낸 메시지</div>
+				<div class="sub-menu d-none" data-group='receivedMessage'>
+					<div class="sub-title" data-url='receivedMessage'>메시지함</div>
+			        <div class="sub-item" data-url='receivedMessage'>받은 메시지</div>
+			        <div class="sub-item" data-url='SendMessage'>보낸 메시지</div>
 			        <div class="sub-item" data-url='messageReceived3'>메시지 보관함</div>
 			        <div class="sub-item" data-url='messageReceived3'>휴지통</div>
 				</div>

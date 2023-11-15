@@ -22,7 +22,7 @@ public class MessageController {
 	 * @author JH
 	 * @Date : 2023. 11. 14
 	 */
-	@RequestMapping("messageReceived")
+	@RequestMapping("receivedMessage")
 	public String messageReceived(@RequestParam(value="page", defaultValue="1") int currentPage, Model model) {
 		
 		int listCount = messageService.receivedListCount();
@@ -33,7 +33,7 @@ public class MessageController {
 		model.addAttribute("list", messageService.receivedMessageList(pi));
 		model.addAttribute("pi", pi);
 		
-		return "message/messageReceived";
+		return "message/receivedMessage";
 	}	// messageReceived
 
 	

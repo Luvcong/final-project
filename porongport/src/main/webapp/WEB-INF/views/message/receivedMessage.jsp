@@ -49,7 +49,7 @@
 			<button>삭제</button>
 		</div>
 		
-		<span>전체 수 29개</span>
+		<span>총 ${ pi.listCount }개</span>
 		
 		<div class="tableBody">
 			<table id='tb-received' class="table table-sm table-hover">
@@ -63,22 +63,24 @@
 				</tr>
 			</thead>
 			<tbody>
-<%--            	<c:when test="${ empty requestScope.list }">
+			<c:choose>
+           	<c:when test="${ empty list }">
    	            <tr>
 	            	<td colspan="5">받은 메시지가 없습니다.</td>
                 </tr>
            	</c:when>
            	<c:otherwise>
-           		<c:forEach var="message" items="${ requestScope.list }">
+           		<c:forEach var="message" items="${ list }">
            			<tr>
 	                    <td><input type="checkbox"></td>
 	                    <td><i class="fa-solid fa-envelope"></i></td>
-						<td>${ message.sendUser }</td>
+						<td>${ message.empName } ${ message.jobName }</td>
 						<td>${ message.messageContent }</td>
 						<td>${ message.createDate }</td>
 					</tr>
            		</c:forEach>
-           	</c:otherwise> --%>
+           	</c:otherwise>
+			</c:choose>
  				<tr>
                     <td><input type="checkbox"></td>
                     <td><i class="fa-solid fa-envelope"></i></td>
