@@ -19,43 +19,36 @@ public class MeetingRoomServiceImpl implements MeetingRoomService {
 	
 	@Override
 	public ArrayList<MeetingRoomVO> selectMeetingRoomList(MeetingRoomVO room) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public int insertMeetingRoom(MeetingRoomVO mr) {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
 	public ArrayList<MeetingRoomVO> selectReservationList(MeetingRoomVO room) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public ArrayList<MeetingRoomVO> selectApprovalList(MeetingRoomVO room) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public int updateAccept(String schStatus) {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
 	public int updateRejection(String schStatus) {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
 	public int updateCancel(String schStatus) {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
@@ -76,5 +69,13 @@ public class MeetingRoomServiceImpl implements MeetingRoomService {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public MeetingRoomVO selectDetailApproval(MeetingRoomVO room) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
 
 }

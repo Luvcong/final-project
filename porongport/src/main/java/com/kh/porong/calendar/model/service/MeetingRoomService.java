@@ -30,6 +30,7 @@ public interface MeetingRoomService {
 	//<예약승인목록>디테일뷰
 	MeetingRoomVO selectDetailApprovalList(MeetingRoomVO room);
 	
+	
 	// ----------- 수정/삭제 -----------
 	// 예약승인
 	int updateAccept(String schStatus);

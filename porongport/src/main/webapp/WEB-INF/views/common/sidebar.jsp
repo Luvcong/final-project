@@ -158,7 +158,7 @@
                         <i class="fa-solid fa-calendar-days"></i>
                     </div>
                     <div class="menu-name">
-                        캘린더
+                        <a href="calendar">캘린더</a>
                     </div>
                     <div class="sub-menu d-none" data-group="calendar">
                     	<div class="sub-item" data-url="calendar1">
@@ -201,6 +201,7 @@
         </div>  <!-- pp-main -->
     </div>  <!-- pp-outter -->
 
+
 </body>
 
 <script>
@@ -219,12 +220,16 @@
 	    main.appendChild(content);
 	});
 
+
+
     // 사이드바 메뉴 아이콘 클릭시 onclick_item() 메소드 실행되도록 즉시실행 함수 작성
     $(function () {
 
         let items = document.querySelectorAll('.pp-sidebar .item');
 
+
         for(let item of items){
+
             item.addEventListener('click', onclick_item);
         }
     });
@@ -261,6 +266,13 @@
         if(is_checked)
             sub_sidebar.classList.remove('d-none');
     	}
+
+    // // 메뉴 클릭시 새로고침 발생 > 액티브 되어 있는 메뉴 유지시키기 위한 메소드 필요 - 각 메뉴마다 식별 매핑값 필요
+    // function mappingActive(){
+
+    //     }
+    // }
+
 
 </script>
 </html>

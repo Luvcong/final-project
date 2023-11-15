@@ -9,12 +9,18 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 	<!-- css-->
 	<link rel="stylesheet" href="resources/css/calendar.css">
+	
+
+	 <link rel="stylesheet" href="resources/css/calendar.css">
 </head>
 <body>
 
-	<!-- 참고용: https://eastshine12.tistory.com/48 -->
+
+
+<!-- 참고용: https://eastshine12.tistory.com/48 -->
 	<!-- 풀캘린더사용법: https://chobopark.tistory.com/245#google_vignette -->
 	<!-- 풀캘린더사용법: https://velog.io/@faulty337/Spring-boot-fullCalendar-ajax-%ED%99%9C%EC%9A%A9 -->
+
 	<jsp:include page="../common/sidebar.jsp" />
 	
 	<div class="pp-content">
