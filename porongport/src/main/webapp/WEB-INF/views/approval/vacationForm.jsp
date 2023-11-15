@@ -12,6 +12,7 @@
 	<jsp:include page="../common/sidebar.jsp" />
 	
 	<div class="pp-content">
+	<form button="submit" action="../prong/line">
 	        <div id="button">
            <input type="hidden" name="appNo" value = "${approval.appNo}"/>
               
@@ -26,7 +27,7 @@
                        <c:when test="${(loginMember.user_name eq approval.firstApprover && approval.appPresent eq 'A') || 
                                 (loginMember.user_name eq approval.interimApprover && approval.appPresent eq 'B') ||
                                 (loginMember.user_name eq approval.finalApprover && approval.appPresent eq 'C')}">
-                          <button type="button" id="approveddone">결재</button>
+                          <button type="submit" id="approveddone">결재</button>
                             <input type="text" style="border: none; width: 40px;"disabled >
                             <button type="button" style="color:red" id="openRejection">반려</button>
                           <input type="text" style="border: none; width: 40px;" disabled>
@@ -44,7 +45,7 @@
          
          <button><a href="${path}/porong/document1" style="color:black">취소</a></button>
         </div>
-	
+	</form>
 	<c:if test="${!empty approval.appReason}">
       <div style="position:absolute; margin-left:400px; margin-top:30px">
       </div>
@@ -317,7 +318,7 @@
    	<script>
    		$("#approveddone").click(function() {
    			if($('#checkIfApproved').length > 0) {
-   				var url = "${path}/approval/approvalMain";
+   				var url = "${path}/approval/document1";
 	   			alert("결재가 완료되었습니다.");
 	   	        $(location).attr('href', url);  			
    			} else {
