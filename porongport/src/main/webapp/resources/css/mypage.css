@@ -1,0 +1,211 @@
+*{margin: 0; padding: 0; box-sizing: border-box;}
+a{text-decoration: none;}
+li, ul, ol{list-style: none;}
+
+/* myPageUpdateForm */
+.info>h3{
+    display: inline-block;
+    font-weight: 600;
+}
+.info>span{
+    display: inline-block;
+    padding-left: 8px;
+    font-size: 16px;
+}
+.info>h5{
+    font-size: 16px;
+    font-weight: 500;
+    letter-spacing: 4px;
+    margin: 0;
+}
+.info{
+    float: left;
+    margin-top: 15px;
+}
+.profile>img{
+    float: left;
+    width: 120px;
+    height: 120px;
+    padding: 10px 10px 10px 0;    
+}
+
+#myPage>form{
+    clear: both;
+}
+
+#myPage{
+    width: 600px;
+    margin: auto;
+}
+#updateForm{
+    width: 100%;
+    height: 100%;
+    padding-top: 10px;
+}
+#updateForm>input{
+    display: block;
+    margin-bottom: 15px;
+    width: 70%;
+    height: 25px;
+}
+
+#updateAddrForm>input{
+    margin-bottom: 10px;
+    height: 32px;
+}
+.post_box{
+    position: relative;
+    margin-bottom: 10px;
+}
+.post_box>button{
+    width: 25%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+}
+#address{
+    display: block;
+    width: 100%;
+}
+#detailAddress{
+    width: 49%;
+    float: left;
+}
+#extraAddress{
+    width: 49%;
+    float: right;
+}
+
+.btn_area{
+    width: 100%;
+    display: inline-block;
+    text-align: center;
+}
+.btn_area>button{
+    width: 49%;
+    margin: 10px;
+}
+
+/* myPageInsertEmp */
+#empInsertForm{
+    width: 600px;
+    margin: auto;
+}
+#empInsertForm>form{
+    width: 100%;
+    background-color: rgb(227, 95, 33);
+    border-radius: 5px;
+    
+}
+#empInsertForm fieldset{
+    text-align: center;
+    font-weight: 400;
+    font-size: 25px;
+    background-color: #333;
+    border-radius: 5px;
+    color: #fff;
+    padding: 5px 0;
+}
+
+#form_wrap{
+    width: 450px;
+    margin: auto;
+    padding: 20px 0;
+}
+#form_wrap>div{
+    margin-bottom: 20px;
+}
+
+.btn_area{
+    width: 100%;
+    text-align: center;
+}
+.btn_area>button{
+    width: 48%;
+    margin: 0;
+    margin-top: 20px;
+}
+.btn_area>button[type=reset]{
+    float: left;
+}
+.btn_area>button[type=submit]{
+    float: right;
+}
+#checkEmail_btn{
+    position: absolute;
+}
+
+/* myPageAttendance */
+.outer{
+    width: 1000px;
+    margin: auto;
+}
+
+.content_top{
+    position: relative;
+    width: 100%;
+    height: 250px;
+}
+.top_box{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 22%;
+
+}
+.profile{
+    float: left;
+    width: 40%;
+}
+#EDMSprogress{
+    float: right;
+    width: 55%;
+}
+#EDMSprogress>div{
+    display: inline-block;
+}
+
+.content_top::after{
+    content: "";
+    position: absolute;
+    left: 0px;
+    bottom: -2px;
+    height: 3px;
+    width: 100%;
+    background: #999;
+    transform: scaleX(1);
+    transition: transform 500ms ease;
+    transform-origin: left;
+}
+
+.content_bottom{
+    margin-top: 50px;
+    text-align: center;
+}
+.content_bottom>h3{
+    margin-bottom: 30px;
+}
+.content_bottom>table th{
+    text-align: center;
+}
+
+.arrow-next {
+    position: relative;
+    float:left;
+    width:100px;
+    height:100px;
+    margin-right:5px;
+}
+
+.arrow-next::after {
+    position: absolute;
+    left: 10px; 
+    top: 50px; 
+    content: '';
+    width: 40px; /* 사이즈 */
+    height: 40px; /* 사이즈 */
+    border-top: 3px solid #666; /* 선 두께 */
+    border-right: 3px solid #666; /* 선 두께 */
+    transform: rotate(45deg); /* 각도 */
+}
