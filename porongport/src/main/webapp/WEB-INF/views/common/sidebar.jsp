@@ -50,7 +50,7 @@
                     <div class="icon"><i class="fa-solid fa-clipboard-user"></i></div>
                     <div class="menu-name">내정보</div>
                 </div>
-                <div class="item" data-group='document'>
+                <div class="item" data-group='approval'>
                     <div class="icon"><i class="fa-solid fa-paste"></i></div>
                     <div class="menu-name">전자결재</div>
                 </div>
