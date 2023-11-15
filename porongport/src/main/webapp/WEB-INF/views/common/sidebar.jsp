@@ -93,9 +93,11 @@
 			        <div class="sub-item" data-url='document3'>전체문서함</div>
 				</div>
 				<div class="sub-menu d-none" data-group='messageReceived'>
-			        <div class="sub-item" data-url='messageReceived'>쪽지함1</div>
-			        <div class="sub-item" data-url='messageReceived2'>쪽지함2</div>
-			        <div class="sub-item" data-url='messageReceived3'>쪽지함3</div>
+					<div class="sub-title" data-url='calendar'>메시지함</div>
+			        <div class="sub-item" data-url='messageReceived'>받은 메시지</div>
+			        <div class="sub-item" data-url='messageReceived2'>보낸 메시지</div>
+			        <div class="sub-item" data-url='messageReceived3'>메시지 보관함</div>
+			        <div class="sub-item" data-url='messageReceived3'>휴지통</div>
 				</div>
 				<div class="sub-menu d-none" data-group='board'>
 			        <div class="sub-item" data-url='board1'>게시판1</div>
@@ -108,7 +110,7 @@
 					<div class="sub-item" data-url='address3'>주소록3</div>
 				</div>
 				<div class="sub-menu d-none" data-group='calendar'>
-			    	<div class="sub-item2" data-url='calendar'>캘린더</div>
+			    	<div class="sub-title" data-url='calendar'>캘린더</div>
 			    	<div class="sub-item" data-url='calendar'>전체 일정 확인</div>
 			        <div class="sub-item" data-url='calendar2'>나의 일정 추가</div>
 			        <div class="sub-item" data-url='calendar3'>부서 일정 추가</div>
