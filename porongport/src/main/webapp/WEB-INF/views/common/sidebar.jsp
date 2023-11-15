@@ -87,17 +87,20 @@
 				    <div class="sub-item" data-url='mypage2'>근태 관리</div>
 		       		<div class="sub-item" data-url='mypage3'>연차 관리</div>
 				</div>
-				 <div class="sub-menu d-none" data-group='document'>
+				 <div class="sub-menu d-none" data-group='approval'>
+					<div class="sub-item sub-title" data-url='approval'>전자결재</div>
 		         	<div class="sub-item" data-url='document1'>기안문 작성</div>
 			        <div class="sub-item" data-url='document2'>결제 진행함</div>
 			        <div class="sub-item" data-url='document3'>전체문서함</div>
 				</div>
 				<div class="sub-menu d-none" data-group='receivedMessage'>
-					<div class="sub-title" data-url='receivedMessage'>메시지함</div>
+					<div class="sub-item sub-title" data-url='receivedMessage'>메시지함</div>
 			        <div class="sub-item" data-url='receivedMessage'>받은 메시지</div>
-			        <div class="sub-item" data-url='SendMessage'>보낸 메시지</div>
-			        <div class="sub-item" data-url='messageReceived3'>메시지 보관함</div>
-			        <div class="sub-item" data-url='messageReceived3'>휴지통</div>
+			        <div class="sub-item" data-url='sendMessage'>보낸 메시지</div>
+			        <div class="sub-item" data-url='receiveMessageBox'>메시지 보관함</div>
+			        <div class="sub-item sub-item-menu" data-url='receiveMessageBox'>받은 메시지 보관함</div>
+			        <div class="sub-item sub-item-menu" data-url='sendMessageBox'>보낸 메시지 보관함</div>
+			        <div class="sub-item" data-url='deleteMessage'>휴지통</div>
 				</div>
 				<div class="sub-menu d-none" data-group='board'>
 			        <div class="sub-item" data-url='board1'>게시판1</div>
@@ -166,6 +169,7 @@
         let path_arr = window.location.pathname.split('/');
 		let len = path_arr.length;
 		let url = path_arr[len -1];
+		console.log(url);
 		
     	// 2) 현재 선택한 item을 sub_menus 변수에 저장
     	//    .sub-menu 클래스 중 data-url이 현재 url과 일치하는 요소를 찾은 후 d-none 클래스 제거
