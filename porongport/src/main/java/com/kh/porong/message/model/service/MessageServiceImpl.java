@@ -31,13 +31,15 @@ public class MessageServiceImpl implements MessageService {
 		
 		return messageDao.receivedMessageList(sqlSession, rowBounds);
 	}	// receivedMessage
-
+	
+	
+	// 받은 메시지 전체 개수 조회
 	@Override
 	public int receivedListCount() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+		return messageDao.receivedListCount(sqlSession);
+	}	// receivedListCount
 
+	
 	@Override
 	public int insertMessage(Message m) {
 		// TODO Auto-generated method stub
@@ -61,23 +63,34 @@ public class MessageServiceImpl implements MessageService {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-
+	
+	
+	// 받은 메시지 보관
 	@Override
-	public int storeMessage(int messageNo) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
+	public ArrayList<Message> storeMessage(PageInfo pi, int messageNo) {
+		
+		int offset = (pi.getCurrentPage() -1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		
+		return messageDao.storeMessage(sqlSession, messageNo, rowBounds);
+	}	// storeMessage
+	
+	
+	// 받은 메시지 검색 조회
 	@Override
 	public ArrayList<Message> searchReceivedMessage(Map<String, String> map, PageInfo pi) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+		
+		int offset = (pi.getCurrentPage() -1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		
+		return messageDao.searchReceivedMessage(sqlSession, map, rowBounds);
+	}	// searchReceivedMessage
+	
+	
+	// 받은 메시지 검색 개수 조회
 	@Override
 	public int searchReceivedListCount(Map<String, String> map) {
-		// TODO Auto-generated method stub
-		return 0;
+		return messageDao.searchReceivedListCount(sqlSession, map);
 	}
 
 }	// end class

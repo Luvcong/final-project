@@ -27,7 +27,7 @@ public interface MessageService {
 	int deleteMessage(int messageNo);
 	
 	// 메시지 보관
-	int storeMessage(int messageNo);
+	ArrayList<Message> storeMessage(PageInfo pi, int messageNo);
 	
 	// 메시지 검색 리스트 조회
 	ArrayList<Message> searchReceivedMessage(Map<String, String> map, PageInfo pi);
