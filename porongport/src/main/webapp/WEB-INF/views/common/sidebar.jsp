@@ -93,7 +93,7 @@
 			        <div class="sub-item" data-url='document3'>전체문서함</div>
 				</div>
 				<div class="sub-menu d-none" data-group='messageReceived'>
-					<div class="sub-title" data-url='calendar'>메시지함</div>
+					<div class="sub-title" data-url='messageReceived'>메시지함</div>
 			        <div class="sub-item" data-url='messageReceived'>받은 메시지</div>
 			        <div class="sub-item" data-url='messageReceived2'>보낸 메시지</div>
 			        <div class="sub-item" data-url='messageReceived3'>메시지 보관함</div>
