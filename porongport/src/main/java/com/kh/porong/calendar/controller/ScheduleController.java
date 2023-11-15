@@ -14,6 +14,6 @@ public class ScheduleController {
 	
 	@RequestMapping("calendar")
 	public String calendarMain() {
-		return "calendar/calendarMain";
+		return "calendar/calendarMain2";
 	}
 }
