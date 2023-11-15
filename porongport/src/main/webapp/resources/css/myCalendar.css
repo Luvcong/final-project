@@ -1,0 +1,9 @@
+.mycalendar_input{
+    border: none;
+}
+.calendarTextarea{
+    resize: none;
+    width: 500px;
+    height: 500px;
+}
+.calendarWidth{width:1000px;}
