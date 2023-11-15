@@ -24,7 +24,7 @@
                    <tr>
                        <td rowspan="3" colspan="4" style="width: 300px; height: 140px; font-size: 40px; font-weight: 600;">휴 가 신 청 서</td>
                    </tr>
-                   <td></td>
+                   <td><button>버튼</button></td>
                    <tr></tr>
                    <tr>
                        <td style="height: 70px; width: 80px;">성 명</td>
@@ -52,6 +52,16 @@
                    <tr>
                       <td style="width: 80px; height: 70px; font-family: 'InfinitySans-RegularA1'; font-size: 16px;">휴가 구분</td>
                       <td colspan="8"><input type="checkbox">연차<input type="checkbox">반차
+                       <div class="form-checkbox-wrap">
+                          <sapn class="form-inline">
+                              <label>${ approval.leaveClassify }</label>
+                          </sapn>
+                      </div>
+                      </td>
+                   </tr>
+                   <tr>
+                      <td style="width: 80px; height: 70px; font-family: 'InfinitySans-RegularA1'; font-size: 16px;">잔여 휴가</td>
+                      <td colspan="8"><input type="text">일
                        <div class="form-checkbox-wrap">
                           <sapn class="form-inline">
                               <label>${ approval.leaveClassify }</label>
