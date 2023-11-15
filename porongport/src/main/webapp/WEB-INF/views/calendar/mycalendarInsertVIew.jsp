@@ -53,7 +53,17 @@
 									check.click(()=>{
 										$("p").toggle();
 										$("input[type='time']").toggle();
-										$("input[type='date']").attr("style", "width:45%");
+										$('input[type="date"]').toggleClass('mycalendar_width3');
+										/*
+										if($('input[type="date"]').className == 'mycalendar_width2'){
+											$('input[type="date"]').addClass += 'mycalendar_width3';
+											$('input[type="date"]').removeClass ='mycalendar_width2';
+										}
+										else if($('input[type="date"]').className == 'mycalendar_width3'){
+											$('input[type="date"]').addClass += 'mycalendar_width2';
+											$('input[type="date"]').removeClass ='mycalendar_width3';
+										}
+										*/
 									});
 	
 								</script>
