@@ -16,4 +16,10 @@ public class ScheduleController {
 	public String calendarMain() {
 		return "calendar/calendarMain";
 	}
+	
+	@RequestMapping("myCalendar")
+	public String enrollFormMycalendar() {
+		return "calendar/mycalendarInsertVIew";
+	}
+	
 }
