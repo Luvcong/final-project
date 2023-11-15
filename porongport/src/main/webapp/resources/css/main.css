@@ -149,21 +149,3 @@ body {
     height: 100%;
     padding: 30px;
 }
-
-
-/* 테스트 */
-li {
-	list-style-type: none;
-	text-decoration:none;
-	color: black;
-}
-li a{
-	text-decoration:none;
-	color: black;
-}
-a:hover{
-	    cursor: pointer;
-    color: white;
-    background-color: rgb(227, 95, 33);
-}
-
