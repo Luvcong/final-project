@@ -19,14 +19,14 @@
 		<table border="1">
 			<div class="icon">
 				<th><i class="fa-sharp fa-solid fa-house fa-3x" style="color: #e35f21;"></i></th>
-				<th><a href="../porong" style="font-size:25px">HOME</a> > <a href="../porong/approval" style="font-size:40px">전자결재</a></th>
+				<th><a href="../porong" style="font-size:25px" class="app_home">HOME</a> > <a href="../porong/approval" style="font-size:40px" class="app_sp">전자결재</a></th>
 			</div>
 		</table>
 		<br><br><br><br><br><br><br><br><br>
 		<table border="1">
 			<div style="border:1px solid; padding:100px 10px 100px 550px; magin: 100px;">
 				<div class="icon">
-					<i class="fa-sharp fa-regular fa-clipboard fa-8x app_col app_mar" ><a href="../porong/vacation"><h5>휴가신청서</h5></a></i>
+					<i class="fa-sharp fa-regular fa-clipboard fa-8x app_col app_mar" ><a href="../porong/vacation"><h5 class="app_vct">휴가신청서</h5></a></i>
 					<i class="fa-sharp fa-regular fa-clipboard fa-8x app_col app_mar"><h5>지출결의서</h5></i>
 					<i class="fa-sharp fa-regular fa-clipboard fa-8x app_col app_mar"><h5>인사발령서</h5></i>
 					<i class="fa-sharp fa-regular fa-clipboard fa-8x app_col app_mar"><h5>출장보고서</h5></i>
