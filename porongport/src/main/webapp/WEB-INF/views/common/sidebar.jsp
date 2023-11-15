@@ -114,7 +114,7 @@
 				</div>
 				<div class="sub-menu d-none" data-group='calendar'>
 
-			    	<div class="sub-title" data-url='calendar'>캘린더</div>
+			    	<div class="sub-item sub-title" data-url='calendar'>캘린더</div>
 
 			        <div class="sub-item" hidden data-url='calendar' >전체보기</div>
 			        <div class="sub-item" data-url='myCalendar'>나의 일정 추가</div>
