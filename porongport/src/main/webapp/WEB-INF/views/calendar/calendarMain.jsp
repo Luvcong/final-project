@@ -7,15 +7,135 @@
 <title>Home>캘린더</title>
 	<!-- jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <!-- 풀캘린더 -->
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.9/index.global.min.js'></script>
 	<!-- css-->
 	<link rel="stylesheet" href="resources/css/calendar.css">
-	
+	<script>
+		calendar.setOption('height', 500);
+	</script>
+	 <script>
+    	document.addEventListener('DOMContentLoaded', function() {
+        	var calendarEl = document.getElementById('calendar');
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                // Tool Bar 목록 document : https://fullcalendar.io/docs/toolbar
+                height: '750px',
+                headerToolbar: {
+                    left: 'dayGridMonth,dayGridWeek,dayGridDay',
+                    center: 'title',
+                    right: 'today prevYear,prev,next,nextYear'
+                },
 
-	 <link rel="stylesheet" href="resources/css/calendar.css">
+                selectable: true,
+                selectMirror: true,
+                navLinks: false,
+                editable: false,
+                
+                select: function (arg) {
+                    Swal.fire({
+                        html: "<div class='mb-7'>Create new event?</div><div class='fw-bold mb-5'>Event Name:</div><input type='text' class='form-control' name='event_name' />",
+                        icon: "info",
+                        showCancelButton: true,
+                        buttonsStyling: false,
+                        confirmButtonText: "Yes, create it!",
+                        cancelButtonText: "No, return",
+                        customClass: {
+                            confirmButton: "btn btn-primary",
+                            cancelButton: "btn btn-active-light"
+                        }
+                    }).then(function (result) {
+                        if (result.value) {
+                            var title = document.querySelector("input[name=;event_name']").value;
+                            if (title) {
+                                calendar.addEvent({
+                                    title: title,
+                                    start: arg.start,
+                                    end: arg.end,
+                                    allDay: arg.allDay
+                                })
+                            }
+                            calendar.unselect()
+                        } else if (result.dismiss === "cancel") {
+                            Swal.fire({
+                                text: "Event creation was declined!.",
+                                icon: "error",
+                                buttonsStyling: false,
+                                confirmButtonText: "Ok, got it!",
+                                customClass: {
+                                    confirmButton: "btn btn-primary",
+                                }
+                            });
+                        }
+                    });
+                },
+
+                // Delete event
+                eventClick: function (arg) {
+                    Swal.fire({
+                        text: "Are you sure you want to delete this event?",
+                        icon: "warning",
+                        showCancelButton: true,
+                        buttonsStyling: false,
+                        confirmButtonText: "Yes, delete it!",
+                        cancelButtonText: "No, return",
+                        customClass: {
+                            confirmButton: "btn btn-primary",
+                            cancelButton: "btn btn-active-light"
+                        }
+                    }).then(function (result) {
+                        if (result.value) {
+                            arg.event.remove()
+                        } else if (result.dismiss === "cancel") {
+                            Swal.fire({
+                                text: "Event was not deleted!.",
+                                icon: "error",
+                                buttonsStyling: false,
+                                confirmButtonText: "Ok, got it!",
+                                customClass: {
+                                    confirmButton: "btn btn-primary",
+                                }
+                            });
+                        }
+                    });
+                },
+                dayMaxEvents: true, 
+                // 이벤트 객체 필드 document : https://fullcalendar.io/docs/event-object
+                events: [
+                    {
+                    title: 'All Day Event',
+                    start: '2023-11-14'
+                    },
+                    {
+                    title: 'Long Event',
+                    start: '2023-11-15',
+                    end: '2023-11-16'
+                    },
+                    {
+                   	// 그룹아이디: 999이 회의실 예약
+                    groupId: 999,
+                    title: 'Repeating Event',
+                    start: '2023-11-17T16:00:00'
+                    },
+                    {
+                    groupId: 999,
+                    title: 'Repeating Event',
+                    start: '2023-11-18T16:00:00'
+                    },
+                    {
+                    title: 'Conference',
+                    start: '2023-11-20',
+                    end: '2023-11-23'
+                    }
+                ]
+            });
+
+            calendar.render();
+        });
+
+    </script>
+</html>
 </head>
 <body>
-
-
 
 	<!-- 참고용: https://eastshine12.tistory.com/48 -->
 	<!-- 풀캘린더사용법: https://chobopark.tistory.com/245#google_vignette -->
@@ -24,142 +144,12 @@
 	<jsp:include page="../common/sidebar.jsp" />
 	
 	<div class="pp-content">
-    
-    	<div class="sec_cal">
-			<div class="cal_nav">
-			    <a href="javascript:;" class="nav-btn go-prev">prev</a>
-			    <div class="year-month"></div>
-			    <a href="javascript:;" class="nav-btn go-next">next</a>
-			</div>
-			<div class="cal_wrap">
-				<div class="days">
-			      	<div class="day nocurrent">SUN</div>
-					<div class="day nocurrent">MON</div>
-			      	<div class="day nocurrent">TUE</div>
-			      	<div class="day nocurrent">WED</div>
-			      	<div class="day nocurrent">THU</div>
-			      	<div class="day nocurrent">FRI</div>
-			      	<div class="day nocurrent">SAT</div>
-			    </div>
-			<div class="dates"></div>
-			</div>
-		</div>
-    
-    
-    
-    </div>  <!-- content -->
-    
-    <script>
-	    $(document).ready(function() {
-	        calendarInit();
-	    });
-	    /*
-	        달력 렌더링 할 때 필요한 정보 목록 
-	
-	        현재 월(초기값 : 현재 시간)
-	        금월 마지막일 날짜와 요일
-	        전월 마지막일 날짜와 요일
-	    */
-	
-	    function calendarInit() {
-	
-	        // 날짜 정보 가져오기
-	        var date = new Date(); // 현재 날짜(로컬 기준) 가져오기
-	        var utc = date.getTime() + (date.getTimezoneOffset() * 60 * 1000); // uct 표준시 도출
-	        var kstGap = 9 * 60 * 60 * 1000; // 한국 kst 기준시간 더하기
-	        var today = new Date(utc + kstGap); // 한국 시간으로 date 객체 만들기(오늘)
-	      	
-	        var thisMonth = new Date(today.getFullYear(), today.getMonth(), today.getDate());
-	        // 달력에서 표기하는 날짜 객체
-	        var currentYear = thisMonth.getFullYear(); // 달력에서 표기하는 연
-	        var currentMonth = thisMonth.getMonth(); // 달력에서 표기하는 월
-	        var currentDate = thisMonth.getDate(); // 달력에서 표기하는 일
-	
-	        // kst 기준 현재시간
-	        //console.log(thisMonth);
-	        //console.log(currentYear+'.'+(currentMonth+1)+'.'+currentDate);
-	        //var selectDay = currentYear+'.'+(currentMonth+1)+'.'+currentDate;
-	        //console.log(selectDay);
-	
-	        // 캘린더 렌더링
-	        renderCalender(thisMonth);
-	
-	        function renderCalender(thisMonth) {
-	
-	            // 렌더링을 위한 데이터 정리
-	            currentYear = thisMonth.getFullYear();
-	            currentMonth = thisMonth.getMonth();
-	            currentDate = thisMonth.getDate();
-	
-	            // 이전 달의 마지막 날 날짜와 요일 구하기
-	            var startDay = new Date(currentYear, currentMonth, 0);
-	            var prevDate = startDay.getDate();
-	            var prevDay = startDay.getDay()+1;
-	
-	            // 이번 달의 마지막날 날짜와 요일 구하기
-	            var endDay = new Date(currentYear, currentMonth+1, 0);
-	            var nextDate = endDay.getDate();
-	            var nextDay = endDay.getDay();
-	
-	            //console.log(prevDate, prevDay, nextDate, nextDay);
-	
-	            // 현재 월 표기
-	            $('.year-month').text(currentYear + '.' + (currentMonth + 1));
-	
-	            // 렌더링 html 요소 생성
-	            calendar = document.querySelector('.dates')
-	            calendar.innerHTML = '';
-	            
-	            // 지난달
-	            for (var i = prevDate - prevDay +1 ; i <= prevDate; i++) {
-	                calendar.innerHTML = calendar.innerHTML + '<div class="day prev disable">' + i +'</div>'
-	            }
-	            // 이번달
-	            for (var i = 1; i <= nextDate; i++) {
-	                calendar.innerHTML = calendar.innerHTML + '<div class="day current">' + i + '</div>'
-	            }
-	            //console.log(calendar);
-	            // 다음달
-	            for (var i = 1; i < (7 - nextDay == 7 ? 0 : 7 - nextDay); i++) {
-	                calendar.innerHTML = calendar.innerHTML + '<div class="day next disable">' + i + '</div>'
-	            }
-	
-	            // 오늘 날짜 표기
-	            if (today.getMonth() == currentMonth) {
-	                todayDate = today.getDate();
-	                var currentMonthDate = document.querySelectorAll('.dates .current');
-	                currentMonthDate[todayDate-1].classList.add('today');
-	            }
-	            
-	         	// 오늘 날짜에 class추가
-	            //if (today.getMonth() == currentMonth) {
-	            //    todayDate = today.getDate();
-	            //   var currentMonthDate = document.querySelectorAll('.dates .current');
-	            //    currentMonthDate[todayDate].classList.add('selectMeetingRoom');
-	            //}
-	            
-	         	if(currentMonth == 2023 && currentMonth == 11 && currentDate == 16){
-	         		calendar.innserHTML += '<div class="day current">' + i +'<button type="button" class="selectMySchdule">'+일정어쩌고+'</button>' + '</div>';
-	         	}
-	         	
-	         	
-	            
-	        }
-	
-	        // 이전달로 이동
-	        $('.go-prev').on('click', function() {
-	            thisMonth = new Date(currentYear, currentMonth - 1, 1);
-	            renderCalender(thisMonth);
-	        });
-	
-	        // 다음달로 이동
-	        $('.go-next').on('click', function() {
-	            thisMonth = new Date(currentYear, currentMonth + 1, 1);
-	            renderCalender(thisMonth); 
-	        });
-	        
-	    }
-    </script>
+		
+		<div id='calendar' class="calendarWidthMain calendarCenter">
+		
+		</div>    
+	    
     </div>
+    
 </body>
 </html>

@@ -18,4 +18,5 @@ public class MeetingRoomVO {
 	private Date meetEnd;			//MEET_END	DATE
 	private String meetStatus;		//MEET_STATUS	VARCHAR2(1 BYTE)
 	private String meetApproval;	//MEET_APPROVAL VARCHAR2(1 BYTE)
+	
 }
