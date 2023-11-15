@@ -130,7 +130,7 @@ body {
     padding: 4px 12px;
     border-bottom: 1px solid black;
 }
-.pp-sub-sidebar .sub-item2{
+.pp-sub-sidebar .sub-title{
 	height: 50px;
 	padding: 8px 20px;
 	border-bottom: 2px solid black;
@@ -149,5 +149,4 @@ body {
     height: 100%;
     padding: 30px;
 }
-
 
