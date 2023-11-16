@@ -1,5 +1,9 @@
 @charset "UTF-8";
-.h-title {
+.pp-content .h-title {
     font-size: 16pt;
     font-weight: bold;
+}
+
+.pp-content .pp-content-message{
+	text-align: center;
 }

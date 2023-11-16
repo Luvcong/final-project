@@ -1,6 +1,5 @@
 package com.kh.porong.calendar.model.vo;
 
-import java.sql.Date;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,7 +12,7 @@ public class ScheduleVO {
 	private int empNo;			//EMP_NO	NUMBER
 	private String schTitle;	//SCH_TITLE	VARCHAR2(50 BYTE)
 	private String schContent;	//SCH_CONTENT	VARCHAR2(100 BYTE)
-	private Date schStart;		//SCH_START	DATE
-	private Date schEnd;		//SCH_END	DATE
+	private String schStart;		//SCH_START	DATE
+	private String schEnd;		//SCH_END	DATE
 	private String schStatus;	//SCH_STATUS	VARCHAR2(1 BYTE)
 }

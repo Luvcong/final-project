@@ -12,7 +12,40 @@
 	<jsp:include page="../common/sidebar.jsp" />
 	
 	<div class="pp-content">
-	
+	<form button="submit" action="../prong/line">
+	        <div id="button">
+           <input type="hidden" name="appNo" value = "${approval.appNo}"/>
+              
+           <%-- <c:if test="${loginMember.user_name eq approval.firstApprover || approval.interimApprover || approval.finalApprover}">
+                 --%><c:choose>
+                   <c:when test="${!empty approval.appReason}">
+                      <button type="button" class="openRejectionWhy">반려사유</button>
+                    <input type="text" style="border: none; width: 40px;" disabled>
+                 </c:when>
+                 <c:otherwise>
+                    <c:choose>
+                       <c:when test="${(loginMember.user_name eq approval.firstApprover && approval.appPresent eq 'A') || 
+                                (loginMember.user_name eq approval.interimApprover && approval.appPresent eq 'B') ||
+                                (loginMember.user_name eq approval.finalApprover && approval.appPresent eq 'C')}">
+                          <button type="submit" id="approveddone">결재</button>
+                            <input type="text" style="border: none; width: 40px;"disabled >
+                            <button type="button" style="color:red" id="openRejection">반려</button>
+                          <input type="text" style="border: none; width: 40px;" disabled>
+                       </c:when>
+                       <c:otherwise>
+                          <button type="button" id="approveddone" disabled>결재</button>
+                            <input type="text" style="border: none; width: 40px;"disabled >
+                            <button type="button" id="openRejection" disabled>반려</button>
+                          <input type="text" style="border: none; width: 40px;" disabled>
+                       </c:otherwise>
+                    </c:choose>
+                 </c:otherwise>
+              </c:choose>
+         <%-- </c:if> --%>
+         
+         <button><a href="${path}/porong/document1" style="color:black">취소</a></button>
+        </div>
+	</form>
 	<c:if test="${!empty approval.appReason}">
       <div style="position:absolute; margin-left:400px; margin-top:30px">
       </div>
@@ -28,30 +61,30 @@
                    <tr></tr>
                    <tr>
                        <td style="height: 70px; width: 80px;">성 명</td>
-                       <td><input type="text"  value="${approval.userName}" readonly></td>
+                       <td><input type="text"  value="${approval.userName}"></td>
                        <td style="width: 80px;">부 서</td>
-                       <td><input type="text"  value="${approval.deptName}" readonly></td>
+                       <td><input type="text"  value="${approval.deptName}"></td>
                        <td style="width: 80px;">직 급</td>
-                       <td colspan="3"><input type="text"  value="${approval.rank}" readonly></td>
+                       <td colspan="3"><input type="text"  value="${approval.rank}"></td>
                    </tr>
                    <tr>
                        <td colspan="3" style="height: 70px; width: 80px;">비 상 연 락 망</td>
-                       <td colspan="5"><input type="text" value="${ approval.appEmergncyCall }" style="font-size: 25px;" readonly></td>
+                       <td colspan="5"><input type="text" value="${ approval.appEmergncyCall }" style="font-size: 25px;"></td>
                    </tr>
                    <tr>
                        <td colspan="3" style="height: 70px; width: 80px;">기 간</td>
-                       <td colspan="3"><input type="text">
+                       <td colspan="3"><input type="date">
                            <%-- <label class="leaveDate">${approval.leaveStart}</label>
                              ~  
                            <label class="leaveDate">${approval.leaveFinish}</label> --%>
                            <fmt:formatDate value="${approval.leaveStart}" pattern="yyyy 년 MM 월 dd 일"/><label>&nbsp;&nbsp; ~ &nbsp;&nbsp;</label>
-                           <input type="text">
+                           <input type="date">
                            <fmt:formatDate value="${approval.leaveFinish}" pattern="yyyy 년 MM 월 dd 일"/>&nbsp;까지
                        </td>
                    </tr>
                    <tr>
                       <td style="width: 80px; height: 70px; font-family: 'InfinitySans-RegularA1'; font-size: 16px;">휴가 구분</td>
-                      <td colspan="8"><input type="checkbox">연차<input type="checkbox">반차
+                      <td colspan="8"><input type="checkbox">연차<input type="checkbox" onclick="clickCheck(this)">반차
                        <div class="form-checkbox-wrap">
                           <sapn class="form-inline">
                               <label>${ approval.leaveClassify }</label>
@@ -92,6 +125,8 @@
                </table>
            </div>
        </form>
+       
+
            
        </div>
    
@@ -283,7 +318,7 @@
    	<script>
    		$("#approveddone").click(function() {
    			if($('#checkIfApproved').length > 0) {
-   				var url = "${path}/approval/approvalMain";
+   				var url = "${path}/approval/document1";
 	   			alert("결재가 완료되었습니다.");
 	   	        $(location).attr('href', url);  			
    			} else {

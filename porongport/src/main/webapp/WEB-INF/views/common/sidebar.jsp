@@ -54,7 +54,7 @@
                     <div class="icon"><i class="fa-solid fa-paste"></i></div>
                     <div class="menu-name">전자결재</div>
                 </div>
-                <div class="item" data-group='messageReceived'>
+                <div class="item" data-group='receivedMessage'>
                     <div class="icon"><i class="fa-solid fa-envelope"></i></div>
                     <div class="menu-name">쪽지함</div>
                 </div>
@@ -75,31 +75,45 @@
 
             <!-- 서브 사이드바 영역 -->
             <!-- .data-group : 아이콘 영역 클릭시 이동하려는 jsp의 매핑값 작성
-            	 .data-url   : 해당 메뉴 클릭시 이동하려는 jsp의 매핑값 작성 -->
+            	 .data-url   : 해당 메뉴 클릭시 이동하려는 jsp의 매핑값 작성
+            	 
+            	 ********* 매핑값 작성시 주의사항 *********
+            	  아이콘 영역의 data-group 매핑값과
+            	  서브타이틀의 data-url의 매핑값이 동일해야합니다!
+            	  data-url 매핑값 중 data-group 매핑값과 동일한게 하나라도 있어야
+            	  사이드바에 서브메뉴가 출력됩니다.. 🥹
+            	 ******************************************
+            -->
             <div class="pp-sub-sidebar">
-				<div class="sub-menu d-none" data-group='main'>
-			       <div class="sub-item" data-url='main'>메인메뉴1</div>
+				<div class="sub-menu d-none" data-group='main'>						<!-- 여기 아이콘 영역의 data-group 매핑값과  -->
+				   <div class="sub-item sub-title" data-url='main'>서브타이틀</div> <!-- 여기 서브타이틀의 data-url의 매핑값이 동일해야함 -->
+			       <div class="sub-item" data-url='main'>메인메뉴1</div>			
 				   <div class="sub-item" data-url='main2'>메인메뉴2</div>
 				   <div class="sub-item" data-url='main3'>메인메뉴3</div>
 				</div>
 				<div class="sub-menu d-none" data-group='mypage'>
+					<div class="sub-item sub-title" data-url='mypage'>서브타이틀</div>
 			        <div class="sub-item" data-url='mypage1'>내정보 관리</div>
 				    <div class="sub-item" data-url='mypage2'>근태 관리</div>
 		       		<div class="sub-item" data-url='mypage3'>연차 관리</div>
 				</div>
-				 <div class="sub-menu d-none" data-group='document'>
+				 <div class="sub-menu d-none" data-group='approval'>
+					<div class="sub-item sub-title" data-url='approval'>전자결재</div>
 		         	<div class="sub-item" data-url='document1'>기안문 작성</div>
 			        <div class="sub-item" data-url='document2'>결제 진행함</div>
 			        <div class="sub-item" data-url='document3'>전체문서함</div>
 				</div>
-				<div class="sub-menu d-none" data-group='messageReceived'>
-					<div class="sub-title" data-url='messageReceived'>메시지함</div>
-			        <div class="sub-item" data-url='messageReceived'>받은 메시지</div>
-			        <div class="sub-item" data-url='messageReceived2'>보낸 메시지</div>
-			        <div class="sub-item" data-url='messageReceived3'>메시지 보관함</div>
-			        <div class="sub-item" data-url='messageReceived3'>휴지통</div>
+				<div class="sub-menu d-none" data-group='receivedMessage'>
+					<div class="sub-item sub-title" data-url='receivedMessage'>메시지함</div>
+			        <div class="sub-item" data-url='receivedMessage'>받은 메시지</div>
+			        <div class="sub-item" data-url='sendMessage'>보낸 메시지</div>
+			        <div class="sub-item" data-url='storeMessageBox'>메시지 보관함</div>
+			        <div class="sub-item sub-item-menu" data-url='storeMessageBox'>받은 메시지 보관함</div>
+			        <div class="sub-item sub-item-menu" data-url='sendMessageBox'>보낸 메시지 보관함</div>
+			        <div class="sub-item" data-url='deleteMessage'>휴지통</div>
 				</div>
 				<div class="sub-menu d-none" data-group='board'>
+					<div class="sub-item sub-title" data-url='board'>메시지함</div>
 			        <div class="sub-item" data-url='board1'>게시판1</div>
 			        <div class="sub-item" data-url='board2'>게시판2</div>
 			        <div class="sub-item" data-url='board3'>게시판3</div>
@@ -111,7 +125,7 @@
 				</div>
 				<div class="sub-menu d-none" data-group='calendar'>
 
-			    	<div class="sub-title" data-url='calendar'>캘린더</div>
+			    	<div class="sub-item sub-title" data-url='calendar'>캘린더</div>
 
 			        <div class="sub-item" hidden data-url='calendar' >전체보기</div>
 			        <div class="sub-item" data-url='myCalendar'>나의 일정 추가</div>
@@ -166,6 +180,7 @@
         let path_arr = window.location.pathname.split('/');
 		let len = path_arr.length;
 		let url = path_arr[len -1];
+		console.log(url);
 		
     	// 2) 현재 선택한 item을 sub_menus 변수에 저장
     	//    .sub-menu 클래스 중 data-url이 현재 url과 일치하는 요소를 찾은 후 d-none 클래스 제거

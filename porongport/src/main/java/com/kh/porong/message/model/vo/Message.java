@@ -12,8 +12,11 @@ public class Message {
 	private String createDate;
 	private String defaultDate;
 	private String messageStatus;
-	private int sendUser;
-	private int receiveUser;
+	private String sendUser;
+	private String receiveUser;
 	private int fileNo;
+	
+	private String empName;
+	private String jobName;
 	
 }	// end class

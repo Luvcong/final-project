@@ -20,3 +20,23 @@
 	text-decoration-line: none;
 	color: black;
 }
+
+.pp-content {
+            background-color:rgb(247, 245, 245); 
+            width:80%;
+            margin:auto;
+}
+.innerOuter {
+            border:1px solid lightgray;
+            width:80%;
+            margin:auto;
+            padding:5% 10%;
+            background-color:white;
+}
+
+#enrollForm>table {width:100%;}
+#enrollForm>table * {margin:5px;}
+
+.openRejectionWhy{
+	text-align: right;
+}
