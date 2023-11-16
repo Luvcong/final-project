@@ -16,12 +16,14 @@
 		<result column="FILE_NO" property="fileNo" />
 		<result column="JOB_NAME" property="jobName" />
 		<result column="EMP_NAME" property="empName" />
+		<result column="NUM" property="messageRank" />
 	</resultMap>
 	
 	
 	<!-- 받은 메시지 전체 리스트 조회  -->
 	<select id="receivedMessageList" resultMap="messageResultSet">
 	SELECT
+			RANK() OVER(ORDER BY M.MESSAGE_NO ASC) AS NUM,
 			M.MESSAGE_NO,
 			E.EMP_NAME,
 			J.JOB_NAME,
@@ -41,7 +43,7 @@
 	   		MESSAGE_STATUS = 'Y'
 	 ORDER
 	    BY
-	        CREATE_DATE DESC
+	        NUM DESC
 	</select>
 	
 	<!-- 받은 메시지 전체 개수 조회 -->
@@ -55,6 +57,7 @@
 	<!-- 받은 메시지 검색 조회 -->
 	<select id="searchReceivedMessage" resultMap="messageResultSet" parameterType="hashmap">
 		SELECT
+				RANK() OVER(ORDER BY M.MESSAGE_NO ASC) AS NUM,
 				M.MESSAGE_NO,
 				E.EMP_NAME,
 				J.JOB_NAME,
@@ -74,14 +77,18 @@
 	  	 <choose>
 	  	 	<when test="condition == 'userName'">
 	  	   AND
-	  	 		E.EMP_NAME
+	  	 		(E.EMP_NAME LIKE '%' || #{ keyword } || '%'
+    		OR
+        		J.JOB_NAME LIKE '%' || #{ keyword } || '%')
 	  	 	</when>
 	  	 	<otherwise>
 	  	   AND
-	  	 		M.MESSAGE_CONTENT
+	  	 		M.MESSAGE_CONTENT LIKE '%' || #{ keyword } || '%'
 	  	 	</otherwise>
 	  	 </choose>
-	  	 LIKE '%' || #{ keyword } || '%'
+		 ORDER
+		    BY
+		        NUM DESC
 	</select>
 	
 
@@ -102,15 +109,34 @@
 	  	 <choose>
 	  	 	<when test="condition == 'userName'">
 	  	   AND
-	  	 		E.EMP_NAME
+	  	 		(E.EMP_NAME LIKE '%' || #{ keyword } || '%'
+    		OR
+        		J.JOB_NAME LIKE '%' || #{ keyword } || '%')
 	  	 	</when>
 	  	 	<otherwise>
 	  	   AND
-	  	 		M.MESSAGE_CONTENT
+	  	 		M.MESSAGE_CONTENT LIKE '%' || #{ keyword } || '%'
 	  	 	</otherwise>
 	  	 </choose>
-	  	 LIKE '%' || #{ keyword } || '%'	
 	</select>
+	
+	
+	<!-- 메시지 삭제 - 휴지통 이동 -->
+	<update id="deleteMessage" parameterType="_int">
+		UPDATE
+				MESSAGE
+		   SET
+		   		MESSAGE_STATUS = 'N'
+		 WHERE
+		 		MESSAGE_NO = #{ messageNo }
+		   AND
+		   		DELETE_DATE = SYSDATE
+	</update>
+	
+	
+	
+	
+	
 	
 	
 	

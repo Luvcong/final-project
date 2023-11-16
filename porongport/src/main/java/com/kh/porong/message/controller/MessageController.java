@@ -3,6 +3,8 @@ package com.kh.porong.message.controller;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,7 +23,7 @@ public class MessageController {
 	
 	/**
 	 * 받은 메시지 전체 리스트 조회
-	 * @return 
+	 * @return 받은 메시지 전체 리스트 반환
 	 * @author JH
 	 * @Date : 2023. 11. 14
 	 */
@@ -37,25 +39,36 @@ public class MessageController {
 		model.addAttribute("list", messageService.receivedMessageList(pi));
 		model.addAttribute("pi", pi);
 		
-		if(keyword != null) {
-			Map<String, String> map = new HashMap<String, String>();
-			map.put("condition", condition);
-			
-			map.put("keyword", keyword);
-			
-			PageInfo keywordPage = Pagination.getPageInfo(messageService.searchReceivedListCount(map), currentPage, boardLimit, pageLimit);
-			
-			model.addAttribute("list", messageService.searchReceivedMessage(map, keywordPage));
-			model.addAttribute("pi", keywordPage);
-			model.addAttribute("condition", condition);
-			model.addAttribute("keyword", keyword);
-		}
-		
+		/*
+		 * if(keyword != null) { Map<String, String> map = new HashMap<String,
+		 * String>(); map.put("condition", condition);
+		 * 
+		 * map.put("keyword", keyword);
+		 * 
+		 * PageInfo keywordPage =
+		 * Pagination.getPageInfo(messageService.searchReceivedListCount(map),
+		 * currentPage, boardLimit, pageLimit);
+		 * 
+		 * model.addAttribute("list", messageService.searchReceivedMessage(map,
+		 * keywordPage)); model.addAttribute("pi", keywordPage);
+		 * model.addAttribute("condition", condition); model.addAttribute("keyword",
+		 * keyword); }
+		 */
 		
 		return "message/receivedMessage";
 	}	// messageReceived
 	
 	
+	/**
+	 * 받은 메시지 검색 조회
+	 * @param currentPage : 현재 페이지
+	 * @param condition : 검색분류 (발신자/내용)
+	 * @param keyword : 사용자가 입력한 검색하고자 하는 키워드 값 (input value)
+	 * @param model
+	 * @return 사용자가 검색한 키워드와 일치하는 조건의 리스트 반환
+	 * @author JH
+	 * @Date : 2023. 11. 16
+	 */
 	@RequestMapping("searchReceivedMessage")
 	public String searchReceivedMessage(@RequestParam(value="page", defaultValue="1") int currentPage, String condition, String keyword, Model model) {
 		
@@ -75,21 +88,15 @@ public class MessageController {
 	
 	
 	
-	
-	
-	@RequestMapping("storeMessageBox")
-	public String receivedMessageBox(@RequestParam(value="page", defaultValue="1") int currentPage, int messageNo, Model model) {
-		
-		PageInfo pi = Pagination.getPageInfo(messageService.receivedListCount(), currentPage, 10, 10);
-		
-		 model.addAttribute("list", messageService.storeMessage(pi, messageNo));
-
-		 
-		 
-		
-		
-		return "message/storeMessageBox";
-	}	// receivedMessageBox
+//	@RequestMapping("storeMessageBox")
+//	public String receivedMessageBox(@RequestParam(value="page", defaultValue="1") int currentPage, int messageNo, Model model) {
+//		
+//		PageInfo pi = Pagination.getPageInfo(messageService.receivedListCount(), currentPage, 10, 10);
+//		
+//		 model.addAttribute("list", messageService.storeMessage(pi, messageNo));
+//
+//		return "message/storeMessageBox";
+//	}	// receivedMessageBox
 	
 	
 	
