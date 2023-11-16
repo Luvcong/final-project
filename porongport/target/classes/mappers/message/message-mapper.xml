@@ -73,6 +73,7 @@
 		   		MESSAGE_STATUS = 'Y'
 	  	 <choose>
 	  	 	<when test="condition == 'userName'">
+<<<<<<< Updated upstream
 	  	   AND
 	  	 		E.EMP_NAME
 	  	 	</when>
@@ -82,6 +83,24 @@
 	  	 	</otherwise>
 	  	 </choose>
 	  	 LIKE '%' || #{ keyword } || '%'
+=======
+	  	   		AND
+	  	 			E.EMP_NAME
+	  	 	</when>
+	  	 	<when test="condition == 'userCode'">
+	  	   		AND
+	  	   			J.JOB_NAME
+	  	 	</when>
+	  	 	<otherwise>
+	  	   		AND
+	  	 			M.MESSAGE_CONTENT
+	  	 	</otherwise>
+	  	 </choose>
+	  	 LIKE '%' || #{ keyword } || '%'
+		 ORDER
+		    BY
+		        NUM DESC
+>>>>>>> Stashed changes
 	</select>
 	
 
@@ -101,6 +120,7 @@
 		   		MESSAGE_STATUS = 'Y'
 	  	 <choose>
 	  	 	<when test="condition == 'userName'">
+<<<<<<< Updated upstream
 	  	   AND
 	  	 		E.EMP_NAME
 	  	 	</when>
@@ -113,6 +133,41 @@
 	</select>
 	
 	
+=======
+		  	   AND
+		  	 		E.EMP_NAME
+	  	 	</when>
+	  	 	<when test="condition == 'userCode'">
+		  	   AND
+		  	   		J.JOB_NAME
+	  	 	</when>
+	  	 	<otherwise>
+		  	   AND
+		  	 		M.MESSAGE_CONTENT
+	  	 	</otherwise>
+	  	 </choose>
+	  	  LIKE '%' || #{ keyword } || '%'
+	</select>
+	
+	
+	<!-- 메시지 삭제 - 휴지통 이동 -->
+	<update id="deleteMessage" parameterType="_int">
+		UPDATE
+		        MESSAGE
+		   SET
+		        MESSAGE_STATUS = 'N',
+		        DELETE_DATE = SYSDATE
+		 WHERE
+		        MESSAGE_NO = #{ messageNo }
+	</update>
+	
+	
+	
+	
+	
+	
+	
+>>>>>>> Stashed changes
 	
 	
 
