@@ -21,8 +21,24 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <!-- 메인화면 css-->
     <link rel="stylesheet" href="resources/css/main.css">
+    
+    <!-- alertMsg -->
+	<!-- JavaScript -->
+	<script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+	<!-- CSS -->
+	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
+	<!-- Default theme -->
+	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css"/>
+	<!-- Semantic UI theme -->
+	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/semantic.min.css"/>
 </head>
 <body>
+	<c:if test="${not empty alertMsg }">
+		<script>
+			alertify.alert('${alertMsg}', function(){alertify.success('success')});
+		</script>
+		<c:remove var="alertMsg" scope="session" />
+	</c:if>
     <div class="pp-outter">
         <!-- 메인화면 상단 헤더 영역 -->
         <div class="pp-header">      
