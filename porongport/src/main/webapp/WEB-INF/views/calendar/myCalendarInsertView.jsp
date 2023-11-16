@@ -42,21 +42,21 @@
 							<table class="table table-sm">
 								<tr>
 									<th><i class="fa-solid fa-pen"></i></th>
-									<td colspan="3"><input type="text" name="schTitle" id="schTitle" class="mycalendar_input mycalendar_width" placeholder="일정 제목 추가"></td>
+									<td colspan="3"><input type="text" name="schTitle" id="schTitle" class="mycalendar_input mycalendar_width" placeholder="일정 제목 추가" /></td>
 								</tr>
 								<tr>
 									<th><i class="fa-solid fa-user"></i></th>
-									<td><input type="text" name="empName" id="empName" readonly value="이승철" class="mycalendar_input mycalendar_width"></td>
+									<td><input type="text" name="empName" id="empName" readonly value="이승철" class="mycalendar_input mycalendar_width" /></td>
 									<th><i class="fa-solid fa-user-tag"></i></th>
-									<td><input type="text" name="deptId" id="deptId" readonly value="인사부" class="mycalendar_input mycalendar_width time_block"></td>
+									<td><input type="text" name="deptId" id="deptId" readonly value="인사부" class="mycalendar_input mycalendar_width time_block" /></td>
 								</tr>
 								<tr>
 									<th><i class="fa-solid fa-clock"></i></th>
 									<td colspan="3">
-										<input type="date" name="startDate" id="startDate" class="mycalendar_input2 mycalendar_width2">
-										<input type="time" name="startTime" id="startTime" class="mycalendar_input2 mycalendar_width2" value="09:00">
+										<input type="date" name="startDate" id="startDate" class="mycalendar_input2 mycalendar_width2" />
+										<input type="time" name="startTime" id="startTime" class="mycalendar_input2 mycalendar_width2" value="09:00" />
 										<label class="switch">
-											<input type="checkbox">
+											<input type="checkbox" />
 											<span class="slider round"></span>
 										</label><p>하루종일</p><p style="display:none;">하루종일</p>
 		
@@ -80,8 +80,8 @@
 			
 										</script>
 										<br>
-										<input type="date" name="endDate" id="endDate" class="mycalendar_input2 mycalendar_width2">
-										<input type="time" name="endTime" id="endTime" class="mycalendar_input2 mycalendar_width2" value="18:00">
+										<input type="date" name="endDate" id="endDate" class="mycalendar_input2 mycalendar_width2" />
+										<input type="time" name="endTime" id="endTime" class="mycalendar_input2 mycalendar_width2" value="18:00" />
 									</td>
 									
 								</tr>
