@@ -97,3 +97,4 @@ $RECYCLE.BIN/
 .target
 # End of https://www.toptal.com/developers/gitignore/api/windows,java,eclipse
 porongport/target/m2e-wtp/web-resources/META-INF/maven/com.kh/porong/pom.properties
+porongport/target/m2e-wtp/web-resources/META-INF/MANIFEST.MF

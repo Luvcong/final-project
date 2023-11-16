@@ -34,7 +34,9 @@
         </script>
 
         <div id="left">
-            <img src="resources/images/logo.png" alt="포롱포트 로고">
+            <div class="logo">
+                <img src="logo.png" alt="포롱포트 로고">
+            </div>
         </div>
 
         <div id="right">
