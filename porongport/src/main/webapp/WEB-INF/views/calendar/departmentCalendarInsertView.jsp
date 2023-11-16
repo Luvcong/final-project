@@ -15,14 +15,14 @@
     <!-- 풀캘린더 -->
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.9/index.global.min.js'></script>
 	<!-- css-->
-	<link rel="stylesheet" href="resources/css/myCalendar.css">
+	<link rel="stylesheet" href="resources/css/departmentCalendar.css">
 	
 </head>
 <body>
 
 	<jsp:include page="../common/sidebar.jsp"/>
 	<div class="pp-content">
-		<h3 class="title-align">부서 일정 등록</h2><div class="title-back-color">&nbsp;</div>
+		<h3 class="title-align">나의 일정 등록</h2><div class="title-back-color">&nbsp;</div>
 			
 			<div class="calendar-inner">
 				<div class="jsp-include-position">
@@ -43,6 +43,10 @@
 								<tr>
 									<th><i class="fa-solid fa-pen"></i></th>
 									<td colspan="3"><input type="text" name="" id="" class="mycalendar_input mycalendar_width" placeholder="일정 제목 추가"></td>
+								</tr>
+								<tr>
+									<th></th>
+									<td colspan="3"></td>
 								</tr>
 								<tr>
 									<th><i class="fa-solid fa-user"></i></th>

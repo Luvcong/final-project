@@ -16,7 +16,7 @@
         	var calendarEl = document.getElementById('calendar');
             var calendar = new FullCalendar.Calendar(calendarEl, {
                 // Tool Bar 목록 document : https://fullcalendar.io/docs/toolbar
-                height: '500px',
+                height: '550px',
                 selectable: true,
                 selectMirror: true,
                 navLinks: false,
@@ -132,8 +132,8 @@
 	<!-- 풀캘린더사용법: https://chobopark.tistory.com/245#google_vignette -->
 	<!-- 풀캘린더사용법: https://velog.io/@faulty337/Spring-boot-fullCalendar-ajax-%ED%99%9C%EC%9A%A9 -->
 
-	
+        <div class="calendar-mini-background">
 		<div id='calendar' class="calendarWidthMini calendarleft">
-    
+        </div>
 </body>
 </html>

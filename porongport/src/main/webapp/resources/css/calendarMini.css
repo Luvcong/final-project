@@ -1,5 +1,4 @@
 /* section calendar */
-
 .sec_cal {
     width: 1000px;
     margin: 0 auto;
@@ -167,14 +166,10 @@
    align: bottom;
 }
 /*풀캘린더*/
-.calendarWidthMini{width:500px;}
-.insertCalendarForm{
-	width:500px;
-}
+.calendarWidthMini{width:600px;}
 .calendarleft{
- padding-top:30px;
- margin:0px;
- padding-left: 30px;
+    margin-top:30px;
+	margin-left: 100px;
  }
 a{
     text-decoration: none;
@@ -183,4 +178,10 @@ a{
 a:hover{
 	text-decoration: none;
     color: balck;
+}
+.calendar-mini-background{
+    padding-top: 10px;
+    background-color: rgba(240, 239, 239, 0.884);
+    border-radius: 20px;
+    height: 650px;
 }
