@@ -12,14 +12,86 @@
 	size : 50%;
 	}
 	
+	.metting-widthh2{width: 22%;}
+	.metting-width3{width: 34%;}
+
+	.metting_input{border: none;}
+	.metting_input2{
+    border: 1px solid rgb(201, 196, 196);
+    border-radius: 10px;
+}
 	.meetingform{
 	border:none;
 	}
-	.meetingStartDay, .meetingStartTime, .meetingEndDay, .meetingEndTime{
+	.meetingStartDay, .meetingEndDay, .meeting_input2{
 	border-radius: 10px;
 	border: 1px solid gray;
 	}
 	.meetingroom > h2{
 	text-align: center;	
 	}
-	.
+	
+.btn-rigth{float:right;}
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 23px;
+    vertical-align:middle;
+}
+.title-align{text-align:center;}
+.switch>input {display:none;}
+.slider {
+	position: absolute;
+	cursor: pointer;
+    top: 5px;
+    left: 10px;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+  
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 14px;
+    width: 14px;
+    top: 2px;
+    left: 3px;
+    right: 0;
+    bottom: 2px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+  
+input:checked + .slider {
+    background-color: rgb(227, 98, 33);
+}
+  
+input:focus + .slider {
+    box-shadow: 0 0 1px rgb(227, 98, 33);
+}
+  
+input:checked + .slider:before {
+    -webkit-transform: translateX(20px);
+    -ms-transform: translateX(20px);
+    transform: translateX(20px);
+}
+  
+.slider.round {
+    border-radius: 34px;
+}
+  
+.slider.round:before {
+    border-radius: 50%;
+}
+  
+p {
+	margin:5px;
+	display:inline-block;
+	font-size:15px;
+	font-weight:bold;
+}

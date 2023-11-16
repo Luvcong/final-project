@@ -45,12 +45,13 @@
 							name="name" style="width: 80px;" readonly></td>
 					</tr>
 					<tr>
-						<td><i class="fa-solid fa-clock"></i>
-						<td><input type="date" class="meetingStartDay"> 
-						<label for="meetingStartTime"></label> 
-						<select name="meetingStartTime"	id="meetingStartTime" class="meetingStartTime" name="meetingStartTime">
-								<option value="900">9:00</option>
-								<option value="930">9:30</option>
+						<th><i class="fa-solid fa-clock"></i></th>
+						<td colspan="3"><input type="date" class="meetingStartDay"
+							id="meetingStartDay" class="meeting_input2 metting-width2">
+							<select name="meetingStartTime" id="meetingStartTime"
+							class="meeting_input2 meeting_width2">
+								<option value="900">09:00</option>
+								<option value="930">09:30</option>
 								<option value="1000">10:00</option>
 								<option value="1030">10:30</option>
 								<option value="1100">11:00</option>
@@ -67,19 +68,31 @@
 								<option value="1630">4:30</option>
 								<option value="1700">5:00</option>
 								<option value="1730">5:30</option>
-								<option value="1800">6:00</option>
-						</select> ~ <label for="meetingEndDay"></label> <input type="date"
-							class="meetingEndDay"> <label for="meetingEndTime"></label>
-							<select name="meetingEndTime" id="meetingEndTime"
-							 class="meetingEndTime">
-								<option value="900">9:00</option>
-								<option value="930">9:30</option>
+						</select> <label class="switch"> <input type="checkbox"> <span
+								class="slider round"></span>
+						</label>
+						<p>하루종일</p>
+							<p style="display: none;">하루종일</p> <script>
+											var check = $("input[type='checkbox']");
+											check.click(()=>{
+												$("p").toggle();
+												$("select").toggle();
+												$('input[type="date"]').toggleClass('metting-width3');
+										
+											});
+			
+										</script> <br>
+										 
+										 <label for="meetingEndDay"></label><input type="date" class="meetingEndDay"><label
+							for="meetingEndTime"></label> <select name="meetingEndTime"
+							id="meetingEndTime" class="meeting_input2 meeting-width2">
+								<option value="930">09:30</option>
 								<option value="1000">10:00</option>
 								<option value="1030">10:30</option>
 								<option value="1100">11:00</option>
 								<option value="1130">11:30</option>
 								<option value="1200">12:00</option>
-								<option value="1230">12:30</option>
+								<option value="1230">12:30</option>	
 								<option value="1300">1:00</option>
 								<option value="1330">1:30</option>
 								<option value="1400">2:00</option>

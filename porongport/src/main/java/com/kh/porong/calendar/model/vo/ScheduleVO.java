@@ -15,4 +15,10 @@ public class ScheduleVO {
 	private String schStart;		//SCH_START	DATE
 	private String schEnd;		//SCH_END	DATE
 	private String schStatus;	//SCH_STATUS	VARCHAR2(1 BYTE)
+	private String schShare;
+	
+	private String startDate;
+	private String startTime;
+	private String endDate;
+	private String endTime;
 }
