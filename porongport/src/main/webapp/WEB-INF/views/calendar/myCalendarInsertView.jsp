@@ -88,7 +88,7 @@
 								
 								<tr>
 									<th><i class="fa-solid fa-file"></i></th>
-									<td colspan="3"><textarea type="text" name="" id="" class="mycalendar_input calendarTextarea" placeholder="일정 설명 추가"></textarea></td>
+									<td colspan="3"><textarea type="text" name="schContent" id="schContent" class="mycalendar_input calendarTextarea" placeholder="일정 설명 추가"></textarea></td>
 								</tr>
 								<tr><th></th><td colspan="3"></td></tr>
 							</table>

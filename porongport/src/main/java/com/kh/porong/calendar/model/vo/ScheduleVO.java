@@ -19,7 +19,6 @@ public class ScheduleVO {
 	
 	private String startDate;
 	private String startTime;
-	private String end;
-	private String startTime;
-	
+	private String endDate;
+	private String endTime;
 }

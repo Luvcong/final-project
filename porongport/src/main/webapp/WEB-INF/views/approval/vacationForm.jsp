@@ -6,6 +6,10 @@
 <meta charset="UTF-8">
 <title>휴가신청서</title>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+	<!-- font-awesome (icon) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <!-- css-->
+   <link rel="stylesheet" href="resources/css/approval.css">
 </head>
 <body>
 
@@ -136,29 +140,33 @@
 							<table class="table table-striped table-bordered">
 
 								<colgroup>
-									<col width="30%" />
-									<col width="70%" />
+									<col width="50%" />
+									<col width="50%" />
 								</colgroup>
 
 								<tbody>
 									<tr>
-										<th>제목(*)</th>
+										<th style="height:250px;">조직도</th>
 										<td><input type="text" id="apv_nm" name="apv_nm"
-											class="form-control" placeholder="제목"></td>
+											class="form-control" placeholder="제목">
+										</td>
 									</tr>
 									<tr>
-										<th>결재구분(*)</th>
+										<th>직원 검색 <input type="text" style="width: 100px;"> 
+										<i class="fa-solid fa-magnifying-glass" style="color: #000000;"></i>
+										</th>
+									</tr>
+									<tr>
+										<th style="height:250px;">결재구분</th>
 										<td><select id="div_apv_sq" class="form-control"
 											name="div_apv_sq">
-												<option value="1">업무</option>
-												<option value="2">파견</option>
-												<option value="3">경비지출</option>
-												<option value="4">초과근무</option>
-												<option value="5">휴가</option>
+												<option value="1">결재</option>
+												<option value="2">대기</option>
+												<option value="3">반려</option>
 										</select></td>
 									</tr>
 									<tr>
-										<th>중간승인자(*)</th>
+										<th>중간승인자</th>
 										<td><input type="text" id="stf_mid_sq" name="stf_mid_sq"
 											class="form-control" placeholder="중간승인자 사원번호입력"></td>
 									</tr>
