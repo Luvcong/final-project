@@ -29,7 +29,7 @@ public class ScheduleServiceImple implements ScheduleService {
 
 	@Override
 	public int insertDepartment(ScheduleVO schedule) {
-		return 0;
+		return scheduleDao.insertDepartment(sqlSession, schedule);
 	}
 
 	@Override

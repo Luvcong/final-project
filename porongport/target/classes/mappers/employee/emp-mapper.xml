@@ -3,5 +3,46 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="empMapper">
-
+	<resultMap id="empResultSet" type="emp">
+		<result column="EMP_NO" property="empNo" />
+		<result column="EMP_NAME" property="empName" />
+		<result column="EMP_PWD" property="empPwd" />
+		<result column="EMP_PHONE" property="empPhone" />
+		<result column="EMP_ADDRESS" property="empAddress" />
+		<result column="EMP_ADDRESSCODE" property="empAddressCode" />
+		<result column="EMP_ADMIN" property="empAdmin" /> <!-- 관리자급 여부 -->
+		<result column="EMP_EMAIL" property="empEmail" />
+		<result column="DEPT_NAME" property="deptCode" />
+		<result column="JOB_NAME" property="jobCode" />
+		<result column="CREATE_DATE" property="createDate" />
+		<result column="MODIFY_DATE" property="modifyDate" />
+ 	</resultMap>
+	
+	<!-- 로그인 쿼리 -->
+	<select id="loginEmp" parameterType="emp" resultMap="empResultSet">
+		SELECT
+		       EMP_NO
+		       ,EMP_NAME
+		       ,EMP_PWD
+		       ,EMP_PHONE
+		       ,EMP_ADDRESS
+		       ,EMP_ADDRESSCODE
+		       ,EMP_EMAIL
+		       ,DEPT_NAME
+		       ,JOB_NAME
+		  FROM
+		       EMPLOYEE
+		  LEFT 
+		  JOIN
+		       DEPARTMENT USING(DEPT_CODE)
+		  LEFT 
+		  JOIN
+		       JOB USING(JOB_CODE)
+		 WHERE
+		       EMP_NO = #{ empNo }
+		   AND
+		       EMP_PWD = #{ empPwd }
+		   AND
+		       EMP_STATUS = 'Y'
+	</select>
 </mapper>
