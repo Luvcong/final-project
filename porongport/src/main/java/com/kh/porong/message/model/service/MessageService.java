@@ -21,10 +21,10 @@ public interface MessageService {
 	Message detailMessage(int messageNo);
 	
 	// 메시지 삭제 - 휴지통 이동
-	int updateMessage(int messageNo);
+	int deleteMessage(int messageNo);
 	
 	// 메시지 영구삭제
-	int deleteMessage(int messageNo);
+	int deletePermanentlyMessage(int messageNo);
 	
 	// 메시지 보관
 	ArrayList<Message> storeMessage(PageInfo pi, int messageNo);

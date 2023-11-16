@@ -19,4 +19,7 @@ public class Message {
 	private String empName;
 	private String jobName;
 	
+	private int messageRank;
+	
+	
 }	// end class

@@ -106,11 +106,11 @@
 				<div class="sub-menu d-none" data-group='receivedMessage'>
 					<div class="sub-item sub-title" data-url='receivedMessage'>메시지함</div>
 			        <div class="sub-item" data-url='receivedMessage'>받은 메시지</div>
-			        <div class="sub-item" data-url='sendMessage'>보낸 메시지</div>
-			        <div class="sub-item" data-url='storeMessageBox'>메시지 보관함</div>
-			        <div class="sub-item sub-item-menu" data-url='storeMessageBox'>받은 메시지 보관함</div>
-			        <div class="sub-item sub-item-menu" data-url='sendMessageBox'>보낸 메시지 보관함</div>
-			        <div class="sub-item" data-url='deleteMessage'>휴지통</div>
+			        <div class="sub-item" data-url=''>보낸 메시지</div>
+			        <div class="sub-item" data-url=''>메시지 보관함</div>
+			        <div class="sub-item sub-item-menu" data-url=''>받은 메시지 보관함</div>
+			        <div class="sub-item sub-item-menu" data-url=''>보낸 메시지 보관함</div>
+			        <div class="sub-item" data-url='deleteMessageBox'>휴지통</div>
 				</div>
 				<div class="sub-menu d-none" data-group='board'>
 					<div class="sub-item sub-title" data-url='board'>메시지함</div>
