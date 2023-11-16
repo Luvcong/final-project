@@ -14,8 +14,9 @@
 .mycalendar_width3{width: 45%;}
 .calendar-inner{
 	padding-top:50px;
-	margin:auto !important;
-	width:700px !important;
+}
+.insertCalendarForm{
+	display:inline-block;
 }
 .btn-rigth{float:right;}
 .switch {

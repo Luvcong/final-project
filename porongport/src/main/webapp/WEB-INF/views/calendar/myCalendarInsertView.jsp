@@ -12,21 +12,26 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 	<!-- font-awesome (icon) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <!-- 풀캘린더 -->
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.9/index.global.min.js'></script>
 	<!-- css-->
 	<link rel="stylesheet" href="resources/css/myCalendar.css">
 	
-	
 </head>
 <body>
-	<jsp:include page="../common/sidebar.jsp" />
-	
+
+	<jsp:include page="../common/sidebar.jsp"/>
 	<div class="pp-content">
 		
 		<div class="calendar-outer">
-		
-		
-		
+			
 		<div class="calendar-inner calendarWidth">
+			
+			<div>
+				<jsp:include page="calendarMini.jsp"/>
+			</div>
+			
+			<div class="insertCalendarForm">
 			<form id="insertCalendar" method="post" action="insertMyCalendar">
 				<div class="myCalendar-btn calendarWidth">
 					<h2 class="title-align">나의 일정 등록</h2>
@@ -43,9 +48,9 @@
 						</tr>
 						<tr>
 							<th><i class="fa-solid fa-user"></i></th>
-							<td><input type="text" name="empName" id="empName" readonly value="${loginUser.empName}" class="mycalendar_input mycalendar_width"></td>
+							<td><input type="text" name="empName" id="empName" readonly value="이승철" class="mycalendar_input mycalendar_width"></td>
 							<th><i class="fa-solid fa-user-tag"></i></th>
-							<td><input type="text" name="deptId" id="deptId" readonly value="${loginUser.deptName}" class="mycalendar_input mycalendar_width time_block"></td>
+							<td><input type="text" name="deptId" id="deptId" readonly value="인사부" class="mycalendar_input mycalendar_width time_block"></td>
 						</tr>
 						<tr>
 							<th><i class="fa-solid fa-clock"></i></th>
@@ -91,6 +96,7 @@
 					</table>
 				</div>
 			</form>
+			</div>
 		</div>    
 		</div>    
 	    
