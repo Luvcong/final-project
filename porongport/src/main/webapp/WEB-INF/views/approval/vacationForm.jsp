@@ -13,7 +13,7 @@
 	
 	<div class="pp-content">
 	<form button="submit" action="../prong/line">
-	        <div id="button">
+	        <div id="button" align="center">
            <input type="hidden" name="appNo" value = "${approval.appNo}"/>
               
            <%-- <c:if test="${loginMember.user_name eq approval.firstApprover || approval.interimApprover || approval.finalApprover}">
@@ -55,9 +55,10 @@
            <div class="cash-disbursement" style="text-align: center; margin: 80px 0px 80px 200px; border: 2px solid black;">
                <table border="2px" style="width: 100%; font-size: 20px; border-collapse: collapse;">
                    <tr>
-                       <td rowspan="3" colspan="4" style="width: 300px; height: 140px; font-size: 40px; font-weight: 600;">휴 가 신 청 서</td>
+                       <td rowspan="3" colspan="6" style="width: 300px; height: 140px; font-size: 40px; font-weight: 600;">휴 가 신 청 서</td>
                    </tr>
-                   <td><button>버튼</button></td>
+                   
+                   <tr></tr>
                    <tr></tr>
                    <tr>
                        <td style="height: 70px; width: 80px;">성 명</td>
