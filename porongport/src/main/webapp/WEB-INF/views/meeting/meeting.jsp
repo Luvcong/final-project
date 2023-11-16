@@ -68,7 +68,6 @@
 								<option value="1630">4:30</option>
 								<option value="1700">5:00</option>
 								<option value="1730">5:30</option>
-								<option value="1800">6:00</option>
 						</select> <label class="switch"> <input type="checkbox"> <span
 								class="slider round"></span>
 						</label>
@@ -87,7 +86,6 @@
 										 <label for="meetingEndDay"></label><input type="date" class="meetingEndDay"><label
 							for="meetingEndTime"></label> <select name="meetingEndTime"
 							id="meetingEndTime" class="meeting_input2 meeting-width2">
-								<option value="900">09:00</option>
 								<option value="930">09:30</option>
 								<option value="1000">10:00</option>
 								<option value="1030">10:30</option>
