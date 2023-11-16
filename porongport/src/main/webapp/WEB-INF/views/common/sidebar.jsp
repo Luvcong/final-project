@@ -21,8 +21,24 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <!-- 메인화면 css-->
     <link rel="stylesheet" href="resources/css/main.css">
+    
+    <!-- alertMsg -->
+	<!-- JavaScript -->
+	<script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+	<!-- CSS -->
+	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
+	<!-- Default theme -->
+	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css"/>
+	<!-- Semantic UI theme -->
+	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/semantic.min.css"/>
 </head>
 <body>
+	<c:if test="${not empty alertMsg }">
+		<script>
+			alertify.alert('Completion','${alertMsg}', function(){alertify.success('success')});
+		</script>
+		<c:remove var="alertMsg" scope="session" />
+	</c:if>
     <div class="pp-outter">
         <!-- 메인화면 상단 헤더 영역 -->
         <div class="pp-header">      
@@ -32,12 +48,18 @@
             <div class="setting">       
                 <div class="profile">
                 	<img src="resources\images\profile.png">
-                    <span>이승철 팀장</span>
+                    <span>${ sessionScope.loginUser.empName }</span>
                 </div>
-                <div class="icon"><i class="fa-solid fa-right-from-bracket"></i></div>
+                <div class="icon" onclick="logout();"><i class="fa-solid fa-right-from-bracket"></i></div>
             </div>
         </div>  <!-- pp-header -->
 
+		<script>
+			function logout(){
+				location.href = 'logout.em';
+			}
+		</script>
+		
         <!-- 메인화면 메인 사이드바 영역-->
         <!-- .data-group : 아이콘 영역 클릭시 이동하려는 jsp의 매핑값 작성 -->
         <div class="pp-main">
@@ -46,7 +68,7 @@
                     <div class="icon"><i class="fa-solid fa-house"></i></div>
                     <div class="menu-name">Home</div>
                 </div>
-                <div class="item" data-group='mypage'>
+                <div class="item" data-group='myPageAtt'>
                     <div class="icon"><i class="fa-solid fa-clipboard-user"></i></div>
                     <div class="menu-name">내정보</div>
                 </div>
@@ -91,12 +113,25 @@
 				   <div class="sub-item" data-url='main2'>메인메뉴2</div>
 				   <div class="sub-item" data-url='main3'>메인메뉴3</div>
 				</div>
-				<div class="sub-menu d-none" data-group='mypage'>
-					<div class="sub-item sub-title" data-url='mypage'>서브타이틀</div>
-			        <div class="sub-item" data-url='mypage1'>내정보 관리</div>
-				    <div class="sub-item" data-url='mypage2'>근태 관리</div>
-		       		<div class="sub-item" data-url='mypage3'>연차 관리</div>
-				</div>
+				<c:choose>
+					<c:when test="${ loginUser.empAdmin eq 'A' }">
+						<div class="sub-menu d-none" data-group='myPageAtt'>
+							<div class="sub-item sub-title" data-url='myPageAtt'>마이페이지</div>
+					        <div class="sub-item" data-url='myPageUp'>내정보 관리</div>
+						    <div class="sub-item" data-url='myPageAtt'>근태 관리</div>
+						    <div class="sub-item" data-url='myPageIn'>입사자 등록</div>
+				       		<div class="sub-item" data-url='mypage3'>연차 관리</div>
+						</div>
+					</c:when>
+					<c:otherwise>
+						<div class="sub-menu d-none" data-group='myPageAtt'>
+							<div class="sub-item sub-title" data-url='myPageAtt'>마이페이지</div>
+					        <div class="sub-item" data-url='myPageUp'>내정보 관리</div>
+						    <div class="sub-item" data-url='myPageAtt'>근태 관리</div>
+				       		<div class="sub-item" data-url='mypage3'>연차 관리</div>
+						</div>
+					</c:otherwise>
+				</c:choose>
 				 <div class="sub-menu d-none" data-group='approval'>
 					<div class="sub-item sub-title" data-url='approval'>전자결재</div>
 		         	<div class="sub-item" data-url='document1'>기안문 작성</div>

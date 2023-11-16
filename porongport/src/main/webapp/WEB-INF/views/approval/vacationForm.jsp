@@ -6,46 +6,43 @@
 <meta charset="UTF-8">
 <title>휴가신청서</title>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+	<!-- font-awesome (icon) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <!-- css-->
+   <link rel="stylesheet" href="resources/css/approval.css">
 </head>
 <body>
 
 	<jsp:include page="../common/sidebar.jsp" />
 	
 	<div class="pp-content">
-	<form button="submit" action="../prong/line">
+	
 	        <div id="button" align="center">
-           <input type="hidden" name="appNo" value = "${approval.appNo}"/>
+           <input type="hidden" />
               
-           <%-- <c:if test="${loginMember.user_name eq approval.firstApprover || approval.interimApprover || approval.finalApprover}">
-                 --%><c:choose>
+				<c:choose>
                    <c:when test="${!empty approval.appReason}">
-                      <button type="button" class="openRejectionWhy">반려사유</button>
+                      <button type="button" class="openRejectionWhy">결재</button>
                     <input type="text" style="border: none; width: 40px;" disabled>
-                 </c:when>
+                 	</c:when>
                  <c:otherwise>
                     <c:choose>
                        <c:when test="${(loginMember.user_name eq approval.firstApprover && approval.appPresent eq 'A') || 
                                 (loginMember.user_name eq approval.interimApprover && approval.appPresent eq 'B') ||
                                 (loginMember.user_name eq approval.finalApprover && approval.appPresent eq 'C')}">
-                          <button type="submit" id="approveddone">결재</button>
+                          <button class="btn-modal" data-toggle="modal" data-target="#myModal">결재라인</button>
                             <input type="text" style="border: none; width: 40px;"disabled >
-                            <button type="button" style="color:red" id="openRejection">반려</button>
-                          <input type="text" style="border: none; width: 40px;" disabled>
                        </c:when>
                        <c:otherwise>
-                          <button type="button" id="approveddone" disabled>결재</button>
-                            <input type="text" style="border: none; width: 40px;"disabled >
-                            <button type="button" id="openRejection" disabled>반려</button>
-                          <input type="text" style="border: none; width: 40px;" disabled>
                        </c:otherwise>
                     </c:choose>
                  </c:otherwise>
               </c:choose>
-         <%-- </c:if> --%>
          
          <button><a href="${path}/porong/document1" style="color:black">취소</a></button>
         </div>
-	</form>
+	
+	
 	<c:if test="${!empty approval.appReason}">
       <div style="position:absolute; margin-left:400px; margin-top:30px">
       </div>
@@ -127,237 +124,85 @@
            </div>
        </form>
        
+       <div class="modal fade" id="myModal" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+
+					<div class="modal-header">
+						<h4 class="modal-title">결재선 지정</h4>
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+					</div>
+
+					<div class="modal-body">
+
+						<form role="form" id="frm" method="post" enctype="multipart/form-data"
+							action="/approval/register">
+							<table class="table table-striped table-bordered">
+
+								<colgroup>
+									<col width="50%" />
+									<col width="50%" />
+								</colgroup>
+
+								<tbody>
+									<tr>
+										<th style="height:250px;">조직도</th>
+										<td><input type="text" id="apv_nm" name="apv_nm"
+											class="form-control" placeholder="제목">
+										</td>
+									</tr>
+									<tr>
+										<th>직원 검색 <input type="text" style="width: 100px;"> 
+										<i class="fa-solid fa-magnifying-glass" style="color: #000000;"></i>
+										</th>
+									</tr>
+									<tr>
+										<th style="height:250px;">결재구분</th>
+										<td><select id="div_apv_sq" class="form-control"
+											name="div_apv_sq">
+												<option value="1">결재</option>
+												<option value="2">대기</option>
+												<option value="3">반려</option>
+										</select></td>
+									</tr>
+									<tr>
+										<th>중간승인자</th>
+										<td><input type="text" id="stf_mid_sq" name="stf_mid_sq"
+											class="form-control" placeholder="중간승인자 사원번호입력"></td>
+									</tr>
+								<!-- 	<tr>
+										<th>결재파일 이름</th>
+										<td><input type="text" id="apv_pl_nm" name="apv_pl_nm"
+											class="form-control"></td>
+									</tr>  -->
+									<tr>
+										<th>결재파일 업로드</th>
+										<td><input type="file" id="apv_pl_rt" name="file"
+											class="form-control"></td>
+									</tr>
+								</tbody>
+
+							</table>
+						</form>
+					</div>
+
+					<div class="modal-footer">
+						<button type="button" id="okbutton" class="btn btn-primary"
+							data-dismiss="modal">입력</button>
+						<button type="button" class="btn btn-danger" data-dismiss="modal">취소</button>
+					</div>
+
+				</div>
+
+			</div>
+
+		</div>
+       
 
            
        </div>
    
    
-<!-- 모달 테이블(반려 확인) -->
-    
-   <div class="modal modal1 hidden">
-        <div class="bg"></div>
-        <div class="modalBox" style="width:600px; height:400px; border-radius:20px">
-            <div style="font-size:26px; margin:30px">
-               정말 반려처리 하시겠습니까?
-            </div>
-            <div style="margin: 43% 0px 0% 53%;">
-                <span style="padding-right: 20px; margin-left:46px; float: left;" >
-                    <button type="submit" class="closeBtn-in rejModalOk1" id="rejectOrNo">확인</button>
-                </span>
-                <button class="closeBtn-out rejModalNo1">취소</button>
-            </div>
-        </div>
-    </div>
-    
-    <!-- 모달 테이블(반려 사유 작성) -->
-    
-   <div class="modal modal2 hidden">
-        <div class="bg"></div>
-        <div class="modalBox" style="width:600px; height:400px; border-radius:20px">
-            <div style="font-size:26px; margin:30px">
-               반려 사유를 입력해주세요.
-            </div>
-            <textarea name="rejectReasonText" rows="5" cols="45" style="font-size:23px; margin-left:23px; resize: none;"></textarea>
-            <div style="margin: 8.8% 0px 0% 53%;">
-                <span style="padding-right: 20px; margin-left:46px;float: left;" >
-                    <button type="submit" class="closeBtn-in rejModalOk2" id="rejectReason">확인</button>
-                </span>
-                <button class="closeBtn-out rejModalNo2">취소</button>
-            </div>
-        </div>
-    </div>
-    
-    <!-- 반려사유 보여주는 모달 -->
-    
-    <div class="modal modal3 hidden">
-        <div class="bg"></div>
-        <div class="modalBox" style="width:600px; height:400px; border-radius:20px">
-            <div style="font-size:26px; margin:30px">
-               반려사유 :
-            </div>
-            <textarea name="rejectReasonText" rows="6" cols="45" style="font-size:23px; margin-left:23px; resize: none;" readonly>${approval.appReason}</textarea>
-            <div style="margin: 5% 0px 0% 69%;">
-                <span style="padding-right: 20px; margin-left:46px; float: left;" >
-                    <button type="button" class="closeBtn-in3">확인</button>
-                </span>
-            </div>
-        </div>
-    </div>
-    
-    <script>
-    /* 반려사유 확인 모달 */
-   const open3 = () => {
-       document.querySelector(".modal3").classList.remove("hidden");
-    }
-
-    const close3 = () => {
-        document.querySelector(".modal3").classList.add("hidden");
-    }
-   
-    document.querySelector(".openRejectionWhy").addEventListener("click", open3);
-    document.querySelector(".closeBtn-in3").addEventListener("click", close3);
-   
-    </script>
-    
-    <!-- 모달 스크립트 -->
-    <script>
-       const open = () => {
-          document.querySelector(".modal1").classList.remove("hidden");
-       }
-   
-       const close = () => {
-           document.querySelector(".modal1").classList.add("hidden");
-       }
-   
-       document.querySelector("#openRejection").addEventListener("click", open);
-       document.querySelector(".rejModalNo1").addEventListener("click", close);
-          
-       /* 모달 반려사유 */
-       
-       const open2 = () => {
-          document.querySelector(".modal2").classList.remove("hidden");
-       }
-   
-       const close2 = () => {
-           document.querySelector(".modal2").classList.add("hidden");
-       }
-      
-       document.querySelector(".rejModalOk1").addEventListener("click", close);
-       document.querySelector(".rejModalOk1").addEventListener("click", open2);
-       document.querySelector(".rejModalNo2").addEventListener("click", close2);
-
-       
-       document.querySelector(".rejModalOk2").addEventListener("click",close2);
-       
-       $(document).ready(function() {
-          $('#rejectReason').click(function() {
-             var rejectReasonText = $("textarea[name='rejectReasonText']").val();
-             var appNo = $("input[name=appNo]").val();
-             
-             console.log(rejectReasonText);
-             $.ajax({
-                      type: "post",
-                      url: "${path}/approval/letterOfApprovalUpdate?appNo="+appNo,
-                      data: {
-                         rejectReasonText:rejectReasonText
-                     },
-                      success: function(data){
-                         var url = "${path}/approval/approvalMain";
-                             
-                         if(data != 0) {
-                        	 Swal.fire({
-	                			   icon: 'success',
-	                			   title: '결재반려 처리가 \n정상적으로 완료되었습니다.'
-	                		})
-                                $(location).attr('href',url);
-                         } else {
-                        	 Swal.fire({
-	                  			   icon: 'error',
-	                  			   title: '결재반려 처리에 \n실패하였습니다.'
-	                  		})
-                                $(location).attr('href',url);
-                         }
-                     },
-                      error: function(){ alert("잠시 후 다시 시도해주세요."); }
-                });
-          });
-       });
-    </script>
-    
-    <!-- 결재승인버튼 스크립트 -->
-    <script>
-       $("#Approver1").one("click",function(){
-          
-          $.ajax({
-                type: "post",
-                url: "${path}/approval/loaApproved1?appNo="+${approval.appNo},
-                success: function(){
-                	Swal.fire({
- 	     			   icon: 'success',
- 	     			   title: '결재서명이 \n완료되었습니다.'
- 	     			})
-                  $("#firstA").append('<img src="${path}/images/approved.png" id="checkIfApproved" style="position:absolute; width:130px; height:130px; margin-left:-92px; margin-top:-50px" />');
-               },
-                error: function(){ alert("잠시 후 다시 시도해주세요."); }
-          });
-       });
-       
-      $("#Approver2").one("click",function(){
-          
-          $.ajax({
-                type: "post",
-                url: "${path}/approval/loaApproved2?appNo="+${approval.appNo},
-                success: function(){
-                	Swal.fire({
- 	     			   icon: 'success',
- 	     			   title: '결재서명이 \n완료되었습니다.'
- 	     			})
-                  $("#interimA").append('<img src="${path}/images/approved.png" id="checkIfApproved" style="position:absolute; width:130px; height:130px; margin-left:-92px; margin-top:-50px" />');
-               },
-                error: function(){ alert("잠시 후 다시 시도해주세요."); }
-          });
-       });
-      
-      $("#Approver3").one("click",function(){
-          
-          $.ajax({
-                type: "post",
-                url: "${path}/approval/loaApproved3?appNo="+${approval.appNo},
-                success: function(){
-                	Swal.fire({
- 	     			   icon: 'success',
- 	     			   title: '결재서명이 \n완료되었습니다.'
- 	     			})
-                  $("#finalA").append('<img src="${path}/images/approved.png" id="checkIfApproved" style="position:absolute; width:130px; height:130px; margin-left:-92px; margin-top:-50px" />');
-               },
-                error: function(){ alert("잠시 후 다시 시도해주세요."); }
-          });
-       });
-      </script>
-      
-      <!-- 하단 결재버튼 -->
-   	<script>
-   		$("#approveddone").click(function() {
-   			if($('#checkIfApproved').length > 0) {
-   				var url = "${path}/approval/document1";
-	   			alert("결재가 완료되었습니다.");
-	   	        $(location).attr('href', url);  			
-   			} else {
-   				var url = "${path}/approval/letterOfApprovalView?appNo="+${approval.appNo};
-   				alert("결재서명 후 결재를 진행해주세요.");
-   			}
-   		});
-   		
-   		/* function checkIfApproved() {
-		    if(document.getElementById('checkIfApproved')){
-		        alert("결재가 완료되었습니다.");
-		        
-				return true;
-			} else {
-		        alert("결재서명 후 결재를 진행해주세요.");
-		        
-		        return false;
-			}
-		} */
-   	</script>
-
-      
-      <script type="text/javascript">
-/*       <input type="hidden" id="hiddenStartDate"><fmt:formatDate value="${approval.leaveStart}" pattern="yyyy - MM - dd"/></input>
-   <input type="hidden" id="hiddenFinishDate"><fmt:formatDate value="${approval.leaveFinish}" pattern="yyyy - MM - dd"/></input> */
-      function leaveStartAndFinish() {
-         var StartDate = document.getElementById('hiddenStartDate');
-         var leaveFinish = document.getElementById('leaveFinish');
-         var leaveDate = document.getElementById('leaveDate');
-         
-         StartDate = ${approval.leaveStart};
-         leaveFinish = ${approval.leaveFinish};
-         
-         leaveDate.innerHTML += StartDate + "  ~  " + leaveFinish;
-      
-      }
-   </script>
-	</div>
 
 </body>
 </html>

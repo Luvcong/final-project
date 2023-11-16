@@ -10,19 +10,13 @@
     <!-- 풀캘린더 -->
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.9/index.global.min.js'></script>
 	<!-- css-->
-	<link rel="stylesheet" href="resources/css/calendar.css">
+	<link rel="stylesheet" href="resources/css/calendarMini.css">
 	 <script>
     	document.addEventListener('DOMContentLoaded', function() {
         	var calendarEl = document.getElementById('calendar');
             var calendar = new FullCalendar.Calendar(calendarEl, {
                 // Tool Bar 목록 document : https://fullcalendar.io/docs/toolbar
-                height: '750px',
-                headerToolbar: {
-                    left: 'dayGridMonth,dayGridWeek,dayGridDay',
-                    center: 'title',
-                    right: 'today prevYear,prev,next,nextYear'
-                },
-
+                height: '550px',
                 selectable: true,
                 selectMirror: true,
                 navLinks: false,
@@ -111,12 +105,12 @@
                    	// 그룹아이디: 999이 회의실 예약
                     groupId: 999,
                     title: 'Repeating Event',
-                    start: '2023-11-17T16:00'
+                    start: '2023-11-17T16:00:00'
                     },
                     {
                     groupId: 999,
                     title: 'Repeating Event',
-                    start: '2023-11-18T16:00'
+                    start: '2023-11-18T16:00:00'
                     },
                     {
                     title: 'Conference',
@@ -138,12 +132,8 @@
 	<!-- 풀캘린더사용법: https://chobopark.tistory.com/245#google_vignette -->
 	<!-- 풀캘린더사용법: https://velog.io/@faulty337/Spring-boot-fullCalendar-ajax-%ED%99%9C%EC%9A%A9 -->
 
-	<jsp:include page="../common/sidebar.jsp" />
-	
-	<div class="pp-content">
-		<div id='calendar' class="calendarWidthMain calendarCenter">
-		</div>
-    </div>
-    
+        <div class="calendar-mini-background">
+		<div id='calendar' class="calendarWidthMini calendarleft">
+        </div>
 </body>
 </html>

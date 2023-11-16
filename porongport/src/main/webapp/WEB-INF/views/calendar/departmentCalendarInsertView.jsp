@@ -15,24 +15,23 @@
     <!-- 풀캘린더 -->
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.9/index.global.min.js'></script>
 	<!-- css-->
-	<link rel="stylesheet" href="resources/css/myCalendar.css">
+	<link rel="stylesheet" href="resources/css/departmentCalendar.css">
 	
 </head>
 <body>
 
 	<jsp:include page="../common/sidebar.jsp"/>
 	<div class="pp-content">
-		<h3 class="title-align">나의 일정 등록</h3><div class="title-back-color">&nbsp;</div>
+		<div class="title-align">&nbsp;</div><h3 class="title-back-color">부서 일정 등록</h3>
 			
 			<div class="calendar-inner">
 				<div class="jsp-include-position">
 					<jsp:include page="calendarMini.jsp"/>
 				</div>
 				
-				<div class="insertCalendarForm insertForm-rigth insertForm-position">
-					<form id="insertCalendar" method="post" action="insertMyCalendar">
-						<div class="myCalendar-btn calendarWidth">
-							
+				<div class="insertCalendarForm insertForm-rigth insertForm-position-department">
+					<form id="insertCalendar" method="post" action="insertDepartmentCalendar">
+						<div class="calendarWidth">
 							<br>
 							<button type="submit" class="btn btn-sm btn-secondary btn-rigth">일정추가</button>
 							<br>
@@ -42,22 +41,25 @@
 							<table class="table table-sm">
 								<tr>
 									<th><i class="fa-solid fa-pen"></i></th>
-									<td colspan="3"><input type="text" name="schTitle" id="schTitle" class="mycalendar_input mycalendar_width" placeholder="일정 제목 추가" required/></td>
+									<td colspan="3"><input type="text" name="schTitle" id="schTitle" class="mycalendar_input mycalendar_width" placeholder="일정 제목 추가"></td>
+								</tr>
+								<tr>
+									<th><i class="fa-solid fa-user-plus"></i></th>
+									<td colspan="3"><input type="text" name="deptName" id="deptName" class="mycalendar_input mycalendar_width" value="인사부 전체 일정 등록" readonly></td>
 								</tr>
 								<tr>
 									<th><i class="fa-solid fa-user"></i></th>
-									<td><input type="text" name="empName" id="empName" readonly value="이승철" class="mycalendar_input mycalendar_width" /></td>
-									<input type="hidden" name="empNo" value="${loginUser.empNo}">
+									<td><input type="text" name="empName" id="empName" readonly value="이승철" class="mycalendar_input mycalendar_width"></td>
 									<th><i class="fa-solid fa-user-tag"></i></th>
-									<td><input type="text" name="deptId" id="deptId" readonly value="인사부" class="mycalendar_input mycalendar_width time_block" /></td>
+									<td><input type="text" name="deptId" id="deptId" readonly value="인사부" class="mycalendar_input mycalendar_width time_block"></td>
 								</tr>
 								<tr>
 									<th><i class="fa-solid fa-clock"></i></th>
 									<td colspan="3">
-										<input type="date" name="startDate" id="startDate" class="mycalendar_input2 mycalendar_width2" required/>
-										<input type="time" name="startTime" id="startTime" class="mycalendar_input2 mycalendar_width2" />
+										<input type="date" name="startDate" id="startDate" class="mycalendar_input2 mycalendar_width2">
+										<input type="time" name="startTime" id="startTime" class="mycalendar_input2 mycalendar_width2" value="09:00">
 										<label class="switch">
-											<input type="checkbox" />
+											<input type="checkbox">
 											<span class="slider round"></span>
 										</label><p>하루종일</p><p style="display:none;">하루종일</p>
 		
@@ -81,8 +83,8 @@
 			
 										</script>
 										<br>
-										<input type="date" name="endDate" id="endDate" class="mycalendar_input2 mycalendar_width2" required/>
-										<input type="time" name="endTime" id="endTime" class="mycalendar_input2 mycalendar_width2" />
+										<input type="date" name="endDate" id="endDate" class="mycalendar_input2 mycalendar_width2">
+										<input type="time" name="endTime" id="endTime" class="mycalendar_input2 mycalendar_width2" value="18:00">
 									</td>
 									
 								</tr>
