@@ -21,5 +21,6 @@ public class ScheduleController {
 	public String enrollFormMycalendar() {
 		return "calendar/myCalendarInsertView";
 	}
+
 	
 }
