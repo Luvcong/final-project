@@ -14,7 +14,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <!-- css -->
     <link rel="stylesheet" href="resources/css/index.css">
- 
 </head>
 <body>
     <div class="wrap">
@@ -29,28 +28,27 @@
                 console.log(today);
 
                 document.querySelector('#today').innerText = today;
-
             }
         </script>
 
         <div id="left">
             <div class="logo">
-                <img src="logo.png" alt="포롱포트 로고">
+                <img src="resources/images/logo.png" alt="포롱포트 로고">
             </div>
         </div>
 
         <div id="right">
             <div id="login_form">
-                <form action="login.em" method="post">
+                <form action="login.em">
                     <div class="login_id">
                         <span class="icon"><i class="fa-solid fa-user fa-xl"></i></span>
-                        <input type="text" id="userId" class="form-control" />
+                        <input type="text" id="empNo" class="form-control" />
                     </div>
                     <div class="login_pwd">
                         <span class="icon"><i class="fa-solid fa-key fa-xl"></i></span>
-                        <input type="text" id="userPwd" class="form-control" />
+                        <input type="password" id="empPwd" class="form-control" />
                     </div>
-
+					
                     <button type="submit" id="login_btn">login</button>
                 </form>
             </div>
