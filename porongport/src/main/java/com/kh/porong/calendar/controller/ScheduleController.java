@@ -16,4 +16,6 @@ public class ScheduleController {
 	public String calendarMain() {
 		return "calendar/calendarMain";
 	}
+	
+	
 }
