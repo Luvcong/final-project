@@ -42,11 +42,11 @@
                 <form action="login.em">
                     <div class="login_id">
                         <span class="icon"><i class="fa-solid fa-user fa-xl"></i></span>
-                        <input type="text" id="empNo" class="form-control" />
+                        <input type="text" name="empNo" class="form-control" required />
                     </div>
                     <div class="login_pwd">
                         <span class="icon"><i class="fa-solid fa-key fa-xl"></i></span>
-                        <input type="password" id="empPwd" class="form-control" />
+                        <input type="password" name="empPwd" class="form-control" required />
                     </div>
 					
                     <button type="submit" id="login_btn">login</button>

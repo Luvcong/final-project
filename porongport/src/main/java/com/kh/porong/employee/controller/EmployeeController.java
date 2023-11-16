@@ -43,7 +43,6 @@ public class EmployeeController {
 	*/
 	@GetMapping("login.em")
 	public ModelAndView loginEmp(Employee emp, ModelAndView mv, HttpSession session) {
-		
 		Employee loginEmp = empService.loginEmp(emp);
 		
 		if(loginEmp != null) {
