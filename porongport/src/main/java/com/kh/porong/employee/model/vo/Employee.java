@@ -17,8 +17,8 @@ public class Employee {
 	private String empAdmin;
 	private String empExtension;
 	private String empEmail;
-	private String deptId;
-	private int jobCode;
+	private String deptCode;
+	private String jobCode;
 	private Date createDate;
 	private Date modifyDate;
 	private int fileNo;

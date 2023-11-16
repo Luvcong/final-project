@@ -22,7 +22,7 @@
 	    <div class="outer">
 	
 	        <div id="myPage">
-	            <div class="profile">
+	            <div class="myProfile">
 	                <img src="profile.png"  alt="입사자 사진">
 	                <div class="info">
 	                    <h3>홍길동</h3><span>팀장</span>
