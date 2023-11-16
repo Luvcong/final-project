@@ -19,7 +19,7 @@ public class ScheduleController {
 	
 	@RequestMapping("myCalendar")
 	public String enrollFormMycalendar() {
-		return "calendar/mycalendarInsertVIew";
+		return "calendar/myCalendarInsertView";
 	}
 	
 }

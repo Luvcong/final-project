@@ -11,9 +11,6 @@
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.9/index.global.min.js'></script>
 	<!-- css-->
 	<link rel="stylesheet" href="resources/css/calendar.css">
-	<script>
-		calendar.setOption('height', 500);
-	</script>
 	 <script>
     	document.addEventListener('DOMContentLoaded', function() {
         	var calendarEl = document.getElementById('calendar');
@@ -147,7 +144,7 @@
 		
 		<div id='calendar' class="calendarWidthMain calendarCenter">
 		
-		</div>    
+		</div>
 	    
     </div>
     

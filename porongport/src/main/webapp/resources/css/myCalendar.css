@@ -12,7 +12,12 @@
 .calendarWidth{width:600px;}
 .mycalendar_width2{width: 22%;}
 .mycalendar_width3{width: 45%;}
-/* 토글 */
+.calendar-inner{
+	padding-top:50px;
+	margin:auto !important;
+	width:700px !important;
+}
+.btn-rigth{float:right;}
 .switch {
     position: relative;
     display: inline-block;
@@ -20,14 +25,11 @@
     height: 23px;
     vertical-align:middle;
 }
-  
-  /* Hide default HTML checkbox */
-  .switch input {display:none;}
-  
-  /* The slider */
-  .slider {
-    position: absolute;
-    cursor: pointer;
+.title-align{text-align:center;}
+.switch>input {display:none;}
+.slider {
+	position: absolute;
+	cursor: pointer;
     top: 5px;
     left: 10px;
     right: 0;
@@ -35,9 +37,9 @@
     background-color: #ccc;
     -webkit-transition: .4s;
     transition: .4s;
-  }
+}
   
-  .slider:before {
+.slider:before {
     position: absolute;
     content: "";
     height: 14px;
@@ -49,34 +51,33 @@
     background-color: white;
     -webkit-transition: .4s;
     transition: .4s;
-  }
+}
   
-  input:checked + .slider {
+input:checked + .slider {
     background-color: rgb(227, 98, 33);
-  }
+}
   
-  input:focus + .slider {
+input:focus + .slider {
     box-shadow: 0 0 1px rgb(227, 98, 33);
-  }
+}
   
-  input:checked + .slider:before {
+input:checked + .slider:before {
     -webkit-transform: translateX(20px);
     -ms-transform: translateX(20px);
     transform: translateX(20px);
-  }
+}
   
-  /* Rounded sliders */
-  .slider.round {
+.slider.round {
     border-radius: 34px;
-  }
+}
   
-  .slider.round:before {
+.slider.round:before {
     border-radius: 50%;
-  }
+}
   
-  p {
-      margin:5px;
-      display:inline-block;
-      font-size:15px;
-      font-weight:bold;
-  }
+p {
+	margin:5px;
+	display:inline-block;
+	font-size:15px;
+	font-weight:bold;
+}
