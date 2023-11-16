@@ -81,6 +81,7 @@
 			<div class="tableBody">
 				<table id='tb-received' class="table table-sm table-hover shadow rounded-3">
 				<thead>
+					<tr>
 						<th>발신자</th>
 						<th>내용</th>
 						<th>받은 시간</th>
