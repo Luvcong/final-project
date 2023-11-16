@@ -1,30 +1,43 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>회의실 예약</title>
 <!-- jQuery -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <!-- 풀캘린더 -->
-    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.9/index.global.min.js'></script>
-	<!-- css-->
-	<link rel="stylesheet" href="resources/css/meeting.css">
-	
-	<jsp:include page="../common/sidebar.jsp" />
-	
-	 <meta name="viewport" content="width=device-width, initial-scale=1">
-	  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-	  <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
-	  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-	  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<!-- 풀캘린더 -->
+<script
+	src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.9/index.global.min.js'></script>
+<!-- css-->
+<link rel="stylesheet" href="resources/css/meeting.css">
 
-	</head>
+<jsp:include page="../common/sidebar.jsp" />
+<jsp:include page="../calendar/calendarMini.jsp" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+<script
+	src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+
+</head>
 <body>
+
+	
+
 	<div class="pp-content">
 		<div class="meetingroom">
 			<h2>회의실 예약하기</h2>
+			<div class="insertMeetingForm insertForm-rigth insertForm-position">
+		<form id="insertMeeting" method="post" action="insertMeeing">
+			<div class="myCalendar-btn calendarWidth"></div>
 			<table class="table">
 				<thead>
 
@@ -71,7 +84,7 @@
 						</select> <label class="switch"> <input type="checkbox"> <span
 								class="slider round"></span>
 						</label>
-						<p>하루종일</p>
+							<p>하루종일</p>
 							<p style="display: none;">하루종일</p> <script>
 											var check = $("input[type='checkbox']");
 											check.click(()=>{
@@ -81,9 +94,8 @@
 										
 											});
 			
-										</script> <br>
-										 
-										 <label for="meetingEndDay"></label><input type="date" class="meetingEndDay"><label
+										</script> <br> <label for="meetingEndDay"></label><input
+							type="date" class="meetingEndDay"><label
 							for="meetingEndTime"></label> <select name="meetingEndTime"
 							id="meetingEndTime" class="meeting_input2 meeting-width2">
 								<option value="930">09:30</option>
@@ -92,7 +104,7 @@
 								<option value="1100">11:00</option>
 								<option value="1130">11:30</option>
 								<option value="1200">12:00</option>
-								<option value="1230">12:30</option>	
+								<option value="1230">12:30</option>
 								<option value="1300">1:00</option>
 								<option value="1330">1:30</option>
 								<option value="1400">2:00</option>
@@ -114,10 +126,10 @@
 							min=1 required>명</td>
 					</tr>
 					<tr>
-						<td><i class="fa-solid fa-file"></i></td>
-						<td><input type="text" class="meetingform"
-							id="meetingcontent" name="meetingcontent"
-							style="width: 500px; height: 300px;" required></td>
+						<th><i class="fa-solid fa-file"></i></th>
+						<td colspan="3"><textarea type="text" name="" id=""
+								class="meetingform meeting_input meetingTextarea"
+								placeholder="일정 설명 추가" required></textarea></td>
 					</tr>
 				</tbody>
 			</table>
@@ -125,8 +137,12 @@
 				<button type="submit" class="btn btn-info">신청하기</button>
 				<button type="reset" class="btn btn-danger">취소</button>
 			</div>
+			</form>
+		</div>
 		</div>
 	</div>
+	
+	
 
 
 
