@@ -22,17 +22,16 @@
 
 	<jsp:include page="../common/sidebar.jsp"/>
 	<div class="pp-content">
-		<h3 class="title-align">나의 일정 등록</h2><div class="title-back-color">&nbsp;</div>
+		<div class="title-align">&nbsp;</div><h3 class="title-back-color">부서 일정 등록</h2>
 			
 			<div class="calendar-inner">
 				<div class="jsp-include-position">
 					<jsp:include page="calendarMini.jsp"/>
 				</div>
 				
-				<div class="insertCalendarForm insertForm-rigth insertForm-position">
+				<div class="insertCalendarForm insertForm-rigth insertForm-position-department">
 					<form id="insertCalendar" method="post" action="insertMyCalendar">
-						<div class="myCalendar-btn calendarWidth">
-							
+						<div class="calendarWidth">
 							<br>
 							<button type="submit" class="btn btn-sm btn-secondary btn-rigth">일정추가</button>
 							<br>
@@ -45,8 +44,8 @@
 									<td colspan="3"><input type="text" name="" id="" class="mycalendar_input mycalendar_width" placeholder="일정 제목 추가"></td>
 								</tr>
 								<tr>
-									<th></th>
-									<td colspan="3"></td>
+									<th><i class="fa-solid fa-user-plus"></i></th>
+									<td colspan="3"><input type="text" name="" id="" class="mycalendar_input mycalendar_width" value="인사부 전체 일정 등록" readonly></td>
 								</tr>
 								<tr>
 									<th><i class="fa-solid fa-user"></i></th>

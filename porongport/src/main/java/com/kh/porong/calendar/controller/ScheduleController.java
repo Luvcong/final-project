@@ -22,5 +22,9 @@ public class ScheduleController {
 		return "calendar/myCalendarInsertView";
 	}
 
+	@RequestMapping("departmentCalendar")
+	public String enrollFormDepartmentcalendar() {
+		return "calendar/departmentCalendarInsertView";
+	}
 	
 }
