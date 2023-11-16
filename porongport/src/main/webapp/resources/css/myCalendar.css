@@ -16,6 +16,7 @@
 .calendarWidth{width:600px;}
 .mycalendar_width2{width: 22%;}
 .mycalendar_width3{width: 45%;}
+
 .calendar-outer{width:100%}
 .calendar-inner{width:100%;}
 .insertForm-rigth{float:right;}
@@ -25,6 +26,7 @@
 	position : fixed;
 	top: 200px;
 	left:1200px;
+
 }
 .btn-rigth{float:right;}
 .switch {

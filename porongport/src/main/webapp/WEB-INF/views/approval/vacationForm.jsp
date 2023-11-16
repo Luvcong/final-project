@@ -12,7 +12,7 @@
 	<jsp:include page="../common/sidebar.jsp" />
 	
 	<div class="pp-content">
-	<form button="submit" action="${path}/porong/line">
+	
 	        <div id="button" align="center">
            <input type="hidden" />
               
@@ -26,7 +26,7 @@
                        <c:when test="${(loginMember.user_name eq approval.firstApprover && approval.appPresent eq 'A') || 
                                 (loginMember.user_name eq approval.interimApprover && approval.appPresent eq 'B') ||
                                 (loginMember.user_name eq approval.finalApprover && approval.appPresent eq 'C')}">
-                          <button type="submit" id="approveddone">결재라인</button>
+                          <button class="btn-modal" data-toggle="modal" data-target="#myModal">결재라인</button>
                             <input type="text" style="border: none; width: 40px;"disabled >
                        </c:when>
                        <c:otherwise>
@@ -37,7 +37,7 @@
          
          <button><a href="${path}/porong/document1" style="color:black">취소</a></button>
         </div>
-	</form>
+	
 	
 	<c:if test="${!empty approval.appReason}">
       <div style="position:absolute; margin-left:400px; margin-top:30px">
@@ -119,6 +119,76 @@
                </table>
            </div>
        </form>
+       
+       <div class="modal fade" id="myModal" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+
+					<div class="modal-header">
+						<h4 class="modal-title">결재선 지정</h4>
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+					</div>
+
+					<div class="modal-body">
+
+						<form role="form" id="frm" method="post" enctype="multipart/form-data"
+							action="/approval/register">
+							<table class="table table-striped table-bordered">
+
+								<colgroup>
+									<col width="30%" />
+									<col width="70%" />
+								</colgroup>
+
+								<tbody>
+									<tr>
+										<th>제목(*)</th>
+										<td><input type="text" id="apv_nm" name="apv_nm"
+											class="form-control" placeholder="제목"></td>
+									</tr>
+									<tr>
+										<th>결재구분(*)</th>
+										<td><select id="div_apv_sq" class="form-control"
+											name="div_apv_sq">
+												<option value="1">업무</option>
+												<option value="2">파견</option>
+												<option value="3">경비지출</option>
+												<option value="4">초과근무</option>
+												<option value="5">휴가</option>
+										</select></td>
+									</tr>
+									<tr>
+										<th>중간승인자(*)</th>
+										<td><input type="text" id="stf_mid_sq" name="stf_mid_sq"
+											class="form-control" placeholder="중간승인자 사원번호입력"></td>
+									</tr>
+								<!-- 	<tr>
+										<th>결재파일 이름</th>
+										<td><input type="text" id="apv_pl_nm" name="apv_pl_nm"
+											class="form-control"></td>
+									</tr>  -->
+									<tr>
+										<th>결재파일 업로드</th>
+										<td><input type="file" id="apv_pl_rt" name="file"
+											class="form-control"></td>
+									</tr>
+								</tbody>
+
+							</table>
+						</form>
+					</div>
+
+					<div class="modal-footer">
+						<button type="button" id="okbutton" class="btn btn-primary"
+							data-dismiss="modal">입력</button>
+						<button type="button" class="btn btn-danger" data-dismiss="modal">취소</button>
+					</div>
+
+				</div>
+
+			</div>
+
+		</div>
        
 
            
