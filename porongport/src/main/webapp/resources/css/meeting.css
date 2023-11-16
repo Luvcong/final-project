@@ -12,6 +12,13 @@
 	size : 50%;
 	}
 	
+	.meetingTextarea{
+    resize: none;
+    width: 100%;
+    height: 300px;
+    border-radius: 10px;
+}
+	
 	.metting-widthh2{width: 22%;}
 	.metting-width3{width: 34%;}
 
@@ -94,4 +101,12 @@ p {
 	display:inline-block;
 	font-size:15px;
 	font-weight:bold;
+}
+.insertForm-rigth{float:right;}
+.insertCalendarForm{display: inline-block;}
+.jsp-include-position{position : relative;}
+.insertForm-position{
+	position : fixed;
+	top: 200px;
+	left:1200px;
 }
