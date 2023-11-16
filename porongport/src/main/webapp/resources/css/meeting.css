@@ -1,0 +1,25 @@
+.meetingroom{
+	width: 650px;
+    height: 100%;
+	margin: auto;
+	}
+	
+	.meetingcontent{
+	text-align: start;
+	}
+	
+	.table{
+	size : 50%;
+	}
+	
+	.meetingform{
+	border:none;
+	}
+	.meetingStartDay, .meetingStartTime, .meetingEndDay, .meetingEndTime{
+	border-radius: 10px;
+	border: 1px solid gray;
+	}
+	.meetingroom > h2{
+	text-align: center;	
+	}
+	.
