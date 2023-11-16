@@ -14,23 +14,32 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 	<!-- css-->
 	<link rel="stylesheet" href="resources/css/myCalendar.css">
+	
+	
 </head>
 <body>
 	<jsp:include page="../common/sidebar.jsp" />
+	
 	<div class="pp-content">
 		
-		<div>
+		<div class="calendar-outer">
 		
+		
+		
+		<div class="calendar-inner calendarWidth">
 			<form id="insertCalendar" method="post" action="insertMyCalendar">
-				<div class="myCalendar-btn">
-					<button type="submit" class="btn btn-sm btn-secondary">일정추가</button>
+				<div class="myCalendar-btn calendarWidth">
+					<h2 class="title-align">나의 일정 등록</h2>
+					<br>
+					<button type="submit" class="btn btn-sm btn-secondary btn-rigth">일정추가</button>
+					<br>
 				</div>
 				<br>
 				<div class="calendarWidth">
 					<table class="table table-sm">
 						<tr>
 							<th><i class="fa-solid fa-pen"></i></th>
-							<td colspan="3"><input type="text" name="" id="" class="mycalendar_input mycalendar_width" placeholder="제목 추가"></td>
+							<td colspan="3"><input type="text" name="" id="" class="mycalendar_input mycalendar_width" placeholder="일정 제목 추가"></td>
 						</tr>
 						<tr>
 							<th><i class="fa-solid fa-user"></i></th>
@@ -76,13 +85,13 @@
 						
 						<tr>
 							<th><i class="fa-solid fa-file"></i></th>
-							<td colspan="3"><textarea type="text" name="" id="" class="mycalendar_input calendarTextarea" placeholder="설명 추가"></textarea></td>
+							<td colspan="3"><textarea type="text" name="" id="" class="mycalendar_input calendarTextarea" placeholder="일정 설명 추가"></textarea></td>
 						</tr>
 						<tr><th></th><td colspan="3"></td></tr>
 					</table>
 				</div>
 			</form>
-			
+		</div>    
 		</div>    
 	    
     </div>
