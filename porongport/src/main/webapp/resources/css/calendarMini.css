@@ -168,11 +168,13 @@
 }
 /*풀캘린더*/
 .calendarWidthMini{width:500px;}
-
+.insertCalendarForm{
+	width:500px;
+}
 .calendarleft{
  padding-top:30px;
  margin:0px;
- float:left;
+ padding-left: 30px;
  }
 a{
     text-decoration: none;
