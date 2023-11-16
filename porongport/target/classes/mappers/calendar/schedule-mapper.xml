@@ -18,9 +18,9 @@
 	
 	<!-- =========================== SQL =========================== -->
 	<!-- =========================================================== -->
-	<insert id="insertDepartment">
-		INSERT INTO (SCH_NO, EMP_NO,SCH_TITLE,SCH_CONTENT,SCH_START,SCH_END,SCH_SHARE)
-		VALUES (SEQ_SCH_NO, #{empNo},#{schTitle},#{schContent},#{schStart},#{schEnd}, 'M')
+	<insert id="insertDepartment" parameterType="schedule">
+		INSERT INTO (SCH_NO, EMP_NO, SCH_TITLE, SCH_CONTENT, SCH_START, SCH_END, SCH_SHARE)
+		VALUES (SEQ_SCH_NO, #{empNo}, #{schTitle}, #{schContent}, #{schStart}, #{schEnd}, 'M')
 	</insert>
 	
 </mapper>

@@ -35,7 +35,7 @@
 <body>
 	<c:if test="${not empty alertMsg }">
 		<script>
-			alertify.alert('${alertMsg}', function(){alertify.success('success')});
+			alertify.alert('Completion','${alertMsg}', function(){alertify.success('success')});
 		</script>
 		<c:remove var="alertMsg" scope="session" />
 	</c:if>

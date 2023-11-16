@@ -111,12 +111,12 @@
                    	// 그룹아이디: 999이 회의실 예약
                     groupId: 999,
                     title: 'Repeating Event',
-                    start: '2023-11-17T16:00:00'
+                    start: '2023-11-17T16:00'
                     },
                     {
                     groupId: 999,
                     title: 'Repeating Event',
-                    start: '2023-11-18T16:00:00'
+                    start: '2023-11-18T16:00'
                     },
                     {
                     title: 'Conference',
