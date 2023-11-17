@@ -13,7 +13,7 @@ import com.kh.porong.calendar.model.vo.MeetingRoomVO;
 public class MeetingRoomServiceImpl implements MeetingRoomService {
 
 	@Autowired
-	private MeetingRoomDao meetinRoomDao;
+	private MeetingRoomDao MeetingRoomDao;
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 	
@@ -24,8 +24,9 @@ public class MeetingRoomServiceImpl implements MeetingRoomService {
 
 	@Override
 	public int insertMeetingRoom(MeetingRoomVO mr) {
-		return 0;
+		return MeetingRoomDao.insertMeeting(sqlSession,mr);
 	}
+	
 
 	@Override
 	public ArrayList<MeetingRoomVO> selectReservationList(MeetingRoomVO room) {

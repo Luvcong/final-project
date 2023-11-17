@@ -4,4 +4,47 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="meetingRoomMapper">
 
+	<resultMap type="meetingroom" id="meetingroomResultSet">
+		
+		<result column="MEET_NO"	  		property="meetNo"/>
+		<result column="EMP_NO" 			property="empNo"/>
+		<result column="MEET_TITLE" 		property="meetTitle"/>
+		<result column="MEET_CONTENT" 		property="meetContent"/>
+		<result column="MEET_PNUM" 			property="meetPnum"/>
+		<result column="MEET_START" 		property="meetStart"/>
+		<result column="MEET_END" 			property="meetEnd"/>
+		<result column="MEET_STATUS"  		property="meetStatus"/>
+		<result column="MEET_APPROVAL"  	property="meetApproval"/>
+		
+	</resultMap>
+
+
+ 	<insert id="insertMeeting" parameterType="meetingroom">
+		INSERT
+			INTO
+		MeetingRoomVO
+		(
+			MEET_NO,
+			EMP_NO,
+			MEET_TITLE,
+			MEET_CONTENT,
+			MEET_PNUM,
+			MEET_START,
+			MEET_END,
+			MEET_STATUS,
+			MEET_APPROVAL
+		)
+		VALUES(
+			SEQ_MEET_NO,
+			#{empNo},
+			#{meetTitle},
+			#{meetContent},
+			#{meetPnum},
+			#{meetStart},
+			#{meetEnd},
+			#{meetStatus},
+			#{meetApproval}
+	)
+</insert>
+
 </mapper>
