@@ -227,13 +227,6 @@
 			<version>1.6.2</version>
 		</dependency>
 		
-		<!-- 웹 소켓 -->  
-		<dependency>
-		    <groupId>org.springframework</groupId>
-		    <artifactId>spring-websocket</artifactId>
-		    <version>5.3.25</version>
-		</dependency>  
-		
 	</dependencies>
     <build>
         <plugins>
