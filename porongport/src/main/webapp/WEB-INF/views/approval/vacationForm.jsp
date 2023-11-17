@@ -52,47 +52,41 @@
            <div class="cash-disbursement" style="text-align: center; margin: 80px 0px 80px 200px; border: 2px solid black;">
                <table border="2px" style="width: 100%; font-size: 20px; border-collapse: collapse;">
                    <tr>
-                       <td rowspan="3" colspan="6" style="width: 300px; height: 140px; font-size: 40px; font-weight: 600;">휴 가 신 청 서</td>
+                       <td  colspan="6" id="vct_file">휴 가 신 청 서</td>
                    </tr>
                    
                    <tr></tr>
                    <tr></tr>
                    <tr>
                        <td style="height: 70px; width: 80px;">성 명</td>
-                       <td><input type="text"  value="${approval.userName}"></td>
+                       <td><input type="text"  value="${loginUser.empName}"></td>
                        <td style="width: 80px;">부 서</td>
-                       <td><input type="text"  value="${approval.deptName}"></td>
+                       <td><input type="text"  value="${loginUser.deptName}"></td>
                        <td style="width: 80px;">직 급</td>
-                       <td colspan="3"><input type="text"  value="${approval.rank}"></td>
+                       <td colspan="3"><input type="text"  value="${loginUser.jobName}"></td>
                    </tr>
                    <tr>
                        <td colspan="3" style="height: 70px; width: 80px;">비 상 연 락 망</td>
-                       <td colspan="5"><input type="text" value="${ approval.appEmergncyCall }" style="font-size: 25px;"></td>
+                       <td colspan="3"><input type="text" value="${ loginUser.empPhone }" style="font-size: 25px;"></td>
                    </tr>
                    <tr>
                        <td colspan="3" style="height: 70px; width: 80px;">기 간</td>
-                       <td colspan="3"><input type="date">
-                           <%-- <label class="leaveDate">${approval.leaveStart}</label>
-                             ~  
-                           <label class="leaveDate">${approval.leaveFinish}</label> --%>
-                           <fmt:formatDate value="${approval.leaveStart}" pattern="yyyy 년 MM 월 dd 일"/><label>&nbsp;&nbsp; ~ &nbsp;&nbsp;</label>
-                           <input type="date">
-                           <fmt:formatDate value="${approval.leaveFinish}" pattern="yyyy 년 MM 월 dd 일"/>&nbsp;까지
+                       <td colspan="3"><input type="date" name="vctStart"> ~ <input type="date" name="vctEnd">
+
+                           
                        </td>
                    </tr>
                    <tr>
                       <td style="width: 80px; height: 70px; font-family: 'InfinitySans-RegularA1'; font-size: 16px;">휴가 구분</td>
-                      <td colspan="8"><input type="checkbox">연차<input type="checkbox" onclick="clickCheck(this)">반차
+                      <td colspan="2"><input type="checkbox">연차<input type="checkbox" onclick="clickCheck(this)">반차
                        <div class="form-checkbox-wrap">
                           <sapn class="form-inline">
                               <label>${ approval.leaveClassify }</label>
                           </sapn>
                       </div>
                       </td>
-                   </tr>
-                   <tr>
                       <td style="width: 80px; height: 70px; font-family: 'InfinitySans-RegularA1'; font-size: 16px;">잔여 휴가</td>
-                      <td colspan="8"><input type="text">일
+                      <td colspan="5"><input type="text">일
                        <div class="form-checkbox-wrap">
                           <sapn class="form-inline">
                               <label>${ approval.leaveClassify }</label>
@@ -100,10 +94,11 @@
                       </div>
                       </td>
                    </tr>
+
                    <tr>
                        <td style="width: 80px;">사유</td>
                        <td colspan="8">
-                           <input style="height: 200px; width: 1000px" type="text" value="${ approval.leaveDetail }" readonly>
+                           <input style="height: 200px; width: 1000px" type="text" value="${ approval.leaveDetail }">
                        </td>
                    </tr>
                    <tr>
@@ -114,12 +109,7 @@
                            <input type="text" style="text-align:center; font-size: 30px;" readonly><fmt:formatDate value="${approval.appWriteDate}" pattern="yyyy 년 MM 월 dd 일"/></input>
                        </td>
                    </tr>
-                   <tr>
-                       <td colspan="8" style="text-align: right; height: 100px; padding-right: 50px;">
-                           신청자 : <input type="text" style=" width:200px; border: none; text-align: center;" maxlength="4" value="${approval.userName}" readonly>
-                           (인)
-                       </td>
-                   </tr>
+
                </table>
            </div>
        </form>

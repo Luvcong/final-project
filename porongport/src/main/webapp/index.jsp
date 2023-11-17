@@ -41,7 +41,8 @@
                 document.querySelector('#today').innerText = today;
                 
                 var workToday = now.getHours() + ':' + now.getMinutes();
-                document.quertSelector('input[name=workStart]').val() = workToday;
+                document.querySelector('#workDate').value = workToday;
+                console.log(workToday);
             }
         </script>
 		
@@ -65,7 +66,7 @@
                         <input type="password" name="empPwd" class="form-control" required />
                     </div>
 					<!-- 로그인 즉시, 근태 insert를 위한 현재시각 데이터-->
-					<input type="hidden" name="workStart" />
+					<input type="hidden" name="workStart" id="workDate" />
 					
                     <button type="submit" id="login_btn">login</button>
                 </form>

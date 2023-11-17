@@ -63,10 +63,10 @@
 		       EMP_STATUS = 'Y'
 	</select>
 	<!-- 로그인 후 근태테이블 INSERT -->
-	<insert id="workToday" parameterType="map">
+	<insert id="workToday" parameterType="att">
 		INSERT
 		  INTO
-		      ATTENANDCE
+		      ATTENDANCE
 		      (
 		      WORK_DATE
 		      ,EMP_NO

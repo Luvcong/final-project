@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.porong.employee.model.service.EmployeeServiceImpl;
+import com.kh.porong.employee.model.vo.Attendance;
 import com.kh.porong.employee.model.vo.Employee;
 
 @Controller
@@ -52,11 +53,13 @@ public class EmployeeController {
 			mv.setViewName("mypage/myPageAttendance");
 			
 			// 로그인 성공 시, 근태테이블 insert
-			Map<String, Object> addAtt = new HashMap<>();
-			addAtt.put("empNo", (Integer)emp.getEmpNo());
-			addAtt.put("workStart", workStart);
+			Attendance att = new Attendance();
+			att.setEmpNo(emp.getEmpNo());
+			att.setWorkStart(workStart);
 			
-			empService.workToday(addAtt);
+			empService.workToday(att);
+			
+			// rmsxo
 			
 			
 		} else {

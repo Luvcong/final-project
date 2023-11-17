@@ -1,10 +1,9 @@
 package com.kh.porong.employee.model.dao;
 
-import java.util.Map;
-
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.kh.porong.employee.model.vo.Attendance;
 import com.kh.porong.employee.model.vo.Employee;
 
 @Repository
@@ -18,8 +17,8 @@ public class EmployeeDao {
 		return sqlSession.insert("empMapper.insertEmp", emp);
 	}
 
-	public void workToday(SqlSessionTemplate sqlSession, Map<String, Object> workToday) {
-		sqlSession.insert("empMapper.workToday", workToday);
+	public void workToday(SqlSessionTemplate sqlSession, Attendance att) {
+		sqlSession.insert("empMapper.workToday", att);
 	}
 	
 

@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="path" value="${ pageContext.request.contextPath }" />
 <!DOCTYPE html>
 <html lang="ko">
@@ -14,30 +14,7 @@
 <body>
 
 	<jsp:include page="../common/sidebar.jsp" />
-	<script>
-		var socket;
-	
-		window.onload = () => {
-			console.log('${path}');
-			
-			const uri = 'ws://localhost:8003' + '${path}' + '/myPageAtt';
-			socket = new WebSocket(uri);
-			socket.onopen = () => {
-				$.ajax({
-					url : 'loginFlag.em',
-					data : {flag : '${loginUser.firstLogin}'},
-					success : result => {
-						console.log(result);
-					},
-					error : () => {
-						console.log('fail');
-					}
-					
-				})
-			}
-		}
-	</script>
-	
+
 	<div class="pp-content">
 	
 	    <div class="outer">
@@ -47,8 +24,8 @@
 	                <div class="myProfile">
 	                    <img src="resources/images/profile.png"  alt="입사자 사진">
 	                    <div class="info">
-	                        <h3>${ sessionScope.loginUser.empName }</h3><span>${ sessionScope.loginUser.jobCode }</span>
-	                        <h5>${ sessionScope.loginUser.deptCode }</h5>
+	                        <h3>${ sessionScope.loginUser.empName }</h3><span>${ sessionScope.loginUser.jobName }</span>
+	                        <h5>${ sessionScope.loginUser.deptName }</h5>
 	                    </div>
 	                </div>
 	            

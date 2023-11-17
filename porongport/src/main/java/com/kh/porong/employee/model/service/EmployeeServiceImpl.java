@@ -1,13 +1,12 @@
 package com.kh.porong.employee.model.service;
 
-import java.util.Map;
-
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.kh.porong.employee.model.dao.EmployeeDao;
+import com.kh.porong.employee.model.vo.Attendance;
 import com.kh.porong.employee.model.vo.Employee;
 
 @EnableTransactionManagement
@@ -31,8 +30,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 	}
 
 	@Override
-	public void workToday(Map<String, Object> workToday) {
-		empDao.workToday(sqlSession, workToday);
+	public void workToday(Attendance att) {
+		empDao.workToday(sqlSession, att);
 	}
 
 	
