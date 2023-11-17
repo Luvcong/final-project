@@ -10,7 +10,7 @@ public class Message {
 	private int messageNo;
 	private String messageContent;
 	private String createDate;
-	private String defaultDate;
+	private String deleteDate;
 	private String messageStatus;
 	private String sendUser;
 	private String receiveUser;
@@ -20,6 +20,7 @@ public class Message {
 	private String jobName;
 	
 	private int messageRank;
+	private String effectiveDate;
 	
 	
 }	// end class
