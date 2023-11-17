@@ -24,7 +24,7 @@
 	}
 	
 	.meeting-width2{width: 22%;}
-	.meeting-width3{width: 39%;}
+	.meeting-width3{width: 38%;}
 
 	.meeting_input{border: none;}
 	.meeting_input2{	
@@ -33,7 +33,10 @@
 }
 	.meetingform{
 	border:none;
+	border-radius: 10px;
+	border-width:520px;
 	}
+	
 	.meetingStartDay, .meetingEndDay, .meeting_input2{
 	border-radius: 10px;
 	border: 1px solid gray;
@@ -54,7 +57,16 @@
 .switch>input {display:none;}
 
 .title-align{
-	text-align:center;
+	position: relative;
+	margin-bottom:0px;
+	margin-left:30px;
+	padding-left:18px;
+	padding-top: 15px;
+	padding-bottom:10px;
+	background-color: rgb(240, 239, 239);
+    border-radius: 20px 20px 0px 0px;
+    width:270px;
+    z-index:1;
 }
 
 .slider {
@@ -118,7 +130,4 @@ p {
 	position : fixed;
 	top: 200px;
 	left:1200px;
-}
-.meetingform{
-	border-radius: 10px;
 }

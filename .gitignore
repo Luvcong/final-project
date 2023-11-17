@@ -100,3 +100,6 @@ porongport/target/m2e-wtp/web-resources/META-INF/maven/com.kh/porong/pom.propert
 porongport/target/m2e-wtp/web-resources/META-INF/MANIFEST.MF
 porongport/target/m2e-wtp/web-resources/META-INF/maven/com.kh/porong/pom.properties
 porongport/target/m2e-wtp/web-resources/META-INF/MANIFEST.MF
+porongport/target/m2e-wtp/web-resources/META-INF/maven/com.kh/porong/pom.properties
+porongport/target/m2e-wtp/web-resources/META-INF/maven/com.kh/porong/pom.xml
+porongport/target/classes/mappers/message/message-mapper.xml

@@ -45,18 +45,20 @@
 				</thead>
 				<tbody>
 					<tr>
-						<td><i class="fa-solid fa-pen"></i></td>
+						<th><i class="fa-solid fa-pen"></i></th>
 						<td><input type="text" class="meetingform" id="meetingtitle"
-							placeholder="회의제목을 입력해주세요" name="meetingtitle" required></td>
+							placeholder="회의제목을 입력해주세요" name="meetingtitle"  required></td>
 					</tr>
 					<tr>
-						<td><i class="fa-solid fa-building"></i></td>
+						<th><i class="fa-solid fa-building"></i></th>
 						<td>회의실</td>
 					</tr>
 					<tr>
-						<td><i class="fa-solid fa-user"></i></td>
+						<th><i class="fa-solid fa-user"></i></th>
 						<td><input type="text" class="meetingform" value="김건희"
-							name="name" style="width: 80px;" readonly></td>
+							name="name" readonly></td>
+						<th><i class="fa-solid fa-user-tag"></i></th>
+						<td><input type="text" name="deptId" id="deptId" readonly value="인사부" style="width: 250px;" class="meetingform" /></td>
 					</tr>
 					<tr>
 						<th><i class="fa-solid fa-clock"></i></th>
@@ -82,8 +84,7 @@
 								<option value="1630">4:30</option>
 								<option value="1700">5:00</option>
 								<option value="1730">5:30</option>
-						</select> <label class="switch"> <input type="checkbox"> <span
-								class="slider round"></span>
+						</select> <label class="switch"> <input type="checkbox"> <span class="slider round"></span>
 						</label>
 							<p>하루종일</p>
 							<p style="display: none;">하루종일</p> <script>
@@ -121,16 +122,16 @@
 
 					</tr>
 					<tr>
-						<td><i class="fa-solid fa-user-group"></i></td>
+						<th><i class="fa-solid fa-user-group"></i></th>
 						<td><input type="number" class="meetingform"
 							id="meetingpeople" name="meetingpeople" style="width: 50px;"
-							min=1 required>명</td>
+							min=1 style="width: 250px;" required>명</td>
 					</tr>
 					<tr>
 						<th><i class="fa-solid fa-file"></i></th>
 						<td colspan="3"><textarea type="text" name="meetingcontent" id="meetingcontent"
 								class="meetingform meeting_input meetingTextarea"
-								placeholder="일정 설명 추가" required></textarea></td>
+								placeholder="일정 설명 추가" required style="width: 520px;"></textarea></td>
 					</tr>
 				</tbody>
 			</table>
