@@ -36,13 +36,11 @@
                 let now = new Date();
                 var today = now.getFullYear() + '/' + (now.getMonth() + 1) + '/' + now.getDate()
                           + ' ' + now.getHours() + ':' + now.getMinutes();
-                console.log(today);
 
                 document.querySelector('#today').innerText = today;
                 
                 var workToday = now.getHours() + ':' + now.getMinutes();
                 document.querySelector('#workDate').value = workToday;
-                console.log(workToday);
             }
         </script>
 		
