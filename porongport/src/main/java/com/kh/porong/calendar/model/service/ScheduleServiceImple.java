@@ -34,7 +34,7 @@ public class ScheduleServiceImple implements ScheduleService {
 
 	@Override
 	public int insertIndividual(ScheduleVO schedule) {
-		return 0;
+		return scheduleDao.insertIndividual(sqlSession, schedule);
 	}
 
 	@Override
