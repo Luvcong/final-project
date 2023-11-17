@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>입사자 등록</title>
     <!-- 마이페이지 스타일 -->
-    <link rel="stylesheet" href="../resources/css/mypage.css">
+    <link rel="stylesheet" href="resources/css/mypage.css">
 </head>
 <body>
 	<jsp:include page="../common/sidebar.jsp" />
@@ -41,7 +41,7 @@
 	                </div>
 	
 	                <div class="btn_area">
-	                    <button type="reset" class="btn">취소</button>
+	                    <button type="reset" class="btn btn-default">취소</button>
 	                    <button type="submit" class="btn btn-primary">확인</button>
 	                </div>
 	            </div>
