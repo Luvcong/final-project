@@ -191,11 +191,8 @@
 							data-dismiss="modal">입력</button>
 						<button type="button" class="btn btn-danger" data-dismiss="modal">취소</button>
 					</div>
-
 				</div>
-
 			</div>
-
 		</div>
        
 
