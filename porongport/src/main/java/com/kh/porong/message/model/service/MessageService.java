@@ -35,4 +35,10 @@ public interface MessageService {
 	// 메시지 검색 리스트 개수 조회
 	int searchReceivedListCount(Map<String, String> map);
 	
+	// 휴지통 메시지 전체 리스트 조회
+	ArrayList<Message> deleteMessageBoxList(PageInfo pi);
+	
+	// 휴지통 메시지 전체 개수 조회
+	int deleteListCount();
+	
 }	// end class
