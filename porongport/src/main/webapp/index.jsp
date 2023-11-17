@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="path" value="${ pageContext.request.contextPath }" />
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -16,7 +18,16 @@
     <link rel="stylesheet" href="resources/css/index.css">
 </head>
 <body>
+	<!-- 로그인 실패 alert -->
+	<c:if test="${ not empty errorMsg }">
+		<script>
+			alert('${ errorMsg }');
+			location.href = '${ path }';
+		</script>
+	</c:if>
+
     <div class="wrap">
+    	<!-- 현재 시간 띄워주기 -->
         <header>
             <div id="today"></div>
         </header>
@@ -28,18 +39,23 @@
                 console.log(today);
 
                 document.querySelector('#today').innerText = today;
+                
+                var workToday = now.getHours() + ':' + now.getMinutes();
+                document.quertSelector('input[name=workStart]').val() = workToday;
             }
         </script>
-
+		
+		<!-- 로고플레이 -->
         <div id="left">
             <div class="logo">
                 <img src="resources/images/logo.png" alt="포롱포트 로고">
             </div>
         </div>
 
+		<!-- 로그인 창 -->
         <div id="right">
             <div id="login_form">
-                <form action="login.em">
+                <form action="login.em" method="post">
                     <div class="login_id">
                         <span class="icon"><i class="fa-solid fa-user fa-xl"></i></span>
                         <input type="text" name="empNo" class="form-control" required />
@@ -48,6 +64,8 @@
                         <span class="icon"><i class="fa-solid fa-key fa-xl"></i></span>
                         <input type="password" name="empPwd" class="form-control" required />
                     </div>
+					<!-- 로그인 즉시, 근태 insert를 위한 현재시각 데이터-->
+					<input type="hidden" name="workStart" />
 					
                     <button type="submit" id="login_btn">login</button>
                 </form>

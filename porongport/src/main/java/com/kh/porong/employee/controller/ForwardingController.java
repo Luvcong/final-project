@@ -20,4 +20,5 @@ public class ForwardingController {
 	public String myPageUpdateForm() {
 		return "mypage/myPageUpdateForm";
 	}
+	
 }
