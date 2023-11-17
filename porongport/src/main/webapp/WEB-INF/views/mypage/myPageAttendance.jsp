@@ -1,7 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<c:set var="path" value="${ pageContext.request.contextPath }" />
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -12,31 +10,7 @@
     <link rel="stylesheet" href="resources/css/mypage.css">
 </head>
 <body>
-
 	<jsp:include page="../common/sidebar.jsp" />
-	<script>
-		var socket;
-	
-		window.onload = () => {
-			console.log('${path}');
-			
-			const uri = 'ws://localhost:8003' + '${path}' + '/myPageAtt';
-			socket = new WebSocket(uri);
-			socket.onopen = () => {
-				$.ajax({
-					url : 'loginFlag.em',
-					data : {flag : '${loginUser.firstLogin}'},
-					success : result => {
-						console.log(result);
-					},
-					error : () => {
-						console.log('fail');
-					}
-					
-				})
-			}
-		}
-	</script>
 	
 	<div class="pp-content">
 	

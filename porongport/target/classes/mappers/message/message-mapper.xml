@@ -126,7 +126,7 @@
 	  	  LIKE '%' || #{ keyword } || '%'
 	</select>
 	
-
+	
 	<!-- 메시지 삭제 - 휴지통 이동 -->
 	<update id="deleteMessage" parameterType="_int">
 		UPDATE
@@ -137,7 +137,7 @@
 		 WHERE
 		        MESSAGE_NO = #{ messageNo }
 	</update>
-
-
+	
+	
 
 </mapper>
