@@ -1,10 +1,13 @@
 package com.kh.porong.calendar.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.kh.porong.calendar.model.service.MeetingRoomService;
+import com.kh.porong.calendar.model.vo.MeetingRoomVO;
 
 @Controller
 public class MeetingRoomController {
@@ -17,5 +20,17 @@ public class MeetingRoomController {
 		return "meeting/meeting";
 	}
 	
+	@RequestMapping("insertMeeting")
+	public String insertmeeting(MeetingRoomVO mr, HttpSession session) {
+		
+		if(meetingRoomService.insertMeetingRoom(mr) > 0) {
+			session.setAttribute("alertMsg", "일정추가성공");
+			return "redirect:reservation";
+		}else {
+			session.setAttribute("alertMsg", "일정추가실패");
+			return "redirect:reservation";
+		}
+		
+	}
 	
 }

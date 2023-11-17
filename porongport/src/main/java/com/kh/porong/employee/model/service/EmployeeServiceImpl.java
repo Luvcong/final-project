@@ -1,5 +1,7 @@
 package com.kh.porong.employee.model.service;
 
+import java.util.ArrayList;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,8 +32,23 @@ public class EmployeeServiceImpl implements EmployeeService {
 	}
 
 	@Override
-	public void workToday(Attendance att) {
-		empDao.workToday(sqlSession, att);
+	public int insertAtt(Attendance att) {
+		return empDao.insertAtt(sqlSession, att);
+	}
+
+	@Override
+	public ArrayList<Attendance> attList(int empNo) {
+		return empDao.attList(sqlSession, empNo);
+	}
+
+	@Override
+	public Attendance selectAtt(Attendance att) {
+		return empDao.selectAtt(sqlSession, att);
+	}
+
+	@Override
+	public int updateAtt(Attendance att) {
+		return empDao.updateAtt(sqlSession, att);
 	}
 
 	
