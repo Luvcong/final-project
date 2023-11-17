@@ -7,7 +7,9 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.gson.Gson;
 import com.kh.porong.calendar.model.service.ScheduleService;
 import com.kh.porong.calendar.model.vo.ScheduleVO;
 
@@ -20,12 +22,25 @@ public class ScheduleController {
 	@RequestMapping("calendar")
 	public String calendarMain(ScheduleVO schedule, HttpSession session) {
 		
-		ArrayList<ScheduleVO> mySchedule = scheduleService.selectIndividual(schedule);
-		ArrayList<ScheduleVO> departmentSchedule = scheduleService.selectDepartment(schedule);
-		System.out.println(departmentSchedule);
+		//ArrayList<ScheduleVO> mySchedule = scheduleService.selectIndividual(schedule);
+		//ArrayList<ScheduleVO> departmentSchedule = scheduleService.selectDepartment(schedule);
 		
+		//System.out.println(departmentSchedule);
+		//session.setAttribute("mySchedule", mySchedule);
+		//session.setAttribute("departmentSchedule", departmentSchedule);
 		return "calendar/calendarMain";
 	}
+	
+	@ResponseBody
+	@RequestMapping(value="ajax3.do", produces="application/json; charset=UTF-8")
+	public String ajaxMethod3(ScheduleVO schedule) {
+		// hashmap으로 담아서 json타입으로 보내줘서 다시 결과 뽑아주기
+		ArrayList<ScheduleVO> mySchedule = scheduleService.selectIndividual(schedule);
+		ArrayList<ScheduleVO> departmentSchedule = scheduleService.selectDepartment(schedule);
+		
+		return new Gson().toJson(mySchedule);
+	}
+	
 	
 	@RequestMapping("myCalendar")
 	public String enrollFormMycalendar() {

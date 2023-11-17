@@ -25,76 +25,9 @@
 
                 selectable: true,
                 selectMirror: true,
-                navLinks: false,
+                navLinks: true,
                 editable: false,
-                
-                select: function (arg) {
-                    Swal.fire({
-                        html: "<div class='mb-7'>Create new event?</div><div class='fw-bold mb-5'>Event Name:</div><input type='text' class='form-control' name='event_name' />",
-                        icon: "info",
-                        showCancelButton: true,
-                        buttonsStyling: false,
-                        confirmButtonText: "Yes, create it!",
-                        cancelButtonText: "No, return",
-                        customClass: {
-                            confirmButton: "btn btn-primary",
-                            cancelButton: "btn btn-active-light"
-                        }
-                    }).then(function (result) {
-                        if (result.value) {
-                            var title = document.querySelector("input[name=;event_name']").value;
-                            if (title) {
-                                calendar.addEvent({
-                                    title: title,
-                                    start: arg.start,
-                                    end: arg.end,
-                                    allDay: arg.allDay
-                                })
-                            }
-                            calendar.unselect()
-                        } else if (result.dismiss === "cancel") {
-                            Swal.fire({
-                                text: "Event creation was declined!.",
-                                icon: "error",
-                                buttonsStyling: false,
-                                confirmButtonText: "Ok, got it!",
-                                customClass: {
-                                    confirmButton: "btn btn-primary",
-                                }
-                            });
-                        }
-                    });
-                },
-
-                // Delete event
-                eventClick: function (arg) {
-                    Swal.fire({
-                        text: "Are you sure you want to delete this event?",
-                        icon: "warning",
-                        showCancelButton: true,
-                        buttonsStyling: false,
-                        confirmButtonText: "Yes, delete it!",
-                        cancelButtonText: "No, return",
-                        customClass: {
-                            confirmButton: "btn btn-primary",
-                            cancelButton: "btn btn-active-light"
-                        }
-                    }).then(function (result) {
-                        if (result.value) {
-                            arg.event.remove()
-                        } else if (result.dismiss === "cancel") {
-                            Swal.fire({
-                                text: "Event was not deleted!.",
-                                icon: "error",
-                                buttonsStyling: false,
-                                confirmButtonText: "Ok, got it!",
-                                customClass: {
-                                    confirmButton: "btn btn-primary",
-                                }
-                            });
-                        }
-                    });
-                },
+               
                 dayMaxEvents: true, 
                 // 이벤트 객체 필드 document : https://fullcalendar.io/docs/event-object
                 events: [
@@ -122,13 +55,26 @@
                     title: 'Conference',
                     start: '2023-11-20',
                     end: '2023-11-23'
+                    },
+                    {
+                   	title : '${mySchedule[1].schTitle}',
+                   	start : '2023-11-21',
+                   	end : '2023-11-23'
                     }
                 ]
             });
 
             calendar.render();
         });
-
+	console.log('${mySchedule}');
+	
+		$(() => {
+		
+			
+			
+		})
+		
+	
     </script>
 </html>
 </head>
