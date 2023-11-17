@@ -57,7 +57,12 @@
 	                    <th class="vacation-th-size">기간</th>
 	                    <td><input type="text" value=""></td>
 	                    <th class="vacation-th-size">휴가 구분</th>
-	                    <td><input type="checkbox" class="vacationType">연차&nbsp;&nbsp;<input type="checkbox" class="vacationType">반차</td>
+	                    <td>
+		                    <select class="vctKind">
+		                    	<option value="1">연차</option>
+		                    	<option value="0.5">반차</option>
+		                    </select>
+	                    </td>
 	               </tr>
 	             </table>  
 	             <div class="blank"></div>    
