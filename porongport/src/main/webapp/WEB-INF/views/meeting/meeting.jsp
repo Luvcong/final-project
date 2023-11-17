@@ -30,12 +30,9 @@
 </head>
 <body>
 
-	
-
 	<div class="pp-content">
 	<h2 class="title-align">회의실 예약하기</h2>
 	<jsp:include page="../calendar/calendarMini.jsp" />
-			
 			
 			<div class="insertMeetingForm insertForm-rigth insertForm-position ">
 		<form id="insertMeeting" method="post" action="insertMeeting">
@@ -46,19 +43,19 @@
 				<tbody>
 					<tr>
 						<th><i class="fa-solid fa-pen"></i></th>
-						<td><input type="text" class="meetingform" id="meetingtitle"
-							placeholder="회의제목을 입력해주세요" name="meetingtitle"  required></td>
+						<td colspan="3"><input type="text" class="meetingform" id="meetingtitle"
+							placeholder="회의제목을 입력해주세요" name="meetingtitle" style="width:520px;" required></td>
 					</tr>
 					<tr>
 						<th><i class="fa-solid fa-building"></i></th>
-						<td>회의실</td>
+						<td colspan="3">회의실</td>
 					</tr>
 					<tr>
 						<th><i class="fa-solid fa-user"></i></th>
-						<td><input type="text" class="meetingform" value="김건희"
+						<td><input type="text" class="meetingform" value="${loginUser.empName}"
 							name="name" readonly></td>
 						<th><i class="fa-solid fa-user-tag"></i></th>
-						<td><input type="text" name="deptId" id="deptId" readonly value="인사부" style="width: 250px;" class="meetingform" /></td>
+						<td><input type="text" name="deptId" id="deptId" readonly value="${loginUser.deptName}" style="width: 250px;" class="meetingform" /></td>
 					</tr>
 					<tr>
 						<th><i class="fa-solid fa-clock"></i></th>
@@ -97,7 +94,7 @@
 											});
 			
 										</script> <br> <label for="meetingEndDay"></label><input
-							type="date" class="meetingEndDay"><label
+							type="date" class="meetingEndDay"id="meetingEndDay"><label
 							for="meetingEndTime"></label> <select name="meetingEndTime"
 							id="meetingEndTime" class="meeting_input2 meeting_width2">
 								<option value="930">09:30</option>
@@ -123,7 +120,7 @@
 					</tr>
 					<tr>
 						<th><i class="fa-solid fa-user-group"></i></th>
-						<td><input type="number" class="meetingform"
+						<td colspan="3"><input type="number" class="meetingform"
 							id="meetingpeople" name="meetingpeople" style="width: 50px;"
 							min=1 style="width: 250px;" required>명</td>
 					</tr>
