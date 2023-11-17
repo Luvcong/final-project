@@ -51,7 +51,7 @@
 						<th class="vacation-th-size">일 시</th>
 	                    <td><input type="date" name="vctStart"> ~ <input type="date" name="vctEnd"></td>
 	                    <th class="vacation-th-size">잔여 휴가</th>
-	                    <td><input type="text" readonly value="${loginUser.annual - loginUser.count}">일</td>
+	                    <td><input type="text" readonly value="${loginUser.empAnnual - loginUser.empCount}">일</td>
 	                </tr>
 	                <tr>
 	                    <th class="vacation-th-size">기간</th>
