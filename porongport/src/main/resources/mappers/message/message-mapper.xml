@@ -9,7 +9,7 @@
 		<result column="MESSAGE_NO" property="messageNo" />
 		<result column="MESSAGE_CONTENT" property="messageContent" />
 		<result column="CREATE_DATE" property="createDate" />
-		<result column="DEFAULT_DATE" property="defaultDate" />
+		<result column="DELETE_DATE" property="deleteDate" />
 		<result column="MESSAGE_STATUS" property="messageStatus" />
 		<result column="SEND_USER" property="empName" />
 		<result column="RECEIVE_USER" property="reciveUser" />
@@ -17,6 +17,7 @@
 		<result column="JOB_NAME" property="jobName" />
 		<result column="EMP_NAME" property="empName" />
 		<result column="NUM" property="messageRank" />
+		<result column="EFFECTIVE_DATE" property="effectiveDate" />
 	</resultMap>
 	
 	
@@ -36,7 +37,7 @@
 	 WHERE
 	 		M.SEND_USER = E.EMP_NO
 	   AND
-	   		E.DEPT_ID = D.DEPT_ID
+	   		E.DEPT_CODE = D.DEPT_CODE
 	   AND
 	   		E.JOB_CODE = J.JOB_CODE
 	   AND
@@ -48,10 +49,12 @@
 	
 	<!-- 받은 메시지 전체 개수 조회 -->
 	<select id="receivedListCount" resultType="_int">
-	SELECT
-			COUNT(*)
-	  FROM
-	  		MESSAGE
+		SELECT
+				COUNT(*)
+		  FROM
+		  		MESSAGE
+  		 WHERE
+  		 		MESSAGE_STATUS = 'Y'
 	</select>
 	
 	<!-- 받은 메시지 검색 조회 -->
@@ -69,7 +72,7 @@
   		 WHERE
 		 		M.SEND_USER = E.EMP_NO
 		   AND
-		   		E.DEPT_ID = D.DEPT_ID
+		   		E.DEPT_CODE = D.DEPT_CODE
 		   AND
 		   		E.JOB_CODE = J.JOB_CODE
 		   AND
@@ -104,7 +107,7 @@
   		 WHERE
 		 		M.SEND_USER = E.EMP_NO
 		   AND
-		   		E.DEPT_ID = D.DEPT_ID
+		   		E.DEPT_CODE = D.DEPT_CODE
 		   AND
 		   		E.JOB_CODE = J.JOB_CODE
 		   AND
@@ -137,6 +140,38 @@
 		 WHERE
 		        MESSAGE_NO = #{ messageNo }
 	</update>
+	
+	
+	<!-- 휴지통 메시지 전체 리스트 조회 -->
+	<select id="deleteMessageBoxList" resultMap="messageResultSet" parameterType="message">
+		SELECT
+				RANK() OVER(ORDER BY M.MESSAGE_NO ASC) AS NUM,
+	       		M.MESSAGE_NO, E.EMP_NAME, J.JOB_NAME, D.DEPT_NAME, M.MESSAGE_CONTENT,
+	       		TO_CHAR(M.DELETE_DATE, 'YYYY-MM-DD AM HH24:MI:SS') AS "DELETE_DATE",
+	       		(TRUNC(SYSDATE) - TRUNC(DELETE_DATE)) EFFECTIVE_DATE
+		  FROM
+		  		MESSAGE M, EMPLOYEE E, DEPARTMENT D, JOB J
+		 WHERE
+		 		M.SEND_USER = E.EMP_NO
+		   AND
+		   		E.DEPT_CODE = D.DEPT_CODE
+		   AND
+		   		E.JOB_CODE = J.JOB_CODE
+		   AND
+		   		MESSAGE_STATUS = 'N'
+		 ORDER
+		 	BY NUM DESC
+	</select>
+	
+	<!-- 휴지통 메시지 전체 리스트 개수 조회  -->
+	<select id="deleteListCount" resultType="_int">
+		SELECT
+				COUNT(*)
+		  FROM
+		  		MESSAGE
+  		 WHERE
+  		 		MESSAGE_STATUS = 'N'
+	</select>
 	
 	
 
