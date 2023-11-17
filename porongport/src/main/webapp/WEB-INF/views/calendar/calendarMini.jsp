@@ -135,5 +135,6 @@
         <div class="calendar-mini-background">
 		<div id='calendar' class="calendarWidthMini calendarleft">
         </div>
+        </div>
 </body>
 </html>

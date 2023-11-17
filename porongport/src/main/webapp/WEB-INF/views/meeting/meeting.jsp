@@ -15,7 +15,7 @@
 <link rel="stylesheet" href="resources/css/meeting.css">
 
 <jsp:include page="../common/sidebar.jsp" />
-<jsp:include page="../calendar/calendarMini.jsp" />
+
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet"
@@ -33,34 +33,35 @@
 	
 
 	<div class="pp-content">
-		<div class="meetingroom">
-			<h2>회의실 예약하기</h2>
-			<div class="insertMeetingForm insertForm-rigth insertForm-position">
-		<form id="insertMeeting" method="post" action="insertMeeing">
-			<div class="myCalendar-btn calendarWidth"></div>
+	<h2 class="title-align">회의실 예약하기</h2>
+	<jsp:include page="../calendar/calendarMini.jsp" />
+			
+			
+			<div class="insertMeetingForm insertForm-rigth insertForm-position ">
+		<form id="insertMeeting" method="post" action="insertMeeting">
+			<div class="myCalendar-btn meetingWidth"></div>
 			<table class="table">
 				<thead>
-
 				</thead>
 				<tbody>
 					<tr>
 						<td><i class="fa-solid fa-pen"></i></td>
 						<td><input type="text" class="meetingform" id="meetingtitle"
-							placeholder="회의제목을 입력해주세요" name="mettingtitle" required></td>
+							placeholder="회의제목을 입력해주세요" name="meetingtitle" required></td>
 					</tr>
 					<tr>
 						<td><i class="fa-solid fa-building"></i></td>
 						<td>회의실</td>
 					</tr>
 					<tr>
-						<td><i class="fa-solid fa-user"></i></label></td>
+						<td><i class="fa-solid fa-user"></i></td>
 						<td><input type="text" class="meetingform" value="김건희"
 							name="name" style="width: 80px;" readonly></td>
 					</tr>
 					<tr>
 						<th><i class="fa-solid fa-clock"></i></th>
 						<td colspan="3"><input type="date" class="meetingStartDay"
-							id="meetingStartDay" class="meeting_input2 metting-width2">
+							id="meetingStartDay" class="meeting_input2 meeting-width2">
 							<select name="meetingStartTime" id="meetingStartTime"
 							class="meeting_input2 meeting_width2">
 								<option value="900">09:00</option>
@@ -90,14 +91,14 @@
 											check.click(()=>{
 												$("p").toggle();
 												$("select").toggle();
-												$('input[type="date"]').toggleClass('metting-width3');
+												$('input[type="date"]').toggleClass('meeting-width3');
 										
 											});
 			
 										</script> <br> <label for="meetingEndDay"></label><input
 							type="date" class="meetingEndDay"><label
 							for="meetingEndTime"></label> <select name="meetingEndTime"
-							id="meetingEndTime" class="meeting_input2 meeting-width2">
+							id="meetingEndTime" class="meeting_input2 meeting_width2">
 								<option value="930">09:30</option>
 								<option value="1000">10:00</option>
 								<option value="1030">10:30</option>
@@ -127,7 +128,7 @@
 					</tr>
 					<tr>
 						<th><i class="fa-solid fa-file"></i></th>
-						<td colspan="3"><textarea type="text" name="" id=""
+						<td colspan="3"><textarea type="text" name="meetingcontent" id="meetingcontent"
 								class="meetingform meeting_input meetingTextarea"
 								placeholder="일정 설명 추가" required></textarea></td>
 					</tr>
@@ -138,7 +139,6 @@
 				<button type="reset" class="btn btn-danger">취소</button>
 			</div>
 			</form>
-		</div>
 		</div>
 	</div>
 	

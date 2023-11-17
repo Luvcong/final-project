@@ -9,7 +9,7 @@
 	}
 	
 	.table{
-	size : 50%;
+	size : 60%;
 	}
 	
 	.meetingTextarea{
@@ -18,12 +18,16 @@
     height: 300px;
     border-radius: 10px;
 }
+	.meetingWidth{
+	width:600px;
+	height:px;
+	}
 	
-	.metting-widthh2{width: 22%;}
-	.metting-width3{width: 34%;}
+	.meeting-width2{width: 22%;}
+	.meeting-width3{width: 39%;}
 
-	.metting_input{border: none;}
-	.metting_input2{
+	.meeting_input{border: none;}
+	.meeting_input2{	
     border: 1px solid rgb(201, 196, 196);
     border-radius: 10px;
 }
@@ -46,8 +50,13 @@
     height: 23px;
     vertical-align:middle;
 }
-.title-align{text-align:center;}
+
 .switch>input {display:none;}
+
+.title-align{
+	text-align:center;
+}
+
 .slider {
 	position: absolute;
 	cursor: pointer;
@@ -103,10 +112,13 @@ p {
 	font-weight:bold;
 }
 .insertForm-rigth{float:right;}
-.insertCalendarForm{display: inline-block;}
+.insertMeetingForm{display: inline-block;}
 .jsp-include-position{position : relative;}
 .insertForm-position{
 	position : fixed;
 	top: 200px;
 	left:1200px;
+}
+.meetingform{
+	border-radius: 10px;
 }
