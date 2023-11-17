@@ -1,0 +1,19 @@
+.btn-right{
+	float:right;
+	margin-right: 30px;
+}
+.vct_file{
+	padding-top:30px;
+	text-align:center;
+	height: 140px;
+	margin:auto; 
+	font-size: 40px; 
+	font-weight: 600;
+}
+.vacationTable{margin:auto;}
+.blank{height:10px;}
+#vacationForm input{border: 1px solid rgb(206, 204, 204);}
+.vacation-th-size{width:120px;}
+#vct_date{width:310px;}
+#vct_day{width:380px;}
+#vct_num{width:810px;}

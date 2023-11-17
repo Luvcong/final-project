@@ -118,7 +118,8 @@
 						<div class="sub-menu d-none" data-group='myPageAtt'>
 							<div class="sub-item sub-title" data-url='myPageAtt'>마이페이지</div>
 					        <div class="sub-item" data-url='myPageUp'>내정보 관리</div>
-						    <div class="sub-item" data-url='myPageAtt'>근태 관리</div>
+						    <div class="sub-item" hidden data-url='login.em'>근태 관리</div>
+						    <div class="sub-item" data-url='login.em'>근태 관리</div>
 						    <div class="sub-item" data-url='myPageIn'>입사자 등록</div>
 				       		<div class="sub-item" data-url='mypage3'>연차 관리</div>
 						</div>

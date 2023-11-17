@@ -1,5 +1,7 @@
 package com.kh.porong.calendar.controller;
 
+import java.util.ArrayList;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +18,12 @@ public class ScheduleController {
 	private ScheduleService scheduleService;
 	
 	@RequestMapping("calendar")
-	public String calendarMain() {
+	public String calendarMain(ScheduleVO schedule, HttpSession session) {
+		
+		ArrayList<ScheduleVO> mySchedule = scheduleService.selectIndividual(schedule);
+		ArrayList<ScheduleVO> departmentSchedule = scheduleService.selectDepartment(schedule);
+		System.out.println(departmentSchedule);
+		
 		return "calendar/calendarMain";
 	}
 	
@@ -74,8 +81,6 @@ public class ScheduleController {
 			schedule.setSchStart(startDate);
 			schedule.setSchEnd(endDate);
 		}
-		//System.out.println(schedule.getSchStart());
-		//System.out.println(schedule.getSchEnd());
 		
 		if(scheduleService.insertDepartment(schedule)>0) {
 			session.setAttribute("alertMsg", "부서일정 등록이 완료되었습니다.");
@@ -85,5 +90,6 @@ public class ScheduleController {
 			return "common/errorPage";
 		}
 	}
+	
 	
 }

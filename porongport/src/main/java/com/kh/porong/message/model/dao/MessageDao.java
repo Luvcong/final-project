@@ -13,12 +13,15 @@ import com.kh.porong.message.model.vo.Message;
 @Repository
 public class MessageDao {
 	
+	// ==================================================================================
+	// 메시지함 - 받은 메시지 관련
+	// ==================================================================================
 	
 	/**
 	 * 받은 메시지 전체 리스트 조회
 	 * @param sqlSession
 	 * @param rowBounds
-	 * @return
+	 * @return 받은 메시지 전체 리스트 반환
 	 * @author JH
 	 * @Date : 2023. 11. 14
 	 */
@@ -30,7 +33,7 @@ public class MessageDao {
 	/**
 	 * 받은 메시지 전체 개수 조회
 	 * @param sqlSession
-	 * @return
+	 * @return 받은 메시지 전체 개수 반한
 	 * @author JH
 	 * @Date : 2023. 11. 15
 	 */
@@ -42,9 +45,9 @@ public class MessageDao {
 	/**
 	 * 받은 메시지 검색 조회
 	 * @param sqlSession
-	 * @param map
+	 * @param map - condition(사용자가 선택한 검색 옵션), keyword(사용자가 검색한 키워드명)
 	 * @param rowBounds
-	 * @return
+	 * @return 사용자가 검색한 키워드와 일치하는 조건의 리스트 반환
 	 * @author JH
 	 * @Date : 2023. 11. 15
 	 */
@@ -56,8 +59,8 @@ public class MessageDao {
 	/**
 	 * 받은 메시지 검색 개수 조회
 	 * @param sqlSession
-	 * @param map
-	 * @return
+	 * @param map - condition(사용자가 선택한 검색 옵션), keyword(사용자가 검색한 키워드명)
+	 * @return 사용자가 검색한 키워드와 일치하는 개수 반환
 	 * @author JH
 	 * @Date : 2023. 11. 15
 	 */
@@ -65,12 +68,10 @@ public class MessageDao {
 		return sqlSession.selectOne("messageMapper.searchReceivedListCount", map);
 	}	// searchReceivedListCount
 	
-	
-	
 	/**
-	 * 메시지 삭제 - 휴지통 이동
+	 * 받은 메시지 삭제 - 휴지통 이동
 	 * @param messageNo
-	 * @return
+	 * @return 메시지 삭제 성공 여부 반환
 	 * @author JH
 	 * @param sqlSession 
 	 * @Date : 2023. 11. 16
@@ -78,11 +79,36 @@ public class MessageDao {
 	public int deleteMessage(SqlSessionTemplate sqlSession, int messageNo) {
 		return sqlSession.update("messageMapper.deleteMessage", messageNo);
 	}	// deleteMessage
-
-
+	
+	
+	// ==================================================================================
+	// 메시지함 - 휴지통 관련
+	// ==================================================================================
+	
+	/**
+	 * 휴지통 메시지 전체 리스트 조회
+	 * @param sqlSession
+	 * @param pi
+	 * @return 휴지통 전체 리스트 반환 (MESSAGE_STATUS = N)
+	 * @author JH
+	 * @Date : 2023. 11. 17
+	 */
+	public ArrayList<Message> deleteMessageBoxList(SqlSessionTemplate sqlSession, RowBounds rowBounds) {
+		return (ArrayList)sqlSession.selectList("messageMapper.deleteMessageBoxList", rowBounds);
+	}	// deleteMessageBoxList
 	
 
-
+	/**
+	 * 휴지통 메시지 전체 개수 조회
+	 * @param sqlSession
+	 * @return 휴지통 전체 리스트 개수 반환
+	 * @author JH
+	 * @Date : 2023. 11. 17
+	 */
+	public int deleteListCount(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("messageMapper.deleteListCount");
+	}	// deleteListCount
+	
 	
 	
 	
@@ -90,6 +116,9 @@ public class MessageDao {
 	public ArrayList<Message> storeMessage(SqlSessionTemplate sqlSession, int messageNo, RowBounds rowBounds) {
 		return (ArrayList)sqlSession.selectList("messageMapper.store", messageNo, rowBounds);
 	}	// storeMessage
+
+
+
 
 	
 	

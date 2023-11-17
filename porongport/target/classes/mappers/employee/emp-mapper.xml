@@ -62,8 +62,9 @@
 		   AND
 		       EMP_STATUS = 'Y'
 	</select>
-	<!-- 로그인 후 근태테이블 INSERT -->
-	<insert id="workToday" parameterType="att">
+	
+	<!-- 출근 INSERT -->
+	<insert id="insertAtt" parameterType="att">
 		INSERT
 		  INTO
 		      ATTENDANCE
@@ -80,6 +81,19 @@
 		       )
 	</insert>
 	
+	<!-- 근태 리스트 -->
+	<select id="attList" parameterType="int" resultType="att">
+		SELECT
+		      WORK_DATE workDate
+		      ,WORK_START workStart
+		      ,WORK_END workEnd
+		  FROM
+		      ATTENDANCE
+		 WHERE
+		      EMP_NO = #{empNo}
+	</select>
+	
+	<!-- 입사자 등록 -->
 	<insert id="insertEmp" parameterType="emp">
 		INSERT
 		  INTO
@@ -100,4 +114,33 @@
 		      ,#{jobCode}
 		      )
 	</insert>
+	
+	<!-- 근태 select -->
+	<select id="selectAtt" parameterType="att" resultType="att">
+		SELECT 
+		      WORK_DATE workDate
+		      ,WORK_START workStart
+		      ,WORK_END workEnd
+		  FROM  
+		      (SELECT 
+		             WORK_DATE
+		             ,WORK_START 
+		             ,WORK_END 
+		        FROM 
+		             ATTENDANCE 
+		       WHERE 
+		            EMP_NO = #{empNo}
+		       ORDER 
+		          BY WORK_START DESC) 
+		WHERE ROWNUM = 1
+	</select>
+	
+	<update id="updateAtt" parameterType="att">
+		UPDATE
+		      ATTENDANCE
+		  SET
+		      WORK_END = #{workEnd}
+		 WHERE
+		      EMP_NO = #{empNo}
+	</update>
 </mapper>

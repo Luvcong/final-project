@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="path" value="${ pageContext.request.contextPath }" />
 <!DOCTYPE html>
 <html lang="ko">
@@ -12,7 +12,6 @@
     <link rel="stylesheet" href="resources/css/mypage.css">
 </head>
 <body>
-
 	<jsp:include page="../common/sidebar.jsp" />
 
 	<div class="pp-content">
@@ -58,22 +57,81 @@
 	            <table class="table table-hover">
 	                <thead>
 	                    <tr>
-	                        <th width="40">날짜</th>
+	                        <th>날짜</th>
 	                        <th>출근기록</th>
 	                        <th>퇴근기록</th>
 	                    </tr>
 	                </thead>
 	                <tbody>
-	                    <tr>
-	                        <td>20202</td>
-	                        <td>2022</td>
-	                        <td>2022</td>
-	                    </tr>
+	                	<tr>
+	                		<td id="sysdate"></td>
+	                		<td id="workStart">
+	                			<button onclick="insertAtt();" id="ws_btn" class="btn btn-primary">출근</button>
+	                		</td>
+	                		<td id="workEnd">
+	                			<button onclick="updateAtt();" id="we_btn" class="btn btn-primary">퇴근</button>
+	                		</td>
+	                	</tr>
+	                	<c:if test="${ not empty attList }">
+		                	<c:forEach var="i" items="${ attList }" begin="0" end="2">
+			                	<tr>
+			                		<td>${i.workDate}</td>
+			                		<td>${i.workStart}</td>
+			                		<td>${i.workEnd}</td>
+			                	</tr>
+		                	</c:forEach>
+	                	</c:if>
 	                </tbody>
 	            </table>
 	        </div>
-	
 	    </div>
 	</div>
+	<script>
+	  	let now = new Date();
+ 		var cTime = now.getHours() + ':' + now.getMinutes();
+	 		
+ 		window.onload = () => {
+	  		var today = now.getFullYear() + '-' + (now.getMonth() + 1) + '-' + now.getDate();
+	  		document.querySelector('#sysdate').innerText = today;
+	  		
+ 		};
+         		
+		function insertAtt(){
+			$.ajax({
+				url : 'insert.at',
+				data : {
+					workStart : window.cTime, 
+					empNo : ${sessionScope.loginUser.empNo}
+				},
+				success : result => {
+					// console.log(result);
+					$('#ws_btn').remove();
+					$('#workStart').text(result.workStart);
+					
+				},
+				error : () => {
+					console.log('fail');	
+				}
+			})
+		};
+		
+		function updateAtt(){
+			$.ajax({
+				url : 'update.at',
+				data : {
+					workEnd : window.cTime,
+					empNo : ${sessionScope.loginUser.empNo}
+				},
+				success : result => {
+					$('#we_btn').remove();
+					$('#workEnd').text(result);
+				},
+				error : () => {
+					console.log('fail');
+				}
+				
+			})
+		};
+	</script>
 </body>
 </html>
