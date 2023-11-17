@@ -49,9 +49,9 @@
 				<table class="table-bordered">
 	                <tr>
 						<th class="vacation-th-size">일 시</th>
-	                    <td><input type="date" name="vctStart"> ~ <input type="date" name="vctEnd"></td>
+	                    <td id="vct_date"><input type="date" name="vctStart"> ~ <input type="date" name="vctEnd"></td>
 	                    <th class="vacation-th-size">잔여 휴가</th>
-	                    <td><input type="text" readonly value="${loginUser.empAnnual - loginUser.empCount}">일</td>
+	                    <td id="vct_day"><input type="text" readonly value="${loginUser.empAnnual - loginUser.empCount}">일</td>
 	                </tr>
 	                <tr>
 	                    <th class="vacation-th-size">기간</th>
@@ -69,7 +69,7 @@
 	             <table class="table-bordered">
 					<tr>
 						<th class="vacation-th-size">비 상 연 락 망</th>
-	                    <td><input type="text" value="${ loginUser.empPhone }"></td>
+	                    <td id="vct_num"><input type="text" value="${ loginUser.empPhone }"></td>
 	                </tr>
 	                <tr>
 	                    <th class="vacation-th-size">사유</th>
