@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="messageMapper">
+
+	<resultMap id="messageResultSet" type="message">
+		<result column="MESSAGE_NO" property="messageNo" />
+		<result column="MESSAGE_CONTENT" property="messageContent" />
+		<result column="CREATE_DATE" property="createDate" />
+		<result column="DEFAULT_DATE" property="defaultDate" />
+		<result column="MESSAGE_STATUS" property="messageStatus" />
+		<result column="SEND_USER" property="empName" />
+		<result column="RECEIVE_USER" property="reciveUser" />
+		<result column="FILE_NO" property="fileNo" />
+		<result column="JOB_NAME" property="jobName" />
+		<result column="EMP_NAME" property="empName" />
+		<result column="NUM" property="messageRank" />
+	</resultMap>
+	
+	
+	<!-- 받은 메시지 전체 리스트 조회  -->
+	<select id="receivedMessageList" resultMap="messageResultSet">
+	SELECT
+			RANK() OVER(ORDER BY M.MESSAGE_NO ASC) AS NUM,
+			M.MESSAGE_NO,
+			E.EMP_NAME,
+			J.JOB_NAME,
+			D.DEPT_NAME,
+			M.MESSAGE_CONTENT,
+			TO_CHAR(M.CREATE_DATE,
+			'YYYY-MM-DD AM HH24:MI:SS') AS "CREATE_DATE"
+	  FROM
+	  		MESSAGE M, EMPLOYEE E, DEPARTMENT D, JOB J
+	 WHERE
+	 		M.SEND_USER = E.EMP_NO
+	   AND
+	   		E.DEPT_ID = D.DEPT_ID
+	   AND
+	   		E.JOB_CODE = J.JOB_CODE
+	   AND
+	   		MESSAGE_STATUS = 'Y'
+	 ORDER
+	    BY
+	        NUM DESC
+	</select>
+	
+	<!-- 받은 메시지 전체 개수 조회 -->
+	<select id="receivedListCount" resultType="_int">
+	SELECT
+			COUNT(*)
+	  FROM
+	  		MESSAGE
+	</select>
+	
+	<!-- 받은 메시지 검색 조회 -->
+	<select id="searchReceivedMessage" resultMap="messageResultSet" parameterType="hashmap">
+		SELECT
+				RANK() OVER(ORDER BY M.MESSAGE_NO ASC) AS NUM,
+				M.MESSAGE_NO,
+				E.EMP_NAME,
+				J.JOB_NAME,
+				D.DEPT_NAME,
+				M.MESSAGE_CONTENT,
+				TO_CHAR(M.CREATE_DATE, 'YYYY-MM-DD AM HH24:MI:SS') AS "CREATE_DATE"
+	  	  FROM
+	  			MESSAGE M, EMPLOYEE E, DEPARTMENT D, JOB J
+  		 WHERE
+		 		M.SEND_USER = E.EMP_NO
+		   AND
+		   		E.DEPT_ID = D.DEPT_ID
+		   AND
+		   		E.JOB_CODE = J.JOB_CODE
+		   AND
+		   		MESSAGE_STATUS = 'Y'
+	  	 <choose>
+	  	 	<when test="condition == 'userName'">
+	  	   		AND
+	  	 			E.EMP_NAME
+	  	 	</when>
+	  	 	<when test="condition == 'userCode'">
+	  	   		AND
+	  	   			J.JOB_NAME
+	  	 	</when>
+	  	 	<otherwise>
+	  	   		AND
+	  	 			M.MESSAGE_CONTENT
+	  	 	</otherwise>
+	  	 </choose>
+	  	 LIKE '%' || #{ keyword } || '%'
+		 ORDER
+		    BY
+		        NUM DESC
+	</select>
+	
+
+	<!-- 받은 메시지 검색 개수 조회 -->
+	<select id="searchReceivedListCount" resultType="_int" parameterType="hashmap">
+		SELECT
+				COUNT(*)
+	  	  FROM
+	  			MESSAGE M, EMPLOYEE E, DEPARTMENT D, JOB J
+  		 WHERE
+		 		M.SEND_USER = E.EMP_NO
+		   AND
+		   		E.DEPT_ID = D.DEPT_ID
+		   AND
+		   		E.JOB_CODE = J.JOB_CODE
+		   AND
+		   		MESSAGE_STATUS = 'Y'
+	  	 <choose>
+	  	 	<when test="condition == 'userName'">
+		  	   AND
+		  	 		E.EMP_NAME
+	  	 	</when>
+	  	 	<when test="condition == 'userCode'">
+		  	   AND
+		  	   		J.JOB_NAME
+	  	 	</when>
+	  	 	<otherwise>
+		  	   AND
+		  	 		M.MESSAGE_CONTENT
+	  	 	</otherwise>
+	  	 </choose>
+	  	  LIKE '%' || #{ keyword } || '%'
+	</select>
+	
+	
+	<!-- 메시지 삭제 - 휴지통 이동 -->
+	<update id="deleteMessage" parameterType="_int">
+		UPDATE
+		        MESSAGE
+		   SET
+		        MESSAGE_STATUS = 'N',
+		        DELETE_DATE = SYSDATE
+		 WHERE
+		        MESSAGE_NO = #{ messageNo }
+	</update>
+	
+	
+
+</mapper>

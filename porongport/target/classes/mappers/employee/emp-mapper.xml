@@ -10,20 +10,12 @@
 		<result column="EMP_PHONE" property="empPhone" />
 		<result column="EMP_ADDRESS" property="empAddress" />
 		<result column="EMP_ADDRESSCODE" property="empAddressCode" />
-		<result column="EMP_STATUS" property="empStatus" />
 		<result column="EMP_ADMIN" property="empAdmin" /> <!-- 관리자급 여부 -->
-		<result column="EMP_Extension" property="empExtension" />
 		<result column="EMP_EMAIL" property="empEmail" />
-		<result column="DEPT_CODE" property="deptCode" />
-		<result column="DEPT_NAME" property="deptName" />
-		<result column="JOB_CODE" property="jobCode" />
-		<result column="JOB_NAME" property="jobName" />
+		<result column="DEPT_NAME" property="deptCode" />
+		<result column="JOB_NAME" property="jobCode" />
 		<result column="CREATE_DATE" property="createDate" />
 		<result column="MODIFY_DATE" property="modifyDate" />
-		<result column="FILE_NO" property="fileNo" />
-		<result column="EMP_ANNUAL" property="empAnnual" />
-		<result column="EMP_COUNT" property="empCount" />
-		<result column="FIRST_LOGIN" property="firstLogin" />
  	</resultMap>
 	
 	<!-- 로그인 쿼리 -->
@@ -35,20 +27,9 @@
 		       ,EMP_PHONE
 		       ,EMP_ADDRESS
 		       ,EMP_ADDRESSCODE
-		       ,EMP_STATUS
-		       ,EMP_ADMIN
-		       ,EMP_Extension
 		       ,EMP_EMAIL
-		       ,DEPT_CODE
 		       ,DEPT_NAME
-		       ,DEPT_CODE
 		       ,JOB_NAME
-		       ,CREATE_DATE
-		       ,MODIFY_DATE
-		       ,FILE_NO
-		       ,EMP_ANNUAL
-		       ,EMP_COUNT
-		       ,FIRST_LOGIN
 		  FROM
 		       EMPLOYEE
 		  LEFT 
@@ -64,42 +45,4 @@
 		   AND
 		       EMP_STATUS = 'Y'
 	</select>
-	<!-- 로그인 후 근태테이블 INSERT -->
-	<insert id="workToday" parameterType="map">
-		INSERT
-		  INTO
-		      ATTENANDCE
-		      (
-		      WORK_DATE
-		      ,EMP_NO
-		      ,WORK_START
-		      )
-		VALUES 
-		      (
-		       SYSDATE
-		       ,#{empNo} <!-- number타입 -->
-		       ,#{workStart} <!-- varchar2타입 -->
-		       )
-	</insert>
-	
-	<insert id="insertEmp" parameterType="emp">
-		INSERT
-		  INTO
-		      EMPLOYEE
-		      (
-		      EMP_NAME
-		      ,EMP_NO
-		      ,EMP_PWD
-		      ,DEPT_CODE
-		      ,JOB_CODE
-		      )
-		VALUES
-		      (
-		      #{empName}
-		      ,#{empNo}
-		      ,#{empPwd}
-		      ,#{deptCode}
-		      ,#{jobCode}
-		      )
-	</insert>
 </mapper>
