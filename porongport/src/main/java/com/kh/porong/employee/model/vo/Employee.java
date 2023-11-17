@@ -18,11 +18,13 @@ public class Employee {
 	private String empExtension;
 	private String empEmail;
 	private String deptCode;
+	private String deptName;
 	private String jobCode;
+	private String jobName;
 	private Date createDate;
 	private Date modifyDate;
 	private int fileNo;
 	private String empAnnual;
 	private String empCount;
-	
+	private String firstLogin;
 }

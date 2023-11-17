@@ -46,10 +46,10 @@
 								</tr>
 								<tr>
 									<th><i class="fa-solid fa-user"></i></th>
-									<td><input type="text" name="empName" id="empName" readonly value="${loginUser.empName}" class="mycalendar_input mycalendar_width" /></td>
+									<td><input type="text" name="empName" id="empName" readonly value="이승철" class="mycalendar_input mycalendar_width" /></td>
 									<input type="hidden" name="empNo" value="${loginUser.empNo}">
 									<th><i class="fa-solid fa-user-tag"></i></th>
-									<td><input type="text" name="deptId" id="deptId" readonly value="${loginUser.deptName}" class="mycalendar_input mycalendar_width time_block" /></td>
+									<td><input type="text" name="deptId" id="deptId" readonly value="인사부" class="mycalendar_input mycalendar_width time_block" /></td>
 								</tr>
 								<tr>
 									<th><i class="fa-solid fa-clock"></i></th>
