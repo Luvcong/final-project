@@ -7,7 +7,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>나의 정보</title>
     <!-- 마이페이지 스타일 -->
-    <link rel="stylesheet" href="resources/css/mypage.css">
+    <link rel="stylesheet" href="../resources/css/mypage.css">
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <!-- Daum 주소API -->
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 </head>
@@ -19,7 +23,7 @@
 	
 	        <div id="myPage">
 	            <div class="myProfile">
-	                <img src="resources/images/profile.png"  alt="입사자 사진">
+	                <img src="profile.png"  alt="입사자 사진">
 	                <div class="info">
 	                    <h3>홍길동</h3><span>팀장</span>
 	                    <h5>인사관리팀</h5>

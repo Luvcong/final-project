@@ -8,6 +8,10 @@
     <title>입사자 등록</title>
     <!-- 마이페이지 스타일 -->
     <link rel="stylesheet" href="../resources/css/mypage.css">
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
 	<jsp:include page="../common/sidebar.jsp" />
@@ -20,24 +24,24 @@
 	
 	            <div id="form_wrap">
 	                <div class="form-group">
-	                    <label for="empName">이름</label>
-	                    <input type="text" id="empName" name="empName" required class="form-control" />
+	                    <label for="userName">이름</label>
+	                    <input type="text" id="empName" required class="form-control" />
 	                </div>
 	                <div class="form-group">
-	                    <label for="empNo">아이디</label>
-	                    <input type="text" id="empNo" name="empNo" required class="form-control" />
+	                    <label for="userId">아이디</label>
+	                    <input type="text" id="empNo" required class="form-control" />
 	                </div>
 	                <div class="form-group">
-	                    <label for="empPwd">비밀번호</label>
-	                    <input type="password" id="empPwd" name="empPwd" required class="form-control" />
+	                    <label for="userPwd">비밀번호</label>
+	                    <input type="password" id="empPwd" required class="form-control" />
 	                </div>
 	                <div class="form-group">
-	                    <label for="deptCode">부서</label>
-	                    <input type="text" id="deptCode" name="deptCode" required class="form-control" />
+	                    <label for="dept">부서</label>
+	                    <input type="text" id="deptCode" class="form-control" />
 	                </div>
 	                <div class="form-group">
-	                    <label for="jobCode">직급</label>
-	                    <input type="text" id="jobCode" name="jobCode" required class="form-control" />
+	                    <label for="job">직급</label>
+	                    <input type="text" id="jobCode" class="form-control" />
 	                </div>
 	
 	                <div class="btn_area">
