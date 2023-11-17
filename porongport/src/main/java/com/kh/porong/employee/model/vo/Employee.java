@@ -15,7 +15,6 @@ public class Employee {
 	private String empAddressCode;
 	private String empStatus;
 	private String empAdmin;
-	private String empExtension;
 	private String empEmail;
 	private String deptCode;
 	private String deptName;
