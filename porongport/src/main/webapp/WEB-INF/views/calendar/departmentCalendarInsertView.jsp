@@ -45,13 +45,13 @@
 								</tr>
 								<tr>
 									<th><i class="fa-solid fa-user-plus"></i></th>
-									<td colspan="3"><input type="text" name="deptName" id="deptName" class="mycalendar_input mycalendar_width" value="${loginUSer.deptName} 전체 일정 등록" readonly></td>
+									<td colspan="3"><input type="text" name="deptName" id="deptName" class="mycalendar_input mycalendar_width" value="${loginUser.deptName} 전체 일정 등록" readonly></td>
 								</tr>
 								<tr>
 									<th><i class="fa-solid fa-user"></i></th>
-									<td><input type="text" name="empName" id="empName" readonly value="${loginUSer.empName}" class="mycalendar_input mycalendar_width"></td>
+									<td><input type="text" name="empName" id="empName" readonly value="${loginUser.empName}" class="mycalendar_input mycalendar_width"></td>
 									<th><i class="fa-solid fa-user-tag"></i></th>
-									<td><input type="text" name="deptId" id="deptId" readonly value="${loginUSer.deptName}" class="mycalendar_input mycalendar_width time_block"></td>
+									<td><input type="text" name="deptId" id="deptId" readonly value="${loginUser.deptName}" class="mycalendar_input mycalendar_width time_block"></td>
 								</tr>
 								<tr>
 									<th><i class="fa-solid fa-clock"></i></th>
