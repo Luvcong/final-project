@@ -1,9 +1,51 @@
 @charset "UTF-8";
 .pp-content .h-title {
+	padding-bottom: 16px;
     font-size: 16pt;
     font-weight: bold;
 }
 
 .pp-content .pp-content-message{
+	position: relative;
 	text-align: center;
+}
+
+.pp-content .pp-content-message .selectCount {
+	position: absolute;
+	padding-top: 22px;
+	right: 4px;
+	font-weight: bold;
+}
+
+.pp-content .pp-content-message .selectCount .count {
+	color: red;
+}
+
+.selectCount{
+	color: #4A4A4A;
+}
+
+.pp-content .pp-content-message .tableBody{
+	font-size: 14px;
+	padding-top: 52px;
+}
+
+.pp-content .searchTable {
+	float:right;	
+}
+
+.pp-content .pp-content-message .tableBody .tb-title-tr{
+    background-color: #6C79E0;
+    color: white;
+}
+
+#pagingArea{
+	margin-top: 100px;
+}
+
+#storeBtn{
+	background-color: #6C79E0;
+}
+.selectCount{
+	font-size: 14px;
 }

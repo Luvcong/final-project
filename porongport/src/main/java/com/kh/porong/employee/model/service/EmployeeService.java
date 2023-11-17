@@ -4,14 +4,15 @@ import com.kh.porong.employee.model.vo.Employee;
 
 public interface EmployeeService {
 	
-	// ·Î±×ÀÎ
+
+	// ë¡œê·¸ì¸
 	Employee loginEmp(Employee emp);
 	
-	// ÀÔ»çÀÚ µî·Ï
+	// ì…ì‚¬ì ë“±ë¡
 	int insertEmp(Employee emp);
 	
-	// ºñ¹Ğ¹øÈ£ Ã£±â(+¸ŞÀÏ ÀÎÁõ)
+	// ë¹„ë°€ë²ˆí˜¸ ì°¾ê¸°(+ë©”ì¼ ì¸ì¦)
 	
-	
+
 
 }

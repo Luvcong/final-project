@@ -18,7 +18,6 @@
 	
 	<div class="pp-content">
 	    <div id="empInsertForm">
-	
 	        <form action="insert.emp" method="post">
 	
 	            <fieldset>입사자 등록</fieldset>
@@ -26,23 +25,23 @@
 	            <div id="form_wrap">
 	                <div class="form-group">
 	                    <label for="userName">이름</label>
-	                    <input type="text" id="userName" required class="form-control" />
+	                    <input type="text" id="empName" required class="form-control" />
 	                </div>
 	                <div class="form-group">
 	                    <label for="userId">아이디</label>
-	                    <input type="text" id="userId" required class="form-control" />
+	                    <input type="text" id="empNo" required class="form-control" />
 	                </div>
 	                <div class="form-group">
 	                    <label for="userPwd">비밀번호</label>
-	                    <input type="password" id="userPwd" required class="form-control" />
+	                    <input type="password" id="empPwd" required class="form-control" />
 	                </div>
 	                <div class="form-group">
 	                    <label for="dept">부서</label>
-	                    <input type="text" id="dept" class="form-control" />
+	                    <input type="text" id="deptCode" class="form-control" />
 	                </div>
 	                <div class="form-group">
 	                    <label for="job">직급</label>
-	                    <input type="text" id="job" class="form-control" />
+	                    <input type="text" id="jobCode" class="form-control" />
 	                </div>
 	
 	                <div class="btn_area">

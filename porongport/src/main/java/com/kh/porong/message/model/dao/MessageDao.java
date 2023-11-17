@@ -67,18 +67,30 @@ public class MessageDao {
 	
 	
 	
+	/**
+	 * 메시지 삭제 - 휴지통 이동
+	 * @param messageNo
+	 * @return
+	 * @author JH
+	 * @param sqlSession 
+	 * @Date : 2023. 11. 16
+	 */
+	public int deleteMessage(SqlSessionTemplate sqlSession, int messageNo) {
+		return sqlSession.update("messageMapper.deleteMessage", messageNo);
+	}	// deleteMessage
+
+
+	
+
+
+	
+	
+	
+	
 	public ArrayList<Message> storeMessage(SqlSessionTemplate sqlSession, int messageNo, RowBounds rowBounds) {
 		return (ArrayList)sqlSession.selectList("messageMapper.store", messageNo, rowBounds);
 	}	// storeMessage
 
-
-	
-
-
-	
-	
-	
-	
 	
 	
 	

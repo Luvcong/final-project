@@ -3,5 +3,24 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="scheduleMapper">
-
+	<!-- ======================== resultMap ======================== -->
+	<!-- =========================================================== -->
+	<resultMap type="schedule" id="scheduleResultMap">
+		<result column="SCH_NO"	  		property="schNo"/>
+		<result column="EMP_NO" 		property="empNo"/>
+		<result column="SCH_TITLE"  	property="schTitle"/>
+		<result column="SCH_CONTENT" 	property="schContent"/>
+		<result column="SCH_START" 		property="schStart"/>
+		<result column="SCH_END"  		property="schEnd"/>
+		<result column="SCH_STATUS" 	property="schStatus"/>
+		<result column="SCH_SHARE"  	property="schShare"/>
+	</resultMap>
+	
+	<!-- =========================== SQL =========================== -->
+	<!-- =========================================================== -->
+	<insert id="insertDepartment" parameterType="schedule">
+		INSERT INTO (SCH_NO, EMP_NO, SCH_TITLE, SCH_CONTENT, SCH_START, SCH_END, SCH_SHARE)
+		VALUES (SEQ_SCH_NO, #{empNo}, #{schTitle}, #{schContent}, #{schStart}, #{schEnd}, 'M')
+	</insert>
+	
 </mapper>

@@ -7,12 +7,14 @@ import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.kh.porong.common.model.vo.PageInfo;
 import com.kh.porong.message.model.dao.MessageDao;
 import com.kh.porong.message.model.vo.Message;
 
 @Service
+@EnableTransactionManagement
 public class MessageServiceImpl implements MessageService {
 	
 	@Autowired
@@ -40,26 +42,24 @@ public class MessageServiceImpl implements MessageService {
 	}	// receivedListCount
 
 	
+	// 메시지 작성
 	@Override
 	public int insertMessage(Message m) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-
-	@Override
-	public Message detailMessage(int messageNo) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public int updateMessage(int messageNo) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
+	
+	
+	// 메시지 삭제 - 휴지통 이동
 	@Override
 	public int deleteMessage(int messageNo) {
+		return messageDao.deleteMessage(sqlSession, messageNo);
+	}	// deleteMessage
+
+	
+	// 메시지 삭제 - 휴지통에서 영구 삭제
+	@Override
+	public int deletePermanentlyMessage(int messageNo) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
@@ -91,6 +91,13 @@ public class MessageServiceImpl implements MessageService {
 	@Override
 	public int searchReceivedListCount(Map<String, String> map) {
 		return messageDao.searchReceivedListCount(sqlSession, map);
+	}
+
+
+	@Override
+	public Message detailMessage(int messageNo) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }	// end class

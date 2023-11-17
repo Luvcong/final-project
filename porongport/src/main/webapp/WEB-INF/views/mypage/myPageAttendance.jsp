@@ -7,11 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>근태 관리</title>
     <!-- 마이페이지 스타일 -->
-    <link rel="stylesheet" href="../resources/css/mypage.css">
-    <!-- bootstrap -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="resources/css/mypage.css">
 </head>
 <body>
 	<jsp:include page="../common/sidebar.jsp" />
@@ -22,11 +18,11 @@
 	
 	        <div class="content_top">
 	            <div class="top_box">
-	                <div class="profile">
-	                    <img src="profile.png"  alt="입사자 사진">
+	                <div class="myProfile">
+	                    <img src="resources/images/profile.png"  alt="입사자 사진">
 	                    <div class="info">
-	                        <h3>홍길동</h3><span>팀장</span>
-	                        <h5>인사관리팀</h5>
+	                        <h3>${ sessionScope.loginUser.empName }</h3><span>${ sessionScope.loginUser.jobCode }</span>
+	                        <h5>${ sessionScope.loginUser.deptCode }</h5>
 	                    </div>
 	                </div>
 	            
