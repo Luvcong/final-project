@@ -28,4 +28,30 @@
 		VALUES (SEQ_SCH_NO.NEXTVAL, #{empNo}, #{schTitle}, #{schContent}, #{schStart}, #{schEnd}, 'D')
 	</insert>
 	
+	<select id="selectIndividual" parameterType="schedule" resultMap="scheduleResultMap">
+		 SELECT SCH_NO,
+				EMP_NO,
+				SCH_TITLE,
+				SCH_CONTENT,
+				SCH_START,
+				SCH_END,
+				SCH_STATUS,
+				SCH_SHARE
+		   FROM SCHEDULE
+		  WHERE EMP_NO=#{empNo}
+		    AND SCH_SHARE = 'M'
+	</select>
+	
+	<select id="selectDepartment" parameterType="schedule" resultMap="scheduleResultMap">
+		 SELECT SCH_NO,
+				EMP_NO,
+				SCH_TITLE,
+				SCH_CONTENT,
+				SCH_START,
+				SCH_END,
+				SCH_STATUS,
+				SCH_SHARE
+		   FROM SCHEDULE
+		  WHERE SCH_SHARE = 'D'
+	</select>
 </mapper>

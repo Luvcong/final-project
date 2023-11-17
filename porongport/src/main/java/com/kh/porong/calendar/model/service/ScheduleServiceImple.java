@@ -19,12 +19,12 @@ public class ScheduleServiceImple implements ScheduleService {
 	
 	@Override
 	public ArrayList<ScheduleVO> selectDepartment(ScheduleVO schedule) {
-		return null;
+		return scheduleDao.selectDepartment(sqlSession, schedule);
 	}
 
 	@Override
 	public ArrayList<ScheduleVO> selectIndividual(ScheduleVO schedule) {
-		return null;
+		return scheduleDao.selectIndividual(sqlSession, schedule);
 	}
 
 	@Override
