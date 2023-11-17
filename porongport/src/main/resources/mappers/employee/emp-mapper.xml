@@ -12,7 +12,7 @@
 		<result column="EMP_ADDRESSCODE" property="empAddressCode" />
 		<result column="EMP_STATUS" property="empStatus" />
 		<result column="EMP_ADMIN" property="empAdmin" /> <!-- 관리자급 여부 -->
-		<result column="EMP_Extension" property="empExtension" />
+		<result column="EMP_EXTENSION" property="empExtension" />
 		<result column="EMP_EMAIL" property="empEmail" />
 		<result column="DEPT_CODE" property="deptCode" />
 		<result column="DEPT_NAME" property="deptName" />
