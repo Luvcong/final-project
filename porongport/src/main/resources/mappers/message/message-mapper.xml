@@ -175,6 +175,16 @@
 		        MESSAGE_NO = #{ messageNo }
 	</update>
 	
+	<!-- 메시지 북마크 설정  -->
+	<update id="bookmarkMsg" parameterType="hashmap">
+		UPDATE
+				MESSAGE
+		   SET
+		   		BOOKMARK_YN = #{ bookmarkYN }
+		 WHERE
+		 		MESSAGE_NO = #{ messageNo }
+	</update>
+	
 	
 	<!-- 휴지통 메시지 전체 리스트 조회 -->
 	<select id="deleteMessageBoxList" resultMap="messageResultSet" parameterType="message">
@@ -193,6 +203,8 @@
 		   		E.JOB_CODE = J.JOB_CODE
 		   AND
 		   		MESSAGE_STATUS = 'N'
+		   AND
+	   			M.RECEIVE_USER = #{ empNo }
 		 ORDER
 		 	BY NUM DESC
 	</select>
@@ -205,6 +217,8 @@
 		  		MESSAGE
   		 WHERE
   		 		MESSAGE_STATUS = 'N'
+	 	   AND
+ 				RECEIVE_USER = #{ empNo }
 	</select>
 	
 	<!-- 휴지통 메시지 검색 리스트 조회 -->
@@ -224,6 +238,8 @@
 		   		E.JOB_CODE = J.JOB_CODE
 		   AND
 		   		MESSAGE_STATUS = 'N'
+		   AND
+ 				M.RECEIVE_USER = #{ empNo }
 		  <choose>
 	  	 	<when test="condition == 'userName'">
 		  	   AND
@@ -257,6 +273,8 @@
 		   		E.JOB_CODE = J.JOB_CODE
 		   AND
 		   		MESSAGE_STATUS = 'N'
+		   AND
+ 				M.RECEIVE_USER = #{ empNo }
 		  <choose>
 	  	 	<when test="condition == 'userName'">
 		  	   AND

@@ -104,7 +104,6 @@ public class MessageController {
 	}	// searchReceivedMessage
 	
 	
-	
 	// ==================================================================================
 	// 메시지함 - 휴지통 관련
 	// ==================================================================================
@@ -118,15 +117,18 @@ public class MessageController {
 	 * @Date : 2023. 11. 17
 	 */
 	@RequestMapping("deleteMessageBox")
-	public String deleteMessageBox(@RequestParam(value="page", defaultValue="1") int currentPage, Model model) {
+	public String deleteMessageBox(@RequestParam(value="page", defaultValue="1") int currentPage,
+			 					   @SessionAttribute(name = "loginUser", required = false) Employee loginUser,
+			 					   Model model) {
 		
-		int listCount = messageService.deleteListCount();
+		int empNo = loginUser.getEmpNo();
+		int listCount = messageService.deleteListCount(empNo);
 		int boardLimit = 10;
 		int pageLimit = 10;
 		
 		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, boardLimit, pageLimit);
 		
-		model.addAttribute("list", messageService.deleteMessageBoxList(pi));
+		model.addAttribute("list", messageService.deleteMessageBoxList(pi, empNo));
 		model.addAttribute("pi", pi);
 		
 		return "message/deleteMessageBox";
@@ -134,11 +136,14 @@ public class MessageController {
 	
 	
 	@RequestMapping("searchDeleteMessage")
-	public String searchDeleteMessage(@RequestParam(value="page", defaultValue="1") int currentPage, String condition, String keyword, Model model) {
+	public String searchDeleteMessage(@RequestParam(value="page", defaultValue="1") int currentPage, 
+									  @SessionAttribute(name = "loginUser", required = false) Employee loginUser,
+									  String condition, String keyword, Model model) {
 		
-		Map<String, String> map = new HashMap<String, String>();
+		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("condition", condition);
 		map.put("keyword", keyword);
+		map.put("empNo", loginUser.getEmpNo());
 		
 		PageInfo pi = Pagination.getPageInfo(messageService.searchDeleteListCount(map), currentPage, 10, 10);
 		
@@ -152,16 +157,10 @@ public class MessageController {
 	
 	
 	
-//	@RequestMapping("storeMessageBox")
-//	public String receivedMessageBox(@RequestParam(value="page", defaultValue="1") int currentPage, int messageNo, Model model) {
-//		
-//		PageInfo pi = Pagination.getPageInfo(messageService.receivedListCount(), currentPage, 10, 10);
-//		
-//		 model.addAttribute("list", messageService.storeMessage(pi, messageNo));
-//
-//		return "message/storeMessageBox";
-//	}	// receivedMessageBox
-	
+	@RequestMapping("storeMessageBox")
+	public String storeMessageBox() {
+		return "message/receivedMessage";
+	}	// storeMessageBox
 	
 	
 	

@@ -144,7 +144,7 @@
 			        <div class="sub-item" data-url='receivedMessage'>받은 메시지</div>
 			        <div class="sub-item" data-url=''>보낸 메시지</div>
 			        <div class="sub-item" data-url=''>메시지 보관함</div>
-			        <div class="sub-item sub-item-menu" data-url=''>받은 메시지 보관함</div>
+			        <div class="sub-item sub-item-menu" data-url='storeMessageBox'>받은 메시지 보관함</div>
 			        <div class="sub-item sub-item-menu" data-url=''>보낸 메시지 보관함</div>
 			        <div class="sub-item" data-url='deleteMessageBox'>휴지통</div>
 				</div>

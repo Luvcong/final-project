@@ -1,6 +1,8 @@
 package com.kh.porong.message.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,6 +20,11 @@ public class ajaxMessageController {
 	@Autowired
 	private MessageService messageService;
 	
+	
+	// ==================================================================================
+	// 메시지함 - 받은 메시지 관련
+	// ==================================================================================
+	
 	/**
 	 * 메시지 삭제 - 휴지통 이동
 	 * @param messageNoList : 삭제하려고 하는 메시지 번호 (messageNo)
@@ -26,7 +33,7 @@ public class ajaxMessageController {
 	 * @Date : 2023. 11. 16
 	 */
 	@ResponseBody
-	@GetMapping(value="deleteMessageBox", produces="application/json; charset=UTF-8")
+	@GetMapping(value="deleteMessage", produces="application/json; charset=UTF-8")
 	public String deleteMessage(@RequestParam(value="messageNoList[]") ArrayList<String> messageNoList) {
 		
 		JsonArray successList = new JsonArray();
@@ -38,5 +45,32 @@ public class ajaxMessageController {
 		}
 		return new Gson().toJson(successList);
 	}	// deleteMessage
+	
+	
+	@ResponseBody
+	@GetMapping(value="bookmarkMsg", produces="application/json; charset=UTF-8")
+	public boolean bookmarkMsg(int messageNo, boolean bookmarkYN) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("messageNo", messageNo);
+		map.put("bookmarkYN", bookmarkYN ? "N" : "Y");
+		System.out.println(bookmarkYN ? "N" : "Y");
+		messageService.bookmarkMsg(map);
+		
+		return !bookmarkYN;
+	}	// bookmarkMsg
+	
+	
+//	@GetMapping(value="storeMessage")
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 }	// end class
