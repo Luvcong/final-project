@@ -25,8 +25,8 @@ public class MessageDao {
 	 * @author JH
 	 * @Date : 2023. 11. 14
 	 */
-	public ArrayList<Message> receivedMessageList(SqlSessionTemplate sqlSession, RowBounds rowBounds) {
-		return (ArrayList)sqlSession.selectList("messageMapper.receivedMessageList", null, rowBounds);
+	public ArrayList<Message> receivedMessageList(SqlSessionTemplate sqlSession, int empNo, RowBounds rowBounds) {
+		return (ArrayList)sqlSession.selectList("messageMapper.receivedMessageList", empNo, rowBounds);
 	}	// receivedMessage
 	
 	
@@ -37,8 +37,8 @@ public class MessageDao {
 	 * @author JH
 	 * @Date : 2023. 11. 15
 	 */
-	public int receivedListCount(SqlSessionTemplate sqlSession) {
-		return sqlSession.selectOne("messageMapper.receivedListCount");
+	public int receivedListCount(SqlSessionTemplate sqlSession, int empNo) {
+		return sqlSession.selectOne("messageMapper.receivedListCount", empNo);
 	}
 
 	
@@ -51,7 +51,7 @@ public class MessageDao {
 	 * @author JH
 	 * @Date : 2023. 11. 15
 	 */
-	public ArrayList<Message> searchReceivedMessage(SqlSessionTemplate sqlSession, Map<String, String> map, RowBounds rowBounds) {
+	public ArrayList<Message> searchReceivedMessage(SqlSessionTemplate sqlSession, Map<String, Object> map, RowBounds rowBounds) {
 		return (ArrayList)sqlSession.selectList("messageMapper.searchReceivedMessage", map, rowBounds);
 	}
 	
@@ -64,7 +64,7 @@ public class MessageDao {
 	 * @author JH
 	 * @Date : 2023. 11. 15
 	 */
-	public int searchReceivedListCount(SqlSessionTemplate sqlSession, Map<String, String> map) {
+	public int searchReceivedListCount(SqlSessionTemplate sqlSession, Map<String, Object> map) {
 		return sqlSession.selectOne("messageMapper.searchReceivedListCount", map);
 	}	// searchReceivedListCount
 	
@@ -110,12 +110,38 @@ public class MessageDao {
 	}	// deleteListCount
 	
 	
+	/**
+	 * 휴지통 메시지 검색 조회
+	 * @param sqlSession
+	 * @param map - condition(사용자가 선택한 검색 옵션), keyword(사용자가 검색한 키워드명)
+	 * @param rowBounds
+	 * @return 사용자가 검색한 키워드와 일치하는 조건의 리스트 반환
+	 * @author JH
+	 * @Date : 2023. 11. 17
+	 */
+	public ArrayList<Message> searchDeleteMessage(SqlSessionTemplate sqlSession, Map<String, String> map, RowBounds rowBounds) {
+		return (ArrayList)sqlSession.selectList("messageMapper.searchDeleteMessage", map, rowBounds);
+	}	// searchDeleteMessage
+	
+	
+	/**
+	 * 휴지통 메시지 검색 개수 조회
+	 * @param sqlSession
+	 * @return 사용자가 검색한 키워드와 일치하는 개수 반환
+	 * @author JH
+	 * @Date : 2023. 11. 17
+	 */
+	public int searchDeleteListCount(SqlSessionTemplate sqlSession, Map<String, String> map) {
+		return sqlSession.selectOne("messageMapper.searchDeleteListCount", map);	
+	}	// searchDeleteListCount
 	
 	
 	
 	public ArrayList<Message> storeMessage(SqlSessionTemplate sqlSession, int messageNo, RowBounds rowBounds) {
 		return (ArrayList)sqlSession.selectList("messageMapper.store", messageNo, rowBounds);
 	}	// storeMessage
+
+
 
 
 

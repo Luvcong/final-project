@@ -9,10 +9,10 @@ import com.kh.porong.message.model.vo.Message;
 public interface MessageService {
 	
 	// 받은 메시지 전체 리스트 조회
-	ArrayList<Message> receivedMessageList(PageInfo pi);
+	ArrayList<Message> receivedMessageList(PageInfo pi, int empNo);
 	
 	// 받은 메시지 전체 개수 조회
-	int receivedListCount();
+	int receivedListCount(int empNo);
 	
 	// 메시지 작성
 	int insertMessage(Message m);
@@ -30,15 +30,21 @@ public interface MessageService {
 	ArrayList<Message> storeMessage(PageInfo pi, int messageNo);
 	
 	// 메시지 검색 리스트 조회
-	ArrayList<Message> searchReceivedMessage(Map<String, String> map, PageInfo pi);
+	ArrayList<Message> searchReceivedMessage(Map<String, Object> map, PageInfo pi);
 
-	// 메시지 검색 리스트 개수 조회
-	int searchReceivedListCount(Map<String, String> map);
+	// 메시지 검색 개수 조회
+	int searchReceivedListCount(Map<String, Object> map);
 	
 	// 휴지통 메시지 전체 리스트 조회
 	ArrayList<Message> deleteMessageBoxList(PageInfo pi);
 	
 	// 휴지통 메시지 전체 개수 조회
 	int deleteListCount();
+	
+	// 휴지통 메시지 검색 리스트 조회
+	ArrayList<Message> searchDeleteMessage(Map<String, String> map, PageInfo pi);
+	
+	// 휴지통 메시지 검색 개수 조회
+	int searchDeleteListCount(Map<String, String> map);
 	
 }	// end class

@@ -30,19 +30,19 @@ public class MessageServiceImpl implements MessageService {
 	
 	// 1) 받은 메시지 - 전체 리스트 조회
 	@Override
-	public ArrayList<Message> receivedMessageList(PageInfo pi) {
+	public ArrayList<Message> receivedMessageList(PageInfo pi, int empNo) {
 		
 		int offset = (pi.getCurrentPage() -1) * pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
 		
-		return messageDao.receivedMessageList(sqlSession, rowBounds);
+		return messageDao.receivedMessageList(sqlSession, empNo, rowBounds);
 	}	// receivedMessage
 	
 	
 	// 2) 받은 메시지 - 전체 개수 조회
 	@Override
-	public int receivedListCount() {
-		return messageDao.receivedListCount(sqlSession);
+	public int receivedListCount(int empNo) {
+		return messageDao.receivedListCount(sqlSession, empNo);
 	}	// receivedListCount
 
 	
@@ -63,7 +63,7 @@ public class MessageServiceImpl implements MessageService {
 	
 	// 5) 받은 메시지 검색 조회
 	@Override
-	public ArrayList<Message> searchReceivedMessage(Map<String, String> map, PageInfo pi) {
+	public ArrayList<Message> searchReceivedMessage(Map<String, Object> map, PageInfo pi) {
 		
 		int offset = (pi.getCurrentPage() -1) * pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
@@ -74,7 +74,7 @@ public class MessageServiceImpl implements MessageService {
 	
 	// 6) 받은 메시지 검색 개수 조회
 	@Override
-	public int searchReceivedListCount(Map<String, String> map) {
+	public int searchReceivedListCount(Map<String, Object> map) {
 		return messageDao.searchReceivedListCount(sqlSession, map);
 	}
 
@@ -119,16 +119,32 @@ public class MessageServiceImpl implements MessageService {
 	}	// storeMessage
 	
 	
+	// 5) 휴지통 메시지 검색 조회
+	@Override
+	public ArrayList<Message> searchDeleteMessage(Map<String, String> map, PageInfo pi) {
+		
+		int offset = (pi.getCurrentPage() -1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		
+		return messageDao.searchDeleteMessage(sqlSession, map, rowBounds);
+	}	// searchDeleteMessage
+	
+	
+	// 6) 휴지통 메시지 검색 개수 조회
+	@Override
+	public int searchDeleteListCount(Map<String, String> map) {
+		return messageDao.searchDeleteListCount(sqlSession, map);
+	}	// searchDeleteListCount
+	
 
+	
+	
+	
+	
 	@Override
 	public Message detailMessage(int messageNo) {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
-
-	
-	
-	
 
 }	// end class

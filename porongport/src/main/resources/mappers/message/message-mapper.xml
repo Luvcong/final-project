@@ -18,7 +18,31 @@
 		<result column="EMP_NAME" property="empName" />
 		<result column="NUM" property="messageRank" />
 		<result column="EFFECTIVE_DATE" property="effectiveDate" />
+		<result column="READ_YN" property="readYN" />
+		<result column="BOOKMARK_YN" property="bookmarkYN" />
 	</resultMap>
+	
+	<resultMap id="empResultSet" type="emp">
+		<result column="EMP_NO" property="empNo" />
+		<result column="EMP_NAME" property="empName" />
+		<result column="EMP_PWD" property="empPwd" />
+		<result column="EMP_PHONE" property="empPhone" />
+		<result column="EMP_ADDRESS" property="empAddress" />
+		<result column="EMP_ADDRESSCODE" property="empAddressCode" />
+		<result column="EMP_STATUS" property="empStatus" />
+		<result column="EMP_ADMIN" property="empAdmin" /> <!-- 관리자급 여부 -->
+		<result column="EMP_EMAIL" property="empEmail" />
+		<result column="DEPT_CODE" property="deptCode" />
+		<result column="DEPT_NAME" property="deptName" />
+		<result column="JOB_CODE" property="jobCode" />
+		<result column="JOB_NAME" property="jobName" />
+		<result column="CREATE_DATE" property="createDate" />
+		<result column="MODIFY_DATE" property="modifyDate" />
+		<result column="FILE_NO" property="fileNo" />
+		<result column="EMP_ANNUAL" property="empAnnual" />
+		<result column="EMP_COUNT" property="empCount" />
+		<result column="FIRST_LOGIN" property="firstLogin" />
+ 	</resultMap>
 	
 	
 	<!-- 받은 메시지 전체 리스트 조회  -->
@@ -31,7 +55,9 @@
 			D.DEPT_NAME,
 			M.MESSAGE_CONTENT,
 			TO_CHAR(M.CREATE_DATE,
-			'YYYY-MM-DD AM HH24:MI:SS') AS "CREATE_DATE"
+			'YYYY-MM-DD AM HH24:MI:SS') AS "CREATE_DATE",
+			M.READ_YN, 
+			M.BOOKMARK_YN
 	  FROM
 	  		MESSAGE M, EMPLOYEE E, DEPARTMENT D, JOB J
 	 WHERE
@@ -41,7 +67,9 @@
 	   AND
 	   		E.JOB_CODE = J.JOB_CODE
 	   AND
-	   		MESSAGE_STATUS = 'Y'
+	   		M.MESSAGE_STATUS = 'Y'
+	   AND
+	   		M.RECEIVE_USER = #{ empNo }
 	 ORDER
 	    BY
 	        NUM DESC
@@ -55,6 +83,8 @@
 		  		MESSAGE
   		 WHERE
   		 		MESSAGE_STATUS = 'Y'
+  		   AND
+	   			RECEIVE_USER = #{ empNo }
 	</select>
 	
 	<!-- 받은 메시지 검색 조회 -->
@@ -77,12 +107,14 @@
 		   		E.JOB_CODE = J.JOB_CODE
 		   AND
 		   		MESSAGE_STATUS = 'Y'
+		   AND
+	   			M.RECEIVE_USER = #{ empNo }
 	  	 <choose>
 	  	 	<when test="condition == 'userName'">
 	  	   		AND
 	  	 			E.EMP_NAME
 	  	 	</when>
-	  	 	<when test="condition == 'userCode'">
+	  	 	<when test="condition == 'jobName'">
 	  	   		AND
 	  	   			J.JOB_NAME
 	  	 	</when>
@@ -112,12 +144,14 @@
 		   		E.JOB_CODE = J.JOB_CODE
 		   AND
 		   		MESSAGE_STATUS = 'Y'
+		   AND
+	   			M.RECEIVE_USER = #{ empNo }
 	  	 <choose>
 	  	 	<when test="condition == 'userName'">
 		  	   AND
 		  	 		E.EMP_NAME
 	  	 	</when>
-	  	 	<when test="condition == 'userCode'">
+	  	 	<when test="condition == 'jobName'">
 		  	   AND
 		  	   		J.JOB_NAME
 	  	 	</when>
@@ -148,7 +182,7 @@
 				RANK() OVER(ORDER BY M.MESSAGE_NO ASC) AS NUM,
 	       		M.MESSAGE_NO, E.EMP_NAME, J.JOB_NAME, D.DEPT_NAME, M.MESSAGE_CONTENT,
 	       		TO_CHAR(M.DELETE_DATE, 'YYYY-MM-DD AM HH24:MI:SS') AS "DELETE_DATE",
-	       		(TRUNC(SYSDATE) - TRUNC(DELETE_DATE)) EFFECTIVE_DATE
+	       		((TRUNC(DELETE_DATE) + 31) - TRUNC(SYSDATE)) EFFECTIVE_DATE
 		  FROM
 		  		MESSAGE M, EMPLOYEE E, DEPARTMENT D, JOB J
 		 WHERE
@@ -173,6 +207,72 @@
   		 		MESSAGE_STATUS = 'N'
 	</select>
 	
+	<!-- 휴지통 메시지 검색 리스트 조회 -->
+	<select id="searchDeleteMessage" resultMap="messageResultSet" parameterType="hashmap">
+		SELECT
+				RANK() OVER(ORDER BY M.MESSAGE_NO ASC) AS NUM,
+       			M.MESSAGE_NO, E.EMP_NAME, J.JOB_NAME, D.DEPT_NAME, M.MESSAGE_CONTENT,
+       			TO_CHAR(M.DELETE_DATE, 'YYYY-MM-DD AM HH24:MI:SS') AS "DELETE_DATE",
+       			((TRUNC(DELETE_DATE) + 31) - TRUNC(SYSDATE)) EFFECTIVE_DATE
+		  FROM
+		  		MESSAGE M, EMPLOYEE E, DEPARTMENT D, JOB J
+		 WHERE
+		 		M.SEND_USER = E.EMP_NO
+		   AND
+		   		E.DEPT_CODE = D.DEPT_CODE
+		   AND
+		   		E.JOB_CODE = J.JOB_CODE
+		   AND
+		   		MESSAGE_STATUS = 'N'
+		  <choose>
+	  	 	<when test="condition == 'userName'">
+		  	   AND
+		  	 		E.EMP_NAME
+	  	 	</when>
+	  	 	<when test="condition == 'jobName'">
+		  	   AND
+		  	   		J.JOB_NAME
+	  	 	</when>
+	  	 	<otherwise>
+		  	   AND
+		  	 		M.MESSAGE_CONTENT
+	  	 	</otherwise>
+	  	 </choose>
+	  	  LIKE '%' || #{ keyword } || '%'
+		 ORDER
+		 	BY NUM DESC
+	</select>
 	
+	<!-- 휴지통 메시지 검색 개수 조회 -->		 	
+	<select id="searchDeleteListCount" resultType="_int" parameterType="hashmap">
+		SELECT
+				COUNT(*)
+		  FROM
+		  		MESSAGE M, EMPLOYEE E, DEPARTMENT D, JOB J
+		 WHERE
+		 		M.SEND_USER = E.EMP_NO
+		   AND
+		   		E.DEPT_CODE = D.DEPT_CODE
+		   AND
+		   		E.JOB_CODE = J.JOB_CODE
+		   AND
+		   		MESSAGE_STATUS = 'N'
+		  <choose>
+	  	 	<when test="condition == 'userName'">
+		  	   AND
+		  	 		E.EMP_NAME
+	  	 	</when>
+	  	 	<when test="condition == 'jobName'">
+		  	   AND
+		  	   		J.JOB_NAME
+	  	 	</when>
+	  	 	<otherwise>
+		  	   AND
+		  	 		M.MESSAGE_CONTENT
+	  	 	</otherwise>
+	  	 </choose>
+	  	  LIKE '%' || #{ keyword } || '%'
+	</select>
+		
 
 </mapper>

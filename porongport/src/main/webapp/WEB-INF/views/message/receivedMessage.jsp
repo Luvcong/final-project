@@ -27,36 +27,36 @@
 			</div>
 		</div>	<!-- header  -->
 		
-		<form id="searchForm" action="searchReceivedMessage" method="post">
-        <div class="searchTable">
-	      	<table id="check-table">
-	      		<tr>
-		            <td>
-	     			    <select class="select btn btn-sm btn-outline-primary dropdown-toggle" name="condition">
-							<option value="userName">이름</option>
-							<option value="userCode">직급</option>
-							<option value="messageContent">내용</option>
-						</select>
-	     			</td>
-	      			<td>
-	      				<input class="form-control form-control-sm" name="keyword" type="text" placeholder="검색어를 입력하세요" size="30" value="${ keyword }">
-	   				</td>
-					<td>
-	      				<button type="submit" class="btn btn-sm btn-outline-primary" >검색</button>
-	   				</td>
-	      		</tr>
-	      	</table>
+		<div class='toolbar'>
+			<div class="messageBtn">
+				<button class="btn btn-sm btn-outline-primary" onclick="storeMessage()">보관</button>
+				<button class="btn btn-sm btn-outline-primary"  onclick="deleteMessage()">삭제</button>
+				<button class="btn btn-sm btn-outline-primary">읽음설정</button>
+			</div>
+			
+	        <div class="searchTable">
+				<form id="searchForm" action="searchReceivedMessage" method="post">
+	        	<table>
+	        		<tr>
+	        			<td>
+							<select class="select btn btn-sm btn-outline-primary dropdown-toggle" name="condition">
+								<option value="userName">이름</option>
+								<option value="jobName">직급</option>
+								<option value="messageContent">내용</option>
+							</select>
+	        			</td>
+	        			<td>
+							<input class="form-control form-control-sm" name="keyword" type="text" placeholder="검색어를 입력하세요" size="30" value="${ keyword }">
+	        			</td>
+	        			<td>
+							<button type="submit" class="btn btn-sm btn-outline-primary" >검색</button>
+	        			</td>
+	        		</tr>
+	        	</table>
+				</form>	<!-- searchForm  -->
+			</div>
       	</div>	<!-- searchTable  -->
-		</form>	<!-- searchForm  -->
       	
-		<div class="receivedBtn">
-			<button class="btn btn-sm btn-outline-primary" onclick="storeMessage()">보관</button>
-			<button class="btn btn-sm btn-outline-primary"  onclick="deleteMessage()">삭제</button>
-		</div>
-		
-		
-		
-		
 <%--  		<form action="" method="post" id="postForm">
 			<input type="hidden" name="messageNo" value="${ message.messagedNo }">
 		</form>
@@ -74,15 +74,16 @@
 			</script> --%>
 		
 		<div class="pp-content-message">
-		<div class="selectCount">
+				<div class="selectCount">
 			받은 메시지 수 <span class="count" id="messageListCount">${ pi.listCount }</span>개
-		</div>
+				</div>
 		
 			<div class="tableBody">
 				<table id='tb-received' class="table table-sm table-hover shadow rounded-3">
 				<thead>
 					<tr class="tb-title-tr">
 						<th><input type="checkbox" onclick="checkAll()"></th>
+						<th></th>
 						<th>번호</th>
 						<th>발신자</th>
 						<th>내용</th>
@@ -94,18 +95,33 @@
 				<c:choose>
 	           	<c:when test="${ empty list }">
 	   	            <tr>
-		            	<td colspan="5">받은 메시지가 없습니다.</td>
+		            	<td colspan="7">받은 메시지가 없습니다.</td>
 	                </tr>
 	           	</c:when>
 	           	<c:otherwise>
 	           		<c:forEach var="message" items="${ list }">
 	           			<tr>
 		                    <td><input type="checkbox" onclick="checkOnce()" value="${ message.messageNo }"></td>
+		                    <c:choose>
+		                    	<c:when test="${ message.bookmarkYN eq 'N' }">
+			                    	<td><i class="fa-regular fa-star td-fa-star"></i></td>
+		                    	</c:when>
+		                    	<c:otherwise>
+				                    <td><i class="fa-solid fa-star td-fa-star"></i></td>
+		                    	</c:otherwise>
+		                    </c:choose>
 		                    <td>${ message.messageRank }</td>
 							<td>${ message.empName } [${ message.jobName }]</td>
 							<td>${ message.messageContent }</td>
 							<td>${ message.createDate }</td>
-		                    <td><i class="fa-solid fa-envelope"></i></td>
+							<c:choose>
+								<c:when test="${ message.readYN eq 'N' }">
+									<td><i class="fa-solid fa-envelope td-fa-envelope"></i></td>
+								</c:when>
+								<c:otherwise>
+				                    <td><i class="fa-solid fa-envelope-open td-fa-envelope"></i></td>
+								</c:otherwise>
+							</c:choose>
 						</tr>
 	           		</c:forEach>
 	           	</c:otherwise>
@@ -124,7 +140,7 @@
 	                    	<li class="page-item"><a class="page-link" href="receivedMessage?page=${ pi.currentPage-1 }">&laquo;</a></li>
                 		</c:when>
                 		<c:otherwise>
-                			<li class="page-item"><a class="page-link" href="receivedMessage?page=${ pi.currentPage-1 }&condition=${ condition }&keyword=${ keyword }">&laquo;</a></li>
+                			<li class="page-item"><a class="page-link" href="searchReceivedMessage?page=${ pi.currentPage-1 }&condition=${ condition }&keyword=${ keyword }">&laquo;</a></li>
           				</c:otherwise>
                 	</c:choose>
                 	
@@ -137,7 +153,7 @@
 	                    		<li class="page-item"><a class="page-link" href="receivedMessage?page=${ p }">${ p }</a></li>
 	                    	</c:when>
 	                    	<c:otherwise>
-	                    		<li class="page-item"><a class="page-link" href="receivedMessage?page=${ p }&condition=${ condition }&keyword=${ keyword }">${ p }</a></li>
+	                    		<li class="page-item"><a class="page-link" href="searchReceivedMessage?page=${ p }&condition=${ condition }&keyword=${ keyword }">${ p }</a></li>
 	                    	</c:otherwise>
                     	</c:choose>
                     </c:forEach>
@@ -150,7 +166,7 @@
                     		<li class="page-item"><a class="page-link" href="receivedMessage?page=${ pi.currentPage+1 }">&raquo;</a></li>
                     	</c:when>
                     	<c:otherwise>
-		                    <li class="page-item" ><a class="page-link" href="receivedMessage?page=${ pi.currentPage+1 }&condition=${ condition }&keyword=${ keyword }">&raquo;</a></li>
+		                    <li class="page-item" ><a class="page-link" href="searchReceivedMessage?page=${ pi.currentPage+1 }&condition=${ condition }&keyword=${ keyword }">&raquo;</a></li>
                     	</c:otherwise>
                     </c:choose>
                 </ul>

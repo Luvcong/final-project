@@ -8,9 +8,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
 import com.kh.porong.common.model.vo.PageInfo;
 import com.kh.porong.common.template.Pagination;
+import com.kh.porong.employee.model.vo.Employee;
 import com.kh.porong.message.model.service.MessageService;
 
 @Controller
@@ -31,16 +33,22 @@ public class MessageController {
 	 * @Date : 2023. 11. 14
 	 */
 	@RequestMapping("receivedMessage")
-	public String receivedMessage(@RequestParam(value="page", defaultValue="1") int currentPage, Model model) {
+	public String receivedMessage(@RequestParam(value="page", defaultValue="1") int currentPage,
+								  @SessionAttribute(name = "loginUser", required = false) Employee loginUser,
+								  Model model) {
 		
-		int listCount = messageService.receivedListCount();
+		int empNo = loginUser.getEmpNo();
+		int listCount = messageService.receivedListCount(empNo);
 		int boardLimit = 10;
 		int pageLimit = 10;
 		
 		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, boardLimit, pageLimit);
 		
-		model.addAttribute("list", messageService.receivedMessageList(pi));
+		
+		model.addAttribute("list", messageService.receivedMessageList(pi, empNo));
 		model.addAttribute("pi", pi);
+		
+		
 		
 		/*
 		 * if(keyword != null) { Map<String, String> map = new HashMap<String,
@@ -57,6 +65,7 @@ public class MessageController {
 		 * model.addAttribute("condition", condition); model.addAttribute("keyword",
 		 * keyword); }
 		 */
+		 
 		
 		return "message/receivedMessage";
 	}	// messageReceived
@@ -73,11 +82,16 @@ public class MessageController {
 	 * @Date : 2023. 11. 16
 	 */
 	@RequestMapping("searchReceivedMessage")
-	public String searchReceivedMessage(@RequestParam(value="page", defaultValue="1") int currentPage, String condition, String keyword, Model model) {
+	public String searchReceivedMessage(@RequestParam(value="page", defaultValue="1") int currentPage,
+										String condition,
+										String keyword,
+										@SessionAttribute(name = "loginUser", required = false) Employee loginUser,
+										Model model) {
 		
-		Map<String, String> map = new HashMap<String, String>();
+		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("condition", condition);
 		map.put("keyword", keyword);
+		map.put("empNo", loginUser.getEmpNo());
 		
 		PageInfo pi = Pagination.getPageInfo(messageService.searchReceivedListCount(map), currentPage, 10, 10);
 		
@@ -119,7 +133,22 @@ public class MessageController {
 	}	// deleteMessageBox
 	
 	
-	
+	@RequestMapping("searchDeleteMessage")
+	public String searchDeleteMessage(@RequestParam(value="page", defaultValue="1") int currentPage, String condition, String keyword, Model model) {
+		
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("condition", condition);
+		map.put("keyword", keyword);
+		
+		PageInfo pi = Pagination.getPageInfo(messageService.searchDeleteListCount(map), currentPage, 10, 10);
+		
+		model.addAttribute("list", messageService.searchDeleteMessage(map, pi));
+		model.addAttribute("pi", pi);
+		model.addAttribute("condition", condition);
+		model.addAttribute("keyword", keyword);
+		
+		return "message/deleteMessageBox";
+	}	// searchDeleteMessage
 	
 	
 	
