@@ -53,7 +53,6 @@ public class MessageServiceImpl implements MessageService {
 		return 0;
 	}
 	
-	
 	// 4) 받은 메시지 - 메시지 삭제(휴지통 이동)
 	@Override
 	public int deleteMessage(int messageNo) {
@@ -83,6 +82,14 @@ public class MessageServiceImpl implements MessageService {
 	public int bookmarkMsg(Map<String, Object> map) {
 		return messageDao.bookmarkMsg(sqlSession, map);
 	}	// bookmarkMsg
+	
+	// 8) 받은 메시지 보관함 이동
+	@Override
+	public int storageMessage(int messageNo) {
+		return messageDao.storageMessage(sqlSession, messageNo);
+	}	// storageMessage
+
+	
 
 	// ==================================================================================
 	// 메시지함 - 휴지통 관련
@@ -114,16 +121,16 @@ public class MessageServiceImpl implements MessageService {
 	}
 	
 	
-	// 4) 휴지통 메시지 복구
-	@Override
-	public ArrayList<Message> storeMessage(PageInfo pi, int messageNo) {
-		
-		int offset = (pi.getCurrentPage() -1) * pi.getBoardLimit();
-		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
-		
-		return messageDao.storeMessage(sqlSession, messageNo, rowBounds);
-	}	// storeMessage
-	
+//	// 4) 휴지통 메시지 복구
+//	@Override
+//	public ArrayList<Message> storeMessage(PageInfo pi, int messageNo) {
+//		
+//		int offset = (pi.getCurrentPage() -1) * pi.getBoardLimit();
+//		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+//		
+//		return messageDao.storeMessage(sqlSession, messageNo, rowBounds);
+//	}	// storeMessage
+//	
 	
 	// 5) 휴지통 메시지 검색 조회
 	@Override
@@ -152,6 +159,8 @@ public class MessageServiceImpl implements MessageService {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+
 
 
 

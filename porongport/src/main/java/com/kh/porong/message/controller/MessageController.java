@@ -27,7 +27,10 @@ public class MessageController {
 	// ==================================================================================
 	
 	/**
-	 * 받은 메시지 전체 리스트 조회
+	 *  받은 메시지 전체 리스트 조회
+	 * @param currentPage : 현재 페이지
+	 * @param loginUser : 로그인한 회원의 정보
+	 * @param model
 	 * @return 받은 메시지 전체 리스트 반환
 	 * @author JH
 	 * @Date : 2023. 11. 14
@@ -74,6 +77,7 @@ public class MessageController {
 	/**
 	 * 받은 메시지 검색 조회
 	 * @param currentPage : 현재 페이지
+	 * @param loginUser : 현재 로그인한 회원의 정보
 	 * @param condition : 검색분류 (이름/직급/내용)
 	 * @param keyword : 사용자가 입력한 검색하고자 하는 키워드 값 (input value)
 	 * @param model
@@ -111,6 +115,7 @@ public class MessageController {
 	/**
 	 * 휴지통 메시지 전체 리스트 조회
 	 * @param currentPage : 현재 페이지
+ 	 * @param loginUser : 현재 로그인한 회원의 정보
 	 * @param model
 	 * @return 휴지통 메시지 전체 리스트 반환
 	 * @author JH
@@ -135,6 +140,17 @@ public class MessageController {
 	}	// deleteMessageBox
 	
 	
+	/**
+	 * 휴지통 메시지 검색 리스트 조회
+	 * @param currentPage : 현재 페이지
+	 * @param loginUser : 현재 로그인한 회원의 정보
+	 * @param condition : 검색분류 (이름/직급/내용)
+	 * @param keyword : 사용자가 입력한 검색하고자 하는 키워드 값 (input value)
+	 * @param model
+	 * @return 사용자가 검색한 키워드와 일치하는 조건의 리스트 반환
+	 * @author JH
+	 * @Date : 2023. 11. 20
+	 */
 	@RequestMapping("searchDeleteMessage")
 	public String searchDeleteMessage(@RequestParam(value="page", defaultValue="1") int currentPage, 
 									  @SessionAttribute(name = "loginUser", required = false) Employee loginUser,
@@ -154,15 +170,6 @@ public class MessageController {
 		
 		return "message/deleteMessageBox";
 	}	// searchDeleteMessage
-	
-	
-	
-	@RequestMapping("storeMessageBox")
-	public String storeMessageBox() {
-		return "message/receivedMessage";
-	}	// storeMessageBox
-	
-	
 	
 	
 	

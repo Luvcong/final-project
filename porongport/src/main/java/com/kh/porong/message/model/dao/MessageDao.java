@@ -92,8 +92,22 @@ public class MessageDao {
 	public int bookmarkMsg(SqlSessionTemplate sqlSession, Map<String, Object> map) {
 		return sqlSession.update("messageMapper.bookmarkMsg", map);
 	}	// bookmarkMsg
-
 	
+	
+	/**
+	 * 받은 메시지 보관함 이동
+	 * @param sqlSession
+	 * @param messageNo : 메시지 보관함으로 이동하려는 메시지 번호
+	 * @return 보관함 이동 성공 여부 (MESSAGE_STATUS = S 업데이트 성공 여부)
+	 * @author JH
+	 * @Date : 2023. 11. 20
+	 */
+	public int storageMessage(SqlSessionTemplate sqlSession, int messageNo) {
+		return sqlSession.update("messageMapper.storageMessage", messageNo);
+	}	// storageMessage
+
+
+
 	
 	// ==================================================================================
 	// 메시지함 - 휴지통 관련
@@ -149,11 +163,6 @@ public class MessageDao {
 		return sqlSession.selectOne("messageMapper.searchDeleteListCount", map);	
 	}	// searchDeleteListCount
 	
-	
-	
-	public ArrayList<Message> storeMessage(SqlSessionTemplate sqlSession, int messageNo, RowBounds rowBounds) {
-		return (ArrayList)sqlSession.selectList("messageMapper.store", messageNo, rowBounds);
-	}	// storeMessage
 
 
 

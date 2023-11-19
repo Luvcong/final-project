@@ -30,7 +30,7 @@ public interface MessageService {
 	int deletePermanentlyMessage(int messageNo);
 	
 	// 메시지 보관
-	ArrayList<Message> storeMessage(PageInfo pi, int messageNo);
+	int storageMessage(int messageNo);
 	
 	// 메시지 검색 리스트 조회
 	ArrayList<Message> searchReceivedMessage(Map<String, Object> map, PageInfo pi);

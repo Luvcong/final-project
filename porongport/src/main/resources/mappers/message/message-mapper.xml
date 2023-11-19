@@ -185,6 +185,16 @@
 		 		MESSAGE_NO = #{ messageNo }
 	</update>
 	
+	<!-- 메시지 보관함 이동 -->
+	<update id="storageMessage" parameterType="_int">
+		UPDATE
+				MESSAGE
+		   SET
+		   		MESSAGE_STATUS = 'S'
+		 WHERE
+		 		MESSAGE_NO = #{ messageNo }
+	</update>
+	
 	
 	<!-- 휴지통 메시지 전체 리스트 조회 -->
 	<select id="deleteMessageBoxList" resultMap="messageResultSet" parameterType="message">
