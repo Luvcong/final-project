@@ -20,8 +20,9 @@
 	        
 	        <div id="jojigdo">
 	            <h2>
-	            	<b></b> 조직도
-	            </h2><span>20명</span>
+	            	<b>${ jojigdoList[0].deptName }</b> 조직도
+	            </h2>
+	            <!-- <span>20명</span> -->
 	
 	            <div id="jojigdo_chart">
 	                <table class="table table-bordered">
@@ -50,37 +51,8 @@
 	                    </tbody>
 	                </table>
 	            </div>
-	        </div>
-		
-	        <!-- Modal -->
-	        <div id="insertDept" class="modal fade" role="dialog">
-	            <div class="modal-dialog">
-	
-	                <!-- Modal content-->
-	                <div class="modal-content">
-	                    <div class="modal-header">
-	                        <h3>부서추가</h3>
-	                    </div>
-	                    <div class="modal-body">
-	                        <div class="form-group">
-	                            <label for="deptName">부서이름</label>
-	                            <input type="text" id="deptName" required class="form-control" />
-	                        </div>
-	                        <div class="form-group">
-	                            <label for="deptCode">부서코드</label>
-	                            <input type="text" id="deptCode" required class="form-control" />
-	                        </div>
-	                    </div>
-	                    <div class="modal-footer">
-	                        <button type="button" class="btn" id="modal_close_btn" data-dismiss="modal">취소</button>
-	                        <button type="submit" class="btn btn-primary" >등록</button>
-	                    </div>
-	                </div>
-	
-	            </div>
-	        </div>
-	
-	    </div>
+		    </div>
+		</div>
 	</div>
 </body>
 </html>

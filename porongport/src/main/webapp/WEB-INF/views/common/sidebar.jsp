@@ -153,51 +153,56 @@
 			        <div class="sub-item" data-url='board2'>게시판2</div>
 			        <div class="sub-item" data-url='board3'>게시판3</div>
 				</div>
-				
+				<form action="jojigdo.em">
 				
 					<div class="sub-menu d-none" data-group='jojigdo.em'>
-						<a href="${path}'jojigdo.em?deptCode=HR'" data-url='jojigdo.em'>조직도</a>
+						<div class="sub-item sub-title" data-url='jojigdo.em'>조직도</div>
 						<div class="sub-item" data-url='insert.de'>
 							<button type="button" class="btn btn-info" data-toggle="modal" data-target="#insertDept" style="width: 100%; height: 100%; font-size: 15px;">부서추가</button>
 						</div>
-						<ul>
-							<li>
-								<div class="sub-item" data-url='jojigdo.em' id="HR">인사부</div>
-								<!-- <input type="hidden" name="deptCode" value="HR" /> -->
-							</li>
-							<li>
-								<div class="sub-item" data-url='jojigdo.em'>구매관리부</div>
-							</li>
-							<li>
-								<div class="sub-item" data-url='jojigdo.em'>영업부</div>
-							</li>
-						</ul>
+				        <button type="submit" class="sub-item" data-url='jojigdo.em'>인사부</button>
+				        <input type="hidden" name="deptCode" value="HR" />
 					</div>
-				<script>
-					var $hr = $('#HR');
-					var $pd = $('#PD');
-					var $pm = $('#PM');
-					
-					$(() => {
-						
-						$hr.click(() => {
-							$.ajax({
-								url : 'jojigdo.em',
-								data : {deptCode : 'HR'},
-								success : result => {
-									console.log(result);
-								},
-								error : () => {
-									console.log('fail');
-								}
-							})
-						});
-						
-						$pd.click(() => {
-							location.href = '${path}jojigdo.em?deptCode=PD';
-						});
-					})
+				        <div class="sub-item" data-url='jojigdo.em'>게시판2</div>
+				        <div class="sub-item" data-url='jojigdo.em'>게시판3</div>
 				
+				</form>
+						
+		        <!-- 조직도, 부서 추가 모달창 -->
+		        <div id="insertDept" class="modal fade" role="dialog">
+		            <div class="modal-dialog">
+		
+		                <!-- Modal content-->
+		                <div class="modal-content">
+		                    <div class="modal-header">
+		                        <h3>부서추가</h3>
+		                    </div>
+		                    <div class="modal-body">
+		                        <div class="form-group">
+		                            <label for="deptName">부서이름</label>
+		                            <input type="text" id="deptName" required class="form-control" />
+		                        </div>
+		                        <div class="form-group">
+		                            <label for="deptCode">부서코드</label>
+		                            <input type="text" id="deptCode" required class="form-control" />
+		                        </div>
+		                    </div>
+		                    <div class="modal-footer">
+		                        <button type="button" class="btn" id="modal_close_btn" data-dismiss="modal">취소</button>
+		                        <button type="submit" class="btn btn-primary" >등록</button>
+		                    </div>
+		                </div>
+		
+		            </div>
+		        </div>
+				<script>
+					function jojigdo(e){
+						
+						if(this == 'HR'){
+							location.href = '${path}jojigdo.em?deptCode=HR';
+						}
+							
+					};
 				</script>
 				
 				<div class="sub-menu d-none" data-group='calendar'>
