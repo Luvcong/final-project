@@ -25,14 +25,17 @@
 					for(i=0;  i<mySchedule.length; i++){
 						calendar.addEvent({
 							title: mySchedule[i].schTitle,
+							description: mySchedule[i].schContent,
 							start: mySchedule[i].schStart,
 							end: mySchedule[i].schEnd,
 							color : "#f1c232"
 				        });
 					}
+					
 					for(i=0;  i<departmentSchedule.length; i++){
 						calendar.addEvent({
 							title: departmentSchedule[i].schTitle,
+							description: departmentSchedule[i].schContent,
 							start: departmentSchedule[i].schStart,
 							end: departmentSchedule[i].schEnd,
 							color : "#8e7cc3"
@@ -58,8 +61,17 @@
                 navLinks: true,
                 editable: false,
                 initialView: 'dayGridMonth',
-                dayMaxEvents: true
+                dayMaxEvents: true,
                 
+                eventDidMount: function(info) {
+                    var tooltip = new Tooltip(info.el, {
+                      title: info.event.extendedProps.description,
+                      placement: 'top',
+                      trigger: 'hover',
+                      container: 'body',
+                      html: true
+                    });
+                 }
 			});
             calendar.render();
         });
