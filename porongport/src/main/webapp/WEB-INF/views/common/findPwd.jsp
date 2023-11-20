@@ -35,10 +35,6 @@
                         <button type="button" class="btn btn-info" id="cert_btn">인증번호</button>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label for="cert">인증번호</label>
-                    <input type="text" id="cert" required class="form-control" />
-                </div>
                 <div class="btn_area">
                     <button type="reset" class="btn">취소</button>
                     <button type="submit" class="btn btn-primary">확인</button>

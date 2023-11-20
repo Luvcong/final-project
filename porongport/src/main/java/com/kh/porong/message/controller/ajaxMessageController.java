@@ -1,7 +1,7 @@
 package com.kh.porong.message.controller;
 
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,11 +9,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.SessionAttribute;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
-import com.kh.porong.employee.model.vo.Employee;
 import com.kh.porong.message.model.service.MessageService;
 
 @Controller
@@ -36,16 +34,23 @@ public class ajaxMessageController {
 	 */
 	@ResponseBody
 	@GetMapping(value="deleteMessage", produces="application/json; charset=UTF-8")
-	public String deleteMessage(@RequestParam(value="messageNoList[]") ArrayList<String> messageNoList) {
+	public String deleteMessage(@RequestParam(value="messageNoList[]") List<Integer> messageNoList) {
 		
 		JsonArray deleteList = new JsonArray();
 		
-		for(String arr : messageNoList) {
-			int messageNo = Integer.parseInt(arr);
+		for(int arr : messageNoList) {
+			int messageNo = arr;
 			int result = messageService.deleteMessage(messageNo);
 			if(result > 0)
 				deleteList.add(messageNo);
 		}
+		
+//		for(String arr : messageNoList) {
+//			int messageNo = Integer.parseInt(arr);
+//			int result = messageService.deleteMessage(messageNo);
+//			if(result > 0)
+//				deleteList.add(messageNo);
+//		}
 		return new Gson().toJson(deleteList);
 	}	// deleteMessage
 	
@@ -79,12 +84,12 @@ public class ajaxMessageController {
 	 */
 	@ResponseBody
 	@GetMapping(value="receivedStorageMessage", produces="application/json; charset=UTF-8")
-	public String receivedStorageMessage(@RequestParam(value="messageList[]") ArrayList<String> messageList) {
+	public String receivedStorageMessage(@RequestParam(value="messageList[]") List<Integer> messageList) {
 		
 		JsonArray storageList = new JsonArray();
 		
-		for(String arr : messageList) {
-			int messageNo = Integer.parseInt(arr);
+		for(int arr : messageList) {
+			int messageNo = arr;
 			int result = messageService.storageMessage(messageNo);
 				if(result > 0)
 					storageList.add(messageNo);
@@ -92,6 +97,28 @@ public class ajaxMessageController {
 		return new Gson().toJson(storageList);
 	}	// storeMessage
 	
+	
+	/**
+	 * 보관함 메시지 받은 메시지함으로 이동
+	 * @param messageList : 보관함에서 받은 메시지함으로 이동하려는 메시지 번호
+	 * @return 메시지함 이동 성공 여부 (MESSAGE_STATUS = Y 업데이트 성공 여부)
+	 * @author JH
+	 * @Date : 2023. 11. 20
+	 */
+	@ResponseBody
+	@GetMapping(value="moveMessageBox", produces="application/json; charset=UTF-8")
+	public String moveMessgaeBox(@RequestParam(value="message_list[]") List<Integer> messageList) {
+		
+		JsonArray moveList = new JsonArray();
+		
+		for(int arr : messageList) {
+			int messageNo = arr;
+			int result = messageService.moveMessageBox(messageNo);
+				if(result > 0)
+					moveList.add(messageNo);
+		}
+		return new Gson().toJson(moveList);
+	}	// moveMessageBox
 	
 	
 	

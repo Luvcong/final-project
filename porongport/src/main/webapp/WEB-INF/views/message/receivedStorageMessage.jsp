@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,19 +23,19 @@
 	<div class="pp-content">
 		<div class="header">
 			<div class="h-title">
-				받은 메시지
+				받은 메시지 보관함
 			</div>
 		</div>	<!-- header  -->
 		
 		<div class='toolbar'>
 			<div class="messageBtn">
-				<button class="btn btn-sm btn-outline-primary" onclick="storageMessage()">보관</button>
-				<button class="btn btn-sm btn-outline-primary"  onclick="deleteMessage()">삭제</button>
+				<button class="btn btn-sm btn-outline-primary" onclick="moveMessageBox()">이동</button>
+				<button class="btn btn-sm btn-outline-primary">삭제</button>
 				<button class="btn btn-sm btn-outline-primary">읽음설정</button>
 			</div>
 			
 	        <div class="searchTable">
-				<form id="searchForm" action="searchReceivedMessage" method="get">
+				<form id="searchForm" action="searchReceiveStoragedMessage" method="get">
 	        	<table>
 	        		<tr>
 	        			<td>
@@ -137,10 +137,10 @@
 	                    	<li class="page-item disabled"><a class="page-link" href="#">&laquo;</a></li>
                 		</c:when>
                 		<c:when test="${ empty condition }">
-	                    	<li class="page-item"><a class="page-link" href="receivedMessage?page=${ pi.currentPage-1 }">&laquo;</a></li>
+	                    	<li class="page-item"><a class="page-link" href="receivedStorageMessage?page=${ pi.currentPage-1 }">&laquo;</a></li>
                 		</c:when>
                 		<c:otherwise>
-                			<li class="page-item"><a class="page-link" href="searchReceivedMessage?page=${ pi.currentPage-1 }&condition=${ condition }&keyword=${ keyword }">&laquo;</a></li>
+                			<li class="page-item"><a class="page-link" href="searchReceivedStorageMessage?page=${ pi.currentPage-1 }&condition=${ condition }&keyword=${ keyword }">&laquo;</a></li>
           				</c:otherwise>
                 	</c:choose>
                 	
@@ -150,10 +150,10 @@
 		                    	<li class="page-item disabled"><a class="page-link" href="#">${ p }</a></li>
 	                    	</c:when>
 	                    	<c:when test="${ empty condition }">
-	                    		<li class="page-item"><a class="page-link" href="receivedMessage?page=${ p }">${ p }</a></li>
+	                    		<li class="page-item"><a class="page-link" href="receivedStorageMessage?page=${ p }">${ p }</a></li>
 	                    	</c:when>
 	                    	<c:otherwise>
-	                    		<li class="page-item"><a class="page-link" href="searchReceivedMessage?page=${ p }&condition=${ condition }&keyword=${ keyword }">${ p }</a></li>
+	                    		<li class="page-item"><a class="page-link" href="searchReceivedStorageMessage?page=${ p }&condition=${ condition }&keyword=${ keyword }">${ p }</a></li>
 	                    	</c:otherwise>
                     	</c:choose>
                     </c:forEach>
@@ -163,10 +163,10 @@
                     		<li class="page-item disabled"><a class="page-link" href="#">&raquo;</a></li>
                     	</c:when>
                     	<c:when test="${ empty condition }">
-                    		<li class="page-item"><a class="page-link" href="receivedMessage?page=${ pi.currentPage+1 }">&raquo;</a></li>
+                    		<li class="page-item"><a class="page-link" href="receivedStorageMessage?page=${ pi.currentPage+1 }">&raquo;</a></li>
                     	</c:when>
                     	<c:otherwise>
-		                    <li class="page-item" ><a class="page-link" href="searchReceivedMessage?page=${ pi.currentPage+1 }&condition=${ condition }&keyword=${ keyword }">&raquo;</a></li>
+		                    <li class="page-item" ><a class="page-link" href="searchReceivedStorageMessage?page=${ pi.currentPage+1 }&condition=${ condition }&keyword=${ keyword }">&raquo;</a></li>
                     	</c:otherwise>
                     </c:choose>
                 </ul>
@@ -175,28 +175,19 @@
 		</div>	<!-- pp-content-message  -->
 	</div>	<!-- pp-content  -->
 	
-	
-	<c:if test="${ not empty condition }">
-		<script>
-		$(() => {
-			$('.select option[value=${condition}]').attr('selected', true);
-		});
-		</script>
-	</c:if>
-	
 	<script>
 		// ------------------------------------------------------------------
 		// 체크박스 선택 / 해제 기능
 		// ------------------------------------------------------------------
 		// 전체 체크박스
 		function checkAll(){
-			
 			let table = document.getElementById('tb-received');
-			let inputs = document.querySelectorAll('tr input');
+			let inputs = table.querySelectorAll('tr input');
 			
 			for(let input of inputs){
 				input.checked = event.target.checked;
 			}
+			
 		}	// checkAll
 		
 		// 체크박스
@@ -214,110 +205,50 @@
 			}
 			hd_input.checked = is_all_checked;
 		}	// checkOnce
-			
+	
 		
 		// ------------------------------------------------------------------
-		// 쪽지 삭제 ajax
+		// 메시지 북마크 ajax
 		// ------------------------------------------------------------------
-		function deleteMessage(){
-
-			
-			// 모든 테이블의 tr행 가져오기
-			let trs = document.querySelectorAll('.table tr');
-			// 체크확인용 변수 선언
-			let checked_tr = null;
-			
-			// 체크된 input요소 확인 후 체크가 되어있다면 체크확인용 변수에 담고 break
- 			for(let tr of trs){
-				let input = tr.querySelector('input');
-				if(input.checked){
-					checked_tr = tr;
-					break;
-				}
-			}
-			
-			// 체크되어 있는 메시지가 없을 경우 alert창 발생
-  			if(checked_tr == null){
-  				Swal.fire('실패', '삭제할 메시지를 선택해주세요!', 'warning');
-  				return;
-  			}
-			
-  			// 체크가 되어있는 경우 confirm창 발생
-			Swal.fire({
-				title: "메시지를 삭제하시겠습니까?",
-				text : "※ 삭제된 메시지는 휴지통으로 이동합니다. ",
-				icon: 'warning',
-				showCancelButton: true,
-				confirmButtonColor: "#DD6B55",
-				confirmButtonText: "삭제",
-				cancelButtonText: "취소"
-				}).then((result) => {
-					if (!result.isConfirmed) {
-					  return;
-					}
+		function bookmark_msg(){
 					
-  					let table = document.getElementById('tb-received');			
-					let trs = table.querySelectorAll('tbody tr');		// 데이터 행 부분
-					let message_del_list = [];
-					
-					for(let tr of trs){
-						let input = tr.querySelector('input');
-						if(input.checked == true){
-							let messageNo = input.value;
-							console.log(messageNo);
-							message_del_list.push(messageNo);
-						}
-					}
-					console.log(message_del_list);
-					
- 			$.ajax({
- 				url : 'deleteMessage',
+			let target = event.currentTarget;
+			let message_no = target.getAttribute('data-no');
+			let bookmark_YN = target.classList.contains('fa-solid');	// true or false
+			// console.log(bookmark_YN);
+						
+			$.ajax({
+ 				url : 'bookmarkMsg',
 				type : 'get',
-				data : { messageNoList : message_del_list },
-				dataType: 'json',
+				data : { messageNo : message_no,
+						bookmarkYN : bookmark_YN
+						 },
 				success : function(result){
 					
-					Swal.fire('성공', '메시지가 휴지통으로 이동되었습니다!', 'success');
-					
- 					let listCount = document.getElementById('messageListCount');
- 					let total = parseInt(listCount.textContent);
- 					// console.log(listCount);
-					// console.log(total);
-					
-					for(let tr of trs){
-						let input = tr.querySelector('input');
-						let messageNo = parseInt(input.value);
-						// console.log(messageNo);
-						
-						if(result.includes(messageNo)){
-							tr.remove();
-							total--;
-							// console.log(total);				// 전체 조회수에서 -- count되는지 확인ok
-							
-							listCount.textContent = total;	// remove total 값 넣어주기
-						}
+					if(result){
+						target.classList.remove('fa-regular');	// 빈 별
+						target.classList.add('fa-solid');		// 색칠 별
+					} else {
+						target.classList.remove('fa-solid');
+						target.classList.add('fa-regular');
 					}
+					// console.log(target);	
 				},	// success
 				error : function(result){
-					Swal.fire('실패', '휴지통으로 이동되지 않았습니다<br>다시 시도해주세요', 'warning');
 					console.log('통신오류! 실패');
 				},	// error
 			});	// ajax
-			});		// confrim	 
-		}	// deleteMessage
-		
-		
-		// ------------------------------------------------------------------
-		// 메시지 보관 ajax
-		// ------------------------------------------------------------------
-		function storageMessage(){
+			}	// bookmark_msg
 			
-			// 모든 테이블의 tr행 가져오기
+			
+		// ------------------------------------------------------------------
+		// 받은메시지로 이동 기능 ajax
+		// ------------------------------------------------------------------
+		function moveMessageBox(){
+			
 			let trs = document.querySelectorAll('.table tr');
-			// 체크확인용 변수 선언
 			let checked_tr = null;
 			
-			// 체크된 input요소 확인 후 체크가 되어있다면 체크확인용 변수에 담고 break
  			for(let tr of trs){
 				let input = tr.querySelector('input');
 				if(input.checked){
@@ -325,21 +256,18 @@
 					break;
 				}
 			}
-			
-			// 체크되어 있는 메시지가 없을 경우 alert창 발생
   			if(checked_tr == null){
-  				Swal.fire('실패', '보관 메시지를 선택해주세요!', 'warning');
+  				Swal.fire('실패', '이동할 메시지를 선택해주세요!', 'warning');
   				return;
   			}
 			
-  			// 체크가 되어있는 경우 confirm창 발생
 			Swal.fire({
-				title: "메시지를 보관하시겠습니까?",
-				text : "※ 받은 메시지 보관함으로 이동합니다.",
+				title: "메시지를 이동하시겠습니까?",
+				text : "※ 선택한 메시지는 받은 메시지함으로 이동합니다.",
 				icon: 'question',
 				showCancelButton: true,
 				confirmButtonColor: "#DD6B55",
-				confirmButtonText: "보관",
+				confirmButtonText: "삭제",
 				cancelButtonText: "취소"
 				}).then((result) => {
 					if (!result.isConfirmed) {
@@ -361,9 +289,9 @@
 					console.log(message_list);
 					
  			$.ajax({
- 				url : 'receivedStorageMessage',
+ 				url : 'moveMessageBox',
 				type : 'get',
-				data : { messageList : message_list },
+				data : { message_list : message_list },
 				dataType: 'json',
 				success : function(result){
 					
@@ -371,70 +299,38 @@
 					
  					let listCount = document.getElementById('messageListCount');
  					let total = parseInt(listCount.textContent);
- 					console.log(listCount);
-					console.log(total);
+ 					// console.log(listCount);
+					// console.log(total);
 					
 					for(let tr of trs){
 						let input = tr.querySelector('input');
 						let messageNo = parseInt(input.value);
-						console.log(messageNo);
+						// console.log(messageNo);
 						
 						if(result.includes(messageNo)){
 							tr.remove();
 							total--;
-							console.log(total);				// 전체 조회수에서 -- count되는지 확인ok
+							// console.log(total);				// 전체 조회수에서 -- count되는지 확인ok
 							
 							listCount.textContent = total;	// remove total 값 넣어주기
 						}
 					}
 				},	// success
 				error : function(result){
-					Swal.fire('실패', '보관함으로 이동되지 않았습니다<br>다시 시도해주세요', 'warning');
+					Swal.fire('실패', '메시지함으로 이동되지 않았습니다<br>다시 시도해주세요', 'warning');
 					console.log('통신오류! 실패');
 				},	// error
 			});	// ajax
-			});		// confrim
-		}	// storageMessage
-		
-		
-		// ------------------------------------------------------------------
-		// 메시지 북마크 ajax
-		// ------------------------------------------------------------------
-		function bookmark_msg(){
+			});		// confrim	 
+		}	// moveMessageBox
 			
-			let target = event.currentTarget;
-			let message_no = target.getAttribute('data-no');
-			let bookmark_YN = target.classList.contains('fa-solid');	// true or false
-			console.log(bookmark_YN);
-						
-			$.ajax({
- 				url : 'bookmarkMsg',
-				type : 'get',
-				data : { messageNo : message_no,
-						bookmarkYN : bookmark_YN
-						 },
-				success : function(result){
-					
-					if(result){
-						target.classList.remove('fa-regular');	// 빈 별
-						target.classList.add('fa-solid');		// 색칠 별
-					} else {
-						target.classList.remove('fa-solid');
-						target.classList.add('fa-regular');
-					}
-					
-					// console.log(target);	
-				},	// success
-				error : function(result){
-					console.log('통신오류! 실패');
-				},	// error
-			});	// ajax
-		}	// bookmark_msg
-		
-		
-	
+			
+			
+			
+			
+			
+			
 	</script>
-	
 
 </body>
 </html>

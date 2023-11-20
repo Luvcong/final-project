@@ -1,6 +1,7 @@
 package com.kh.porong.message.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import com.kh.porong.common.model.vo.PageInfo;
 import com.kh.porong.common.template.Pagination;
 import com.kh.porong.employee.model.vo.Employee;
 import com.kh.porong.message.model.service.MessageService;
+import com.kh.porong.message.model.vo.Message;
 
 @Controller
 public class MessageController {
@@ -27,11 +29,11 @@ public class MessageController {
 	// ==================================================================================
 	
 	/**
-	 *  받은 메시지 전체 리스트 조회
+	 *  받은 메시지 전체 리스트 및 개수 조회
 	 * @param currentPage : 현재 페이지
 	 * @param loginUser : 로그인한 회원의 정보
 	 * @param model
-	 * @return 받은 메시지 전체 리스트 반환
+	 * @return 받은 메시지 전체 리스트 및 개수 반환
 	 * @author JH
 	 * @Date : 2023. 11. 14
 	 */
@@ -75,13 +77,13 @@ public class MessageController {
 	
 	
 	/**
-	 * 받은 메시지 검색 조회
+	 * 받은 메시지 검색 및 개수 조회
 	 * @param currentPage : 현재 페이지
 	 * @param loginUser : 현재 로그인한 회원의 정보
 	 * @param condition : 검색분류 (이름/직급/내용)
 	 * @param keyword : 사용자가 입력한 검색하고자 하는 키워드 값 (input value)
 	 * @param model
-	 * @return 사용자가 검색한 키워드와 일치하는 조건의 리스트 반환
+	 * @return 사용자가 검색한 키워드와 일치하는 조건의 리스트 및 개수 반환
 	 * @author JH
 	 * @Date : 2023. 11. 16
 	 */
@@ -109,15 +111,71 @@ public class MessageController {
 	
 	
 	// ==================================================================================
+	// 메시지함 - 받은 메시지 보관함 관련
+	// ==================================================================================
+	
+	/**
+	 * 받은 메시지 보관함 전체 리스트 및 개수 조회
+	 * @param currentPage : 현재 페이지
+	 * @param loginUser : 현재 로그인한 회원의 정보
+	 * @param model
+	 * @return 받은 메시지 보관함 전체 리스트 및 개수 반환
+	 * @author JH
+	 * @Date : 2023. 11. 20
+	 */
+	@RequestMapping("receivedStorageMessage")
+	public String receivedStorageMessage(@RequestParam(value="page", defaultValue="1") int currentPage,
+			 					   		 @SessionAttribute(name= "loginUser", required= false) Employee loginUser,
+			 					   		 Model model) {
+		
+		int empNo = loginUser.getEmpNo();
+		int listCount = messageService.receivedStorageListCount(empNo);
+		
+		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 10);
+		
+		
+		model.addAttribute("list", messageService.receivedStorageList(pi, empNo));
+		model.addAttribute("pi", pi);
+		
+		return "message/receivedStorageMessage";
+	}	// receivedStorageMessage
+	
+	
+	@RequestMapping("searchReceiveStoragedMessage")
+	public String searchReceiveStoragedMessage(@RequestParam(value="page", defaultValue="1") int currentPage,
+											   @SessionAttribute(name="loginUser", required= false) Employee loginUser,
+											   String condition,
+											   String keyword,
+											   Model model){
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("condition", condition);
+		map.put("keyword", keyword);
+		map.put("empNo", loginUser.getEmpNo());
+		
+		int listCount = messageService.searchReceivedStorageListCount(map);
+		
+		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 10);
+		
+		model.addAttribute("list", messageService.searchReceivedStorageMessage(map, pi));
+		model.addAttribute("pi", pi);
+		model.addAttribute("condition", condition);
+		model.addAttribute("keyword", keyword);
+		
+		return "message/receivedStorageMessage";							   
+   }	// searchReceiveStoragedMessage
+	
+	
+	// ==================================================================================
 	// 메시지함 - 휴지통 관련
 	// ==================================================================================
 	
 	/**
-	 * 휴지통 메시지 전체 리스트 조회
+	 * 휴지통 메시지 전체 리스트 및 개수 조회
 	 * @param currentPage : 현재 페이지
  	 * @param loginUser : 현재 로그인한 회원의 정보
 	 * @param model
-	 * @return 휴지통 메시지 전체 리스트 반환
+	 * @return 휴지통 메시지 전체 리스트 및 개수 반환
 	 * @author JH
 	 * @Date : 2023. 11. 17
 	 */
@@ -141,13 +199,13 @@ public class MessageController {
 	
 	
 	/**
-	 * 휴지통 메시지 검색 리스트 조회
+	 * 휴지통 메시지 검색 리스트 및 개수 조회
 	 * @param currentPage : 현재 페이지
 	 * @param loginUser : 현재 로그인한 회원의 정보
 	 * @param condition : 검색분류 (이름/직급/내용)
 	 * @param keyword : 사용자가 입력한 검색하고자 하는 키워드 값 (input value)
 	 * @param model
-	 * @return 사용자가 검색한 키워드와 일치하는 조건의 리스트 반환
+	 * @return 사용자가 검색한 키워드와 일치하는 조건의 리스트 및 개수 반환
 	 * @author JH
 	 * @Date : 2023. 11. 20
 	 */

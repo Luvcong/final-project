@@ -73,7 +73,7 @@
 	                		</td>
 	                	</tr>
 	                	<c:if test="${ not empty attList }">
-		                	<c:forEach var="i" items="${ attList }" begin="0" end="2">
+		                	<c:forEach var="i" items="${ sessionScope.attList }" begin="0" end="2">
 			                	<tr>
 			                		<td>${i.workDate}</td>
 			                		<td>${i.workStart}</td>
@@ -94,6 +94,21 @@
 	  		var today = now.getFullYear() + '-' + (now.getMonth() + 1) + '-' + now.getDate();
 	  		document.querySelector('#sysdate').innerText = today;
 	  		
+	  		$.ajax({
+	  			url : 'checkAtt.em',
+	  			data : {empNo : ${sessionScope.loginUser.empNo}},
+	  			success : result => {
+					$('#ws_btn').remove();
+					$('#workStart').text(result.workStart);
+					$('#workEnd').text(result.workEnd);
+	  				
+	  			},
+	  			error : () => {
+	  				console.log('fail');
+	  			}
+	  			
+	  		})
+	  		
  		};
          		
 		function insertAtt(){
@@ -104,7 +119,7 @@
 					empNo : ${sessionScope.loginUser.empNo}
 				},
 				success : result => {
-					// console.log(result);
+					console.log(result);
 					$('#ws_btn').remove();
 					$('#workStart').text(result.workStart);
 					
