@@ -36,7 +36,7 @@
                     start: '2023-11-14'
                     },
                     {
-                    title: 'Long Event',
+                    title: 'Long Event111',
                     start: '2023-11-15',
                     end: '2023-11-16'
                     },
@@ -55,12 +55,6 @@
                     title: 'Conference',
                     start: '2023-11-20',
                     end: '2023-11-23'
-                    },
-                    {
-                    groupId: 999,
-                   	title : '${mySchedule[0].schTitle}',
-                   	start : '${mySchedule[0].schStart}',
-                   	end : '${mySchedule[0].schEnd}'
                     }
                 ]
             });
