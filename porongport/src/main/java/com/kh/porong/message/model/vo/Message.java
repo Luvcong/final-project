@@ -12,8 +12,8 @@ public class Message {
 	private String createDate;
 	private String deleteDate;
 	private String messageStatus;
-	private String sendUser;
-	private String receiveUser;
+	private int sendUser;
+	private int receiveUser;
 	private int fileNo;
 	
 	private String empName;
@@ -21,6 +21,9 @@ public class Message {
 	
 	private int messageRank;
 	private String effectiveDate;
+	private String readYN;
+	private String bookmarkYN;
+	
 	
 	
 }	// end class

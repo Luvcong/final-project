@@ -1,36 +1,32 @@
 @charset "UTF-8";
 .pp-content .h-title {
-	padding-bottom: 16px;
+	margin-bottom: 16px;
     font-size: 16pt;
     font-weight: bold;
 }
 
-.pp-content .pp-content-message{
-	position: relative;
+.pp-content .toolbar {
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 16px;
+}
+
+.pp-content .pp-content-message {
 	text-align: center;
 }
 
-.pp-content .pp-content-message .selectCount {
-	position: absolute;
-	padding-top: 22px;
-	right: 4px;
+.pp-content .selectCount {
+	float: right;
+	color: #4A4A4A;
+    margin-bottom: 12px;
 }
 
 .pp-content .pp-content-message .selectCount .count {
 	color: #6C79E0;
 }
 
-.selectCount{
-	color: #4A4A4A;
-}
-
 .pp-content .pp-content-message .tableBody{
 	font-size: 14px;
-	padding-top: 52px;
-}
-
-.pp-content .searchTable {
-	float:right;	
 }
 
 .pp-content .pp-content-message .tableBody .tb-title-tr{
@@ -48,3 +44,14 @@
 .selectCount{
 	font-size: 14px;
 }
+
+.td-fa-envelope{
+	color: #E35F21;
+}
+
+.td-fa-star{
+	color: #F1C40F
+}
+
+
+
