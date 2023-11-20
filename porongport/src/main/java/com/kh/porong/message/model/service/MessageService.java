@@ -15,6 +15,8 @@ public interface MessageService {
 	// 1) 받은 메시지 보관함 > 받은 메시지함으로 이동
 	int moveMessageBox(int messageNo);
 	
+	// 2) 메시지 북마크 설정
+	int bookmarkMsg(Map<String, Object> map);
 	
 	// ==================================================================================
 	// 메시지함 - 받은 메시지 관련
@@ -37,11 +39,8 @@ public interface MessageService {
 	
 	// 6) 메시지 검색 개수 조회
 	int searchReceivedListCount(Map<String, Object> map);
-	
-	// 7) 메시지 북마크 설정
-	int bookmarkMsg(Map<String, Object> map);
-	
-	// 8) 메시지 보관함 이동
+
+	// 7) 메시지 보관함 이동
 	int storageMessage(int messageNo);
 	
 	// 메시지 상세보기

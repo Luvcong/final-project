@@ -32,6 +32,14 @@ public class MessageServiceImpl implements MessageService {
 	public int moveMessageBox(int messageNo) {
 		return messageDao.moveMessageBox(sqlSession, messageNo);
 	}	// moveMessageBox
+	
+	
+	// 2) 받은 메시지 북마크 설정
+	@Override
+	public int bookmarkMsg(Map<String, Object> map) {
+		return messageDao.bookmarkMsg(sqlSession, map);
+	}	// bookmarkMsg
+	
 
 	
 	// ==================================================================================
@@ -88,14 +96,7 @@ public class MessageServiceImpl implements MessageService {
 	}
 	
 	
-	// 7) 받은 메시지 북마크 설정
-	@Override
-	public int bookmarkMsg(Map<String, Object> map) {
-		return messageDao.bookmarkMsg(sqlSession, map);
-	}	// bookmarkMsg
-	
-	
-	// 8) 받은 메시지 보관함 이동
+	// 7) 받은 메시지 보관함 이동
 	@Override
 	public int storageMessage(int messageNo) {
 		return messageDao.storageMessage(sqlSession, messageNo);

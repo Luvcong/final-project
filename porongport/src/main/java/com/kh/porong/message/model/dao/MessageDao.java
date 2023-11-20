@@ -18,7 +18,7 @@ public class MessageDao {
 	// ==================================================================================
 	
 	/**
-	 * 받은 메시지 보관함 > 받은 메시지함으로 이동
+	 * 1) 받은 메시지 보관함 > 받은 메시지함으로 이동
 	 * @param sqlSession
 	 * @param messageNo : 보관함에서 받은 메시지함으로 이동하려는 메시지 번호
 	 * @return 메시지함 이동 성공 여부 (MESSAGE_STATUS = Y 업데이트 성공 여부)
@@ -28,6 +28,19 @@ public class MessageDao {
 	public int moveMessageBox(SqlSessionTemplate sqlSession, int messageNo) {
 		return sqlSession.update("messageMapper.moveMessageBox", messageNo);
 	}	// moveMessageBox
+	
+	
+	/**
+	 * 2) 받은 메시지 북마크 설정
+	 * @param sqlSession
+	 * @param messageNo : 북마크 설정하려고 하는 메시지 번호
+	 * @return 받은 메시지 북마크 설정 성공 여부 반환
+	 * @author JH
+	 * @Date : 2023. 11. 19
+	 */
+	public int bookmarkMsg(SqlSessionTemplate sqlSession, Map<String, Object> map) {
+		return sqlSession.update("messageMapper.bookmarkMsg", map);
+	}	// bookmarkMsg
 	
 	
 	
@@ -101,22 +114,9 @@ public class MessageDao {
 		return sqlSession.selectOne("messageMapper.searchReceivedListCount", map);
 	}	// searchReceivedListCount
 	
-	
+
 	/**
-	 * 7) 받은 메시지 북마크 설정
-	 * @param sqlSession
-	 * @param messageNo : 북마크 설정하려고 하는 메시지 번호
-	 * @return 받은 메시지 북마크 설정 성공 여부 반환
-	 * @author JH
-	 * @Date : 2023. 11. 19
-	 */
-	public int bookmarkMsg(SqlSessionTemplate sqlSession, Map<String, Object> map) {
-		return sqlSession.update("messageMapper.bookmarkMsg", map);
-	}	// bookmarkMsg
-	
-	
-	/**
-	 * 8) 받은 메시지 보관함 이동
+	 * 7) 받은 메시지 보관함 이동
 	 * @param sqlSession
 	 * @param messageNo : 메시지 보관함으로 이동하려는 메시지 번호
 	 * @return 보관함 이동 성공 여부 (MESSAGE_STATUS = S 업데이트 성공 여부)
