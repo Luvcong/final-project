@@ -333,7 +333,7 @@
 	<!-- 휴지통 메시지 검색 개수 조회 -->		 	
 	<select id="searchDeleteListCount" resultType="_int" parameterType="hashmap">
 	
-		<include refid="serarcmessageSql"></include>
+		<include refid="searchMessageSql"></include>
 		   AND
 		   		MESSAGE_STATUS = 'N'
 		   AND
