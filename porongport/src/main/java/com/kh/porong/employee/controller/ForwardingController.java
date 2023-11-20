@@ -12,7 +12,6 @@ public class ForwardingController {
 		return "mypage/myPageAttendance";
 	}
 	
-	/*
 	@GetMapping("myPageIn")
 	public String myPageInsertEmp() {
 		return "mypage/myPageInsertEmp";
@@ -22,5 +21,4 @@ public class ForwardingController {
 	public String myPageUpdateForm() {
 		return "mypage/myPageUpdateForm";
 	}
-	*/
 }
