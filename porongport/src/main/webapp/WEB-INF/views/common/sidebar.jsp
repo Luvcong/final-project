@@ -84,7 +84,7 @@
                     <div class="icon"><i class="fa-solid fa-pen-to-square"></i></div>
                     <div class="menu-name">게시판</div>
                 </div>
-                <div class="item" data-group='address'>
+                <div class="item" data-group='jojigdo.em'>
                     <div class="icon"><i class="fa-solid fa-address-book"></i></div>
                     <div class="menu-name">주소록</div>
                 </div>
@@ -153,11 +153,55 @@
 			        <div class="sub-item" data-url='board2'>게시판2</div>
 			        <div class="sub-item" data-url='board3'>게시판3</div>
 				</div>
-				<div class="sub-menu d-none" data-group='address'>
-					<div class="sub-item" data-url='address1'>주소록1</div>
-					<div class="sub-item" data-url='address2'>주소록2</div>
-					<div class="sub-item" data-url='address3'>주소록3</div>
-				</div>
+				
+				<form action="jojigdo.em">
+				
+					<div class="sub-menu d-none" data-group='jojigdo.em'>
+						<div class="sub-item sub-title" data-url='jojigdo.em'>조직도</div>
+						<div class="sub-item" data-url='insert.de'>
+							<button type="button" class="btn btn-info" data-toggle="modal" data-target="#insertDept" style="width: 100%; height: 100%; font-size: 15px;">부서추가</button>
+						</div>
+						<ul>
+							<li>
+								<div class="sub-item" data-url='jojigdo.em' id="HR">인사부</div>
+								<!-- <input type="hidden" name="deptCode" value="HR" /> -->
+							</li>
+							<li>
+								<div class="sub-item" data-url='jojigdo.em'>구매관리부</div>
+							</li>
+							<li>
+								<div class="sub-item" data-url='jojigdo.em'>영업부</div>
+							</li>
+						</ul>
+					</div>
+				</form>
+				<script>
+					var $hr = $('#HR');
+					var $pd = $('#PD');
+					var $pm = $('#PM');
+					
+					$(() => {
+						
+						$hr.click(() => {
+							$.ajax({
+								url : 'jojigdo.em',
+								data : {deptCode : 'HR'},
+								success : result => {
+									console.log(result);
+								},
+								error : () => {
+									console.log('fail');
+								}
+							})
+						});
+						
+						$pd.click(() => {
+							location.href = '${path}jojigdo.em?deptCode=PD';
+						});
+					})
+				
+				</script>
+				
 				<div class="sub-menu d-none" data-group='calendar'>
 
 			    	<div class="sub-item sub-title" data-url='calendar'>캘린더</div>
