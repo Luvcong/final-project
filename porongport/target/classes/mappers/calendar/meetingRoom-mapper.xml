@@ -22,7 +22,7 @@
  	<insert id="insertMeeting" parameterType="meetingroom">
 		INSERT
 			INTO
-		MeetingRoomVO
+		MEETING_ROOM
 		(
 			MEET_NO,
 			EMP_NO,
@@ -35,15 +35,15 @@
 			MEET_APPROVAL
 		)
 		VALUES(
-			SEQ_MEET_NO,
+			SEQ_MEET_NO.NEXTVAL,
 			#{empNo},
 			#{meetTitle},
 			#{meetContent},
 			#{meetPnum},
 			#{meetStart},
 			#{meetEnd},
-			#{meetStatus},
-			#{meetApproval}
+			'Y',
+			'S'
 	)
 </insert>
 

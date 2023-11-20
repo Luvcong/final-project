@@ -57,22 +57,15 @@
                     end: '2023-11-23'
                     },
                     {
-                   	title : '${mySchedule[1].schTitle}',
-                   	start : '2023-11-21',
-                   	end : '2023-11-23'
+                    groupId: 999,
+                   	title : '${mySchedule[0].schTitle}',
+                   	start : '${mySchedule[0].schStart}',
+                   	end : '${mySchedule[0].schEnd}'
                     }
                 ]
             });
-
             calendar.render();
         });
-	console.log('${mySchedule}');
-	
-		$(() => {
-		
-			
-			
-		})
 		
 	
     </script>

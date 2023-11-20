@@ -43,8 +43,8 @@
 				<tbody>
 					<tr>
 						<th><i class="fa-solid fa-pen"></i></th>
-						<td colspan="3"><input type="text" class="meetingform" id="meetingtitle"
-							placeholder="회의제목을 입력해주세요" name="meetingtitle" style="width:520px;" required></td>
+						<td colspan="3"><input type="text" class="meetingform" id="meetTitle"
+							placeholder="회의제목을 입력해주세요" name="meetTitle" style="width:520px;" required></td>
 					</tr>
 					<tr>
 						<th><i class="fa-solid fa-building"></i></th>
@@ -53,15 +53,16 @@
 					<tr>
 						<th><i class="fa-solid fa-user"></i></th>
 						<td><input type="text" class="meetingform" value="${loginUser.empName}"
-							name="name" readonly></td>
+							name="meetName" readonly></td>
 						<th><i class="fa-solid fa-user-tag"></i></th>
 						<td><input type="text" name="deptId" id="deptId" readonly value="${loginUser.deptName}" style="width: 250px;" class="meetingform" /></td>
 					</tr>
 					<tr>
 						<th><i class="fa-solid fa-clock"></i></th>
+						
 						<td colspan="3"><input type="date" class="meetingStartDay"
-							id="meetingStartDay" class="meeting_input2 meeting-width2">
-							<select name="meetingStartTime" id="meetingStartTime"
+							id="meetStartDay" class="meeting_input2 meeting-width2" name="meetStartDay">
+							<select name="meetStartTime" id="meetStartTime"
 							class="meeting_input2 meeting_width2">
 								<option value="900">09:00</option>
 								<option value="930">09:30</option>
@@ -94,9 +95,9 @@
 											});
 			
 										</script> <br> <label for="meetingEndDay"></label><input
-							type="date" class="meetingEndDay"id="meetingEndDay"><label
-							for="meetingEndTime"></label> <select name="meetingEndTime"
-							id="meetingEndTime" class="meeting_input2 meeting_width2">
+							type="date" class="meetingEndDay"id="meetEndDay" name="meetEndDay"><label
+							for="meetingEndTime"></label> 
+							<select name="meetEndTime" id="meetEndTime" class="meeting_input2 meeting_width2">
 								<option value="930">09:30</option>
 								<option value="1000">10:00</option>
 								<option value="1030">10:30</option>
@@ -121,12 +122,12 @@
 					<tr>
 						<th><i class="fa-solid fa-user-group"></i></th>
 						<td colspan="3"><input type="number" class="meetingform"
-							id="meetingpeople" name="meetingpeople" style="width: 50px;"
+							id="meetPnum" name="meetPnum" style="width: 50px;"
 							min=1 style="width: 250px;" required>명</td>
 					</tr>
 					<tr>
 						<th><i class="fa-solid fa-file"></i></th>
-						<td colspan="3"><textarea type="text" name="meetingcontent" id="meetingcontent"
+						<td colspan="3"><textarea type="text" name="meetContent" id="meetContent"
 								class="meetingform meeting_input meetingTextarea"
 								placeholder="일정 설명 추가" required style="width: 520px;"></textarea></td>
 					</tr>

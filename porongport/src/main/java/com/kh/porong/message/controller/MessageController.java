@@ -27,7 +27,10 @@ public class MessageController {
 	// ==================================================================================
 	
 	/**
-	 * 받은 메시지 전체 리스트 조회
+	 *  받은 메시지 전체 리스트 조회
+	 * @param currentPage : 현재 페이지
+	 * @param loginUser : 로그인한 회원의 정보
+	 * @param model
 	 * @return 받은 메시지 전체 리스트 반환
 	 * @author JH
 	 * @Date : 2023. 11. 14
@@ -74,6 +77,7 @@ public class MessageController {
 	/**
 	 * 받은 메시지 검색 조회
 	 * @param currentPage : 현재 페이지
+	 * @param loginUser : 현재 로그인한 회원의 정보
 	 * @param condition : 검색분류 (이름/직급/내용)
 	 * @param keyword : 사용자가 입력한 검색하고자 하는 키워드 값 (input value)
 	 * @param model
@@ -104,7 +108,6 @@ public class MessageController {
 	}	// searchReceivedMessage
 	
 	
-	
 	// ==================================================================================
 	// 메시지함 - 휴지통 관련
 	// ==================================================================================
@@ -112,33 +115,51 @@ public class MessageController {
 	/**
 	 * 휴지통 메시지 전체 리스트 조회
 	 * @param currentPage : 현재 페이지
+ 	 * @param loginUser : 현재 로그인한 회원의 정보
 	 * @param model
 	 * @return 휴지통 메시지 전체 리스트 반환
 	 * @author JH
 	 * @Date : 2023. 11. 17
 	 */
 	@RequestMapping("deleteMessageBox")
-	public String deleteMessageBox(@RequestParam(value="page", defaultValue="1") int currentPage, Model model) {
+	public String deleteMessageBox(@RequestParam(value="page", defaultValue="1") int currentPage,
+			 					   @SessionAttribute(name = "loginUser", required = false) Employee loginUser,
+			 					   Model model) {
 		
-		int listCount = messageService.deleteListCount();
+		int empNo = loginUser.getEmpNo();
+		int listCount = messageService.deleteListCount(empNo);
 		int boardLimit = 10;
 		int pageLimit = 10;
 		
 		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, boardLimit, pageLimit);
 		
-		model.addAttribute("list", messageService.deleteMessageBoxList(pi));
+		model.addAttribute("list", messageService.deleteMessageBoxList(pi, empNo));
 		model.addAttribute("pi", pi);
 		
 		return "message/deleteMessageBox";
 	}	// deleteMessageBox
 	
 	
+	/**
+	 * 휴지통 메시지 검색 리스트 조회
+	 * @param currentPage : 현재 페이지
+	 * @param loginUser : 현재 로그인한 회원의 정보
+	 * @param condition : 검색분류 (이름/직급/내용)
+	 * @param keyword : 사용자가 입력한 검색하고자 하는 키워드 값 (input value)
+	 * @param model
+	 * @return 사용자가 검색한 키워드와 일치하는 조건의 리스트 반환
+	 * @author JH
+	 * @Date : 2023. 11. 20
+	 */
 	@RequestMapping("searchDeleteMessage")
-	public String searchDeleteMessage(@RequestParam(value="page", defaultValue="1") int currentPage, String condition, String keyword, Model model) {
+	public String searchDeleteMessage(@RequestParam(value="page", defaultValue="1") int currentPage, 
+									  @SessionAttribute(name = "loginUser", required = false) Employee loginUser,
+									  String condition, String keyword, Model model) {
 		
-		Map<String, String> map = new HashMap<String, String>();
+		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("condition", condition);
 		map.put("keyword", keyword);
+		map.put("empNo", loginUser.getEmpNo());
 		
 		PageInfo pi = Pagination.getPageInfo(messageService.searchDeleteListCount(map), currentPage, 10, 10);
 		
@@ -149,21 +170,6 @@ public class MessageController {
 		
 		return "message/deleteMessageBox";
 	}	// searchDeleteMessage
-	
-	
-	
-//	@RequestMapping("storeMessageBox")
-//	public String receivedMessageBox(@RequestParam(value="page", defaultValue="1") int currentPage, int messageNo, Model model) {
-//		
-//		PageInfo pi = Pagination.getPageInfo(messageService.receivedListCount(), currentPage, 10, 10);
-//		
-//		 model.addAttribute("list", messageService.storeMessage(pi, messageNo));
-//
-//		return "message/storeMessageBox";
-//	}	// receivedMessageBox
-	
-	
-	
 	
 	
 	

@@ -53,7 +53,6 @@ public class MessageServiceImpl implements MessageService {
 		return 0;
 	}
 	
-	
 	// 4) 받은 메시지 - 메시지 삭제(휴지통 이동)
 	@Override
 	public int deleteMessage(int messageNo) {
@@ -77,6 +76,20 @@ public class MessageServiceImpl implements MessageService {
 	public int searchReceivedListCount(Map<String, Object> map) {
 		return messageDao.searchReceivedListCount(sqlSession, map);
 	}
+	
+	// 7) 받은 메시지 북마크 설정
+	@Override
+	public int bookmarkMsg(Map<String, Object> map) {
+		return messageDao.bookmarkMsg(sqlSession, map);
+	}	// bookmarkMsg
+	
+	// 8) 받은 메시지 보관함 이동
+	@Override
+	public int storageMessage(int messageNo) {
+		return messageDao.storageMessage(sqlSession, messageNo);
+	}	// storageMessage
+
+	
 
 	// ==================================================================================
 	// 메시지함 - 휴지통 관련
@@ -84,19 +97,19 @@ public class MessageServiceImpl implements MessageService {
 	
 	// 1) 휴지통 메시지 전체 리스트 조회
 	@Override
-	public ArrayList<Message> deleteMessageBoxList(PageInfo pi) {
+	public ArrayList<Message> deleteMessageBoxList(PageInfo pi, int empNo) {
 		
 		int offset = (pi.getCurrentPage() -1) * pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
 		
-		return messageDao.deleteMessageBoxList(sqlSession, rowBounds);
+		return messageDao.deleteMessageBoxList(sqlSession, empNo, rowBounds);
 	}	// deleteMessageBoxList
 	
 	
 	// 2) 휴지통 메시지 전체 개수 조회
 	@Override
-	public int deleteListCount() {
-		return messageDao.deleteListCount(sqlSession);
+	public int deleteListCount(int empNo) {
+		return messageDao.deleteListCount(sqlSession, empNo);
 	}	// deleteListCount
 	
 	
@@ -108,20 +121,20 @@ public class MessageServiceImpl implements MessageService {
 	}
 	
 	
-	// 4) 휴지통 메시지 복구
-	@Override
-	public ArrayList<Message> storeMessage(PageInfo pi, int messageNo) {
-		
-		int offset = (pi.getCurrentPage() -1) * pi.getBoardLimit();
-		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
-		
-		return messageDao.storeMessage(sqlSession, messageNo, rowBounds);
-	}	// storeMessage
-	
+//	// 4) 휴지통 메시지 복구
+//	@Override
+//	public ArrayList<Message> storeMessage(PageInfo pi, int messageNo) {
+//		
+//		int offset = (pi.getCurrentPage() -1) * pi.getBoardLimit();
+//		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+//		
+//		return messageDao.storeMessage(sqlSession, messageNo, rowBounds);
+//	}	// storeMessage
+//	
 	
 	// 5) 휴지통 메시지 검색 조회
 	@Override
-	public ArrayList<Message> searchDeleteMessage(Map<String, String> map, PageInfo pi) {
+	public ArrayList<Message> searchDeleteMessage(Map<String, Object> map, PageInfo pi) {
 		
 		int offset = (pi.getCurrentPage() -1) * pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
@@ -132,7 +145,7 @@ public class MessageServiceImpl implements MessageService {
 	
 	// 6) 휴지통 메시지 검색 개수 조회
 	@Override
-	public int searchDeleteListCount(Map<String, String> map) {
+	public int searchDeleteListCount(Map<String, Object> map) {
 		return messageDao.searchDeleteListCount(sqlSession, map);
 	}	// searchDeleteListCount
 	
@@ -146,5 +159,10 @@ public class MessageServiceImpl implements MessageService {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+
+
+
+
 
 }	// end class
