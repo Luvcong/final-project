@@ -51,6 +51,11 @@ public class EmployeeServiceImpl implements EmployeeService {
 		return empDao.updateAtt(sqlSession, att);
 	}
 
+	@Override
+	public int idCheck(int checkId) {
+		return empDao.idCheck(sqlSession, checkId);
+	}
+
 	
 
 }

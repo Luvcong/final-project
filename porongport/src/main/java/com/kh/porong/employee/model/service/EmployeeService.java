@@ -22,11 +22,15 @@ public interface EmployeeService {
 	
 	// 퇴근기록 update
 	int updateAtt(Attendance att);
-	
+
 	// 입사자 등록
 	int insertEmp(Employee emp);
 	
-	// 비밀번호 찾기(+메일 인증)
+	// 아이디 중복체크
+	int idCheck(int checkId);
+	
+	// 비밀번호 찾기
+	
 	
 
 
