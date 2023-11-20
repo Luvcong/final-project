@@ -90,7 +90,7 @@
 }
 .nocurrent{
    align-items: center;
-    justify-content: center;
+   justify-content: center;
 }
 
 .current.today {background: rgb(242 242 242);}

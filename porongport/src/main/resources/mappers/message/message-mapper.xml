@@ -175,7 +175,7 @@
 		 		MESSAGE_NO = #{ messageNo }
 	</update>
 	
-	<!-- 메시지 보관함 이동 -->
+	<!-- 메시지 보관함으로 이동 -->
 	<update id="storageMessage" parameterType="_int">
 		UPDATE
 				MESSAGE
@@ -270,6 +270,18 @@
 	  	 </choose>
 	  	  LIKE '%' || #{ keyword } || '%'
 	</select>
+		
+	<!-- 메시지 보관함에서 기존 메시지함으로 이동 -->
+	<update id="moveMessageBox" parameterType="_int">
+		UPDATE
+				MESSAGE
+		   SET
+		   		MESSAGE_STATUS = 'Y'
+		 WHERE
+		 		MESSAGE_NO = #{ messageNo }
+	</update>
+	
+	
 	
 	
 	

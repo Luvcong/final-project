@@ -154,10 +154,9 @@
 			        <div class="sub-item" data-url='board3'>게시판3</div>
 				</div>
 				
-				<form action="jojigdo.em">
 				
 					<div class="sub-menu d-none" data-group='jojigdo.em'>
-						<div class="sub-item sub-title" data-url='jojigdo.em'>조직도</div>
+						<a href="${path}'jojigdo.em?deptCode=HR'" data-url='jojigdo.em'>조직도</a>
 						<div class="sub-item" data-url='insert.de'>
 							<button type="button" class="btn btn-info" data-toggle="modal" data-target="#insertDept" style="width: 100%; height: 100%; font-size: 15px;">부서추가</button>
 						</div>
@@ -174,7 +173,6 @@
 							</li>
 						</ul>
 					</div>
-				</form>
 				<script>
 					var $hr = $('#HR');
 					var $pd = $('#PD');
@@ -206,7 +204,6 @@
 
 			    	<div class="sub-item sub-title" data-url='calendar'>캘린더</div>
 
-			        <div class="sub-item" hidden data-url='calendar' >전체보기</div>
 			        <div class="sub-item" data-url='myCalendar'>나의 일정 추가</div>
 			        <div class="sub-item" data-url='departmentCalendar'>부서 일정 추가</div>
 			        <div class="sub-item"data-url='reservation'>회의실 예약</div>

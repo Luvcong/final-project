@@ -59,6 +59,9 @@ public interface MessageService {
 	// 받은 메시지 보관함 검색 개수 조회
 	int searchReceivedStorageListCount(Map<String, Object> map);
 	
+	// 받은 메시지 보관함 > 받은 메시지함으로 이동
+	int moveMessageBox(int messageNo);
+	
 	
 	
 	// 휴지통 메시지 전체 리스트 조회
