@@ -127,6 +127,13 @@ public class MessageServiceImpl implements MessageService {
 		return messageDao.searchReceivedStorageListCount(sqlSession, map);
 	}	// searchReceivedStorageListCount
 	
+	// 5) 받은 메시지 보관함 > 받은 메시지함으로 이동
+	@Override
+	public int moveMessageBox(int messageNo) {
+		return messageDao.moveMessageBox(sqlSession, messageNo);
+	}	// moveMessageBox
+
+	
 
 	// ==================================================================================
 	// 메시지함 - 휴지통 관련
@@ -196,6 +203,8 @@ public class MessageServiceImpl implements MessageService {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+
 
 
 

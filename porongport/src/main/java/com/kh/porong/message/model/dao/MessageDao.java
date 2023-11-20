@@ -166,7 +166,17 @@ public class MessageDao {
 	}	// searchReceivedStorageListCount
 
 
-
+	/**
+	 * 받은 메시지 보관함 > 받은 메시지함으로 이동
+	 * @param sqlSession
+	 * @param messageNo : 보관함에서 받은 메시지함으로 이동하려는 메시지 번호
+	 * @return 메시지함 이동 성공 여부 (MESSAGE_STATUS = Y 업데이트 성공 여부)
+	 * @author JH
+	 * @Date : 2023. 11. 20
+	 */
+	public int moveMessageBox(SqlSessionTemplate sqlSession, int messageNo) {
+		return sqlSession.update("messageMapper.moveMessageBox", messageNo);
+	}	// moveMessageBox
 	
 	// ==================================================================================
 	// 메시지함 - 휴지통 관련
@@ -221,6 +231,8 @@ public class MessageDao {
 	public int searchDeleteListCount(SqlSessionTemplate sqlSession, Map<String, Object> map) {
 		return sqlSession.selectOne("messageMapper.searchDeleteListCount", map);	
 	}	// searchDeleteListCount
+
+
 
 
 

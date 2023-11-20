@@ -29,7 +29,7 @@
 		
 		<div class='toolbar'>
 			<div class="messageBtn">
-				<button class="btn btn-sm btn-outline-primary">이동</button>
+				<button class="btn btn-sm btn-outline-primary" onclick="moveMessageBox()">이동</button>
 				<button class="btn btn-sm btn-outline-primary">삭제</button>
 				<button class="btn btn-sm btn-outline-primary">읽음설정</button>
 			</div>
@@ -174,6 +174,163 @@
 
 		</div>	<!-- pp-content-message  -->
 	</div>	<!-- pp-content  -->
+	
+	<script>
+		// ------------------------------------------------------------------
+		// 체크박스 선택 / 해제 기능
+		// ------------------------------------------------------------------
+		// 전체 체크박스
+		function checkAll(){
+			let table = document.getElementById('tb-received');
+			let inputs = table.querySelectorAll('tr input');
+			
+			for(let input of inputs){
+				input.checked = event.target.checked;
+			}
+			
+		}	// checkAll
+		
+		// 체크박스
+		function checkOnce(){
+			let table = document.getElementById('tb-received');
+			let hd_input = table.querySelector('th').querySelector('input');
+			let inputs = table.querySelector('tbody').querySelectorAll('tr input');
+			
+			let is_all_checked = true;
+			for(let input of inputs){
+				if(input.checked == false){
+					is_all_checked = false;
+					break;
+				}
+			}
+			hd_input.checked = is_all_checked;
+		}	// checkOnce
+	
+		
+		// ------------------------------------------------------------------
+		// 메시지 북마크 ajax
+		// ------------------------------------------------------------------
+		function bookmark_msg(){
+					
+			let target = event.currentTarget;
+			let message_no = target.getAttribute('data-no');
+			let bookmark_YN = target.classList.contains('fa-solid');	// true or false
+			// console.log(bookmark_YN);
+						
+			$.ajax({
+ 				url : 'bookmarkMsg',
+				type : 'get',
+				data : { messageNo : message_no,
+						bookmarkYN : bookmark_YN
+						 },
+				success : function(result){
+					
+					if(result){
+						target.classList.remove('fa-regular');	// 빈 별
+						target.classList.add('fa-solid');		// 색칠 별
+					} else {
+						target.classList.remove('fa-solid');
+						target.classList.add('fa-regular');
+					}
+					// console.log(target);	
+				},	// success
+				error : function(result){
+					console.log('통신오류! 실패');
+				},	// error
+			});	// ajax
+			}	// bookmark_msg
+			
+			
+		// ------------------------------------------------------------------
+		// 받은메시지로 이동 기능 ajax
+		// ------------------------------------------------------------------
+		function moveMessageBox(){
+			
+			let trs = document.querySelectorAll('.table tr');
+			let checked_tr = null;
+			
+ 			for(let tr of trs){
+				let input = tr.querySelector('input');
+				if(input.checked){
+					checked_tr = tr;
+					break;
+				}
+			}
+  			if(checked_tr == null){
+  				Swal.fire('실패', '이동할 메시지를 선택해주세요!', 'warning');
+  				return;
+  			}
+			
+			Swal.fire({
+				title: "메시지를 이동하시겠습니까?",
+				text : "※ 선택한 메시지는 받은 메시지함으로 이동합니다.",
+				icon: 'question',
+				showCancelButton: true,
+				confirmButtonColor: "#DD6B55",
+				confirmButtonText: "삭제",
+				cancelButtonText: "취소"
+				}).then((result) => {
+					if (!result.isConfirmed) {
+					  return;
+					}
+					
+  					let table = document.getElementById('tb-received');			
+					let trs = table.querySelectorAll('tbody tr');		// 데이터 행 부분
+					let message_list = [];
+					
+					for(let tr of trs){
+						let input = tr.querySelector('input');
+						if(input.checked == true){
+							let messageNo = input.value;
+							console.log(messageNo);
+							message_list.push(messageNo);
+						}
+					}
+					console.log(message_list);
+					
+ 			$.ajax({
+ 				url : 'moveMessageBox',
+				type : 'get',
+				data : { message_list : message_list },
+				dataType: 'json',
+				success : function(result){
+					
+					Swal.fire('성공', '메시지가 보관함으로 이동되었습니다!', 'success');
+					
+ 					let listCount = document.getElementById('messageListCount');
+ 					let total = parseInt(listCount.textContent);
+ 					// console.log(listCount);
+					// console.log(total);
+					
+					for(let tr of trs){
+						let input = tr.querySelector('input');
+						let messageNo = parseInt(input.value);
+						// console.log(messageNo);
+						
+						if(result.includes(messageNo)){
+							tr.remove();
+							total--;
+							// console.log(total);				// 전체 조회수에서 -- count되는지 확인ok
+							
+							listCount.textContent = total;	// remove total 값 넣어주기
+						}
+					}
+				},	// success
+				error : function(result){
+					Swal.fire('실패', '메시지함으로 이동되지 않았습니다<br>다시 시도해주세요', 'warning');
+					console.log('통신오류! 실패');
+				},	// error
+			});	// ajax
+			});		// confrim	 
+		}	// moveMessageBox
+			
+			
+			
+			
+			
+			
+			
+	</script>
 
 </body>
 </html>
