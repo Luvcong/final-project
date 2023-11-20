@@ -34,6 +34,14 @@ public class EmployeeDao {
 	public int updateAtt(SqlSessionTemplate sqlSession, Attendance att) {
 		return sqlSession.update("empMapper.updateAtt", att);
 	}
+
+	public int idCheck(SqlSessionTemplate sqlSession, int checkId) {
+		return sqlSession.selectOne("empMapper.idCheck", checkId);
+	}
+
+	public Attendance checkAtt(SqlSessionTemplate sqlSession, int empNo) {
+		return sqlSession.selectOne("empMapper.checkAtt", empNo);
+	}
 	
 
 }

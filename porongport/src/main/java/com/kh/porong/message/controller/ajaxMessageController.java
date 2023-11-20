@@ -1,5 +1,6 @@
 package com.kh.porong.message.controller;
 
+import java.util.List;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -36,16 +37,23 @@ public class ajaxMessageController {
 	 */
 	@ResponseBody
 	@GetMapping(value="deleteMessage", produces="application/json; charset=UTF-8")
-	public String deleteMessage(@RequestParam(value="messageNoList[]") ArrayList<String> messageNoList) {
+	public String deleteMessage(@RequestParam(value="messageNoList[]") List<Integer> messageNoList) {
 		
 		JsonArray deleteList = new JsonArray();
 		
-		for(String arr : messageNoList) {
-			int messageNo = Integer.parseInt(arr);
+		for(int arr : messageNoList) {
+			int messageNo = arr;
 			int result = messageService.deleteMessage(messageNo);
 			if(result > 0)
 				deleteList.add(messageNo);
 		}
+		
+//		for(String arr : messageNoList) {
+//			int messageNo = Integer.parseInt(arr);
+//			int result = messageService.deleteMessage(messageNo);
+//			if(result > 0)
+//				deleteList.add(messageNo);
+//		}
 		return new Gson().toJson(deleteList);
 	}	// deleteMessage
 	
@@ -79,12 +87,12 @@ public class ajaxMessageController {
 	 */
 	@ResponseBody
 	@GetMapping(value="receivedStorageMessage", produces="application/json; charset=UTF-8")
-	public String receivedStorageMessage(@RequestParam(value="messageList[]") ArrayList<String> messageList) {
+	public String receivedStorageMessage(@RequestParam(value="messageList[]") List<Integer> messageList) {
 		
 		JsonArray storageList = new JsonArray();
 		
-		for(String arr : messageList) {
-			int messageNo = Integer.parseInt(arr);
+		for(int arr : messageList) {
+			int messageNo = arr;
 			int result = messageService.storageMessage(messageNo);
 				if(result > 0)
 					storageList.add(messageNo);

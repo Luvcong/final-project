@@ -82,7 +82,7 @@
 	</insert>
 	
 	<!-- 근태 리스트 -->
-	<select id="attList" parameterType="int" resultType="att">
+	<select id="attList" parameterType="_int" resultType="att">
 		SELECT
 		      WORK_DATE workDate
 		      ,WORK_START workStart
@@ -91,6 +91,20 @@
 		      ATTENDANCE
 		 WHERE
 		      EMP_NO = #{empNo}
+	</select>
+	
+	<!-- 근태 조회 -->
+	<select id="checkAtt" parameterType="_int" resultType="att">
+		SELECT
+			  WORK_DATE workDate
+			  ,WORK_START workStart
+			  ,WORK_END workEnd
+		  FROM
+		      ATTENDANCE
+		 WHERE
+		      EMP_NO = #{empNo}
+		   AND
+		      TO_CHAR(WORK_DATE, 'YY/MM/DD') = TO_CHAR(SYSDATE, 'YY/MM/DD')
 	</select>
 	
 	<!-- 입사자 등록 -->
@@ -115,7 +129,7 @@
 		      )
 	</insert>
 	
-	<!-- 근태 select -->
+	<!-- 마지막 근태 레코드 구하는 쿼리 -->
 	<select id="selectAtt" parameterType="att" resultType="att">
 		SELECT 
 		      WORK_DATE workDate
@@ -135,6 +149,7 @@
 		WHERE ROWNUM = 1
 	</select>
 	
+	<!-- 퇴근기록 update -->
 	<update id="updateAtt" parameterType="att">
 		UPDATE
 		      ATTENDANCE
@@ -143,4 +158,27 @@
 		 WHERE
 		      EMP_NO = #{empNo}
 	</update>
+	
+	<!-- 아이디 중복체크 쿼리 -->
+	<select id="idCheck" parameterType="_int" resultType="_int">
+		SELECT
+		      COUNT(*)
+		  FROM
+		      EMPLOYEE
+		 WHERE
+		      EMP_NO = #{empNo}
+	</select>
+	
+	<!-- 비밀번호 찾기 -->
+	<select id="findPwd" parameterType="emp" resultType="emp">
+		SELECT
+		      EMP_PWD
+		  FROM
+		      EMPLOYEE
+		 WHERE
+		      EMP_NO = #{empNo}
+		   AND 
+		      EMP_NAME = #{empName}
+	</select>
+	
 </mapper>

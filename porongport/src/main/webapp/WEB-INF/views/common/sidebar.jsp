@@ -118,8 +118,7 @@
 						<div class="sub-menu d-none" data-group='myPageAtt'>
 							<div class="sub-item sub-title" data-url='myPageAtt'>마이페이지</div>
 					        <div class="sub-item" data-url='myPageUp'>내정보 관리</div>
-						    <div class="sub-item" hidden data-url='login.em'>근태 관리</div>
-						    <div class="sub-item" data-url='login.em'>근태 관리</div>
+						    <div class="sub-item" data-url='myPageAtt'>근태 관리</div>
 						    <div class="sub-item" data-url='myPageIn'>입사자 등록</div>
 				       		<div class="sub-item" data-url='mypage3'>연차 관리</div>
 						</div>
@@ -163,7 +162,6 @@
 
 			    	<div class="sub-item sub-title" data-url='calendar'>캘린더</div>
 
-			        <div class="sub-item" hidden data-url='calendar' >전체보기</div>
 			        <div class="sub-item" data-url='myCalendar'>나의 일정 추가</div>
 			        <div class="sub-item" data-url='departmentCalendar'>부서 일정 추가</div>
 			        <div class="sub-item"data-url='reservation'>회의실 예약</div>
