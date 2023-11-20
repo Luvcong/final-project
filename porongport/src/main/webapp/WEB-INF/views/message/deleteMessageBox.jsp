@@ -20,6 +20,8 @@
 
 	<jsp:include page="../common/sidebar.jsp" />
 	
+	
+	
 	<div class="pp-content">
 		<div class="header">
 			<div class="h-title">
@@ -27,14 +29,20 @@
 			</div>
 		</div>	<!-- header  -->
 		
-		<form id="searchForm" action="searchReceivedMessage" method="post">
+		<div class='toolbar'>
+			<div class="messageBtn">
+				<button class="btn btn-sm btn-outline-primary" onclick="storeMessage()">복구</button>
+				<button class="btn btn-sm btn-outline-primary"  onclick="deleteMessage()">영구삭제</button>
+			</div>
+			
         <div class="searchTable">
-	      	<table id="check-table">
+		<form id="searchForm" action="searchDeleteMessage" method="post">
+	      	<table>
 	      		<tr>
 		            <td>
 	     			    <select class="select btn btn-sm btn-outline-primary dropdown-toggle" name="condition">
 							<option value="userName">이름</option>
-							<option value="userCode">직급</option>
+							<option value="jobName">직급</option>
 							<option value="messageContent">내용</option>
 						</select>
 	     			</td>
@@ -46,14 +54,10 @@
 	   				</td>
 	      		</tr>
 	      	</table>
-      	</div>	<!-- searchTable  -->
-		</form>	<!-- searchForm  -->
+	      	</form> <!-- searchForm  -->
+			</div>	<!-- searchTable  -->
+      	</div>	<!-- toolbar  -->
       	
-		<div class="receivedBtn">
-			<button class="btn btn-sm btn-outline-primary" onclick="storeMessage()">복구</button>
-			<button class="btn btn-sm btn-outline-primary"  onclick="deleteMessage()">영구삭제</button>
-		</div>
-		
 <%--  		<form action="" method="post" id="postForm">
 			<input type="hidden" name="messageNo" value="${ message.messagedNo }">
 		</form>
@@ -71,40 +75,47 @@
 			</script> --%>
 		
 		<div class="pp-content-message">
-		<div class="selectCount">
-			삭제 메시지 수 <span class="count" id="messageListCount">${ pi.listCount }</span>개
-		</div>
+			<div class="selectCount">
+				삭제 메시지 수 <span class="count" id="messageListCount">${ pi.listCount }</span>개
+			</div>
 		
 			<div class="tableBody">
-				<table id='tb-received' class="table table-sm table-hover shadow rounded-3">
+				<table id='tb-delete' class="table table-sm table-hover shadow rounded-3">
 				<thead>
 					<tr class="tb-title-tr">
 						<th><input type="checkbox" onclick="checkAll()"></th>
+						<th></th>
 						<th>번호</th>
-						<th>분류</th>
-						<th>수신/발신자</th>
+						<th>발신자</th>
 						<th>내용</th>
 						<th>삭제 시간</th>
-						<th>영구삭제 기간</th>
+						<th>영구삭제 시간</th>
 					</tr>
 				</thead>
 				<tbody>
 				<c:choose>
 	           	<c:when test="${ empty list }">
 	   	            <tr>
-		            	<td colspan="7">삭제된 메시지가 없습니다.</td>
+		            	<td colspan="7">받은 메시지가 없습니다.</td>
 	                </tr>
 	           	</c:when>
 	           	<c:otherwise>
 	           		<c:forEach var="message" items="${ list }">
 	           			<tr>
 		                    <td><input type="checkbox" onclick="checkOnce()" value="${ message.messageNo }"></td>
+		                    <c:choose>
+		                    	<c:when test="${ message.bookmarkYN eq 'N' }">
+			                    	<td><i onclick="bookmark_msg()" class="fa-regular fa-star td-fa-star"></i></td>
+		                    	</c:when>
+		                    	<c:otherwise>
+				                    <td><i  onclick="bookmark_msg()" class="fa-solid fa-star td-fa-star"></i></td>
+		                    	</c:otherwise>
+		                    </c:choose>
 		                    <td>${ message.messageRank }</td>
-		                    <td>수신</td>
 							<td>${ message.empName } [${ message.jobName }]</td>
 							<td>${ message.messageContent }</td>
 							<td>${ message.deleteDate }</td>
-		                    <td>${ message.effectiveDate }<span>일 남음</span></td>
+							<td>${ message.effectiveDate }<span>일 남음</span></td>
 						</tr>
 	           		</c:forEach>
 	           	</c:otherwise>
@@ -120,10 +131,10 @@
 	                    	<li class="page-item disabled"><a class="page-link" href="#">&laquo;</a></li>
                 		</c:when>
                 		<c:when test="${ empty condition }">
-	                    	<li class="page-item"><a class="page-link" href="receivedMessage?page=${ pi.currentPage-1 }">&laquo;</a></li>
+	                    	<li class="page-item"><a class="page-link" href="deleteMessageBox?page=${ pi.currentPage-1 }">&laquo;</a></li>
                 		</c:when>
                 		<c:otherwise>
-                			<li class="page-item"><a class="page-link" href="receivedMessage?page=${ pi.currentPage-1 }&condition=${ condition }&keyword=${ keyword }">&laquo;</a></li>
+                			<li class="page-item"><a class="page-link" href="searchDeleteMessage?page=${ pi.currentPage-1 }&condition=${ condition }&keyword=${ keyword }">&laquo;</a></li>
           				</c:otherwise>
                 	</c:choose>
                 	
@@ -133,10 +144,10 @@
 		                    	<li class="page-item disabled"><a class="page-link" href="#">${ p }</a></li>
 	                    	</c:when>
 	                    	<c:when test="${ empty condition }">
-	                    		<li class="page-item"><a class="page-link" href="receivedMessage?page=${ p }">${ p }</a></li>
+	                    		<li class="page-item"><a class="page-link" href="deleteMessageBox?page=${ p }">${ p }</a></li>
 	                    	</c:when>
 	                    	<c:otherwise>
-	                    		<li class="page-item"><a class="page-link" href="receivedMessage?page=${ p }&condition=${ condition }&keyword=${ keyword }">${ p }</a></li>
+	                    		<li class="page-item"><a class="page-link" href="searchDeleteMessage?page=${ p }&condition=${ condition }&keyword=${ keyword }">${ p }</a></li>
 	                    	</c:otherwise>
                     	</c:choose>
                     </c:forEach>
@@ -146,10 +157,10 @@
                     		<li class="page-item disabled"><a class="page-link" href="#">&raquo;</a></li>
                     	</c:when>
                     	<c:when test="${ empty condition }">
-                    		<li class="page-item"><a class="page-link" href="receivedMessage?page=${ pi.currentPage+1 }">&raquo;</a></li>
+                    		<li class="page-item"><a class="page-link" href="deleteMessageBox?page=${ pi.currentPage+1 }">&raquo;</a></li>
                     	</c:when>
                     	<c:otherwise>
-		                    <li class="page-item" ><a class="page-link" href="receivedMessage?page=${ pi.currentPage+1 }&condition=${ condition }&keyword=${ keyword }">&raquo;</a></li>
+		                    <li class="page-item" ><a class="page-link" href="searchDeleteMessage?page=${ pi.currentPage+1 }&condition=${ condition }&keyword=${ keyword }">&raquo;</a></li>
                     	</c:otherwise>
                     </c:choose>
                 </ul>
