@@ -90,6 +90,43 @@ public class MessageServiceImpl implements MessageService {
 	}	// storageMessage
 
 	
+	
+	// ==================================================================================
+	// 메시지함 - 받은 메시지 보관함 관련
+	// ==================================================================================
+	
+	// 1) 받은 메시지 보관함 전체 리스트 조회
+	@Override
+	public ArrayList<Message> receivedStorageList(PageInfo pi, int empNo) {
+		
+		int offset = (pi.getCurrentPage() -1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		
+		return messageDao.receivedStorageList(sqlSession, empNo, rowBounds);
+	}	// receivedStorageList
+
+	// 2) 받은 메시지 보관함 전체 개수 조회
+	@Override
+	public int receivedStorageListCount(int empNo) {
+		return messageDao.receivedStorageListCount(sqlSession, empNo);
+	}	// storageListCount
+
+	// 3) 받은 메시지 보관함 검색 리스트 조회
+	@Override
+	public ArrayList<Message> searchReceivedStorageMessage(Map<String, Object> map, PageInfo pi) {
+		
+		int offset = (pi.getCurrentPage() -1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		
+		return messageDao.searchReceivedStorageMessage(sqlSession, map, rowBounds);
+	}	// searchReceivedStorageMessage
+	
+	// 4) 받은 메시지 보관함 검색 개수 조회
+	@Override
+	public int searchReceivedStorageListCount(Map<String, Object> map) {
+		return messageDao.searchReceivedStorageListCount(sqlSession, map);
+	}	// searchReceivedStorageListCount
+	
 
 	// ==================================================================================
 	// 메시지함 - 휴지통 관련
@@ -159,6 +196,7 @@ public class MessageServiceImpl implements MessageService {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 
 
 
