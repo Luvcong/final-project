@@ -78,12 +78,13 @@ public class EmployeeController {
 		Employee loginEmp = empService.loginEmp(emp);
 		
 		if(loginEmp != null) {
+			// 로그인한 유저 정보
 			session.setAttribute("loginUser", loginEmp);
 			
+			// 로그인한 유저 근태 리스트
 			ArrayList<Attendance> attList = empService.attList(loginEmp.getEmpNo());
-			
-			// mv.addObject("attList", attList).setViewName("mypage/myPageAttendance");
 			session.setAttribute("attList", attList);
+			
 			mv.setViewName("mypage/myPageAttendance");
 			
 		} else {
@@ -101,16 +102,26 @@ public class EmployeeController {
 	}
 	
 	@ResponseBody
+	@RequestMapping(value="checkAtt.em", produces="json/application; charset=UTF-8")
+	public String checkAtt(int empNo) {
+		Attendance att = empService.checkAtt(empNo);
+		if(att != null) {
+			return new Gson().toJson(att);
+		} else {
+			return "redirect:myPageAtt";
+		}
+	}
+	
+	@ResponseBody
 	@GetMapping(value="insert.at", produces="json/application; charset=UTF-8")
 	public String insertAtt(Attendance att) {
-		
 		if(empService.insertAtt(att) > 0) {
 			Attendance reAtt = empService.selectAtt(att);
 			return new Gson().toJson(reAtt);
 		} else {
 			return "redirect:myPageAtt";
 		}
-		
+	
 	}
 	
 	@ResponseBody

@@ -38,6 +38,10 @@ public class EmployeeDao {
 	public int idCheck(SqlSessionTemplate sqlSession, int checkId) {
 		return sqlSession.selectOne("empMapper.idCheck", checkId);
 	}
+
+	public Attendance checkAtt(SqlSessionTemplate sqlSession, int empNo) {
+		return sqlSession.selectOne("empMapper.checkAtt", empNo);
+	}
 	
 
 }

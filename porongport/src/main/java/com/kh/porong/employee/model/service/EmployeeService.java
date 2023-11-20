@@ -14,10 +14,13 @@ public interface EmployeeService {
 	// 출근기록 리스트
 	ArrayList<Attendance> attList(int empNo);
 	
+	// 출근기록 조회
+	Attendance checkAtt(int empNo);
+	
 	// 출근기록 insert
 	int insertAtt(Attendance att);
 	
-	// 출근기록 select
+	// 마지막 출근기록 조회
 	Attendance selectAtt(Attendance att);
 	
 	// 퇴근기록 update
