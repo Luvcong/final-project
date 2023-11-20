@@ -134,4 +134,18 @@ public class EmployeeController {
 		}
 	}
 	
+	// 조직도
+	@GetMapping("jojigdo.em")
+	public ModelAndView selectJojigdo(ModelAndView mv, String deptCode) {
+		ArrayList<Employee> list = empService.selectJojigdo(deptCode); 
+		
+		if(!list.isEmpty()) {
+			mv.addObject("jojigdoList", list).setViewName("common/jojigdo");
+		
+		} else {
+			mv.addObject("errorMsg", "해당 부서의 조직도가 존재하지 않습니다.").setViewName("common/errorPage");
+		}
+		
+		return mv;
+	}
 }

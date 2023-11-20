@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>휴가신청서</title>
-<!-- 부트스트립트 -->
+	<!-- 부트스트립트 -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
@@ -73,13 +73,13 @@
 	                </tr>
 	                <tr>
 	                    <th class="vacation-th-size">사유</th>
-	                    <td><textarea ></textarea></td>
+	                    <td><textarea rows="8" cols="100"></textarea></td>
 	                </tr>
 	                <tr>
-	                    <td colspan="2">위와 같이 휴가를 신청하오니 허락하여 주시기 바랍니다.</td>
+	                    <td colspan="2"><p class="ex_txt">위와 같이 휴가를 신청하오니 허락하여 주시기 바랍니다.</p></td>
 	                </tr>
 	                <tr>
-	                    <td colspan="2"><p>2023-11-17</p></td>
+	                    <td colspan="2"><p class="ex_txt">2023-11-17</p></td>
 	                </tr>
 	               </table>
 	       		</div>

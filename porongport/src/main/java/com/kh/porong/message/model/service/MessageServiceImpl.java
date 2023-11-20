@@ -23,6 +23,16 @@ public class MessageServiceImpl implements MessageService {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 	
+	// ==================================================================================
+	// 메시지함 - 공통 기능
+	// ==================================================================================
+	
+	// 1) 받은 메시지 보관함 / 휴지통 > 받은 메시지함으로 이동
+	@Override
+	public int moveMessageBox(int messageNo) {
+		return messageDao.moveMessageBox(sqlSession, messageNo);
+	}	// moveMessageBox
+
 	
 	// ==================================================================================
 	// 메시지함 - 받은 메시지 관련
@@ -77,18 +87,20 @@ public class MessageServiceImpl implements MessageService {
 		return messageDao.searchReceivedListCount(sqlSession, map);
 	}
 	
+	
 	// 7) 받은 메시지 북마크 설정
 	@Override
 	public int bookmarkMsg(Map<String, Object> map) {
 		return messageDao.bookmarkMsg(sqlSession, map);
 	}	// bookmarkMsg
 	
+	
 	// 8) 받은 메시지 보관함 이동
 	@Override
 	public int storageMessage(int messageNo) {
 		return messageDao.storageMessage(sqlSession, messageNo);
 	}	// storageMessage
-
+	
 	
 	
 	// ==================================================================================
@@ -105,12 +117,14 @@ public class MessageServiceImpl implements MessageService {
 		return messageDao.receivedStorageList(sqlSession, empNo, rowBounds);
 	}	// receivedStorageList
 
+	
 	// 2) 받은 메시지 보관함 전체 개수 조회
 	@Override
 	public int receivedStorageListCount(int empNo) {
 		return messageDao.receivedStorageListCount(sqlSession, empNo);
 	}	// storageListCount
 
+	
 	// 3) 받은 메시지 보관함 검색 리스트 조회
 	@Override
 	public ArrayList<Message> searchReceivedStorageMessage(Map<String, Object> map, PageInfo pi) {
@@ -121,6 +135,7 @@ public class MessageServiceImpl implements MessageService {
 		return messageDao.searchReceivedStorageMessage(sqlSession, map, rowBounds);
 	}	// searchReceivedStorageMessage
 	
+	
 	// 4) 받은 메시지 보관함 검색 개수 조회
 	@Override
 	public int searchReceivedStorageListCount(Map<String, Object> map) {
@@ -128,6 +143,7 @@ public class MessageServiceImpl implements MessageService {
 	}	// searchReceivedStorageListCount
 	
 
+	
 	// ==================================================================================
 	// 메시지함 - 휴지통 관련
 	// ==================================================================================
@@ -150,26 +166,7 @@ public class MessageServiceImpl implements MessageService {
 	}	// deleteListCount
 	
 	
-	// 3) 휴지통 메시지 영구 삭제
-	@Override
-	public int deletePermanentlyMessage(int messageNo) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-	
-	
-//	// 4) 휴지통 메시지 복구
-//	@Override
-//	public ArrayList<Message> storeMessage(PageInfo pi, int messageNo) {
-//		
-//		int offset = (pi.getCurrentPage() -1) * pi.getBoardLimit();
-//		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
-//		
-//		return messageDao.storeMessage(sqlSession, messageNo, rowBounds);
-//	}	// storeMessage
-//	
-	
-	// 5) 휴지통 메시지 검색 조회
+	// 3) 휴지통 메시지 검색 조회
 	@Override
 	public ArrayList<Message> searchDeleteMessage(Map<String, Object> map, PageInfo pi) {
 		
@@ -180,11 +177,19 @@ public class MessageServiceImpl implements MessageService {
 	}	// searchDeleteMessage
 	
 	
-	// 6) 휴지통 메시지 검색 개수 조회
+	// 4) 휴지통 메시지 검색 개수 조회
 	@Override
 	public int searchDeleteListCount(Map<String, Object> map) {
 		return messageDao.searchDeleteListCount(sqlSession, map);
 	}	// searchDeleteListCount
+	
+	
+	// 5) 휴지통 메시지 영구 삭제
+	@Override
+	public int deletePermanentlyMessage(int messageNo) {
+		return messageDao.deletePermanentlyMessage(sqlSession, messageNo);
+	}	// deletePermanentlyMessage
+	
 	
 
 	
@@ -196,6 +201,8 @@ public class MessageServiceImpl implements MessageService {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+
 
 
 
