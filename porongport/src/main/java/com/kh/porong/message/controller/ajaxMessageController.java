@@ -121,6 +121,20 @@ public class ajaxMessageController {
 	}	// moveMessageBox
 	
 	
+	@ResponseBody
+	@GetMapping("deletePermanentlyMessage")
+	public String deletePermanentlyMessage(@RequestParam(value="message_list[]") List<Integer> messageList) {
+		
+		JsonArray permanentDeleteList = new JsonArray();
+		
+		for(int arr : messageList) {
+			int messageNo = arr;
+			int result = messageService.deletePermanentlyMessage(messageNo);
+				if(result > 0)
+					permanentDeleteList.add(messageNo);
+		}
+		return new Gson().toJson(permanentDeleteList);
+	}	// permanentDelete
 	
 	
 
