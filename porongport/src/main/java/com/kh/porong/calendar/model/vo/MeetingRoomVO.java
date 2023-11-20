@@ -18,9 +18,9 @@ public class MeetingRoomVO {
 	private String meetStatus;		//MEET_STATUS	VARCHAR2(1 BYTE)
 	private String meetApproval;	//MEET_APPROVAL VARCHAR2(1 BYTE)
 	
-	private String meetingStartDay;
-	private String meetingStartTime;
-	private String meetingEndDay;
-	private String meetingEndTime;
+	private String meetStartDay;
+	private String meetStartTime;
+	private String meetEndDay;
+	private String meetEndTime;
 	
 }

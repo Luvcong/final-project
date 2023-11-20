@@ -23,6 +23,18 @@ public class MeetingRoomController {
 	@RequestMapping("insertMeeting")
 	public String insertmeeting(MeetingRoomVO mr, HttpSession session) {
 		
+		String meetStartDay = mr.getMeetStartDay();
+		String meetStartTime = mr.getMeetStartTime();
+		
+		String meetEndDay = mr.getMeetEndDay();
+		String meetEndTime = mr.getMeetEndTime();
+		
+		if(meetStartDay != "") {
+			mr.setMeetStart(meetStartDay+'T'+meetStartTime);
+			mr.setMeetEnd(meetEndDay+'T'+meetEndTime);
+		}
+		
+		
 		if(meetingRoomService.insertMeetingRoom(mr) > 0) {
 			session.setAttribute("alertMsg", "일정추가성공");
 			return "redirect:reservation";
