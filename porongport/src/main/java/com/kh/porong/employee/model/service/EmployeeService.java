@@ -34,6 +34,9 @@ public interface EmployeeService {
 	
 	// 비밀번호 찾기
 	
+	// 조직도 조회
+	ArrayList<Employee> selectJojigdo(String deptCode);
+	
 	
 
 

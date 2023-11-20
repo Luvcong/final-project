@@ -21,8 +21,8 @@
 	            <div class="myProfile">
 	                <img src="resources/images/profile.png"  alt="입사자 사진">
 	                <div class="info">
-	                    <h3>홍길동</h3><span>팀장</span>
-	                    <h5>인사관리팀</h5>
+	                    <h3>${ loginUser.empName }</h3><span>${ loginUser.jobName }</span>
+	                    <h5>${ loginUser.deptName }</h5>
 	                </div>
 	            </div>
 	
@@ -30,27 +30,27 @@
 	                <div id="updateForm">
 	                    <div class="form-group">
 	                        <label for="userName">이름</label>
-	                        <input type="text" id="userName" readonly class="form-control" />
+	                        <input type="text" id="userName" readonly class="form-control" value="${ loginUser.empName }"/>
 	                    </div>
 	                    <div class="form-group">
 	                        <label for="userId">아이디</label>
-	                        <input type="text" id="userId" readonly class="form-control" />
+	                        <input type="text" id="userId" readonly class="form-control" value="${ loginUser.empNo }"/>
 	                    </div>
 	                    <div class="form-group">
 	                        <label for="userPwd">* 비밀번호</label>
-	                        <input type="password" id="userPwd" class="form-control" />
+	                        <input type="password" id="userPwd" class="form-control" required />
 	                    </div>
 	                    <div class="form-group">
 	                        <label for="userPwd">* 비밀번호 확인</label>
-	                        <input type="password" class="form-control" />
+	                        <input type="password" class="form-control" required />
 	                    </div>
 	                    <div class="form-group">
 	                        <label for="phone">연락처</label>
-	                        <input type="text" id="phone" placeholder="(-)포함 입력" class="form-control" />
+	                        <input type="text" id="phone" placeholder="(-)포함 입력" class="form-control" value="${ loginUser.empPhone }" />
 	                    </div>
 	                    <div class="form-group">
 	                        <label for="email">이메일</label>
-	                        <input type="email" id="email" class="form-control" />
+	                        <input type="email" id="email" class="form-control" value="${ loginUser.empEmail }"/>
 	                    </div>
 	                </div>
 	
