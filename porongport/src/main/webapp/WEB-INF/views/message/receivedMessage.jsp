@@ -35,7 +35,7 @@
 			</div>
 			
 	        <div class="searchTable">
-				<form id="searchForm" action="searchReceivedMessage" method="post">
+				<form id="searchForm" action="searchReceivedMessage" method="get">
 	        	<table>
 	        		<tr>
 	        			<td>
@@ -281,18 +281,18 @@
 					
  					let listCount = document.getElementById('messageListCount');
  					let total = parseInt(listCount.textContent);
- 					console.log(listCount);
-					console.log(total);
+ 					// console.log(listCount);
+					// console.log(total);
 					
 					for(let tr of trs){
 						let input = tr.querySelector('input');
 						let messageNo = parseInt(input.value);
-						console.log(messageNo);
+						// console.log(messageNo);
 						
 						if(result.includes(messageNo)){
 							tr.remove();
 							total--;
-							console.log(total);				// 전체 조회수에서 -- count되는지 확인ok
+							// console.log(total);				// 전체 조회수에서 -- count되는지 확인ok
 							
 							listCount.textContent = total;	// remove total 값 넣어주기
 						}
@@ -404,7 +404,7 @@
 			
 			let target = event.currentTarget;
 			let message_no = target.getAttribute('data-no');
-			let bookmark_YN = target.classList.contains('fa-solid');
+			let bookmark_YN = target.classList.contains('fa-solid');	// true or false
 			console.log(bookmark_YN);
 						
 			$.ajax({
@@ -416,8 +416,8 @@
 				success : function(result){
 					
 					if(result){
-						target.classList.remove('fa-regular');
-						target.classList.add('fa-solid');
+						target.classList.remove('fa-regular');	// 빈 별
+						target.classList.add('fa-solid');		// 색칠 별
 					} else {
 						target.classList.remove('fa-solid');
 						target.classList.add('fa-regular');

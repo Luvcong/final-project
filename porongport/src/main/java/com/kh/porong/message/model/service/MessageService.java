@@ -8,6 +8,10 @@ import com.kh.porong.message.model.vo.Message;
 
 public interface MessageService {
 	
+	// ==================================================================================
+	// 메시지함 - 받은 메시지 관련
+	// ==================================================================================
+	
 	// 받은 메시지 전체 리스트 조회
 	ArrayList<Message> receivedMessageList(PageInfo pi, int empNo);
 	
@@ -29,7 +33,7 @@ public interface MessageService {
 	// 메시지 영구삭제
 	int deletePermanentlyMessage(int messageNo);
 	
-	// 메시지 보관
+	// 메시지 보관함 이동
 	int storageMessage(int messageNo);
 	
 	// 메시지 검색 리스트 조회
@@ -37,6 +41,25 @@ public interface MessageService {
 
 	// 메시지 검색 개수 조회
 	int searchReceivedListCount(Map<String, Object> map);
+	
+	
+	// ==================================================================================
+	// 메시지함 - 받은 메시지 보관함 관련
+	// ==================================================================================
+	
+	// 받은 메시지 보관함 전체 리스트 조회
+	ArrayList<Message> receivedStorageList(PageInfo pi, int empNo);
+	
+	// 받은 메시지 보관함 전체 개수 조회
+	int receivedStorageListCount(int empNo);
+	
+	// 받은 메시지 보관함 검색 리스트 조회
+	ArrayList<Message> searchReceivedStorageMessage(Map<String, Object> map, PageInfo pi);
+	
+	// 받은 메시지 보관함 검색 개수 조회
+	int searchReceivedStorageListCount(Map<String, Object> map);
+	
+	
 	
 	// 휴지통 메시지 전체 리스트 조회
 	ArrayList<Message> deleteMessageBoxList(PageInfo pi, int empNo);
