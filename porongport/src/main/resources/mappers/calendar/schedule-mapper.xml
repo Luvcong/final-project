@@ -40,6 +40,7 @@
 		   FROM SCHEDULE
 		  WHERE EMP_NO=#{empNo}
 		    AND SCH_SHARE = 'M'
+		    AND SCH_STATUS = 'Y'
 	</select>
 	
 	<select id="selectDepartment" parameterType="schedule" resultMap="scheduleResultMap">
@@ -53,5 +54,6 @@
 				SCH_SHARE
 		   FROM SCHEDULE
 		  WHERE SCH_SHARE = 'D'
+		 	AND SCH_STATUS = 'Y'
 	</select>
 </mapper>

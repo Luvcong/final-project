@@ -11,9 +11,39 @@
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.9/index.global.min.js'></script>
 	<!-- css-->
 	<link rel="stylesheet" href="resources/css/calendar.css">
-	 <script>
-    	document.addEventListener('DOMContentLoaded', function() {
-        	var calendarEl = document.getElementById('calendar');
+	
+	<script>
+		document.addEventListener('DOMContentLoaded', ()=>{
+			$.ajax({
+				url: 'calendarMain',
+				success:list=>{
+					//console.log(list.mySchedule);
+					var mySchedule = list.mySchedule;
+					var departmentSchedule = list.departmentSchedule;
+					//console.log(mySchedule[0].schTitle);
+					
+					for(i=0;  i<mySchedule.length; i++){
+						calendar.addEvent({
+							title: mySchedule[i].schTitle,
+							start: mySchedule[i].schStart,
+							end: mySchedule[i].schEnd,
+							color : "#f1c232"
+				        });
+					}
+					for(i=0;  i<departmentSchedule.length; i++){
+						calendar.addEvent({
+							title: departmentSchedule[i].schTitle,
+							start: departmentSchedule[i].schStart,
+							end: departmentSchedule[i].schEnd,
+							color : "#8e7cc3"
+				        });
+					}
+				},
+				error:()=>{
+					console.log('실패');
+				}
+        	})
+			var calendarEl = document.getElementById('calendar');
             var calendar = new FullCalendar.Calendar(calendarEl, {
                 // Tool Bar 목록 document : https://fullcalendar.io/docs/toolbar
                 height: '750px',
@@ -27,48 +57,15 @@
                 selectMirror: true,
                 navLinks: true,
                 editable: false,
-               
-                dayMaxEvents: true, 
-                // 이벤트 객체 필드 document : https://fullcalendar.io/docs/event-object
-                events: [
-                    {
-                    title: 'All Day Event',
-                    start: '2023-11-14'
-                    },
-                    {
-                    title: 'Long Event',
-                    start: '2023-11-15',
-                    end: '2023-11-16'
-                    },
-                    {
-                   	// 그룹아이디: 999이 회의실 예약
-                    groupId: 999,
-                    title: 'Repeating Event',
-                    start: '2023-11-17T16:00'
-                    },
-                    {
-                    groupId: 999,
-                    title: 'Repeating Event',
-                    start: '2023-11-18T16:00'
-                    },
-                    {
-                    title: 'Conference',
-                    start: '2023-11-20',
-                    end: '2023-11-23'
-                    },
-                    {
-                    groupId: 999,
-                   	title : '${mySchedule[0].schTitle}',
-                   	start : '${mySchedule[0].schStart}',
-                   	end : '${mySchedule[0].schEnd}'
-                    }
-                ]
-            });
+                initialView: 'dayGridMonth',
+                dayMaxEvents: true
+                
+			});
             calendar.render();
         });
-		
+
 	
-    </script>
+	</script>
 </html>
 </head>
 <body>

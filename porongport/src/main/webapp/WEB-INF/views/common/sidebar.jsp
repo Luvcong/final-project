@@ -163,7 +163,6 @@
 
 			    	<div class="sub-item sub-title" data-url='calendar'>캘린더</div>
 
-			        <div class="sub-item" hidden data-url='calendar' >전체보기</div>
 			        <div class="sub-item" data-url='myCalendar'>나의 일정 추가</div>
 			        <div class="sub-item" data-url='departmentCalendar'>부서 일정 추가</div>
 			        <div class="sub-item"data-url='reservation'>회의실 예약</div>
