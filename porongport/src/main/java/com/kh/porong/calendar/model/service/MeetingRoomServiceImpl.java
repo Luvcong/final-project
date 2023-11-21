@@ -19,7 +19,7 @@ public class MeetingRoomServiceImpl implements MeetingRoomService {
 	
 	@Override
 	public ArrayList<MeetingRoomVO> selectMeetingRoomList(MeetingRoomVO room) {
-		return null;
+		return MeetingRoomDao.selectMeetingRoomList(sqlSession,room);
 	}
 
 	@Override
@@ -27,6 +27,10 @@ public class MeetingRoomServiceImpl implements MeetingRoomService {
 		return MeetingRoomDao.insertMeeting(sqlSession,mr);
 	}
 	
+	@Override
+	public MeetingRoomVO selectDetailMeetingRoom(MeetingRoomVO room) {
+		return null;
+	}
 
 	@Override
 	public ArrayList<MeetingRoomVO> selectReservationList(MeetingRoomVO room) {
@@ -38,11 +42,6 @@ public class MeetingRoomServiceImpl implements MeetingRoomService {
 		return null;
 	}
 
-	@Override
-	public MeetingRoomVO selectDetailMeetingRoom(MeetingRoomVO room) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public MeetingRoomVO selectDetailReservation(MeetingRoomVO room) {

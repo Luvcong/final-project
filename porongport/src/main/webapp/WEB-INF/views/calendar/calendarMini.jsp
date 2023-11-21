@@ -20,24 +20,50 @@
 					var mySchedule = list.mySchedule;
 					var departmentSchedule = list.departmentSchedule;
 					//console.log(mySchedule[0].schTitle);
+					
 					for(i=0;  i<mySchedule.length; i++){
 						calendar.addEvent({
 							title: mySchedule[i].schTitle,
+							description: mySchedule[i].schContent,
 							start: mySchedule[i].schStart,
-							end: mySchedule[i].schEnd
+							end: mySchedule[i].schEnd,
+							color : "#f1c232"
 				        });
 					}
+					
 					for(i=0;  i<departmentSchedule.length; i++){
 						calendar.addEvent({
 							title: departmentSchedule[i].schTitle,
+							description: departmentSchedule[i].schContent,
 							start: departmentSchedule[i].schStart,
-							end: departmentSchedule[i].schEnd
+							end: departmentSchedule[i].schEnd,
+							color : "#8e7cc3"
 				        });
 					}
 				},
 				error:()=>{
 					console.log('실패');
 				}
+        	})
+        	
+        	   	$.ajax({
+					url: 'calendarMini',
+					success:data=>{
+						
+					console.log(data[0].meetTitle);
+					for(i=0;  i<data.length; i++){
+						calendar.addEvent({
+							title: data[i].meetTitle,
+							description: data[i].meetContent,
+							start: data[i].meetStart,
+							end: data[i].meetEnd,
+							color : "#8ecae6"
+				        });
+					}
+					},
+					error:()=>{
+						console.log('실패');
+					}
         	})
 			var calendarEl = document.getElementById('calendar');
             var calendar = new FullCalendar.Calendar(calendarEl, {

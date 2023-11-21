@@ -1,11 +1,17 @@
 package com.kh.porong.calendar.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.gson.Gson;
 import com.kh.porong.calendar.model.service.MeetingRoomService;
 import com.kh.porong.calendar.model.vo.MeetingRoomVO;
 
@@ -34,7 +40,6 @@ public class MeetingRoomController {
 			mr.setMeetEnd(meetEndDay+'T'+meetEndTime);
 		}
 		
-		
 		if(meetingRoomService.insertMeetingRoom(mr) > 0) {
 			session.setAttribute("alertMsg", "일정추가성공");
 			return "redirect:reservation";
@@ -43,6 +48,14 @@ public class MeetingRoomController {
 			return "redirect:reservation";
 		}
 		
+	}
+	
+	@ResponseBody
+	@GetMapping(value="calendarMini", produces="application/json; charset=UTF-8")
+	public String ajaxMethod3(MeetingRoomVO room) {
+		ArrayList<MeetingRoomVO> meetingRoom = meetingRoomService.selectMeetingRoomList(room);
+		
+		return new Gson().toJson(meetingRoom);
 	}
 	
 }

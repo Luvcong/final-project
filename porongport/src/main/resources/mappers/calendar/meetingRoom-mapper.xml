@@ -43,8 +43,30 @@
 			#{meetStart},
 			#{meetEnd},
 			'Y',
-			'S'
+			'Y'
 	)
 </insert>
+
+	<select id="selectMeetingRoomList" parameterType="meetingroom" resultMap="meetingroomResultSet">
+	 SELECT 
+	 	MEET_NO,
+		EMP_NO,
+		MEET_TITLE,
+		MEET_CONTENT,
+		MEET_PNUM,
+		MEET_START,
+		MEET_END,
+		MEET_STATUS,
+		MEET_APPROVAL
+	FROM 
+		MEETING_ROOM
+	WHERE 
+		EMP_NO=#{empNo}
+	AND 
+		MEET_STATUS = 'Y'
+	AND 
+		MEET_APPROVAL = 'Y'
+		
+	</select>
 
 </mapper>

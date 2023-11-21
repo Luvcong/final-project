@@ -14,6 +14,7 @@
 	
 	<script>
 		document.addEventListener('DOMContentLoaded', ()=>{
+			
 			$.ajax({
 				url: 'calendarMain',
 				success:list=>{
@@ -46,6 +47,27 @@
 					console.log('실패');
 				}
         	})
+        	
+        	$.ajax({
+					url: 'calendarMini',
+					success:data=>{
+						
+					console.log(data[0].meetTitle);
+					for(i=0;  i<data.length; i++){
+						calendar.addEvent({
+							title: data[i].meetTitle,
+							description: data[i].meetContent,
+							start: data[i].meetStart,
+							end: data[i].meetEnd,
+							color : "#8ecae6"
+				        });
+					}
+					},
+					error:()=>{
+						console.log('실패');
+					}
+        	})
+        	
 			var calendarEl = document.getElementById('calendar');
             var calendar = new FullCalendar.Calendar(calendarEl, {
                 // Tool Bar 목록 document : https://fullcalendar.io/docs/toolbar
@@ -61,17 +83,8 @@
                 navLinks: true,
                 editable: false,
                 initialView: 'dayGridMonth',
-                dayMaxEvents: true,
+                dayMaxEvents: true
                 
-                eventDidMount: function(info) {
-                    var tooltip = new Tooltip(info.el, {
-                      title: info.event.extendedProps.description,
-                      placement: 'top',
-                      trigger: 'hover',
-                      container: 'body',
-                      html: true
-                    });
-                 }
 			});
             calendar.render();
         });
