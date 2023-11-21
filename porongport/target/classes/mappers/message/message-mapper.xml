@@ -27,6 +27,19 @@
 		   		E.JOB_CODE = J.JOB_CODE
 	</sql>
 	
+	<sql id="searchMessageSql">
+		SELECT
+				COUNT(*)
+		  FROM
+		  		MESSAGE M, EMPLOYEE E, DEPARTMENT D, JOB J
+		 WHERE
+		 		M.SEND_USER = E.EMP_NO
+		   AND
+		   		E.DEPT_CODE = D.DEPT_CODE
+		   AND
+		   		E.JOB_CODE = J.JOB_CODE
+	</sql>
+	
 
 	<resultMap id="messageResultSet" type="message">
 		<result column="MESSAGE_NO" property="messageNo" />
@@ -70,7 +83,6 @@
 	
 	<!-- 받은 메시지 전체 리스트 조회  -->
 	<select id="receivedMessageList" resultMap="messageResultSet">
-
 	
 		<include refid="messageSql"></include>
 		   AND
@@ -80,7 +92,6 @@
 		 ORDER
 		    BY
 		        NUM DESC
-
 	</select>
 	
 	<!-- 받은 메시지 전체 개수 조회 -->
@@ -125,16 +136,8 @@
 	
 	<!-- 받은 메시지 검색 개수 조회 -->
 	<select id="searchReceivedListCount" resultType="_int" parameterType="hashmap">
-		SELECT
-				COUNT(*)
-	  	  FROM
-	  			MESSAGE M, EMPLOYEE E, DEPARTMENT D, JOB J
-  		 WHERE
-		 		M.SEND_USER = E.EMP_NO
-		   AND
-		   		E.DEPT_CODE = D.DEPT_CODE
-		   AND
-		   		E.JOB_CODE = J.JOB_CODE
+	
+		<include refid="searchMessageSql"></include>
 		   AND
 		   		MESSAGE_STATUS = 'Y'
 		   AND
@@ -177,7 +180,7 @@
 		 		MESSAGE_NO = #{ messageNo }
 	</update>
 	
-	<!-- 메시지 보관함 이동 -->
+	<!-- 메시지 보관함으로 이동 -->
 	<update id="storageMessage" parameterType="_int">
 		UPDATE
 				MESSAGE
@@ -187,7 +190,6 @@
 		 		MESSAGE_NO = #{ messageNo }
 	</update>
 	
-
 	<!-- 받은메시지 보관함 전체 리스트 조회 -->
 	<select id="receivedStorageList" resultMap="messageResultSet" parameterType="message">
 	
@@ -243,16 +245,8 @@
 	
 	<!-- 받은메시지 보관함 검색 개수 조회 -->
 	<select id="searchReceivedStorageListCount" resultType="_int" parameterType="hashmap">
-		SELECT
-				COUNT(*)
-	  	  FROM
-	  			MESSAGE M, EMPLOYEE E, DEPARTMENT D, JOB J
-  		 WHERE
-		 		M.SEND_USER = E.EMP_NO
-		   AND
-		   		E.DEPT_CODE = D.DEPT_CODE
-		   AND
-		   		E.JOB_CODE = J.JOB_CODE
+		
+		<include refid="searchMessageSql"></include>
 		   AND
 		   		MESSAGE_STATUS = 'S'
 		   AND
@@ -273,23 +267,34 @@
 	  	 </choose>
 	  	  LIKE '%' || #{ keyword } || '%'
 	</select>
-	
+		
+	<!-- 메시지 보관함에서 기존 메시지함으로 이동 -->
+	<update id="moveMessageBox" parameterType="_int">
+		UPDATE
+				MESSAGE
+		   SET
+		   		MESSAGE_STATUS = 'Y'
+		 WHERE
+		 		MESSAGE_NO = #{ messageNo }
+	</update>
 	
 	
 	<!-- 휴지통 메시지 전체 리스트 조회 -->
 	<select id="deleteMessageBoxList" resultMap="messageResultSet" parameterType="message">
 		SELECT
 				ROW_NUMBER() OVER(ORDER BY M.DELETE_DATE ASC) AS NUM,
-	       		M.MESSAGE_NO,
-	       		E.EMP_NAME,
-	       		J.JOB_NAME,
-	       		D.DEPT_NAME,
-	       		M.MESSAGE_CONTENT,
-	       		TO_CHAR(M.DELETE_DATE, 'YYYY-MM-DD AM HH24:MI:SS') AS "DELETE_DATE",
-	       		((TRUNC(DELETE_DATE) + 31) - TRUNC(SYSDATE)) EFFECTIVE_DATE
-		  FROM
-		  		MESSAGE M, EMPLOYEE E, DEPARTMENT D, JOB J
-		 WHERE
+		        M.MESSAGE_NO,
+		        E.EMP_NAME,
+		        J.JOB_NAME,
+		        D.DEPT_NAME,
+		        M.MESSAGE_CONTENT,
+		        TO_CHAR(M.DELETE_DATE, 'YYYY-MM-DD AM HH24:MI:SS') AS "DELETE_DATE",
+		        ((TRUNC(DELETE_DATE) + 31) - TRUNC(SYSDATE)) EFFECTIVE_DATE,
+		        M.READ_YN, 
+				M.BOOKMARK_YN
+  		  FROM
+  				MESSAGE M, EMPLOYEE E, DEPARTMENT D, JOB J
+		 WHERE 
 		 		M.SEND_USER = E.EMP_NO
 		   AND
 		   		E.DEPT_CODE = D.DEPT_CODE
@@ -318,19 +323,19 @@
 	<!-- 휴지통 메시지 검색 리스트 조회 -->
 	<select id="searchDeleteMessage" resultMap="messageResultSet" parameterType="hashmap">
 		SELECT
-
-				ROW_NUMBER() OVER(ORDER BY M.MESSAGE_NO ASC) AS NUM,
-       			M.MESSAGE_NO,
-       			E.EMP_NAME,
-       			J.JOB_NAME,
-       			D.DEPT_NAME,
-       			M.MESSAGE_CONTENT,
-
-       			TO_CHAR(M.DELETE_DATE, 'YYYY-MM-DD AM HH24:MI:SS') AS "DELETE_DATE",
-       			((TRUNC(DELETE_DATE) + 31) - TRUNC(SYSDATE)) EFFECTIVE_DATE
-		  FROM
-		  		MESSAGE M, EMPLOYEE E, DEPARTMENT D, JOB J
-		 WHERE
+				ROW_NUMBER() OVER(ORDER BY M.DELETE_DATE ASC) AS NUM,
+		        M.MESSAGE_NO,
+		        E.EMP_NAME,
+		        J.JOB_NAME,
+		        D.DEPT_NAME,
+		        M.MESSAGE_CONTENT,
+		        TO_CHAR(M.DELETE_DATE, 'YYYY-MM-DD AM HH24:MI:SS') AS "DELETE_DATE",
+		        ((TRUNC(DELETE_DATE) + 31) - TRUNC(SYSDATE)) EFFECTIVE_DATE,
+		        M.READ_YN, 
+				M.BOOKMARK_YN
+  		  FROM
+  				MESSAGE M, EMPLOYEE E, DEPARTMENT D, JOB J
+		 WHERE 
 		 		M.SEND_USER = E.EMP_NO
 		   AND
 		   		E.DEPT_CODE = D.DEPT_CODE
@@ -361,16 +366,8 @@
 	
 	<!-- 휴지통 메시지 검색 개수 조회 -->		 	
 	<select id="searchDeleteListCount" resultType="_int" parameterType="hashmap">
-		SELECT
-				COUNT(*)
-		  FROM
-		  		MESSAGE M, EMPLOYEE E, DEPARTMENT D, JOB J
-		 WHERE
-		 		M.SEND_USER = E.EMP_NO
-		   AND
-		   		E.DEPT_CODE = D.DEPT_CODE
-		   AND
-		   		E.JOB_CODE = J.JOB_CODE
+	
+		<include refid="searchMessageSql"></include>
 		   AND
 		   		MESSAGE_STATUS = 'N'
 		   AND
@@ -391,6 +388,16 @@
 	  	 </choose>
 	  	  LIKE '%' || #{ keyword } || '%'
 	</select>
-		
+	
+	<!-- 메시지 영구삭제 -->
+	<delete id="deletePermanentlyMessage" parameterType="_int">
+		DELETE
+		  FROM
+		  		MESSAGE
+		 WHERE
+		 		MESSAGE_STATUS = 'N'
+		   AND
+		   		MESSAGE_NO = #{ messageNo }
+	</delete>
 
 </mapper>

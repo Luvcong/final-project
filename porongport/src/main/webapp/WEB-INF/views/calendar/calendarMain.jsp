@@ -23,7 +23,7 @@
 	<script>
 		document.addEventListener('DOMContentLoaded', () => {
 			$.ajax({
-				url: 'calendarMain',
+				url: 'schedule',
 				success:list=>{
 					//console.log(list.mySchedule);
 					var mySchedule = list.mySchedule;
