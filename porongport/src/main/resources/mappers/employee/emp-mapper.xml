@@ -181,4 +181,34 @@
 		      EMP_NAME = #{empName}
 	</select>
 	
+	<!-- 조직도 조회 -->
+	<select id="selectJojigdo" parameterType="string" resultMap="empResultSet">
+		SELECT
+		      DEPT_CODE 
+		      ,DEPT_NAME
+		      ,JOB_CODE 
+		      ,JOB_NAME 
+		      ,EMP_NO 
+		      ,EMP_NAME 
+		  FROM
+		      EMPLOYEE
+		  LEFT
+		  JOIN
+		      DEPARTMENT USING (DEPT_CODE)
+          LEFT
+		  JOIN
+		      JOB USING (JOB_CODE)
+		<if test="deptCode == 'HR'">
+		 WHERE
+		      DEPT_CODE = 'HR'
+		</if>
+		<if test="deptCode == 'PD'">
+		 WHERE
+		      DEPT_CODE = 'PD'
+		</if>
+		<if test="deptCode == 'PM'">
+		 WHERE
+		      DEPT_CODE = 'PM'	
+		</if>
+	</select>
 </mapper>

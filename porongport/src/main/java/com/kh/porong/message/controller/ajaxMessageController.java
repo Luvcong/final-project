@@ -1,8 +1,7 @@
 package com.kh.porong.message.controller;
 
-import java.util.List;
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,11 +9,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.SessionAttribute;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
-import com.kh.porong.employee.model.vo.Employee;
 import com.kh.porong.message.model.service.MessageService;
 
 @Controller
@@ -101,7 +98,43 @@ public class ajaxMessageController {
 	}	// storeMessage
 	
 	
+	/**
+	 * 보관함 메시지 받은 메시지함으로 이동
+	 * @param messageList : 보관함에서 받은 메시지함으로 이동하려는 메시지 번호
+	 * @return 메시지함 이동 성공 여부 (MESSAGE_STATUS = Y 업데이트 성공 여부)
+	 * @author JH
+	 * @Date : 2023. 11. 20
+	 */
+	@ResponseBody
+	@GetMapping(value="moveMessageBox", produces="application/json; charset=UTF-8")
+	public String moveMessgaeBox(@RequestParam(value="message_list[]") List<Integer> messageList) {
+		
+		JsonArray moveList = new JsonArray();
+		
+		for(int arr : messageList) {
+			int messageNo = arr;
+			int result = messageService.moveMessageBox(messageNo);
+				if(result > 0)
+					moveList.add(messageNo);
+		}
+		return new Gson().toJson(moveList);
+	}	// moveMessageBox
 	
+	
+	@ResponseBody
+	@GetMapping("deletePermanentlyMessage")
+	public String deletePermanentlyMessage(@RequestParam(value="message_list[]") List<Integer> messageList) {
+		
+		JsonArray permanentDeleteList = new JsonArray();
+		
+		for(int arr : messageList) {
+			int messageNo = arr;
+			int result = messageService.deletePermanentlyMessage(messageNo);
+				if(result > 0)
+					permanentDeleteList.add(messageNo);
+		}
+		return new Gson().toJson(permanentDeleteList);
+	}	// permanentDelete
 	
 	
 

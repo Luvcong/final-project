@@ -61,6 +61,11 @@ public class EmployeeServiceImpl implements EmployeeService {
 		return empDao.checkAtt(sqlSession, empNo);
 	}
 
+	@Override
+	public ArrayList<Employee> selectJojigdo(String deptCode) {
+		return empDao.selectJojigdo(sqlSession, deptCode);
+	}
+
 	
 
 }

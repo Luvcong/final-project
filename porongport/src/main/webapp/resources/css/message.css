@@ -34,6 +34,11 @@
     color: white;
 }
 
+.pp-content .pp-content-message .tableBody .tb-delte-title-tr{
+    background-color: #DC3545;
+    color: white;
+}
+
 #pagingArea{
 	margin-top: 100px;
 }

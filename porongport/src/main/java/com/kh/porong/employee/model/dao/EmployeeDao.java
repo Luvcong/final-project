@@ -42,6 +42,10 @@ public class EmployeeDao {
 	public Attendance checkAtt(SqlSessionTemplate sqlSession, int empNo) {
 		return sqlSession.selectOne("empMapper.checkAtt", empNo);
 	}
+
+	public ArrayList<Employee> selectJojigdo(SqlSessionTemplate sqlSession, String deptCode) {
+		return (ArrayList)sqlSession.selectList("empMapper.selectJojigdo", deptCode);
+	}
 	
 
 }

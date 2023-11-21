@@ -10,10 +10,13 @@
 	font-size: 40px; 
 	font-weight: 600;
 }
-.vacationTable{margin:auto;}
+.vacationTable{
+	margin:auto;
+}
 .blank{height:10px;}
 #vacationForm input{border: 1px solid rgb(206, 204, 204);}
 .vacation-th-size{width:120px;}
 #vct_date{width:310px;}
 #vct_day{width:380px;}
 #vct_num{width:810px;}
+.vct_txt{align:center;}
