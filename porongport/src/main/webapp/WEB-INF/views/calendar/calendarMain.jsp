@@ -10,16 +10,15 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <!-- 풀캘린더 -->
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.9/index.global.min.js'></script>
-    
     <!-- 풀캘린더 모달 -->
-    <!-- FullCalendar dependencies -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/5.10.0/main.min.css" integrity="sha512-RlGItx9qaGz5r3Cx5rJxnjwG7Hn5xYeZgg7UuTY6U8Vn9pB6GdV6UuB6Urg2w+uCV6VQZ0d6YRakD5P/0j9/3g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/5.10.0/main.min.js" integrity="sha512-6LVuZgtGndnEYf7Gn8T+9XyjTqmlfwwanMnD8gJv+L3TR4di4KzYXDZt8v4zXGyEORJyRjWkF8bsSfC3/4M4jYg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-	<!-- css-->
-	<link rel="stylesheet" href="resources/css/calendar.css">
-
+	<!-- 풀캘린더 -->
 	<script src='https://unpkg.com/popper.js/dist/umd/popper.min.js'></script>
 	<script src='https://unpkg.com/tooltip.js/dist/umd/tooltip.min.js'></script>
+	
+	<!-- css-->
+	<link rel="stylesheet" href="resources/css/calendar.css">
 	<script>
 
 		document.addEventListener('DOMContentLoaded', () => {
@@ -86,12 +85,7 @@
             	},
             	*/
             	eventClick: function (calEvent, jsEvent, view) {
-                    /*
-            		event = calEvent;
-                    $('#inputTitle').val(event.title);
-                    $('#eventModalLabel').text('세부일정');
-                    $('#eventModal').modal();
-                    */
+                    
                     $('#eventModalLabel').text(calEvent.event._def.title);
             	    $("#inputContent").val(calEvent.event._def.extendedProps.description);
             	    $('#eventModal').modal();
@@ -128,10 +122,10 @@
         });
 		
 		function saveEvent() {
-			  // 이벤트 정보를 입력란에서 가져오세요.
+			  // 이벤트 정보
 			  var title = document.getElementById('inputCalendar').value;
 			
-			  // 모달 폼을 숨기세요.
+			  // 모달 폼 숨기기
 			  var eventModal = new bootstrap.Modal(document.getElementById('eventModal'));
 			  eventModal.hide();
 			}
@@ -153,7 +147,9 @@
             
                 <div class="modal-header">
                     <h5 class="modal-title" id="eventModalLabel">일정제목</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="close" data-bs-dismiss="modal">
+                    	<a href="calendar" class="calendar-a-color">&times;</a>
+                    </button>
                 </div>
                 
                 <div class="modal-body">
@@ -161,18 +157,17 @@
                     <div class="mb-3">
                         <br>
                         <label for="inputCalendar" class="form-label">일정내용</label>
-                        <input class="form-control calendar-modal-height" id="inputContent"></input>
+                        <textarea class="form-control textarea-resize" rows="5" id="inputContent"></textarea>
                         <br>
                         
                         <label for="inputCalendar" class="form-label">기간</label>
-                        <input type="date" class="form-control" id="inputDate">~<input type="date" class="form-control" id="inputDate">
+                        <input type="date" class="inputform" id="inputDate">~<input type="date" class="form-control" id="inputDate">
                     </div>
                     
                 </div>
                 
                 <div class="modal-footer">
                 
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
                     <button type="button" class="btn btn-secondary">수정하기</button>
                     <button type="button" class="btn btn-danger" onclick="deleteEvent();">삭제하기</button>
                     
@@ -180,7 +175,9 @@
             </div>
         </div>
     </div>
+    
     </div>
+    
     
 </body>
 </html>

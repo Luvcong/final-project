@@ -306,6 +306,15 @@ a:hover{
   text-decoration: none;
   cursor: pointer;
 }
-.calendar-modal-height{
-  height: 200px;
+.textarea-resize{resize: none;}
+.calendar-a-color{color: #333333;}
+.calendar-a-color:hover{
+  text-decoration: none;
+  color: #333333;
+}
+.calendar-input-size{width: 10px;}
+.inputform{
+  border-radius: 10px;
+  width: 150px;
+  border: 1px solid rgb(206 212 218);
 }
