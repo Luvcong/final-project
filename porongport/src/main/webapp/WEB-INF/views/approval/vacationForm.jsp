@@ -170,7 +170,31 @@
 
            
        </div>
-   
+
+		<script>
+		$(()=>{
+			$.ajax({
+				url: 'organizationChart',
+				success: data=>{
+					console.log(data);
+					let value = ' ';
+
+					for(let i in data){
+						value += '<tr>'
+						         + '<td>' + data[i].deptName + '</td>'
+						         + '<td>' + data[i].empName + '</td>'
+					             + '<td>' + data[i].jobName + '</td>'
+						         + '</td>'
+					}
+				},
+				error:()=>{
+					console.log('실패');
+				}
+					
+			})
+		})
+		
+		</script>   
    
 
 </body>

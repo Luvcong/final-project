@@ -90,7 +90,7 @@ public class EmployeeController {
 			mv.setViewName("mypage/myPageAttendance");
 			
 		} else {
-			mv.addObject("errorMsg", "로그인 실패. 다시 시도해주세요.").setViewName("common/errorPage");
+			mv.addObject("errorMsgLogin", "로그인 실패. 다시 시도해주세요.").setViewName("common/errorPage");
 		}
 		
 		return mv;
@@ -107,8 +107,8 @@ public class EmployeeController {
 	@RequestMapping(value="selectAtt.em", produces="json/application; charset=UTF-8")
 	public String checkAtt(Attendance att) {
 		System.out.println(att);
-		
 		Attendance selectAtt = empService.selectAtt(att);
+		System.out.println(selectAtt);
 		if(att != null) {
 			return new Gson().toJson(selectAtt);
 		} else {
@@ -120,7 +120,6 @@ public class EmployeeController {
 	@GetMapping(value="insert.at", produces="json/application; charset=UTF-8")
 	public String insertAtt(Attendance att) {
 		if(empService.insertAtt(att) > 0) {
-			// Attendance reAtt = empService.selectAtt(att);
 			return new Gson().toJson(att.getWorkStart());
 		} else {
 			return "redirect:myPageAtt";

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.kh.porong.approval.model.vo.EdmsVO;
 import com.kh.porong.approval.model.vo.VacationVO;
+import com.kh.porong.employee.model.vo.Employee;
 
 public interface EdmsService {
 	
@@ -27,6 +28,8 @@ public interface EdmsService {
 	// 휴가신청서 등록
 	int insertVacation(VacationVO vacation);
 	// 지출결의서 등록 
+
+	ArrayList<VacationVO> selectOrganiztionChart();
 	
 	// 인사발령서 등록
 	

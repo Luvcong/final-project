@@ -110,10 +110,16 @@
 						$('#workStart').text(result.workStart);
 						
 	  				}
+	  				
+	  				/*
 	  				else if(result.workEnd != null){
 	  					$('#we_btn').remove();
 	  					$('#workEnd').text(result.workEnd);
+	  				} 
+	  				else{
+	  					
 	  				}
+	  				*/
 
 	  			},
 	  			error : () => {
@@ -128,6 +134,7 @@
 			$.ajax({
 				url : 'insert.at',
 				data : {
+					workDate : window.today,
 					workStart : window.cTime, 
 					empNo : ${sessionScope.loginUser.empNo}
 				},

@@ -24,6 +24,13 @@
 		<result column="EMP_COUNT" property="empCount" />
 		<result column="FIRST_LOGIN" property="firstLogin" />
  	</resultMap>
+ 	
+ 	<resultMap id="attResultSet" type="att">
+ 		<result column="WORK_DATE" property="workDate" />
+ 		<result column="EMP_NO" property="empNo" />
+ 		<result column="WORK_START" property="workStart" />
+ 		<result column="WORK_END" property="workEnd" />
+ 	</resultMap>
 	
 	<!-- 로그인 쿼리 -->
 	<select id="loginEmp" parameterType="emp" resultMap="empResultSet">
@@ -75,7 +82,7 @@
 		      )
 		VALUES 
 		      (
-		       SYSDATE
+		       #{workDate}
 		       ,#{empNo} <!-- number타입 -->
 		       ,#{workStart} <!-- varchar2타입 -->
 		       )
@@ -118,11 +125,11 @@
 	</insert>
 	
 	<!-- 마지막 근태 레코드 구하는 쿼리 -->
-	<select id="selectAtt" parameterType="att" resultType="att">
+	<select id="selectAtt" parameterType="att" resultMap="attResultSet">
 		SELECT 
-		      WORK_DATE
-		      ,WORK_START
-		      ,WORK_END
+		      WORK_DATE 
+		      ,WORK_START 
+		      ,WORK_END 
 		  FROM  
 		      (SELECT 
 		             WORK_DATE
@@ -131,9 +138,9 @@
 		        FROM 
 		             ATTENDANCE 
 		       WHERE 
-		            EMP_NO = 0
+		            EMP_NO = #{empNo}
 		         AND
-		            TO_CHAR(WORK_DATE, 'YY/MM/DD') = TO_CHAR(SYSDATE, 'YY/MM/DD')
+		            #{workDate} = TO_CHAR(SYSDATE, 'YYYY-MM-DD')
 		       ORDER 
 		          BY WORK_START DESC) 
 		WHERE ROWNUM = 1

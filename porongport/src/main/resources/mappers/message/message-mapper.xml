@@ -4,7 +4,9 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="messageMapper">
-
+	
+	<!-- ********************************************************* -->
+	<!-- 공통 SQL문 -->
 	<sql id="messageSql">
 		SELECT
 				ROW_NUMBER() OVER(ORDER BY M.MESSAGE_NO ASC) AS NUM,
@@ -19,22 +21,18 @@
 				M.BOOKMARK_YN
 		  FROM
 		  		MESSAGE M, EMPLOYEE E, DEPARTMENT D, JOB J
-		 WHERE
-		 		M.SEND_USER = E.EMP_NO
-		   AND
+   		 WHERE
 		   		E.DEPT_CODE = D.DEPT_CODE
 		   AND
 		   		E.JOB_CODE = J.JOB_CODE
 	</sql>
 	
-	<sql id="searchMessageSql">
+	<sql id="messageSearchCountSql">
 		SELECT
 				COUNT(*)
 		  FROM
 		  		MESSAGE M, EMPLOYEE E, DEPARTMENT D, JOB J
 		 WHERE
-		 		M.SEND_USER = E.EMP_NO
-		   AND
 		   		E.DEPT_CODE = D.DEPT_CODE
 		   AND
 		   		E.JOB_CODE = J.JOB_CODE
@@ -79,12 +77,15 @@
 		<result column="EMP_COUNT" property="empCount" />
 		<result column="FIRST_LOGIN" property="firstLogin" />
  	</resultMap>
+
 	
-	
-	<!-- 받은 메시지 전체 리스트 조회  -->
+	<!-- ********************************************************* -->
+	<!-- 1) 받은 메시지 전체 리스트 조회  -->
 	<select id="receivedMessageList" resultMap="messageResultSet">
 	
-		<include refid="messageSql"></include>
+		<include refid="messageSql" />
+		   AND
+		   		M.SEND_USER = E.EMP_NO
 		   AND
 		   		M.MESSAGE_STATUS = 'Y'
 		   AND
@@ -94,7 +95,7 @@
 		        NUM DESC
 	</select>
 	
-	<!-- 받은 메시지 전체 개수 조회 -->
+	<!-- 2) 받은 메시지 전체 개수 조회 -->
 	<select id="receivedListCount" resultType="_int">
 		SELECT
 				COUNT(*)
@@ -106,10 +107,12 @@
 	   			RECEIVE_USER = #{ empNo }
 	</select>
 	
-	<!-- 받은 메시지 검색 조회 -->
+	<!-- 3) 받은 메시지 검색 조회 -->
 	<select id="searchReceivedMessage" resultMap="messageResultSet" parameterType="hashmap">
 	
-		<include refid="messageSql"></include>
+		<include refid="messageSql" />
+		   AND
+		   		M.SEND_USER = E.EMP_NO
 		   AND
 		   		MESSAGE_STATUS = 'Y'
 		   AND
@@ -134,10 +137,12 @@
 		        NUM DESC
 	</select>
 	
-	<!-- 받은 메시지 검색 개수 조회 -->
+	<!-- 4) 받은 메시지 검색 개수 조회 -->
 	<select id="searchReceivedListCount" resultType="_int" parameterType="hashmap">
 	
-		<include refid="searchMessageSql"></include>
+		<include refid="messageSearchCountSql" />
+		   AND
+		   		M.SEND_USER = E.EMP_NO
 		   AND
 		   		MESSAGE_STATUS = 'Y'
 		   AND
@@ -159,41 +164,14 @@
 	  	  LIKE '%' || #{ keyword } || '%'
 	</select>
 	
-	<!-- 메시지 삭제 - 휴지통 이동 -->
-	<update id="deleteMessage" parameterType="_int">
-		UPDATE
-		        MESSAGE
-		   SET
-		        MESSAGE_STATUS = 'N',
-		        DELETE_DATE = SYSDATE
-		 WHERE
-		        MESSAGE_NO = #{ messageNo }
-	</update>
-	
-	<!-- 메시지 북마크 설정  -->
-	<update id="bookmarkMsg" parameterType="hashmap">
-		UPDATE
-				MESSAGE
-		   SET
-		   		BOOKMARK_YN = #{ bookmarkYN }
-		 WHERE
-		 		MESSAGE_NO = #{ messageNo }
-	</update>
-	
-	<!-- 메시지 보관함으로 이동 -->
-	<update id="storageMessage" parameterType="_int">
-		UPDATE
-				MESSAGE
-		   SET
-		   		MESSAGE_STATUS = 'S'
-		 WHERE
-		 		MESSAGE_NO = #{ messageNo }
-	</update>
-	
-	<!-- 받은메시지 보관함 전체 리스트 조회 -->
+
+	<!-- ********************************************************* -->
+	<!-- 1) 받은메시지 보관함 전체 리스트 조회 -->
 	<select id="receivedStorageList" resultMap="messageResultSet" parameterType="message">
 	
-		<include refid="messageSql"></include>
+		<include refid="messageSql" />
+		   AND
+		   		M.SEND_USER = E.EMP_NO
 		   AND
 		        M.MESSAGE_STATUS = 'S'
 		   AND
@@ -203,7 +181,7 @@
 		 		NUM DESC
 	</select>
 	
-	<!-- 받은메시지 보관함 전체 개수 조회 -->
+	<!-- 2) 받은메시지 보관함 전체 개수 조회 -->
 	<select id="receivedStorageListCount" resultType="_int" parameterType="message">
 		SELECT
 				COUNT(*)
@@ -215,10 +193,12 @@
 		   		RECEIVE_USER = #{ empNo }
 	</select>
 	
-	<!-- 받은메시지 보관함 검색 리스트 조회 -->
+	<!-- 3) 받은메시지 보관함 검색 리스트 조회 -->
 	<select id="searchReceivedStorageMessage" resultMap="messageResultSet" parameterType="hashmap">
 		
-		<include refid="messageSql"></include>
+		<include refid="messageSql" />
+		   AND
+		   		M.SEND_USER = E.EMP_NO
 		   AND
 		   		MESSAGE_STATUS = 'S'
 		   AND
@@ -243,10 +223,12 @@
 		        NUM DESC
 	</select>
 	
-	<!-- 받은메시지 보관함 검색 개수 조회 -->
+	<!-- 4) 받은메시지 보관함 검색 개수 조회 -->
 	<select id="searchReceivedStorageListCount" resultType="_int" parameterType="hashmap">
 		
-		<include refid="searchMessageSql"></include>
+		<include refid="messageSearchCountSql" />
+		   AND
+		   		M.SEND_USER = E.EMP_NO
 		   AND
 		   		MESSAGE_STATUS = 'S'
 		   AND
@@ -267,24 +249,96 @@
 	  	 </choose>
 	  	  LIKE '%' || #{ keyword } || '%'
 	</select>
+	
+
+	
+	<!-- ********************************************************* -->	
+	<!-- 1) 보낸 메시지 전체 리스트 조회 -->
+	<select id="sendMessageList" resultMap="messageResultSet">
 		
-	<!-- 메시지 보관함에서 기존 메시지함으로 이동 -->
-	<update id="moveMessageBox" parameterType="_int">
-		UPDATE
-				MESSAGE
-		   SET
-		   		MESSAGE_STATUS = 'Y'
-		 WHERE
-		 		MESSAGE_NO = #{ messageNo }
-	</update>
-	
-	<!-- 메시지 상세보기 -->
-	<select id="detailMessage" resultType="message" parameterType="message">
-	
+		<include refid="messageSql" />
+		   AND
+		   		M.RECEIVE_USER = E.EMP_NO
+		   AND
+		   		M.MESSAGE_STATUS = 'Y'
+		   AND
+		   		M.SEND_USER = #{ empNo }
+		 ORDER
+		 	BY
+		 		NUM DESC
 	</select>
 	
+	<!-- 2) 보낸 메시지 검색 리스트 조회 -->
+	<select id="searchSendMessage" resultMap="messageResultSet">
+		
+		<include refid="messageSql" />
+		   AND
+		   		M.RECEIVE_USER = E.EMP_NO
+		   AND
+		   		M.MESSAGE_STATUS = 'Y'
+		   AND
+		   		M.SEND_USER = #{ empNo }
+  	 	 <choose>
+	  	 	<when test="condition == 'userName'">
+		  	   AND
+		  	 		E.EMP_NAME
+	  	 	</when>
+	  	 	<when test="condition == 'jobName'">
+		  	   AND
+		  	   		J.JOB_NAME
+	  	 	</when>
+	  	 	<otherwise>
+		  	   AND
+		  	 		M.MESSAGE_CONTENT
+	  	 	</otherwise>
+	  	 </choose>
+	  	  LIKE '%' || #{ keyword } || '%'
+  		 ORDER
+		    BY
+		        NUM DESC
+	</select>
 	
-	<!-- 휴지통 메시지 전체 리스트 조회 -->
+	<!-- 3) 보낸 메시지 전체 개수 조회 -->
+	<select id="sendListCount" resultType="_int">
+		SELECT
+				COUNT(*)
+		  FROM
+		  		MESSAGE
+		 WHERE
+				MESSAGE_STATUS = 'Y'
+		   AND
+		  		SEND_USER = #{ empNo }
+	</select>
+	
+	<!-- 4) 보낸 메시지 검색 개수 조회 -->
+	<select id="searchSendListCount" resultType="_int">
+	
+		<include refid="messageSearchCountSql" />
+		   AND
+		 		M.RECEIVE_USER = E.EMP_NO
+		   AND
+		   		M.MESSAGE_STATUS = 'Y'
+		   AND
+		   		M.SEND_USER = #{ empNo }
+  	 	 <choose>
+	  	 	<when test="condition == 'userName'">
+		  	   AND
+		  	 		E.EMP_NAME
+	  	 	</when>
+	  	 	<when test="condition == 'jobName'">
+		  	   AND
+		  	   		J.JOB_NAME
+	  	 	</when>
+	  	 	<otherwise>
+		  	   AND
+		  	 		M.MESSAGE_CONTENT
+	  	 	</otherwise>
+	  	 </choose>
+	  	  LIKE '%' || #{ keyword } || '%'
+	</select>
+	
+	<!-- ********************************************************* -->
+	<!-- 1) 휴지통 메시지 전체 리스트 조회 -->
 	<select id="deleteMessageBoxList" resultMap="messageResultSet" parameterType="message">
 		SELECT
 				ROW_NUMBER() OVER(ORDER BY M.DELETE_DATE ASC) AS NUM,
@@ -313,7 +367,7 @@
 		 	BY NUM DESC
 	</select>
 	
-	<!-- 휴지통 메시지 전체 리스트 개수 조회  -->
+	<!-- 2) 휴지통 메시지 전체 리스트 개수 조회  -->
 	<select id="deleteListCount" resultType="_int">
 		SELECT
 				COUNT(*)
@@ -325,7 +379,7 @@
  				RECEIVE_USER = #{ empNo }
 	</select>
 	
-	<!-- 휴지통 메시지 검색 리스트 조회 -->
+	<!-- 3) 휴지통 메시지 검색 리스트 조회 -->
 	<select id="searchDeleteMessage" resultMap="messageResultSet" parameterType="hashmap">
 		SELECT
 				ROW_NUMBER() OVER(ORDER BY M.DELETE_DATE ASC) AS NUM,
@@ -369,10 +423,10 @@
 		 	BY NUM DESC
 	</select>
 	
-	<!-- 휴지통 메시지 검색 개수 조회 -->		 	
+	<!-- 4) 휴지통 메시지 검색 개수 조회 -->		 	
 	<select id="searchDeleteListCount" resultType="_int" parameterType="hashmap">
 	
-		<include refid="searchMessageSql"></include>
+		<include refid="messageSearchCountSql" />
 		   AND
 		   		MESSAGE_STATUS = 'N'
 		   AND
@@ -394,7 +448,7 @@
 	  	  LIKE '%' || #{ keyword } || '%'
 	</select>
 	
-	<!-- 메시지 영구삭제 -->
+	<!-- 5) 메시지 영구삭제 -->
 	<delete id="deletePermanentlyMessage" parameterType="_int">
 		DELETE
 		  FROM
@@ -404,5 +458,52 @@
 		   AND
 		   		MESSAGE_NO = #{ messageNo }
 	</delete>
+	
+	
+	<!-- ********************************************************* -->
+	<!-- 1) 메시지 북마크 설정  -->
+	<update id="bookmarkMsg" parameterType="hashmap">
+		UPDATE
+				MESSAGE
+		   SET
+		   		BOOKMARK_YN = #{ bookmarkYN }
+		 WHERE
+		 		MESSAGE_NO = #{ messageNo }
+	</update>
+	
+	<!-- 2) 메시지 삭제 - 휴지통 이동 -->
+	<update id="deleteMessage" parameterType="_int">
+		UPDATE
+		        MESSAGE
+		   SET
+		        MESSAGE_STATUS = 'N',
+		        DELETE_DATE = SYSDATE
+		 WHERE
+		        MESSAGE_NO = #{ messageNo }
+	</update>
+	
+	<!-- 3) 메시지 보관함으로 이동 -->
+	<update id="storageMessage" parameterType="_int">
+		UPDATE
+				MESSAGE
+		   SET
+		   		MESSAGE_STATUS = 'S'
+		 WHERE
+		 		MESSAGE_NO = #{ messageNo }
+	</update>
+		
+	<!-- 4) 메시지 보관함 & 휴지통에서 기존 메시지함으로 이동 -->
+	<update id="moveMessageBox" parameterType="_int">
+		UPDATE
+				MESSAGE
+		   SET
+		   		MESSAGE_STATUS = 'Y'
+		 WHERE
+		 		MESSAGE_NO = #{ messageNo }
+	</update>
+	
+	<!-- 5) 메시지 상세보기 -->
+	<select id="detailMessage" resultType="message" parameterType="message">
+	</select>
 
 </mapper>
