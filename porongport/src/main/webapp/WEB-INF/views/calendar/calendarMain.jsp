@@ -30,6 +30,7 @@
 					var mySchedule = list.mySchedule;
 					var departmentSchedule = list.departmentSchedule;
 					//console.log(mySchedule[0].schTitle);
+					//console.log(mySchedule[3].schEnd);
 					
 					for(i=0; i<mySchedule.length; i++){
 						calendar.addEvent({
@@ -84,12 +85,55 @@
             		alertify.alert(info.event.title, '기간: '+info.event.start+'<br>'+'내용: '+info.event.extendedProps.description);
             	},
             	*/
-            	eventClick: function (calEvent, jsEvent, view) {
-                    
+            	eventClick: (calEvent, jsEvent, view) => {
+                    //console.log(info);
+            		
                     $('#eventModalLabel').text(calEvent.event._def.title);
             	    $("#inputContent").val(calEvent.event._def.extendedProps.description);
+            	    
+            	    var date = new Date();
+            	    var selectStartDate = calEvent.el.fcSeg.eventRange.instance.range.start;
+            	    
+            	    var startDate = selectStartDate.getFullYear()+'-'
+            	    		 		+((selectStartDate.getMonth()+1) < 10 ? "0" + (selectStartDate.getMonth()+1) : (selectStartDate.getMonth()+1))+'-'
+            	    		 		+((selectStartDate.getDate()) < 10 ? "0" + (selectStartDate.getDate()) : (selectStartDate.getDate()));
+            	    
+            	    if((selectEndDate.getHours()-9)){
+            	    	var startTime = ((selectStartDate.getHours()-9)+24)+':'
+	    								+((selectStartDate.getMinutes()) < 9 ? "0" + (selectStartDate.getMinutes()) : (selectStartDate.getMinutes()));
+            	    }else{
+            	    	 var startTime = ((selectStartDate.getHours()-9))+':'
+ 	    								+((selectStartDate.getMinutes()) < 9 ? "0" + (selectStartDate.getMinutes()) : (selectStartDate.getMinutes()));
+            	    }
+            	    
+            	    
+            	    var selectEndDate = calEvent.el.fcSeg.eventRange.instance.range.end;
+            	    //console.log(selectEndDate);
+            	    
+            	    var endDate = selectEndDate.getFullYear()+'-'
+				    		 		+((selectEndDate.getMonth()+1) < 10 ? "0" + (selectEndDate.getMonth()+1) : (selectEndDate.getMonth()+1))+'-'
+				    		 		+((selectEndDate.getDate()) < 10 ? "0" + (selectEndDate.getDate()) : (selectEndDate.getDate()));
+    
+            	    if((selectEndDate.getHours()-9)){
+            	    	var endTime = ((selectEndDate.getHours()-9)+24)+':'
+	    								+((selectEndDate.getMinutes()) < 9 ? "0" + (selectEndDate.getMinutes()) : (selectEndDate.getMinutes()));
+            	    }else{
+            	    	var endTime = ((selectEndDate.getHours()-9))+':'
+	    							 +((selectEndDate.getMinutes()) < 9 ? "0" + (selectEndDate.getMinutes()) : (selectEndDate.getMinutes()));
+            	    }
+            	    
+            	    
+            	    //console.log(calEvent.el.fcSeg.eventRange.instance.range.start);
+            	    //console.log(startDate);
+            	    console.log(startTime);
+            	    //console.log(calEvent.el.fcSeg.eventRange.instance.range.start);
+            	    //console.log(endDate);
+            	    console.log(endTime);
+            	    
+            	    $("#inputDateStrart").val(startDate);
+            	    $("#inputDateEnd").val(endDate);
             	    $('#eventModal').modal();
-            	    console.log(calEvent.event._def);
+            	    
                 },
             	
                 // Tool Bar 목록 document : https://fullcalendar.io/docs/toolbar
@@ -160,8 +204,8 @@
                         <textarea class="form-control textarea-resize" rows="5" id="inputContent"></textarea>
                         <br>
                         
-                        <label for="inputCalendar" class="form-label">기간</label>
-                        <input type="date" class="inputform" id="inputDate">~<input type="date" class="form-control" id="inputDate">
+                        <label for="inputCalendar" class="form-label">기간</label><br>
+                        <input type="date" class="inputform" id="inputDateStrart" value=""> ~ <input type="date" class="inputform" id="inputDateEnd" value="">
                     </div>
                     
                 </div>

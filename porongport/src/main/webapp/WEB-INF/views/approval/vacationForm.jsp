@@ -108,10 +108,31 @@
 
 								<tbody>
 									<tr>
-										<th>조직도</th>
-										<td><input type="text" id="apv_nm" name="apv_nm"
-											class="form-control" value="${loginUser.deptCode}">
-										</td>
+										<table class="table table-bordered">
+						                    <thead>
+						                        <tr>
+						                            <th>직급</th>
+						                            <th>이름</th>
+						                        </tr>
+						                    </thead>
+						                    <tbody>
+						                    	<c:choose>
+						                    		<c:when test="${ not empty jojigdoList }">
+						                    			<c:forEach var="i" items="${ jojigdoList }">
+									                        <tr>
+									                            <td>${ i.jobName }</td>
+									                            <td>${ i.empName }</td>
+									                        </tr>
+						                    			</c:forEach>
+						                    		</c:when>
+						                    		<c:otherwise>
+						                    			<tr>
+						                    				<td colspan="2">해당 부서에는 직원이 존재하지 않습니다.</td>
+						                    			</tr>
+						                    		</c:otherwise>
+						                    	</c:choose>
+						                    </tbody>
+						                </table>
 									</tr>
 									<tr>
 										<th>직원 검색</th> 
