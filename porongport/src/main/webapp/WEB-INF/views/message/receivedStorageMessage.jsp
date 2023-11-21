@@ -30,7 +30,7 @@
 		<div class='toolbar'>
 			<div class="messageBtn">
 				<button class="btn btn-sm btn-outline-primary" onclick="moveMessageBox()">이동</button>
-				<button class="btn btn-sm btn-outline-primary">삭제</button>
+				<button class="btn btn-sm btn-outline-primary" onclick="deleteMessage()">삭제</button>
 				<button class="btn btn-sm btn-outline-primary">읽음설정</button>
 			</div>
 			
@@ -323,12 +323,93 @@
 			});	// ajax
 			});		// confrim	 
 		}	// moveMessageBox
+		
 			
+		// ------------------------------------------------------------------
+		// 메시지 삭제 ajax
+		// ------------------------------------------------------------------
+		function deleteMessage(){
 			
+			let trs = document.querySelectorAll('.table tr');
+			let checked_tr = null;
 			
+ 			for(let tr of trs){
+				let input = tr.querySelector('input');
+				if(input.checked){
+					checked_tr = tr;
+					break;
+				}
+			}
 			
+			// 체크되어 있는 메시지가 없을 경우 alert창 발생
+  			if(checked_tr == null){
+  				Swal.fire('실패', '삭제할 메시지를 선택해주세요!', 'warning');
+  				return;
+  			}
 			
-			
+  			// 체크가 되어있는 경우 confirm창 발생
+			Swal.fire({
+				title: "메시지를 삭제하시겠습니까?",
+				text : "※ 삭제된 메시지는 휴지통으로 이동합니다. ",
+				icon: 'warning',
+				showCancelButton: true,
+				confirmButtonColor: "#DD6B55",
+				confirmButtonText: "삭제",
+				cancelButtonText: "취소"
+				}).then((result) => {
+					if (!result.isConfirmed) {
+					  return;
+					}
+					
+  					let table = document.getElementById('tb-received');			
+					let trs = table.querySelectorAll('tbody tr');		// 데이터 행 부분
+					let message_del_list = [];
+					
+					for(let tr of trs){
+						let input = tr.querySelector('input');
+						if(input.checked == true){
+							let messageNo = input.value;
+							console.log(messageNo);
+							message_del_list.push(messageNo);
+						}
+					}
+					console.log(message_del_list);
+					
+ 			$.ajax({
+ 				url : 'deleteMessage',
+				type : 'get',
+				data : { messageNoList : message_del_list },
+				dataType: 'json',
+				success : function(result){
+					
+					Swal.fire('성공', '메시지가 휴지통으로 이동되었습니다!', 'success');
+					
+ 					let listCount = document.getElementById('messageListCount');
+ 					let total = parseInt(listCount.textContent);
+ 					// console.log(listCount);
+					// console.log(total);
+					
+					for(let tr of trs){
+						let input = tr.querySelector('input');
+						let messageNo = parseInt(input.value);
+						// console.log(messageNo);
+						
+						if(result.includes(messageNo)){
+							tr.remove();
+							total--;
+							// console.log(total);				// 전체 조회수에서 -- count되는지 확인ok
+							
+							listCount.textContent = total;	// remove total 값 넣어주기
+						}
+					}
+				},	// success
+				error : function(result){
+					Swal.fire('실패', '휴지통으로 이동되지 않았습니다<br>다시 시도해주세요', 'warning');
+					console.log('통신오류! 실패');
+				},	// error
+			});	// ajax
+			});		// confrim	 
+		}	// deleteMessage	
 			
 	</script>
 

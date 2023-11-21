@@ -28,36 +28,48 @@
 		</div>	<!-- header  -->
 		
 		<div class='toolbar'>
-			<div class="messageBtn">
-				<button class="btn btn-sm btn-outline-primary">이동</button>
-				<button class="btn btn-sm btn-outline-primary">삭제</button>
+			<div class="l-messageBtn">
+				<button class="btn btn-sm btn-outline-primary">목록으로</button>
 			</div>
 			
-	        <div class="searchTable">
-				<form id="searchForm" action="searchReceivedMessage" method="get">
-	        	<table>
-	        		<tr>
-	        			<td>
-							<select class="select btn btn-sm btn-outline-primary dropdown-toggle" name="condition">
-								<option value="userName">이름</option>
-								<option value="jobName">직급</option>
-								<option value="messageContent">내용</option>
-							</select>
-	        			</td>
-	        			<td>
-							<input class="form-control form-control-sm" name="keyword" type="text" placeholder="검색어를 입력하세요" size="30" value="${ keyword }">
-	        			</td>
-	        			<td>
-							<button type="submit" class="btn btn-sm btn-outline-primary" >검색</button>
-	        			</td>
-	        		</tr>
-	        	</table>
-				</form>	<!-- searchForm  -->
-			</div>	<!-- searchTable  -->
+			<div class="r-messageBtn">
+				<button class="btn btn-sm btn-outline-primary">답장</button>
+				<button class="btn btn-sm btn-outline-primary">보관</button>
+			</div>
       	</div>	<!-- toolbar  -->
       	
-      	<div>
-      		디테일 화면 테스트
+      	<div class="detailContent">
+      		<div>수신날짜 <span>2023-11-02 오후 15:24:21</span></div>
+      		<div>프로필사진 <span>김진희대리 / 개발팀</span></div>
+      		<div>
+      			<div>
+	      			메시지내용 어쩌구 저쩌구
+      			</div>
+   			</div>
+      	
+<!--       		<table class="table table-sm shadow rounded-3">
+      			<tr>
+      				<th>수신날짜</th>
+      				<td>2023-11-02 오후 15:24:21</td>
+      			</tr>
+      			<tr>
+      				<th>프로필사진</th>
+      				<td>김진희대리 / 개발팀<td>
+      			</tr>
+      			<tr>
+      				<th></th>
+      				<td>
+      				<span>
+      				안녕하세요
+					박유저 팀장입니다.
+					
+					박유저드림
+      				</span>
+      				</td>
+      				
+      			</tr>
+      				
+      		</table> -->
       	</div>
 		
 	</div>	<!-- pp-content  -->

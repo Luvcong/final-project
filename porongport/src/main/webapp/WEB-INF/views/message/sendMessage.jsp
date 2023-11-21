@@ -35,7 +35,7 @@
 			</div>
 			
 	        <div class="searchTable">
-				<form id="searchForm" action="searchReceivedMessage" method="get">
+				<form id="searchForm" action="searchSendMessage" method="get">
 	        	<table>
 	        		<tr>
 	        			<td>
@@ -75,17 +75,17 @@
 		
 		<div class="pp-content-message">
 			<div class="selectCount">
-			받은 메시지 수 <span class="count" id="messageListCount">${ pi.listCount }</span>개
+			보낸 메시지 수 <span class="count" id="messageListCount">${ pi.listCount }</span>개
 			</div>
 		
 			<div class="tableBody">
-				<table id='tb-received' class="table table-sm table-hover shadow rounded-3">
+				<table id='tb-send' class="table table-sm table-hover shadow rounded-3">
 				<thead>
 					<tr class="tb-title-tr">
 						<th><input type="checkbox" onclick="checkAll()"></th>
 						<th></th>
 						<th>번호</th>
-						<th>발신자</th>
+						<th>수신자</th>
 						<th>내용</th>
 						<th>받은 시간</th>
 						<th>읽음 여부</th>
@@ -137,10 +137,10 @@
 	                    	<li class="page-item disabled"><a class="page-link" href="#">&laquo;</a></li>
                 		</c:when>
                 		<c:when test="${ empty condition }">
-	                    	<li class="page-item"><a class="page-link" href="receivedMessage?page=${ pi.currentPage-1 }">&laquo;</a></li>
+	                    	<li class="page-item"><a class="page-link" href="sendMessage?page=${ pi.currentPage-1 }">&laquo;</a></li>
                 		</c:when>
                 		<c:otherwise>
-                			<li class="page-item"><a class="page-link" href="searchReceivedMessage?page=${ pi.currentPage-1 }&condition=${ condition }&keyword=${ keyword }">&laquo;</a></li>
+                			<li class="page-item"><a class="page-link" href="searchSendMessage?page=${ pi.currentPage-1 }&condition=${ condition }&keyword=${ keyword }">&laquo;</a></li>
           				</c:otherwise>
                 	</c:choose>
                 	
@@ -150,10 +150,10 @@
 		                    	<li class="page-item disabled"><a class="page-link" href="#">${ p }</a></li>
 	                    	</c:when>
 	                    	<c:when test="${ empty condition }">
-	                    		<li class="page-item"><a class="page-link" href="receivedMessage?page=${ p }">${ p }</a></li>
+	                    		<li class="page-item"><a class="page-link" href="sendMessage?page=${ p }">${ p }</a></li>
 	                    	</c:when>
 	                    	<c:otherwise>
-	                    		<li class="page-item"><a class="page-link" href="searchReceivedMessage?page=${ p }&condition=${ condition }&keyword=${ keyword }">${ p }</a></li>
+	                    		<li class="page-item"><a class="page-link" href="searchSendMessage?page=${ p }&condition=${ condition }&keyword=${ keyword }">${ p }</a></li>
 	                    	</c:otherwise>
                     	</c:choose>
                     </c:forEach>
@@ -163,10 +163,10 @@
                     		<li class="page-item disabled"><a class="page-link" href="#">&raquo;</a></li>
                     	</c:when>
                     	<c:when test="${ empty condition }">
-                    		<li class="page-item"><a class="page-link" href="receivedMessage?page=${ pi.currentPage+1 }">&raquo;</a></li>
+                    		<li class="page-item"><a class="page-link" href="sendMessage?page=${ pi.currentPage+1 }">&raquo;</a></li>
                     	</c:when>
                     	<c:otherwise>
-		                    <li class="page-item" ><a class="page-link" href="searchReceivedMessage?page=${ pi.currentPage+1 }&condition=${ condition }&keyword=${ keyword }">&raquo;</a></li>
+		                    <li class="page-item" ><a class="page-link" href="searchSendMessage?page=${ pi.currentPage+1 }&condition=${ condition }&keyword=${ keyword }">&raquo;</a></li>
                     	</c:otherwise>
                     </c:choose>
                 </ul>
@@ -191,7 +191,7 @@
 		// 전체 체크박스
 		function checkAll(){
 			
-			let table = document.getElementById('tb-received');
+			let table = document.getElementById('tb-send');
 			let inputs = document.querySelectorAll('tr input');
 			
 			for(let input of inputs){
@@ -201,7 +201,7 @@
 		
 		// 체크박스
 		function checkOnce(){
-			let table = document.getElementById('tb-received');
+			let table = document.getElementById('tb-send');
 			let hd_input = table.querySelector('th').querySelector('input');
 			let inputs = table.querySelector('tbody').querySelectorAll('tr input');
 			
@@ -217,7 +217,7 @@
 			
 		
 		// ------------------------------------------------------------------
-		// 쪽지 삭제 ajax
+		// 메시지 삭제 ajax
 		// ------------------------------------------------------------------
 		function deleteMessage(){
 
@@ -256,7 +256,7 @@
 					  return;
 					}
 					
-  					let table = document.getElementById('tb-received');			
+  					let table = document.getElementById('tb-send');			
 					let trs = table.querySelectorAll('tbody tr');		// 데이터 행 부분
 					let message_del_list = [];
 					
@@ -346,7 +346,7 @@
 					  return;
 					}
 					
-  					let table = document.getElementById('tb-received');			
+  					let table = document.getElementById('tb-send');			
 					let trs = table.querySelectorAll('tbody tr');		// 데이터 행 부분
 					let message_list = [];
 					
@@ -361,7 +361,7 @@
 					console.log(message_list);
 					
  			$.ajax({
- 				url : 'receivedStorageMessage',
+ 				url : 'storageMessage',
 				type : 'get',
 				data : { messageList : message_list },
 				dataType: 'json',

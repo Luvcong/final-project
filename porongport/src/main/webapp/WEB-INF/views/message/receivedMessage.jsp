@@ -29,6 +29,7 @@
 		
 		<div class='toolbar'>
 			<div class="messageBtn">
+				<button class="btn btn-sm btn-primary" onclick="messageForm()">메시지 작성</button>
 				<button class="btn btn-sm btn-outline-primary" onclick="storageMessage()">보관</button>
 				<button class="btn btn-sm btn-outline-primary"  onclick="deleteMessage()">삭제</button>
 				<button class="btn btn-sm btn-outline-primary">읽음설정</button>
@@ -130,6 +131,42 @@
 				</table>
 			</div>	<!-- tableBody  -->
 			
+			<!-- 메시지보내기  modal창 -->
+		 	<div class="modal" id="messageForm">
+				<form method="post" action="updateMessage">
+			        <div class="modal-dialog modal-lg">
+			            <div class="modal-content">
+			                <!-- Modal Header -->
+			                <div class="modal-header">
+			                    <h4 class="modal-title">메시지 작성하기</h4>
+			                    <button type="button" class="close" data-dismiss="modal">&times;</button>	<!-- x 닫기버튼 -->
+			                </div> 
+			                <!-- Modal body -->
+			                <div class="modal-body">
+								<table class="modal-table" border="1">
+									<thead>
+										<tr>
+											<th>받는 사람</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td><input type="text"/></td>
+										</tr>
+									</tbody>
+									
+								</table>
+			                </div>
+			                <!-- Modal footer -->
+			                <div class="modal-footer">
+			             		<button type="submit" class="btn btn-sm btn-primary">답변</button>
+			                    <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">취소</button>
+			                </div>
+			            </div>
+			        </div>
+			</form>
+		  </div>
+			
 			<div id="pagingArea">
                 <ul class="pagination justify-content-center">
                 	<c:choose>
@@ -187,6 +224,12 @@
 
 	
 	<script>
+		
+		function messageForm(){
+			$('#messageForm').modal('show');
+		}
+	
+	
 		// ------------------------------------------------------------------
 		// 체크박스 선택 / 해제 기능
 		// ------------------------------------------------------------------
@@ -221,7 +264,7 @@
 		// ------------------------------------------------------------------
 		// 메시지 상세보기
 		// ------------------------------------------------------------------
-		function detailMessage(){
+/* 		function detailMessage(){
 			console.log(event.currentTarget);
 			
 			let tr = event.currentTarget;
@@ -234,7 +277,7 @@
 				location.href = 'detailMessage?mno=' + messageNo;
 			})
 			
-		}
+		} */
 			
 		
 		// ------------------------------------------------------------------
@@ -382,7 +425,7 @@
 					console.log(message_list);
 					
  			$.ajax({
- 				url : 'receivedStorageMessage',
+ 				url : 'storageMessage',
 				type : 'get',
 				data : { messageList : message_list },
 				dataType: 'json',
