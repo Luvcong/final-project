@@ -116,7 +116,8 @@
 								<option value="17:00">5:00</option>
 								<option value="17:30">5:30</option>
 								<option value="18:00">6:00</option>
-						</select></td>
+						</select>
+						※하루종일/장기간예약시 미리 연락바랍니다</td>
 
 					</tr>
 					<tr>
