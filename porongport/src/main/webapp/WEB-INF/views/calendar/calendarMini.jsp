@@ -44,7 +44,7 @@
 				error:()=>{
 					console.log('실패');
 				}
-        	})
+        	}),
         	
         	   	$.ajax({
 					url: 'calendarMini',
