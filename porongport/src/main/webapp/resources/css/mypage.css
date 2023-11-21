@@ -26,7 +26,8 @@ li, ul, ol{list-style: none;}
     float: left;
     width: 120px;
     height: 120px;
-    padding: 10px 10px 10px 0;    
+    padding: 10px 10px 10px 0;  
+    display: block;  
 }
 
 #myPage>form{
