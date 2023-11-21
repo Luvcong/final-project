@@ -44,27 +44,27 @@
 				error:()=>{
 					console.log('실패');
 				}
-        	}),
-        	
-        	   	$.ajax({
-					url: 'calendarMini',
-					success:data=>{
-						
-					console.log(data[0].meetTitle);
-					for(i=0;  i<data.length; i++){
-						calendar.addEvent({
-							title: data[i].meetTitle,
-							description: data[i].meetContent,
-							start: data[i].meetStart,
-							end: data[i].meetEnd,
-							color : "#8ecae6"
-				        });
-					}
-					},
-					error:()=>{
-						console.log('실패');
-					}
         	})
+        	
+        	$.ajax({
+				url: 'meetingRoom',
+				success:data=>{
+					
+				console.log(data[0].meetTitle);
+				for(i=0;  i<data.length; i++){
+					calendar.addEvent({
+						title: data[i].meetTitle,
+						description: data[i].meetContent,
+						start: data[i].meetStart,
+						end: data[i].meetEnd,
+						color : "#8ecae6"
+			        });
+				}
+				},
+				error:()=>{
+					console.log('실패');
+				}
+    		})
 			var calendarEl = document.getElementById('calendar');
             var calendar = new FullCalendar.Calendar(calendarEl, {
                 // Tool Bar 목록 document : https://fullcalendar.io/docs/toolbar

@@ -51,7 +51,7 @@ public class MeetingRoomController {
 	}
 	
 	@ResponseBody
-	@GetMapping(value="calendarMini", produces="application/json; charset=UTF-8")
+	@GetMapping(value="meetingRoom", produces="application/json; charset=UTF-8")
 	public String ajaxMethod3(MeetingRoomVO room) {
 		ArrayList<MeetingRoomVO> meetingRoom = meetingRoomService.selectMeetingRoomList(room);
 		
