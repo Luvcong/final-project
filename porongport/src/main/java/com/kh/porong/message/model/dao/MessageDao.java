@@ -134,8 +134,8 @@ public class MessageDao {
 	 * @author JH
 	 * @Date : 2023. 11. 15
 	 */
-	public int searchReceivedListCount(SqlSessionTemplate sqlSession, Map<String, Object> map) {
-		return sqlSession.selectOne("messageMapper.searchReceivedListCount", map);
+	public int searchReceivedCount(SqlSessionTemplate sqlSession, Map<String, Object> map) {
+		return sqlSession.selectOne("messageMapper.searchReceivedCount", map);
 	}	// searchReceivedListCount
 
 
@@ -165,8 +165,8 @@ public class MessageDao {
 	 * @author JH
 	 * @Date : 2023. 11. 20
 	 */
-	public int receivedStorageListCount(SqlSessionTemplate sqlSession, int empNo) {
-		return sqlSession.selectOne("messageMapper.receivedStorageListCount", empNo);
+	public int receivedStorageCount(SqlSessionTemplate sqlSession, int empNo) {
+		return sqlSession.selectOne("messageMapper.receivedStorageCount", empNo);
 	}	// receivedStorageListCount
 	
 	
@@ -179,8 +179,8 @@ public class MessageDao {
 	 * @author JH
 	 * @Date : 2023. 11. 20
 	 */
-	public ArrayList<Message> searchReceivedStorageMessage(SqlSessionTemplate sqlSession, Map<String, Object> map, RowBounds rowBounds) {
-		return (ArrayList)sqlSession.selectList("messageMapper.searchReceivedStorageMessage", map, rowBounds);
+	public ArrayList<Message> searchReceivedStorageMsg(SqlSessionTemplate sqlSession, Map<String, Object> map, RowBounds rowBounds) {
+		return (ArrayList)sqlSession.selectList("messageMapper.searchReceivedStorageMsg", map, rowBounds);
 	}	// searchReceivedStorageListCount
 
 	
@@ -192,8 +192,8 @@ public class MessageDao {
 	 * @author JH
 	 * @Date : 2023. 11. 20
 	 */
-	public int searchReceivedStorageListCount(SqlSessionTemplate sqlSession, Map<String, Object> map) {
-		return sqlSession.selectOne("messageMapper.searchReceivedStorageListCount", map);
+	public int searchReceivedStorageCount(SqlSessionTemplate sqlSession, Map<String, Object> map) {
+		return sqlSession.selectOne("messageMapper.searchReceivedStorageCount", map);
 	}	// searchReceivedStorageListCount
 
 	
@@ -250,9 +250,68 @@ public class MessageDao {
 	 * @author JH
 	 * @Date : 2023. 11. 21
 	 */
-	public int searchSendListCount(SqlSessionTemplate sqlSession, Map<String, Object> map) {
-		return sqlSession.selectOne("messageMapper.searchSendListCount", map);
+	public int searchSendCount(SqlSessionTemplate sqlSession, Map<String, Object> map) {
+		return sqlSession.selectOne("messageMapper.searchSendCount", map);
 	}	// searchSendListCount
+	
+	
+	// ==================================================================================
+	// 메시지함 - 보낸 메시지 보관함 관련
+	// ==================================================================================
+	
+	/**
+	 * 1) 보낸 메시지 보관함 전체 리스트 조회
+	 * @param sqlSession
+	 * @param empNo : 현재 로그인한 사용자의 사원번호
+	 * @param rowBounds
+	 * @return 보낸 메시지 보관함 전체 리스트 반환
+	 * @author JH
+	 * @Date : 2023. 11. 22
+	 */
+	public ArrayList<Message> sendStorageList(SqlSessionTemplate sqlSession, int empNo, RowBounds rowBounds) {
+		return (ArrayList)sqlSession.selectList("messageMapper.sendStorageList", empNo, rowBounds);
+	}	// sendStorageList
+
+	
+	/**
+	 * 2) 보낸 메시지 보관함 전체 개수 조회
+	 * @param sqlSession
+	 * @param empNo : 현재 로그인한 사용자의 사원번호
+	 * @return 보낸 메시지 보관함 전체 개수 반환
+	 * @author JH
+	 * @Date : 2023. 11. 22
+	 */
+	public int sendStorageListCount(SqlSessionTemplate sqlSession, int empNo) {
+		return sqlSession.selectOne("messageMapper.sendStorageListCount", empNo);
+	}	// sendStorageListCount
+
+	
+	/**
+	 * 3) 보낸 메시지 보관함 검색 리스트 조회
+	 * @param sqlSession
+	 * @param map - condition(사용자가 선택한 검색 옵션), keyword(사용자가 검색한 키워드명), empNo(현재 로그인한 사용자의 사원번호)
+	 * @param rowBounds
+	 * @return 보낸 메시지 보관함 검색 개수 반환
+//	 * @author JH
+	 * @Date : 2023. 11. 22
+	 */
+	public ArrayList<Message> searchSendStorageMsg(SqlSessionTemplate sqlSession, Map<String, Object> map,
+			RowBounds rowBounds) {
+		return (ArrayList)sqlSession.selectList("messageMapper.searchSendStorageMsg", map, rowBounds);
+	}	// searchSendStorageMessage
+
+	
+	/**
+	 * 4) 보낸 메시지 보관함 검색 개수 조회
+	 * @param sqlSession
+	 * @param map - condition(사용자가 선택한 검색 옵션), keyword(사용자가 검색한 키워드명), empNo(현재 로그인한 사용자의 사원번호)
+	 * @return 보낸 메시지 보관함 검색 개수 반환
+	 * @author JH
+	 * @Date : 2023. 11. 22
+	 */
+	public int searchSendStorageCount(SqlSessionTemplate sqlSession, Map<String, Object> map) {
+		return sqlSession.selectOne("messageMapper.searchSendStorageCount", map);
+	}	// searchSendStorageListCount
 
 
 	// ==================================================================================
@@ -321,6 +380,9 @@ public class MessageDao {
 	public int deletePermanentlyMessage(SqlSessionTemplate sqlSession, int messageNo) {
 		return sqlSession.delete("messageMapper.deletePermanentlyMessage", messageNo);
 	}	// deletePermanentlyMessage
+
+
+
 
 	
 

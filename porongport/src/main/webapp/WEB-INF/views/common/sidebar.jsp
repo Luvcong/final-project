@@ -141,10 +141,10 @@
 				<div class="sub-menu d-none" data-group='receivedMessage'>
 					<div class="sub-item sub-title" data-url='receivedMessage'>메시지함</div>
 			        <div class="sub-item" data-url='receivedMessage'>받은 메시지</div>
-			        <div class="sub-item" data-url=''>보낸 메시지</div>
+			        <div class="sub-item" data-url='sendMessage'>보낸 메시지</div>
 			        <div class="sub-item" data-url=''>메시지 보관함</div>
 			        <div class="sub-item sub-item-menu" data-url='receivedStorageMessage'>받은 메시지 보관함</div>
-			        <div class="sub-item sub-item-menu" data-url=sendMessage''>보낸 메시지 보관함</div>
+			        <div class="sub-item sub-item-menu" data-url='sendStorageMessage'>보낸 메시지 보관함</div>
 			        <div class="sub-item" data-url='deleteMessageBox'>휴지통</div>
 				</div>
 				<div class="sub-menu d-none" data-group='board'>
