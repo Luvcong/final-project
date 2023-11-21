@@ -1,6 +1,7 @@
 package com.kh.porong.employee.model.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
@@ -39,8 +40,8 @@ public class EmployeeDao {
 		return sqlSession.selectOne("empMapper.idCheck", checkId);
 	}
 
-	public Attendance checkAtt(SqlSessionTemplate sqlSession, int empNo) {
-		return sqlSession.selectOne("empMapper.checkAtt", empNo);
+	public Attendance checkAtt(SqlSessionTemplate sqlSession, HashMap<String, Object> map) {
+		return sqlSession.selectOne("empMapper.checkAtt", map);
 	}
 
 	public ArrayList<Employee> selectJojigdo(SqlSessionTemplate sqlSession, String deptCode) {

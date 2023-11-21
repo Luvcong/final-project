@@ -163,8 +163,6 @@
 				        <button type="submit" class="sub-item" data-url='jojigdo.em'>인사부</button>
 				        <input type="hidden" name="deptCode" value="HR" />
 					</div>
-				        <div class="sub-item" data-url='jojigdo.em'>게시판2</div>
-				        <div class="sub-item" data-url='jojigdo.em'>게시판3</div>
 				
 				</form>
 						
