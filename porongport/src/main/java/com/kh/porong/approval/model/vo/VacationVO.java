@@ -18,5 +18,10 @@ public class VacationVO {
 	private String vctReason;
 	private int empNo;
 	
+	private String deptCode;
+	private String deptName;
+	private String jobCode;
+	private String jobName;
+	private String empName;
 
 }
