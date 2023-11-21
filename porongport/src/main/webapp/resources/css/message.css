@@ -15,6 +15,9 @@
 	text-align: center;
 }
 
+.pp-content .pp-content-message .td-content, .fa-star{
+	cursor: pointer;
+}
 .pp-content .selectCount {
 	float: right;
 	color: #4A4A4A;
@@ -58,5 +61,8 @@
 	color: #F1C40F
 }
 
+#effectiveDate{
+	color: #DC3545;
+}
 
 

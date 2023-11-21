@@ -278,6 +278,11 @@
 		 		MESSAGE_NO = #{ messageNo }
 	</update>
 	
+	<!-- 메시지 상세보기 -->
+	<select id="detailMessage" resultType="message" parameterType="message">
+	
+	</select>
+	
 	
 	<!-- 휴지통 메시지 전체 리스트 조회 -->
 	<select id="deleteMessageBoxList" resultMap="messageResultSet" parameterType="message">

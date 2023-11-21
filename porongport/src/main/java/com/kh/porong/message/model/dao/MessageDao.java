@@ -126,6 +126,20 @@ public class MessageDao {
 	public int storageMessage(SqlSessionTemplate sqlSession, int messageNo) {
 		return sqlSession.update("messageMapper.storageMessage", messageNo);
 	}	// storageMessage
+	
+	
+	/**
+	 * 8) 받은 메시지 상세보기
+	 * @param sqlSession
+	 * @param messageNo : 메시지 상세보기 메시지 번호 - MESSAGE_NO
+	 * @return MESSAGE_NO 에 해당하는 일자, 작성자, 직급, 메시지내용 반환
+	 * @author JH
+	 * @Date : 2023. 11. 21
+	 */
+	public Message detailMessage(SqlSessionTemplate sqlSession, int messageNo) {
+		return sqlSession.selectOne("messageMapper.detailMessage", messageNo);
+	}	// detailMessage
+
 
 	
 	// ==================================================================================
@@ -251,6 +265,8 @@ public class MessageDao {
 	public int deletePermanentlyMessage(SqlSessionTemplate sqlSession, int messageNo) {
 		return sqlSession.delete("messageMapper.deletePermanentlyMessage", messageNo);
 	}	// deletePermanentlyMessage
+
+
 
 	
 

@@ -1,6 +1,7 @@
 package com.kh.porong.employee.model.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.kh.porong.employee.model.vo.Attendance;
 import com.kh.porong.employee.model.vo.Employee;
@@ -13,9 +14,6 @@ public interface EmployeeService {
 	
 	// 출근기록 리스트
 	ArrayList<Attendance> attList(int empNo);
-	
-	// 출근기록 조회
-	Attendance checkAtt(int empNo);
 	
 	// 출근기록 insert
 	int insertAtt(Attendance att);

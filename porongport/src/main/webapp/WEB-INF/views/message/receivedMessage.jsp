@@ -100,7 +100,7 @@
 	           	</c:when>
 	           	<c:otherwise>
 	           		<c:forEach var="message" items="${ list }">
-	           			<tr>
+	           			<tr onclick="detailMessage()">
 		                    <td><input type="checkbox" onclick="checkOnce()" value=${ message.messageNo }></td>
 		                    <c:choose>
 		                    	<c:when test="${ message.bookmarkYN eq 'N' }">
@@ -112,7 +112,7 @@
 		                    </c:choose>
 		                    <td>${ message.messageRank }</td>
 							<td>${ message.empName } [${ message.jobName }]</td>
-							<td>${ message.messageContent }</td>
+							<td class="td-content">${ message.messageContent }</td>
 							<td>${ message.createDate }</td>
 							<c:choose>
 								<c:when test="${ message.readYN eq 'N' }">
@@ -176,6 +176,7 @@
 	</div>	<!-- pp-content  -->
 	
 	
+	
 	<c:if test="${ not empty condition }">
 		<script>
 		$(() => {
@@ -183,6 +184,7 @@
 		});
 		</script>
 	</c:if>
+
 	
 	<script>
 		// ------------------------------------------------------------------
@@ -214,10 +216,29 @@
 			}
 			hd_input.checked = is_all_checked;
 		}	// checkOnce
+		
+		
+		// ------------------------------------------------------------------
+		// 메시지 상세보기
+		// ------------------------------------------------------------------
+		function detailMessage(){
+			console.log(event.currentTarget);
+			
+			let tr = event.currentTarget;
+			let input = tr.querySelector('td input');
+			let messageNo = input.value;
+			console.log(input);
+			console.log(input.value);
+			
+			tr.addEventListener('click', function(){
+				location.href = 'detailMessage?mno=' + messageNo;
+			})
+			
+		}
 			
 		
 		// ------------------------------------------------------------------
-		// 쪽지 삭제 ajax
+		// 메시지 삭제 ajax
 		// ------------------------------------------------------------------
 		function deleteMessage(){
 

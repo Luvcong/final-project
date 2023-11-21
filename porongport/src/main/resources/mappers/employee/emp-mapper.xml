@@ -91,20 +91,8 @@
 		      ATTENDANCE
 		 WHERE
 		      EMP_NO = #{empNo}
-	</select>
-	
-	<!-- 근태 조회 -->
-	<select id="checkAtt" parameterType="_int" resultType="att">
-		SELECT
-			  WORK_DATE workDate
-			  ,WORK_START workStart
-			  ,WORK_END workEnd
-		  FROM
-		      ATTENDANCE
-		 WHERE
-		      EMP_NO = #{empNo}
-		   AND
-		      TO_CHAR(WORK_DATE, 'YY/MM/DD') = TO_CHAR(SYSDATE, 'YY/MM/DD')
+		 ORDER
+		    BY WORK_DATE DESC
 	</select>
 	
 	<!-- 입사자 등록 -->
@@ -132,18 +120,20 @@
 	<!-- 마지막 근태 레코드 구하는 쿼리 -->
 	<select id="selectAtt" parameterType="att" resultType="att">
 		SELECT 
-		      WORK_DATE workDate
-		      ,WORK_START workStart
-		      ,WORK_END workEnd
+		      WORK_DATE
+		      ,WORK_START
+		      ,WORK_END
 		  FROM  
 		      (SELECT 
 		             WORK_DATE
-		             ,WORK_START 
-		             ,WORK_END 
+		             ,WORK_START
+		             ,WORK_END
 		        FROM 
 		             ATTENDANCE 
 		       WHERE 
-		            EMP_NO = #{empNo}
+		            EMP_NO = 0
+		         AND
+		            TO_CHAR(WORK_DATE, 'YY/MM/DD') = TO_CHAR(SYSDATE, 'YY/MM/DD')
 		       ORDER 
 		          BY WORK_START DESC) 
 		WHERE ROWNUM = 1
