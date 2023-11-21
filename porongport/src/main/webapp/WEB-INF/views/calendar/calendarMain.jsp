@@ -92,11 +92,10 @@
                     $('#eventModalLabel').text('세부일정');
                     $('#eventModal').modal();
                     */
-                    $('#eventModalLabel').text('세부일정');
-            	    $("#inputTitle").val(calEvent.title);
-            	    $("#inputContent").val(calEvent.description);
+                    $('#eventModalLabel').text(calEvent.event._def.title);
+            	    $("#inputContent").val(calEvent.event._def.extendedProps.description);
             	    $('#eventModal').modal();
-            	    console.log(calEvent);
+            	    console.log(calEvent.event._def);
                 },
             	
                 // Tool Bar 목록 document : https://fullcalendar.io/docs/toolbar
@@ -130,7 +129,7 @@
 		
 		function saveEvent() {
 			  // 이벤트 정보를 입력란에서 가져오세요.
-			  var title = document.getElementById('inputTitle').value;
+			  var title = document.getElementById('inputCalendar').value;
 			
 			  // 모달 폼을 숨기세요.
 			  var eventModal = new bootstrap.Modal(document.getElementById('eventModal'));
@@ -149,28 +148,34 @@
 		</div>
 		<div class="modal fade" id="eventModal" tabindex="-1" aria-labelledby="eventModalLabel" aria-hidden="true">
         <div class="modal-dialog">
+        
             <div class="modal-content">
+            
                 <div class="modal-header">
-                    <h5 class="modal-title" id="eventModalLabel">New Event</h5>
+                    <h5 class="modal-title" id="eventModalLabel">일정제목</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
+                
                 <div class="modal-body">
-                    <!-- 여기에 이벤트 정보 입력란을 추가하세요. 예: -->
+                
                     <div class="mb-3">
-                        <label for="inputTitle" class="form-label">일정제목</label>
-                        <input type="text" class="form-control" id="inputTitle">
                         <br>
-                        <label for="inputTitle" class="form-label">일정내용</label>
-                        <input type="text" class="form-control" id="inputContent">
+                        <label for="inputCalendar" class="form-label">일정내용</label>
+                        <input class="form-control calendar-modal-height" id="inputContent"></input>
                         <br>
-                        <label for="inputTitle" class="form-label">기간</label>
+                        
+                        <label for="inputCalendar" class="form-label">기간</label>
                         <input type="date" class="form-control" id="inputDate">~<input type="date" class="form-control" id="inputDate">
                     </div>
+                    
                 </div>
+                
                 <div class="modal-footer">
+                
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
                     <button type="button" class="btn btn-secondary">수정하기</button>
                     <button type="button" class="btn btn-danger" onclick="deleteEvent();">삭제하기</button>
+                    
                 </div>
             </div>
         </div>
