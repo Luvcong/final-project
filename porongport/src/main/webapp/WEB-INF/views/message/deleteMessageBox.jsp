@@ -105,10 +105,10 @@
 		                    <td><input type="checkbox" onclick="checkOnce()" value="${ message.messageNo }"></td>
 		                    <c:choose>
 		                    	<c:when test="${ message.bookmarkYN eq 'N' }">
-			                    	<td><i onclick="bookmark_msg()" class="fa-regular fa-star td-fa-star"></i></td>
+			                    	<td><i onclick="bookmark_msg()" class="fa-regular fa-star td-fa-star" data-no="${ message.messageNo }"></i></td>
 		                    	</c:when>
 		                    	<c:otherwise>
-				                    <td><i  onclick="bookmark_msg()" class="fa-solid fa-star td-fa-star"></i></td>
+				                    <td><i  onclick="bookmark_msg()" class="fa-solid fa-star td-fa-star" data-no="${ message.messageNo }"></i></td>
 		                    	</c:otherwise>
 		                    </c:choose>
 		                    <td>${ message.messageRank }</td>
@@ -290,7 +290,7 @@
 		}	// moveMessageBox
 		
 		// ------------------------------------------------------------------
-		// 받은메시지로 복구 기능 ajax
+		// 메시지 영구삭제 기능 ajax
 		// ------------------------------------------------------------------
 		function deletePermanentlyMessage(){
 			
@@ -370,7 +370,6 @@
 				},	// error
 			});	// ajax
 			});		// confrim	 
-			
 		}	// permanentDelete
 		
 		

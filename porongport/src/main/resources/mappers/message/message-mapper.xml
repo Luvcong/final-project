@@ -281,8 +281,25 @@
 	
 	<!-- 휴지통 메시지 전체 리스트 조회 -->
 	<select id="deleteMessageBoxList" resultMap="messageResultSet" parameterType="message">
-		
-		<include refid="messageSql"></include>
+		SELECT
+				ROW_NUMBER() OVER(ORDER BY M.DELETE_DATE ASC) AS NUM,
+		        M.MESSAGE_NO,
+		        E.EMP_NAME,
+		        J.JOB_NAME,
+		        D.DEPT_NAME,
+		        M.MESSAGE_CONTENT,
+		        TO_CHAR(M.DELETE_DATE, 'YYYY-MM-DD AM HH24:MI:SS') AS "DELETE_DATE",
+		        ((TRUNC(DELETE_DATE) + 31) - TRUNC(SYSDATE)) EFFECTIVE_DATE,
+		        M.READ_YN, 
+				M.BOOKMARK_YN
+  		  FROM
+  				MESSAGE M, EMPLOYEE E, DEPARTMENT D, JOB J
+		 WHERE 
+		 		M.SEND_USER = E.EMP_NO
+		   AND
+		   		E.DEPT_CODE = D.DEPT_CODE
+		   AND
+		   		E.JOB_CODE = J.JOB_CODE
 		   AND
 		   		MESSAGE_STATUS = 'N'
 		   AND
@@ -305,8 +322,25 @@
 	
 	<!-- 휴지통 메시지 검색 리스트 조회 -->
 	<select id="searchDeleteMessage" resultMap="messageResultSet" parameterType="hashmap">
-	
-		<include refid="messageSql"></include>
+		SELECT
+				ROW_NUMBER() OVER(ORDER BY M.DELETE_DATE ASC) AS NUM,
+		        M.MESSAGE_NO,
+		        E.EMP_NAME,
+		        J.JOB_NAME,
+		        D.DEPT_NAME,
+		        M.MESSAGE_CONTENT,
+		        TO_CHAR(M.DELETE_DATE, 'YYYY-MM-DD AM HH24:MI:SS') AS "DELETE_DATE",
+		        ((TRUNC(DELETE_DATE) + 31) - TRUNC(SYSDATE)) EFFECTIVE_DATE,
+		        M.READ_YN, 
+				M.BOOKMARK_YN
+  		  FROM
+  				MESSAGE M, EMPLOYEE E, DEPARTMENT D, JOB J
+		 WHERE 
+		 		M.SEND_USER = E.EMP_NO
+		   AND
+		   		E.DEPT_CODE = D.DEPT_CODE
+		   AND
+		   		E.JOB_CODE = J.JOB_CODE
 		   AND
 		   		MESSAGE_STATUS = 'N'
 		   AND
