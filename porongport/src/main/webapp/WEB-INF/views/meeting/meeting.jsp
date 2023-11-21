@@ -64,24 +64,24 @@
 							id="meetStartDay" class="meeting_input2 meeting-width2" name="meetStartDay">
 							<select name="meetStartTime" id="meetStartTime"
 							class="meeting_input2 meeting_width2">
-								<option value="900">09:00</option>
-								<option value="930">09:30</option>
-								<option value="1000">10:00</option>
-								<option value="1030">10:30</option>
-								<option value="1100">11:00</option>
-								<option value="1130">11:30</option>
-								<option value="1200">12:00</option>
-								<option value="1230">12:30</option>
-								<option value="1300">1:00</option>
-								<option value="1330">1:30</option>
-								<option value="1400">2:00</option>
-								<option value="1430">2:30</option>
-								<option value="1500">3:00</option>
-								<option value="1530">3:30</option>
-								<option value="1600">4:00</option>
-								<option value="1630">4:30</option>
-								<option value="1700">5:00</option>
-								<option value="1730">5:30</option>
+								<option value="09:00">09:00</option>
+								<option value="09:30">09:30</option>
+								<option value="10:00">10:00</option>
+								<option value="10:30">10:30</option>
+								<option value="11:00">11:00</option>
+								<option value="11:30">11:30</option>
+								<option value="12:00">12:00</option>
+								<option value="12:30">12:30</option>
+								<option value="13:00">1:00</option>
+								<option value="13:30">1:30</option>
+								<option value="14:00">2:00</option>
+								<option value="14:30">2:30</option>
+								<option value="15:00">3:00</option>
+								<option value="15:30">3:30</option>
+								<option value="16:00">4:00</option>
+								<option value="16:30">4:30</option>
+								<option value="17:00">5:00</option>
+								<option value="17:30">5:30</option>
 						</select> <label class="switch"> <input type="checkbox"> <span class="slider round"></span>
 						</label>
 							<p>하루종일</p>
@@ -98,24 +98,24 @@
 							type="date" class="meetingEndDay"id="meetEndDay" name="meetEndDay"><label
 							for="meetingEndTime"></label> 
 							<select name="meetEndTime" id="meetEndTime" class="meeting_input2 meeting_width2">
-								<option value="930">09:30</option>
-								<option value="1000">10:00</option>
-								<option value="1030">10:30</option>
-								<option value="1100">11:00</option>
-								<option value="1130">11:30</option>
-								<option value="1200">12:00</option>
-								<option value="1230">12:30</option>
-								<option value="1300">1:00</option>
-								<option value="1330">1:30</option>
-								<option value="1400">2:00</option>
-								<option value="1430">2:30</option>
-								<option value="1500">3:00</option>
-								<option value="1530">3:30</option>
-								<option value="1600">4:00</option>
-								<option value="1630">4:30</option>
-								<option value="1700">5:00</option>
-								<option value="1730">5:30</option>
-								<option value="1800">6:00</option>
+								<option value="09:30">09:30</option>
+								<option value="10:00">10:00</option>
+								<option value="10:30">10:30</option>
+								<option value="11:00">11:00</option>
+								<option value="11:30">11:30</option>
+								<option value="12:00">12:00</option>
+								<option value="12:30">12:30</option>
+								<option value="13:00">1:00</option>
+								<option value="13:30">1:30</option>
+								<option value="14:00">2:00</option>
+								<option value="14:30">2:30</option>
+								<option value="15:00">3:00</option>
+								<option value="15:30">3:30</option>
+								<option value="16:00">4:00</option>
+								<option value="16:30">4:30</option>
+								<option value="17:00">5:00</option>
+								<option value="17:30">5:30</option>
+								<option value="18:00">6:00</option>
 						</select></td>
 
 					</tr>
