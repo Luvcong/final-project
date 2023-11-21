@@ -279,7 +279,7 @@
 	</update>
 	
 	<!-- 메시지 상세보기 -->
-	<select id="detailMessage" resultMap="message" parameterType="message">
+	<select id="detailMessage" resultType="message" parameterType="message">
 	
 	</select>
 	
