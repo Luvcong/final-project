@@ -20,42 +20,12 @@ public class ajaxMessageController {
 	@Autowired
 	private MessageService messageService;
 	
-	
 	// ==================================================================================
-	// 메시지함 - 받은 메시지 관련
+	// 메시지함 - 공통 기능
 	// ==================================================================================
 	
 	/**
-	 * 메시지 삭제 - 휴지통 이동
-	 * @param messageNoList : 삭제하려고 하는 메시지 번호 (messageNo)
-	 * @return 메시지 삭제 성공 여부 (MESSAGE_STATUS = N 으로 변경 완료 여부) 반환
-	 * @author JH
-	 * @Date : 2023. 11. 16
-	 */
-	@ResponseBody
-	@GetMapping(value="deleteMessage", produces="application/json; charset=UTF-8")
-	public String deleteMessage(@RequestParam(value="messageNoList[]") List<Integer> messageNoList) {
-		
-		JsonArray deleteList = new JsonArray();
-		
-		for(int arr : messageNoList) {
-			int messageNo = arr;
-			int result = messageService.deleteMessage(messageNo);
-			if(result > 0)
-				deleteList.add(messageNo);
-		}
-		
-//		for(String arr : messageNoList) {
-//			int messageNo = Integer.parseInt(arr);
-//			int result = messageService.deleteMessage(messageNo);
-//			if(result > 0)
-//				deleteList.add(messageNo);
-//		}
-		return new Gson().toJson(deleteList);
-	}	// deleteMessage
-	
-	/**
-	 * 메시지 북마크 설정
+	 * 1) 메시지 북마크 설정
 	 * @param messageNo : 북마크하려고 하는 메시지 번호
 	 * @param bookmarkYN : 선택한 메시지 번호의 북마크 설정 유무 여부 (Y : 북마크 설정 / N : 북마크 미설정)
 	 * @return 메시지 북마크 설정 성공 여부
@@ -76,15 +46,38 @@ public class ajaxMessageController {
 	}	// bookmarkMsg
 	
 	/**
-	 * 받은 메시지 보관함 이동
+	 * 2) 메시지 삭제 - 휴지통 이동
+	 * @param messageNoList : 삭제하려고 하는 메시지 번호 (messageNo)
+	 * @return 메시지 삭제 성공 여부 (MESSAGE_STATUS = N 으로 변경 완료 여부) 반환
+	 * @author JH
+	 * @Date : 2023. 11. 16
+	 */
+	@ResponseBody
+	@GetMapping(value="deleteMessage", produces="application/json; charset=UTF-8")
+	public String deleteMessage(@RequestParam(value="messageNoList[]") List<Integer> messageNoList) {
+		
+		JsonArray deleteList = new JsonArray();
+		
+		for(int arr : messageNoList) {
+			int messageNo = arr;
+			int result = messageService.deleteMessage(messageNo);
+			if(result > 0)
+				deleteList.add(messageNo);
+		}
+		
+		return new Gson().toJson(deleteList);
+	}	// deleteMessage
+	
+	/**
+	 * 3) 메시지 보관함으로 이동
 	 * @param messageList : 메시지 보관함으로 이동하려는 메시지 번호
 	 * @return 보관함 이동 성공 여부 (MESSAGE_STATUS = S 업데이트 성공 여부)
 	 * @author JH
 	 * @Date : 2023. 11. 20
 	 */
 	@ResponseBody
-	@GetMapping(value="receivedStorageMessage", produces="application/json; charset=UTF-8")
-	public String receivedStorageMessage(@RequestParam(value="messageList[]") List<Integer> messageList) {
+	@GetMapping(value="storageMessage", produces="application/json; charset=UTF-8")
+	public String storageMessage(@RequestParam(value="messageList[]") List<Integer> messageList) {
 		
 		JsonArray storageList = new JsonArray();
 		
@@ -97,10 +90,9 @@ public class ajaxMessageController {
 		return new Gson().toJson(storageList);
 	}	// storeMessage
 	
-	
 	/**
-	 * 보관함 메시지 받은 메시지함으로 이동
-	 * @param messageList : 보관함에서 받은 메시지함으로 이동하려는 메시지 번호
+	 * 4) 메시지 보관함 & 휴지통 메시지 > 기존 메시지함으로 이동
+	 * @param messageList : 보관함 및 휴지통 메시지를 기존 메시지함으로 이동하려는 메시지 번호
 	 * @return 메시지함 이동 성공 여부 (MESSAGE_STATUS = Y 업데이트 성공 여부)
 	 * @author JH
 	 * @Date : 2023. 11. 20
@@ -119,8 +111,20 @@ public class ajaxMessageController {
 		}
 		return new Gson().toJson(moveList);
 	}	// moveMessageBox
+
+	
+	// ==================================================================================
+	// 메시지함 - 휴지통 관련
+	// ==================================================================================
 	
 	
+	/**
+	 * 1) 휴지통 메시지 영구 삭제
+	 * @param messageList : 영구 삭제 하려고 하는 메시지 번호
+	 * @return 영구 삭제 성공 여부 반환 (DELETE)
+	 * @author JH
+	 * @Date : 2023. 11. 21
+	 */
 	@ResponseBody
 	@GetMapping("deletePermanentlyMessage")
 	public String deletePermanentlyMessage(@RequestParam(value="message_list[]") List<Integer> messageList) {

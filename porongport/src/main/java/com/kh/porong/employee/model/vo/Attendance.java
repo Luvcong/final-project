@@ -14,7 +14,7 @@ import lombok.ToString;
 @Setter
 @ToString
 public class Attendance {
-	private Date workDate;
+	private String workDate;
 	private int empNo;
 	private String workStart;
 	private String workEnd;

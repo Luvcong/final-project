@@ -7,7 +7,6 @@ import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.kh.porong.common.model.vo.PageInfo;
 import com.kh.porong.message.model.vo.Message;
 
 @Repository
@@ -18,20 +17,7 @@ public class MessageDao {
 	// ==================================================================================
 	
 	/**
-	 * 1) 받은 메시지 보관함 > 받은 메시지함으로 이동
-	 * @param sqlSession
-	 * @param messageNo : 보관함에서 받은 메시지함으로 이동하려는 메시지 번호
-	 * @return 메시지함 이동 성공 여부 (MESSAGE_STATUS = Y 업데이트 성공 여부)
-	 * @author JH
-	 * @Date : 2023. 11. 20
-	 */
-	public int moveMessageBox(SqlSessionTemplate sqlSession, int messageNo) {
-		return sqlSession.update("messageMapper.moveMessageBox", messageNo);
-	}	// moveMessageBox
-	
-	
-	/**
-	 * 2) 받은 메시지 북마크 설정
+	 * 1) 받은 메시지 북마크 설정
 	 * @param sqlSession
 	 * @param messageNo : 북마크 설정하려고 하는 메시지 번호
 	 * @return 받은 메시지 북마크 설정 성공 여부 반환
@@ -43,6 +29,57 @@ public class MessageDao {
 	}	// bookmarkMsg
 	
 	
+	/**
+	 * 2) 받은 메시지 삭제 - 휴지통 이동
+	 * @param messageNo : 휴지통으로 이동하려고 하는 메시지 번호
+	 * @return 메시지 삭제 성공 여부 반환
+	 * @author JH
+	 * @param sqlSession 
+	 * @Date : 2023. 11. 16
+	 */
+	public int deleteMessage(SqlSessionTemplate sqlSession, int messageNo) {
+		return sqlSession.update("messageMapper.deleteMessage", messageNo);
+	}	// deleteMessage
+	
+	
+	/**
+	 * 3) 메시지 보관함으로 이동
+	 * @param sqlSession
+	 * @param messageNo : 메시지 보관함으로 이동하려는 메시지 번호
+	 * @return 보관함 이동 성공 여부 (MESSAGE_STATUS = S 업데이트 성공 여부)
+	 * @author JH
+	 * @Date : 2023. 11. 20
+	 */
+	public int storageMessage(SqlSessionTemplate sqlSession, int messageNo) {
+		return sqlSession.update("messageMapper.storageMessage", messageNo);
+	}	// storageMessage
+	
+	
+	/**
+	 * 4) 메시지 보관함 & 휴지통 메시지 > 기존 메시지함으로 이동
+	 * @param sqlSession
+	 * @param messageList : 보관함 및 휴지통 메시지를 기존 메시지함으로 이동하려는 메시지 번호
+	 * @return 메시지함 이동 성공 여부 (MESSAGE_STATUS = Y 업데이트 성공 여부)
+	 * @author JH
+	 * @Date : 2023. 11. 20
+	 */
+	public int moveMessageBox(SqlSessionTemplate sqlSession, int messageNo) {
+		return sqlSession.update("messageMapper.moveMessageBox", messageNo);
+	}	// moveMessageBox
+	
+	
+	/**
+	 * 5) 받은 메시지 상세보기
+	 * @param sqlSession
+	 * @param messageNo : 메시지 상세보기 메시지 번호 - MESSAGE_NO
+	 * @return MESSAGE_NO 에 해당하는 일자, 작성자, 직급, 메시지내용 반환
+	 * @author JH
+	 * @Date : 2023. 11. 21
+	 */
+	public Message detailMessage(SqlSessionTemplate sqlSession, int messageNo) {
+		return sqlSession.selectOne("messageMapper.detailMessage", messageNo);
+	}	// detailMessage
+
 	
 	// ==================================================================================
 	// 메시지함 - 받은 메시지 관련
@@ -76,20 +113,7 @@ public class MessageDao {
 
 	
 	/**
-	 * 4) 받은 메시지 삭제 - 휴지통 이동
-	 * @param messageNo : 휴지통으로 이동하려고 하는 메시지 번호
-	 * @return 메시지 삭제 성공 여부 반환
-	 * @author JH
-	 * @param sqlSession 
-	 * @Date : 2023. 11. 16
-	 */
-	public int deleteMessage(SqlSessionTemplate sqlSession, int messageNo) {
-		return sqlSession.update("messageMapper.deleteMessage", messageNo);
-	}	// deleteMessage
-	
-	
-	/**
-	 * 5) 받은 메시지 검색 조회
+	 * 3) 받은 메시지 검색 조회
 	 * @param sqlSession
 	 * @param map - condition(사용자가 선택한 검색 옵션), keyword(사용자가 검색한 키워드명), empNo(현재 로그인한 사용자의 사원번호)
 	 * @param rowBounds
@@ -103,7 +127,7 @@ public class MessageDao {
 	
 	
 	/**
-	 * 6) 받은 메시지 검색 개수 조회
+	 * 4) 받은 메시지 검색 개수 조회
 	 * @param sqlSession
 	 * @param map - condition(사용자가 선택한 검색 옵션), keyword(사용자가 검색한 키워드명), empNo(현재 로그인한 사용자의 사원번호)
 	 * @return 사용자가 검색한 키워드와 일치하는 개수 반환
@@ -113,32 +137,6 @@ public class MessageDao {
 	public int searchReceivedListCount(SqlSessionTemplate sqlSession, Map<String, Object> map) {
 		return sqlSession.selectOne("messageMapper.searchReceivedListCount", map);
 	}	// searchReceivedListCount
-	
-
-	/**
-	 * 7) 받은 메시지 보관함 이동
-	 * @param sqlSession
-	 * @param messageNo : 메시지 보관함으로 이동하려는 메시지 번호
-	 * @return 보관함 이동 성공 여부 (MESSAGE_STATUS = S 업데이트 성공 여부)
-	 * @author JH
-	 * @Date : 2023. 11. 20
-	 */
-	public int storageMessage(SqlSessionTemplate sqlSession, int messageNo) {
-		return sqlSession.update("messageMapper.storageMessage", messageNo);
-	}	// storageMessage
-	
-	
-	/**
-	 * 8) 받은 메시지 상세보기
-	 * @param sqlSession
-	 * @param messageNo : 메시지 상세보기 메시지 번호 - MESSAGE_NO
-	 * @return MESSAGE_NO 에 해당하는 일자, 작성자, 직급, 메시지내용 반환
-	 * @author JH
-	 * @Date : 2023. 11. 21
-	 */
-	public Message detailMessage(SqlSessionTemplate sqlSession, int messageNo) {
-		return sqlSession.selectOne("messageMapper.detailMessage", messageNo);
-	}	// detailMessage
 
 
 	
@@ -197,6 +195,64 @@ public class MessageDao {
 	public int searchReceivedStorageListCount(SqlSessionTemplate sqlSession, Map<String, Object> map) {
 		return sqlSession.selectOne("messageMapper.searchReceivedStorageListCount", map);
 	}	// searchReceivedStorageListCount
+
+	
+	// ==================================================================================
+	// 메시지함 - 보낸 메시지 관련
+	// ==================================================================================
+	
+	/**
+	 * 1) 보낸 메시지 전체 리스트 조회
+	 * @param sqlSession
+	 * @param empNo : 현재 로그인한 사용자의 사원번호
+	 * @param rowBounds
+	 * @return 보낸 메시지 전체 리스트 반환
+	 * @author JH
+	 * @Date : 2023. 11. 21
+	 */
+	public ArrayList<Message> sendMessageList(SqlSessionTemplate sqlSession, int empNo, RowBounds rowBounds) {
+		return (ArrayList)sqlSession.selectList("messageMapper.sendMessageList", empNo, rowBounds);
+	}	// sendMessageList
+
+	
+	/**
+	 * 2) 보낸 메시지 전체 개수 조회
+	 * @param empNo : 현재 로그인한 사용자의 사원번호
+	 * @return 보낸 메시지 전채 개수 반환
+	 * @author JH
+	 * @Date : 2023. 11. 21
+	 */
+	public int sendListCount(SqlSessionTemplate sqlSession, int empNo) {
+		return sqlSession.selectOne("messageMapper.sendListCount", empNo);
+	}	// sendListCount
+
+	
+	/**
+	 * 3) 보낸 메시지 검색 리스트 조회
+	 * @param sqlSession
+	 * @param map - condition(사용자가 선택한 검색 옵션), keyword(사용자가 검색한 키워드명), empNo(현재 로그인한 사용자의 사원번호)
+	 * @param rowBounds
+	 * @return 보낸 메시지 검색 리스트 반환
+	 * @author JH
+	 * @Date : 2023. 11. 21
+	 */
+	public ArrayList<Message> searchSendMessage(SqlSessionTemplate sqlSession, Map<String, Object> map,
+			RowBounds rowBounds) {
+		return (ArrayList)sqlSession.selectList("messageMapper.searchSendMessage", map);
+	}	// searchSendMessage
+
+	
+	/**
+	 * 4) 보낸 메시지 검색 리스트 개수 조회
+	 * @param sqlSession
+	 * @param map - condition(사용자가 선택한 검색 옵션), keyword(사용자가 검색한 키워드명), empNo(현재 로그인한 사용자의 사원번호)
+	 * @return 보낸 메시지 검색 리스트 개수 반환
+	 * @author JH
+	 * @Date : 2023. 11. 21
+	 */
+	public int searchSendListCount(SqlSessionTemplate sqlSession, Map<String, Object> map) {
+		return sqlSession.selectOne("messageMapper.searchSendListCount", map);
+	}	// searchSendListCount
 
 
 	// ==================================================================================
@@ -266,6 +322,7 @@ public class MessageDao {
 		return sqlSession.delete("messageMapper.deletePermanentlyMessage", messageNo);
 	}	// deletePermanentlyMessage
 
+	
 
 
 	
