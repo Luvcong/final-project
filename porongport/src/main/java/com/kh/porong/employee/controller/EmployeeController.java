@@ -1,6 +1,8 @@
 package com.kh.porong.employee.controller;
 
+import java.sql.Date;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.activation.DataSource;
 import javax.activation.FileDataSource;
@@ -102,11 +104,13 @@ public class EmployeeController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value="checkAtt.em", produces="json/application; charset=UTF-8")
-	public String checkAtt(int empNo) {
-		Attendance att = empService.checkAtt(empNo);
+	@RequestMapping(value="selectAtt.em", produces="json/application; charset=UTF-8")
+	public String checkAtt(Attendance att) {
+		System.out.println(att);
+		
+		Attendance selectAtt = empService.selectAtt(att);
 		if(att != null) {
-			return new Gson().toJson(att);
+			return new Gson().toJson(selectAtt);
 		} else {
 			return "redirect:myPageAtt";
 		}
@@ -116,8 +120,8 @@ public class EmployeeController {
 	@GetMapping(value="insert.at", produces="json/application; charset=UTF-8")
 	public String insertAtt(Attendance att) {
 		if(empService.insertAtt(att) > 0) {
-			Attendance reAtt = empService.selectAtt(att);
-			return new Gson().toJson(reAtt);
+			// Attendance reAtt = empService.selectAtt(att);
+			return new Gson().toJson(att.getWorkStart());
 		} else {
 			return "redirect:myPageAtt";
 		}

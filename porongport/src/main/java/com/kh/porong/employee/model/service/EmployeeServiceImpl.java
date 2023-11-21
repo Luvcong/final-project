@@ -1,6 +1,7 @@
 package com.kh.porong.employee.model.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,11 +57,6 @@ public class EmployeeServiceImpl implements EmployeeService {
 		return empDao.idCheck(sqlSession, checkId);
 	}
 	
-	@Override
-	public Attendance checkAtt(int empNo) {
-		return empDao.checkAtt(sqlSession, empNo);
-	}
-
 	@Override
 	public ArrayList<Employee> selectJojigdo(String deptCode) {
 		return empDao.selectJojigdo(sqlSession, deptCode);

@@ -43,7 +43,7 @@ public interface MessageService {
 	// 7) 메시지 보관함 이동
 	int storageMessage(int messageNo);
 	
-	// 메시지 상세보기
+	// 8) 메시지 상세보기
 	Message detailMessage(int messageNo);
 	
 	

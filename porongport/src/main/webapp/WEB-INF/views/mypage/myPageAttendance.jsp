@@ -91,25 +91,36 @@
 	<script>
 	  	let now = new Date();
  		var cTime = now.getHours() + ':' + now.getMinutes();
+  		var today = now.getFullYear() + '-' + (now.getMonth() + 1) + '-' + now.getDate();
 	 		
  		window.onload = () => {
-	  		var today = now.getFullYear() + '-' + (now.getMonth() + 1) + '-' + now.getDate();
-	  		document.querySelector('#sysdate').innerText = today;
+	  		document.querySelector('#sysdate').innerText = window.today;
 	  		
 	  		$.ajax({
-	  			url : 'checkAtt.em',
-	  			data : {empNo : ${sessionScope.loginUser.empNo}},
+	  			url : 'selectAtt.em',
+	  			data : {
+	  				workDate : window.today,
+	  				empNo : ${sessionScope.loginUser.empNo}
+  				},
 	  			success : result => {
-					$('#ws_btn').remove();
-					$('#workStart').text(result.workStart);
-					$('#workEnd').text(result.workEnd);
+	  				console.log(result);
 	  				
+	  				if(result.workStart != null){
+						$('#ws_btn').remove();
+						$('#workStart').text(result.workStart);
+						
+	  				}
+	  				else if(result.workEnd != null){
+	  					$('#we_btn').remove();
+	  					$('#workEnd').text(result.workEnd);
+	  				}
+
 	  			},
 	  			error : () => {
 	  				console.log('fail');
 	  			}
 	  			
-	  		})
+	  		});
 	  		
  		};
          		
@@ -123,7 +134,7 @@
 				success : result => {
 					console.log(result);
 					$('#ws_btn').remove();
-					$('#workStart').text(result.workStart);
+					$('#workStart').text(result);
 					
 				},
 				error : () => {

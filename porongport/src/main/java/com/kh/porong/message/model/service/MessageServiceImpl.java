@@ -103,6 +103,12 @@ public class MessageServiceImpl implements MessageService {
 	}	// storageMessage
 	
 	
+	// 8) 메시지 상세보기
+	@Override
+	public Message detailMessage(int messageNo) {
+		return messageDao.detailMessage(sqlSession, messageNo);
+	}	// detailMessage
+	
 	
 	// ==================================================================================
 	// 메시지함 - 받은 메시지 보관함 관련
@@ -191,17 +197,7 @@ public class MessageServiceImpl implements MessageService {
 		return messageDao.deletePermanentlyMessage(sqlSession, messageNo);
 	}	// deletePermanentlyMessage
 	
-	
 
-	
-	
-	
-	
-	@Override
-	public Message detailMessage(int messageNo) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 
 

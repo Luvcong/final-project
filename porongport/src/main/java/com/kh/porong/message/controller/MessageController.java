@@ -1,7 +1,6 @@
 package com.kh.porong.message.controller;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +14,6 @@ import com.kh.porong.common.model.vo.PageInfo;
 import com.kh.porong.common.template.Pagination;
 import com.kh.porong.employee.model.vo.Employee;
 import com.kh.porong.message.model.service.MessageService;
-import com.kh.porong.message.model.vo.Message;
 
 @Controller
 public class MessageController {
@@ -230,7 +228,22 @@ public class MessageController {
 	}	// searchDeleteMessage
 	
 	
-	
+	/**
+	 * 8) 받은 메시지 상세보기
+	 * @param mno : 메시지 상세보기 메시지 번호 - MESSAGE_NO
+	 * @param model
+	 * @return MESSAGE_NO 에 해당하는 일자, 작성자, 직급, 메시지내용 반환
+	 * @author JH
+	 * @Date : 2023. 11. 21
+	 */
+	@RequestMapping("detailMessage")
+	public String detailMessage(int mno, Model model) {
+		
+		messageService.detailMessage(mno);
+		
+		
+		return "message/detailMessage";
+	}	// detailMessage
 	
 	
 
