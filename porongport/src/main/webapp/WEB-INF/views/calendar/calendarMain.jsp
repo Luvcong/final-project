@@ -32,7 +32,7 @@
 					var departmentSchedule = list.departmentSchedule;
 					//console.log(mySchedule[0].schTitle);
 					
-					for(i=0;  i<mySchedule.length; i++){
+					for(i=0; i<mySchedule.length; i++){
 						calendar.addEvent({
 							title: mySchedule[i].schTitle,
 							description: mySchedule[i].schContent,
@@ -56,27 +56,27 @@
 				error:()=>{
 					console.log('실패');
 				}
-        	}),
+        	})
         	
         	$.ajax({
-					url: 'calendarMini',
-					success:data=>{
-						
-					console.log(data[0].meetTitle);
-					for(i=0;  i<data.length; i++){
-						calendar.addEvent({
-							title: data[i].meetTitle,
-							description: data[i].meetContent,
-							start: data[i].meetStart,
-							end: data[i].meetEnd,
-							color : "#8ecae6"
-				        });
-					}
-					},
-					error:()=>{
-						console.log('실패');
-					}
-        	})
+				url: 'meetingRoom',
+				success:data=>{
+					
+				//console.log(data[0].meetTitle);
+				for(i=0;  i<data.length; i++){
+					calendar.addEvent({
+						title: data[i].meetTitle,
+						description: data[i].meetContent,
+						start: data[i].meetStart,
+						end: data[i].meetEnd,
+						color : "#8ecae6"
+			        });
+				}
+				},
+				error:()=>{
+					console.log('실패');
+				}
+    		})
         	
 			var calendarEl = document.getElementById('calendar');
             var calendar = new FullCalendar.Calendar(calendarEl, {
@@ -96,6 +96,7 @@
             	    $("#inputTitle").val(calEvent.title);
             	    $("#inputContent").val(calEvent.description);
             	    $('#eventModal').modal();
+            	    console.log(calEvent);
                 },
             	
                 // Tool Bar 목록 document : https://fullcalendar.io/docs/toolbar
