@@ -110,13 +110,13 @@
 									<tr>
 										<th>조직도</th>
 										<td><input type="text" id="apv_nm" name="apv_nm"
-											class="form-control" placeholder="제목">
+											class="form-control" value="${loginUser.deptCode}">
 										</td>
 									</tr>
 									<tr>
-										<th>직원 검색 <input type="text"> 
-										<i class="fa-solid fa-magnifying-glass" style="color: #000000;"></i>
-										</th>
+										<th>직원 검색</th> 
+										<td><input type="text"> <i class="fa-solid fa-magnifying-glass" style="color: #000000;"></i></td>
+										
 									</tr>
 									<tr>
 										<th style="height:250px;">결재구분</th>
@@ -127,7 +127,7 @@
 										</select></td>
 									</tr>
 									<tr>
-										<th>결재파일 업로드</th>
+										<th style="width:150px;">결재파일 업로드</th>
 										<td><input type="file" id="apv_pl_rt" name="file"
 											class="form-control"></td>
 									</tr>
