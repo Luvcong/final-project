@@ -77,6 +77,8 @@
 		 WHERE
 		      EMP_NO = #{empNo}
 		   AND
+		      EMP_STATUS = 'Y'
+		   AND
 		      FIRST_LOGIN = 'T'
 	</select>
 	
@@ -93,8 +95,8 @@
 		VALUES 
 		      (
 		       #{workDate}
-		       ,#{empNo} <!-- number타입 -->
-		       ,#{workStart} <!-- varchar2타입 -->
+		       ,#{empNo} 
+		       ,#{workStart}
 		       )
 	</insert>
 	
@@ -134,7 +136,7 @@
 		      )
 	</insert>
 	
-	<!-- 마지막 근태 레코드 구하는 쿼리 -->
+	<!-- 오늘 근태 기록 쿼리 -->
 	<select id="selectAtt" parameterType="att" resultMap="attResultSet">
 		SELECT 
 		      WORK_DATE
@@ -170,6 +172,8 @@
 		      EMPLOYEE
 		 WHERE
 		      EMP_NO = #{empNo}
+		   AND
+		      EMP_STATUS = 'Y'
 	</select>
 	
 	<!-- 비밀번호 찾기 -->
@@ -182,6 +186,8 @@
 		      EMP_NO = #{empNo}
 		   AND 
 		      EMP_NAME = #{empName}
+		   AND
+		      EMP_STATUS = 'Y'
 	</select>
 	
 	<!-- 조직도 조회 -->
@@ -214,4 +220,26 @@
 		      DEPT_CODE = 'PM'	
 		</if>
 	</select>
+
+	<!-- 사용자 정보 변경 쿼리 -->
+	<update id="updateEmp" parameterType="emp">
+		UPDATE
+		      EMPLOYEE
+		<set>
+		      EMP_PWD = #{empPwd}
+		      ,EMP_PHONE = #{empPhone}
+		      ,EMP_EMAIL = #{empEmail}
+		      ,EMP_ADDRESSCODE = #{empAddressCode}
+		      ,EMP_ADDRESS = #{empAddress}
+		      ,MODIFY_DATE = SYSDATE
+			<if test='firstLogin == "T"'>
+			  ,FIRST_LOGIN = 'F'
+			</if>
+		</set>
+		 WHERE
+		      EMP_NO = #{empNo}
+		   AND
+		      EMP_STATUS = 'Y'
+	</update>
+
 </mapper>

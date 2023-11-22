@@ -26,54 +26,57 @@
 	                </div>
 	            </div>
 	
-	            <form action="update.emp" method="post">
+	            <form action="update.em" method="post">
 	                <div id="updateForm">
 	                    <div class="form-group">
-	                        <label for="userName">이름</label>
-	                        <input type="text" id="userName" readonly class="form-control" value="${ loginUser.empName }"/>
+	                        <label for="empName">이름</label>
+	                        <input type="text" id="empName" name="empName" readonly class="form-control" value="${ loginUser.empName }"/>
 	                    </div>
 	                    <div class="form-group">
-	                        <label for="userId">아이디</label>
-	                        <input type="text" id="userId" readonly class="form-control" value="${ loginUser.empNo }"/>
+	                        <label for="empNo">아이디</label>
+	                        <input type="text" id="empNo" name="empNo" readonly class="form-control" value="${ loginUser.empNo }"/>
 	                    </div>
 	                    <div class="form-group">
-	                        <label for="userPwd">* 비밀번호</label>
-	                        <input type="password" id="userPwd" class="form-control" required />
+	                        <label for="empPwd">* 비밀번호</label>
+	                        <input type="password" id="empPwd" name="empPwd" class="form-control" required />
 	                    </div>
 	                    <div class="form-group">
-	                        <label for="userPwd">* 비밀번호 확인</label>
+	                        <label>* 비밀번호 확인</label>
 	                        <input type="password" class="form-control" required />
 	                    </div>
 	                    <div class="form-group">
-	                        <label for="phone">연락처</label>
-	                        <input type="text" id="phone" placeholder="(-)포함 입력" class="form-control" value="${ loginUser.empPhone }" />
+	                        <label for="empPhone">연락처</label>
+	                        <input type="text" id="empPhone" name="empPhone" placeholder="(-)포함 입력" class="form-control" value="${ loginUser.empPhone }" />
 	                    </div>
 	                    <div class="form-group">
-	                        <label for="email">이메일</label>
-	                        <input type="email" id="email" class="form-control" value="${ loginUser.empEmail }"/>
+	                        <label for="empEmail">이메일</label>
+	                        <input type="email" id="empEmail" name="empEmail" class="form-control" value="${ loginUser.empEmail }"/>
 	                    </div>
 	                </div>
+	
+					<!-- 최초 로그인 식별을 위한 데이터 -->
+					<input type="hidden" name="firstLogin" value="${ loginUser.firstLogin }" />
 	
 	                <label>주소</label>
 	                <!-- 주소API -->
 	                <div id="updateAddrForm">
 	                    <div class="post_box">
-	                        <input type="text" id="postNo" placeholder="우편번호" class="form-control" />
-	                        <button onclick="findAddr()" class="btn btn-info">주소찾기</button>
+	                        <input type="text" id="empAddressCode" name="empAddressCode" placeholder="우편번호" class="form-control" />
+	                        <button onclick="findAddr();" class="btn btn-info">주소찾기</button>
 	                    </div>
-	                    <input type="text" id="address" placeholder="주소" class="form-control" />
+	                    <input type="text" id="empAddress" name="empAddress" placeholder="주소" class="form-control" />
 	                    <input type="text" id="detailAddress" placeholder="상세주소" class="form-control" />
 	                    <input type="text" id="extraAddress" placeholder="참고항목" class="form-control" />
 	                </div>
 	
 	                <div class="btn_area">
-	                    <button type="reset" class="btn btn-default">취소</button>
+	                    <button type="reset" class="btn btn-light">취소</button>
 	                    <button type="submit" class="btn btn-primary">확인</button>
 	                </div>
 	            </form>
 	        </div>
 	        <script>
-	            function daumPostAPI() {
+	            function findAddr() {
 	                new daum.Postcode({
 	                    oncomplete: function(data) {
 	                        // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.

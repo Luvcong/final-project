@@ -33,7 +33,7 @@
 	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/semantic.min.css"/>
 </head>
 <body>
-	<c:if test="${not empty alertMsg }">
+	<c:if test="${ not empty alertMsg }">
 		<script>
 			alertify.alert('Completion','${alertMsg}', function(){alertify.success('success')});
 		</script>

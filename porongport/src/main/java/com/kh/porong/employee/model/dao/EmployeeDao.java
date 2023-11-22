@@ -47,5 +47,8 @@ public class EmployeeDao {
 		return sqlSession.selectOne("empMapper.firstLogin", emp);
 	}
 	
+	public int updateEmp(SqlSessionTemplate sqlSession, Employee emp) {
+		return sqlSession.update("empMapper.updateEmp", emp);
+	}
 
 }

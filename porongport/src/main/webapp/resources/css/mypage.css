@@ -157,7 +157,6 @@ li, ul, ol{list-style: none;}
 }
 .myProfile{
     float: left;
-    width: 40%;
 }
 #EDMSprogress{
     float: right;

@@ -10,9 +10,9 @@
 </head>
 <body>
 	<c:choose>
-		<c:when test="${ not empty errorMsgLogin }">
+		<c:when test="${ not empty goToMain }">
 			<script>
-				alert('${ errorMsgLogin }');
+				alert('${ goToMain }');
 				location.href = '${path}';
 			</script>
 		</c:when>
