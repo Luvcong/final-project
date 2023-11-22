@@ -54,6 +54,7 @@
 								</tr>
 								<tr>
 									<th><i class="fa-solid fa-clock"></i></th>
+									
 									<td colspan="3">
 										<input type="date" name="startDate" id="startDate" class="mycalendar_input2 mycalendar_width2" required/>
 										<input type="time" name="startTime" id="startTime" class="mycalendar_input2 mycalendar_width2" />

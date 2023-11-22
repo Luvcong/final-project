@@ -90,7 +90,7 @@
             	},
             	*/
             	eventClick: (calEvent, jsEvent, view) => {
-                    //console.log(info);
+                    console.log(calEvent);
             		
                     $('#eventModalLabel').text(calEvent.event._def.title);
             	    $("#inputContent").val(calEvent.event._def.extendedProps.description);
@@ -130,7 +130,7 @@
             	    
             	    //console.log(calEvent.el.fcSeg.eventRange.instance.range.start);
             	    //console.log(startDate);
-            	    console.log(startTime);
+            	    //console.log(startTime);
             	    //console.log(calEvent.el.fcSeg.eventRange.instance.range.start);
             	    //console.log(endDate);
             	    //console.log(endTime);
@@ -208,30 +208,47 @@
                 <div class="modal-body">
                 
                     <div class="mb-3">
-                        <br>
-                        <label for="inputCalendar" class="form-label">일정내용</label>
-                        <textarea class="form-control textarea-resize" rows="5" id="inputContent"></textarea>
-                        <br>
-                        
-                        <label for="inputCalendar" class="form-label">기간</label><br>
+                    	<br>
+                    	<label for="inputCalendar" class="form-label">기간</label><br>
                         <input type="date" class="inputform" id="inputDateStrart" value=""> 
                         <input type="time" class="inputform" id="inputTimeStrart" value=""> 
                          ~ 
                         <input type="date" class="inputform" id="inputDateEnd" value="">
-                        <input type="time" class="inputform" id="inputTimeEnd" value=""> 
+                        <input type="time" class="inputform" id="inputTimeEnd" value=""><br>
+                        <br>
                         
-                        <c:choose>
-                        	<c: when test="${schStatus eq '' }">
-                        	</c:>
-                        </c:choose>
+                        <label for="inputCalendar" class="form-label">일정내용</label>
+                        <textarea class="form-control textarea-resize" rows="5" id="inputContent"></textarea>
+                        <br>
                     </div>
                     
+                    <div class="modal-border">
+                    <label for="inputCalendar" class="form-label">&nbsp;&nbsp;작성자:&nbsp;</label>
+			        <span>이승철</span>&nbsp;&nbsp;&nbsp;/
+			        <label for="inputCalendar" class="form-label">&nbsp;&nbsp;수정일:&nbsp;</label>
+			        <span>2023-11-22</span>&nbsp;&nbsp;&nbsp;
+			        </div>
                 </div>
                 
                 <div class="modal-footer">
-                
-                    <button type="button" class="btn btn-secondary" data-url="updateEvent">수정하기</button>
-                    <button type="button" class="btn btn-danger" data-url="deleteEvent">삭제하기</button>
+                    <a type="button" class="btn btn-secondary" onclick="updateEvent();">수정하기</a>
+                    <a type="button" class="btn btn-danger" onclick="deleteEvent();">삭제하기</a>
+                    
+                    <form action="" method="post" id="modalClickForm">
+	            		<input type="hidden" name="schNo" value="">
+	            		<input type="hidden" name="empNo" value="${loginUser.empNo}">
+	            	</form>
+                    
+                    <script>
+                    	function updateEvent(){
+                    		$('#modalClickForm').attr('action', 'deleteSchedule').submit();
+                    	}
+                    	
+                    	function deleteEvent(){
+                    		$('#modalClickForm').attr('action', 'updateSchedule').submit();
+                    	}
+                    </script>
+                    
                     
                 </div>
                 
