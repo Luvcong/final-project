@@ -71,16 +71,7 @@
 												$("p").toggle();
 												$("input[type='time']").toggle();
 												$('input[type="date"]').toggleClass('mycalendar_width3');
-												/*
-												if($('input[type="date"]').className == 'mycalendar_width2'){
-													$('input[type="date"]').addClass += 'mycalendar_width3';
-													$('input[type="date"]').removeClass ='mycalendar_width2';
-												}
-												else if($('input[type="date"]').className == 'mycalendar_width3'){
-													$('input[type="date"]').addClass += 'mycalendar_width2';
-													$('input[type="date"]').removeClass ='mycalendar_width3';
-												}
-												*/
+												
 											});
 			
 										</script>
@@ -88,7 +79,6 @@
 										<input type="date" name="endDate" id="endDate" class="mycalendar_input2 mycalendar_width2">
 										<input type="time" name="endTime" id="endTime" class="mycalendar_input2 mycalendar_width2">
 									</td>
-									
 								</tr>
 								
 								<tr>
@@ -99,6 +89,7 @@
 							</table>
 						</div>
 					</form>
+					
 				</div>
 			</div>    
     </div>
