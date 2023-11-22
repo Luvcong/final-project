@@ -72,8 +72,8 @@
 	                			<button onclick="updateAtt();" id="we_btn" class="btn btn-primary">퇴근</button>
 	                		</td>
 	                	</tr>
-	                	<c:if test="${ not empty attList }">
-		                	<c:forEach var="i" items="${ sessionScope.attList }" begin="0" end="2">
+                		<c:if test="${ not empty attList }">
+	                		<c:forEach var="i" items="${ sessionScope.attList }" begin="0" end="3">
 			                	<c:if test="${ not empty i.workEnd }">
 				                	<tr>
 				                		<td>${i.workDate}</td>
@@ -81,8 +81,8 @@
 				                		<td>${i.workEnd}</td>
 				                	</tr>
 			                	</c:if>
-		                	</c:forEach>
-	                	</c:if>
+			                </c:forEach>
+                		</c:if>
 	                </tbody>
 	            </table>
 	        </div>
@@ -90,7 +90,8 @@
 	</div>
 	<script>
 	  	let now = new Date();
- 		var cTime = now.getHours() + ':' + now.getMinutes();
+	  	var mi = now.getMinutes().toString().padStart(2, '0');
+ 		var cTime = now.getHours() + ':' + mi;
   		var today = now.getFullYear() + '-' + (now.getMonth() + 1) + '-' + now.getDate();
 	 		
  		window.onload = () => {
@@ -103,23 +104,17 @@
 	  				empNo : ${sessionScope.loginUser.empNo}
   				},
 	  			success : result => {
-	  				console.log(result);
-	  				
 	  				if(result.workStart != null){
 						$('#ws_btn').remove();
 						$('#workStart').text(result.workStart);
 						
-	  				}
+	  				};
 	  				
-	  				/*
-	  				else if(result.workEnd != null){
+	  				if(result.workEnd != null){
 	  					$('#we_btn').remove();
 	  					$('#workEnd').text(result.workEnd);
-	  				} 
-	  				else{
-	  					
-	  				}
-	  				*/
+	  				};
+	  				
 
 	  			},
 	  			error : () => {
@@ -154,6 +149,7 @@
 			$.ajax({
 				url : 'update.at',
 				data : {
+					workDate : window.today,
 					workEnd : window.cTime,
 					empNo : ${sessionScope.loginUser.empNo}
 				},
@@ -166,7 +162,7 @@
 				}
 				
 			})
-		};
+		}
 	</script>
 </body>
 </html>

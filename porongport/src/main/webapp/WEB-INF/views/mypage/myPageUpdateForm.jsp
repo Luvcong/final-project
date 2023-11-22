@@ -67,7 +67,7 @@
 	                </div>
 	
 	                <div class="btn_area">
-	                    <button type="reset" class="btn">취소</button>
+	                    <button type="reset" class="btn btn-default">취소</button>
 	                    <button type="submit" class="btn btn-primary">확인</button>
 	                </div>
 	            </form>

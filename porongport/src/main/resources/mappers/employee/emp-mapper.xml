@@ -65,9 +65,19 @@
 		 WHERE
 		       EMP_NO = #{ empNo }
 		   AND
-		       EMP_PWD = #{ empPwd }
-		   AND
 		       EMP_STATUS = 'Y'
+	</select>
+	
+	<!-- 최초 로그인 여부에 대한 쿼리 -->
+	<select id="firstLogin" parameterType="emp" resultType="_int">
+		SELECT
+		      COUNT(*)
+		  FROM
+		      EMPLOYEE
+		 WHERE
+		      EMP_NO = #{empNo}
+		   AND
+		      FIRST_LOGIN = 'T'
 	</select>
 	
 	<!-- 출근 INSERT -->
@@ -89,11 +99,11 @@
 	</insert>
 	
 	<!-- 근태 리스트 -->
-	<select id="attList" parameterType="_int" resultType="att">
+	<select id="attList" parameterType="_int" resultMap="attResultSet">
 		SELECT
-		      WORK_DATE workDate
-		      ,WORK_START workStart
-		      ,WORK_END workEnd
+		      WORK_DATE
+		      ,WORK_START
+		      ,WORK_END
 		  FROM
 		      ATTENDANCE
 		 WHERE
@@ -127,23 +137,17 @@
 	<!-- 마지막 근태 레코드 구하는 쿼리 -->
 	<select id="selectAtt" parameterType="att" resultMap="attResultSet">
 		SELECT 
-		      WORK_DATE 
-		      ,WORK_START 
-		      ,WORK_END 
-		  FROM  
-		      (SELECT 
-		             WORK_DATE
-		             ,WORK_START
-		             ,WORK_END
-		        FROM 
-		             ATTENDANCE 
-		       WHERE 
-		            EMP_NO = #{empNo}
-		         AND
-		            #{workDate} = TO_CHAR(SYSDATE, 'YYYY-MM-DD')
-		       ORDER 
-		          BY WORK_START DESC) 
-		WHERE ROWNUM = 1
+		      WORK_DATE
+		     ,WORK_START
+		     ,WORK_END
+		  FROM 
+		      ATTENDANCE 
+		 WHERE 
+		      EMP_NO = #{empNo}
+		   AND
+		      WORK_DATE LIKE #{workDate}
+		 ORDER 
+		    BY WORK_DATE DESC
 	</select>
 	
 	<!-- 퇴근기록 update -->
@@ -154,6 +158,8 @@
 		      WORK_END = #{workEnd}
 		 WHERE
 		      EMP_NO = #{empNo}
+		   AND
+		      WORK_DATE = #{workDate}
 	</update>
 	
 	<!-- 아이디 중복체크 쿼리 -->

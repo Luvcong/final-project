@@ -62,6 +62,11 @@ public class EmployeeServiceImpl implements EmployeeService {
 		return empDao.selectJojigdo(sqlSession, deptCode);
 	}
 
+	@Override
+	public int firstLogin(Employee emp) {
+		return empDao.firstLogin(sqlSession, emp);
+	}
+
 	
 
 }
