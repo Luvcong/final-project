@@ -30,15 +30,17 @@ public class ScheduleController {
 	@GetMapping(value="schedule", produces="application/json; charset=UTF-8")
 	public String ajaxMethod3(ScheduleVO schedule) {
 		// hashmap으로 담아서 -> json타입으로 보내줘서 -> 다시 결과 뽑아주기
-		System.out.println(schedule);
+		//System.out.println(schedule);
 		ArrayList<ScheduleVO> mySchedule = scheduleService.selectIndividual(schedule);
 		ArrayList<ScheduleVO> departmentSchedule = scheduleService.selectDepartment(schedule);
-		System.out.println(departmentSchedule);
+		
+		//System.out.println(departmentSchedule);
+		
 		HashMap<String, ArrayList<ScheduleVO>> AllSchdule = new HashMap();
 		AllSchdule.put("mySchedule", mySchedule);
 		AllSchdule.put("departmentSchedule", departmentSchedule);
 		
-		System.out.println(AllSchdule);
+		//System.out.println(AllSchdule);
 		return new Gson().toJson(AllSchdule);
 	}
 	

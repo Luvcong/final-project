@@ -31,6 +31,8 @@ public interface EdmsService {
 
 	ArrayList<VacationVO> selectOrganiztionChart();
 	
+	ArrayList<VacationVO> selectOrganiztion();
+	
 	// 인사발령서 등록
 	
 	// 출장보고서 등록

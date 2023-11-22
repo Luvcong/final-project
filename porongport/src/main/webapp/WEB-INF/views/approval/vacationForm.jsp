@@ -111,13 +111,17 @@
 										<table class="table table-bordered app_jojigdo">
 						                    <thead>
 						                        <tr>
+						                        
 						                        	<th>부서</th>
-						                            <th>직급</th>
-						                            <th>이름</th>
+						                        </tr>
+						                        <tr>
+						                        <th><button type="button" value="HR">인사부</button></th>
+							                  	<th><button type="button" value="PD">구매관리부</button></th>
+							                  	<th><button type="button" value="PM">영업부</button></th>
 						                        </tr>
 						                    </thead>
 						                    <tbody id="job_table">
-						                  
+						                  	
 						                    </tbody>
 						                </table>
 									</tr>
@@ -163,6 +167,35 @@
 		<script>
 		$(()=>{
 			$.ajax({
+				url: 'organization',
+				data: {deptCode: }
+				success: data=>{
+					//console.log(data);
+					console.log(data[0].deptName);
+					
+					let value = ' ';
+
+					for(i=0; i<data.length; i++){
+						value += '<tr>'
+						         + '<td>' + data[i].deptName + '</td>'
+						         + '</tr>'
+						        
+					}
+					 console.log(value);
+					
+					$('#job_table').html(value);
+					
+                   
+				},
+				error:()=>{
+					console.log('실패');
+				}
+					
+			})
+		})
+		
+		$(()=>{
+			$.ajax({
 				url: 'organizationChart',
 				success: data=>{
 					//console.log(data);
@@ -183,6 +216,7 @@
 					 console.log(value);
 					
 					$('#job_table').html(value);
+					
                    
 				},
 				error:()=>{

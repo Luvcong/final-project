@@ -13,5 +13,8 @@ public class EdmsDao {
 	public ArrayList<VacationVO> selectOrganiztionChart(SqlSessionTemplate sqlSession) {
 		return (ArrayList)sqlSession.selectList("approvalMapper.selectOrganiztionChart");
 	}
+	public ArrayList<VacationVO> selectOrganiztion(SqlSessionTemplate sqlSession) {
+		return (ArrayList)sqlSession.selectList("approvalMapper.selectOrganiztion");
+	}
 
 }
