@@ -46,7 +46,7 @@
             <div class="logo"><img src="resources\images\logo.png"></div>
             <!-- 프로필이미지 & 직급명 & 로그아웃 영역 -->
             <div class="setting">       
-                <div class="profile">
+                <div class="profile" onclick="myPage();">
                 	<img src="resources\images\profile.png">
                     <span>${ sessionScope.loginUser.empName }</span>
                 </div>
@@ -57,6 +57,9 @@
 		<script>
 			function logout(){
 				location.href = 'logout.em';
+			};
+			function myPage(){
+				location.href = 'myPageAtt';
 			}
 		</script>
 		
@@ -80,7 +83,7 @@
                     <div class="icon"><i class="fa-solid fa-envelope"></i></div>
                     <div class="menu-name">쪽지함</div>
                 </div>
-                <div class="item" data-group='notice'>
+                <div class="item" data-group='board'>
                     <div class="icon"><i class="fa-solid fa-pen-to-square"></i></div>
                     <div class="menu-name">게시판</div>
                 </div>
@@ -141,16 +144,17 @@
 				<div class="sub-menu d-none" data-group='receivedMessage'>
 					<div class="sub-item sub-title" data-url='receivedMessage'>메시지함</div>
 			        <div class="sub-item" data-url='receivedMessage'>받은 메시지</div>
-			        <div class="sub-item" data-url='sendMessage'>보낸 메시지</div>
+			        <div class="sub-item" data-url=''>보낸 메시지</div>
 			        <div class="sub-item" data-url=''>메시지 보관함</div>
 			        <div class="sub-item sub-item-menu" data-url='receivedStorageMessage'>받은 메시지 보관함</div>
-			        <div class="sub-item sub-item-menu" data-url='sendStorageMessage'>보낸 메시지 보관함</div>
+			        <div class="sub-item sub-item-menu" data-url=''>보낸 메시지 보관함</div>
 			        <div class="sub-item" data-url='deleteMessageBox'>휴지통</div>
 				</div>
-				<div class="sub-menu d-none" data-group='notice'>
-					<div class="sub-item sub-title" data-url=''>게시판</div>
-			        <div class="sub-item" data-url='notice'>공지사항 게시판</div>
-			        <div class="sub-item" data-url=''>자유 게시판</div>
+				<div class="sub-menu d-none" data-group='board'>
+					<div class="sub-item sub-title" data-url='board'>메시지함</div>
+			        <div class="sub-item" data-url='board1'>게시판1</div>
+			        <div class="sub-item" data-url='board2'>게시판2</div>
+			        <div class="sub-item" data-url='board3'>게시판3</div>
 				</div>
 				<form action="jojigdo.em">
 				
@@ -186,7 +190,7 @@
 		                    </div>
 		                    <div class="modal-footer">
 		                        <button type="button" class="btn" id="modal_close_btn" data-dismiss="modal">취소</button>
-		                        <button type="submit" class="btn btn-primary" >등록</button>
+		                        <button type="submit" class="btn btn-primary">등록</button>
 		                    </div>
 		                </div>
 		
