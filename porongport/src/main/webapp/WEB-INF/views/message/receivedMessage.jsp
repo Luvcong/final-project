@@ -138,24 +138,23 @@
 			            <div class="modal-content">
 			                <!-- Modal Header -->
 			                <div class="modal-header">
-			                    <h4 class="modal-title">메시지 작성하기</h4>
+			                    <h4 class="modal-title">메시지 작성</h4>
 			                    <button type="button" class="close" data-dismiss="modal">&times;</button>	<!-- x 닫기버튼 -->
 			                </div> 
 			                <!-- Modal body -->
 			                <div class="modal-body">
-								<table class="modal-table" border="1">
-									<thead>
-										<tr>
-											<th>받는 사람</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<td><input type="text"/></td>
-										</tr>
-									</tbody>
-									
-								</table>
+			                	<div>
+			                		<label>받는사람<input type="text" /></label>
+			                	</div>
+			                	<div>
+			                		<label>내용<textarea rows="3" style="overflow: scroll;"></textarea></label>
+			                	</div>
+			                	<div>
+			                		<label>보내는사람<input type="text" value="${ loginUser.empName } [${ loginUser.jobName }]" readonly/></label>
+			                	</div>
+						        <div style="float:right; padding-right:25px; font-size:12px; margin-top:15px;">
+						          <span id="writeCnt">0</span>/<span id="writeMax">1000Byte</span>
+						        </div>
 			                </div>
 			                <!-- Modal footer -->
 			                <div class="modal-footer">
