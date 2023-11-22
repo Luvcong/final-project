@@ -247,6 +247,8 @@
 			$.ajax({
 				url: 'organizationChart',
 				success: data=>{
+					deptName : $('#deptName').val()
+				},
 					//console.log(data);
 					console.log(data[0].deptName);
 					console.log(data[0].empName);
