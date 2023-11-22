@@ -115,9 +115,58 @@
 						                        	<th>부서</th>
 						                        </tr>
 						                        <tr>
+						                        <!-- 
 						                        <th><button type="button" value="HR">인사부</button></th>
 							                  	<th><button type="button" value="PD">구매관리부</button></th>
 							                  	<th><button type="button" value="PM">영업부</button></th>
+							                  	 -->
+							                  	 <div id="">
+    <span id=""></span>
+</div>
+
+<div id="">
+    <div class="">
+    
+        <!-- left start -->
+        <div class="">
+            <h2 id="">조직도</h2>
+            
+            <div class="">
+            
+                <div class="">
+                    <div id="">
+                    
+                    	<ul class="">
+                    	
+	                    	<li class="">
+	                    	
+		                    	<ul style="">
+		                    	
+			                    	<li class="">
+				                    	<span class="">
+				                    		<span class=""></span>
+				                   			<a href="#" class="">인사부</a>
+				                   	 	</span>
+			                   		 </li>
+			                   		 
+			                    	<li class="">
+			                   	 		<span class="">
+				                    		<span class=""></span>
+				                    		<a href="#" class="">구매관리부</a>
+			                    		</span>
+			                    	</li>
+			                    	
+			                    	<li class="">
+				                    	<span class="">
+					                    	<span class=""></span>
+					                    	<a href="#" class="">영업부</a>
+				                    	</span>
+			                    	</li>
+		                    	</ul>
+		                    </li>
+	                    </ul>
+                    </div>
+                </div>
 						                        </tr>
 						                    </thead>
 						                    <tbody id="job_table">
