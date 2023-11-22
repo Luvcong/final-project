@@ -54,10 +54,8 @@
 				SCH_STATUS,
 				SCH_SHARE
 		   FROM SCHEDULE
-		   LEFT JOIN EMPLOYEE USING (EMP_NO)
-		   LEFT JOIN DEPARTMENT USING (DEPT_CODE)
-		  WHERE EMP_NO = #{empNo}
-		  	AND DEPT_CODE = #{deptCode}
+		   JOIN EMPLOYEE USING (EMP_NO)
+		  WHERE DEPT_CODE = #{deptCode}
 		    AND SCH_SHARE = 'D'
 		    AND SCH_STATUS = 'Y'
 	</select>

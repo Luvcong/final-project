@@ -52,7 +52,7 @@
 									<td><input type="text" name="empName" id="empName" readonly value="${loginUser.empName}" class="mycalendar_input mycalendar_width"></td>
 									<input type="hidden" name="empNo" value="${loginUser.empNo}">
 									<th><i class="fa-solid fa-user-tag"></i></th>
-									<td><input type="text" name="deptCode" id="deptId" readonly value="${loginUser.deptName}" class="mycalendar_input mycalendar_width time_block"></td>
+									<td><input type="text" name=deptName id="deptName" readonly value="${loginUser.deptName}" class="mycalendar_input mycalendar_width time_block"></td>
 									<input type="hidden" name="deptCode" value="${loginUser.deptCode}">
 								</tr>
 								<tr>

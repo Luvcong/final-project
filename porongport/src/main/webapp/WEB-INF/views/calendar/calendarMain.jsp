@@ -27,7 +27,7 @@
 				url: 'schedule',
 				data: { 
 					empNo: ${loginUser.empNo},
-					deptCode: ${loginUser.deptCode}
+					deptCode : '${loginUser.deptCode}'
 				},
 				success:list=>{
 					//console.log(list.mySchedule);
@@ -196,7 +196,7 @@
 		<div class="modal fade" id="eventModal" tabindex="-1" aria-labelledby="eventModalLabel" aria-hidden="true">
         <div class="modal-dialog">
         
-            <div class="modal-content calendar-modal-width">
+            <div class="modal-content calendar-modal-width" style="width:600px;">
             	
                 <div class="modal-header">
                     <h5 class="modal-title" id="eventModalLabel">일정제목</h5>
