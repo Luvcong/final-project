@@ -17,6 +17,36 @@
  	
  	
  	<!-- 조직도 조회 -->
+	<select id="selectOrganiztion" resultMap="approvalResultSet">
+		SELECT
+		      DEPT_CODE deptCode 
+		      ,DEPT_NAME deptName
+		      ,JOB_CODE jobCode
+		      ,JOB_NAME jobName
+		      ,EMP_NO 
+		      ,EMP_NAME empName
+		  FROM
+		      EMPLOYEE
+		  LEFT
+		  JOIN
+		      DEPARTMENT USING (DEPT_CODE)
+          LEFT
+		  JOIN
+		      JOB USING (JOB_CODE)
+		<if test="deptCode == 'HR'">
+		 WHERE
+		      DEPT_CODE = 'HR'
+		</if>
+		<if test="deptCode == 'PD'">
+		 WHERE
+		      DEPT_CODE = 'PD'
+		</if>
+		<if test="deptCode == 'PM'">
+		 WHERE
+		      DEPT_CODE = 'PM'	
+		</if>
+	</select>
+	
 	<select id="selectOrganiztionChart" resultMap="approvalResultSet">
 		SELECT
 		      DEPT_CODE deptCode 
