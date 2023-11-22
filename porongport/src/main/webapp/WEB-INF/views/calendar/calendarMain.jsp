@@ -98,14 +98,14 @@
             	    		 		+((selectStartDate.getMonth()+1) < 10 ? "0" + (selectStartDate.getMonth()+1) : (selectStartDate.getMonth()+1))+'-'
             	    		 		+((selectStartDate.getDate()) < 10 ? "0" + (selectStartDate.getDate()) : (selectStartDate.getDate()));
             	    
-            	    if((selectEndDate.getHours()-9)){
+            	    if((selectStartDate.getHours()-9)<0){
             	    	var startTime = ((selectStartDate.getHours()-9)+24)+':'
 	    								+((selectStartDate.getMinutes()) < 9 ? "0" + (selectStartDate.getMinutes()) : (selectStartDate.getMinutes()));
-            	    }else{
+            	    }
+            	    else{
             	    	 var startTime = ((selectStartDate.getHours()-9))+':'
  	    								+((selectStartDate.getMinutes()) < 9 ? "0" + (selectStartDate.getMinutes()) : (selectStartDate.getMinutes()));
             	    }
-            	    
             	    
             	    var selectEndDate = calEvent.el.fcSeg.eventRange.instance.range.end;
             	    //console.log(selectEndDate);
@@ -114,10 +114,11 @@
 				    		 		+((selectEndDate.getMonth()+1) < 10 ? "0" + (selectEndDate.getMonth()+1) : (selectEndDate.getMonth()+1))+'-'
 				    		 		+((selectEndDate.getDate()) < 10 ? "0" + (selectEndDate.getDate()) : (selectEndDate.getDate()));
     
-            	    if((selectEndDate.getHours()-9)){
+            	    if((selectEndDate.getHours()-9)<0){
             	    	var endTime = ((selectEndDate.getHours()-9)+24)+':'
 	    								+((selectEndDate.getMinutes()) < 9 ? "0" + (selectEndDate.getMinutes()) : (selectEndDate.getMinutes()));
-            	    }else{
+            	    }
+            	    else{
             	    	var endTime = ((selectEndDate.getHours()-9))+':'
 	    							 +((selectEndDate.getMinutes()) < 9 ? "0" + (selectEndDate.getMinutes()) : (selectEndDate.getMinutes()));
             	    }
