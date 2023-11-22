@@ -49,6 +49,11 @@ public class EdmsServiceImpl implements EdmsService{
 		return EdmsDao.selectOrganiztionChart(sqlSession);
 	}
 
+	@Override
+	public ArrayList<VacationVO> selectOrganiztion() {
+		return EdmsDao.selectOrganiztion(sqlSession);
+	}
+
 
 
 }

@@ -25,6 +25,10 @@
 
 			$.ajax({
 				url: 'schedule',
+				data: { 
+					empNo: ${loginUser.empNo},
+					deptCode : '${loginUser.deptCode}'
+				},
 				success:list=>{
 					//console.log(list.mySchedule);
 					var mySchedule = list.mySchedule;
@@ -86,12 +90,12 @@
             	},
             	*/
             	eventClick: (calEvent, jsEvent, view) => {
-                    //console.log(info);
+                    console.log(calEvent);
             		
                     $('#eventModalLabel').text(calEvent.event._def.title);
             	    $("#inputContent").val(calEvent.event._def.extendedProps.description);
             	    
-            	    var date = new Date();
+            	    //var date = new Date();
             	    var selectStartDate = calEvent.el.fcSeg.eventRange.instance.range.start;
             	    
             	    var startDate = selectStartDate.getFullYear()+'-'
@@ -99,11 +103,11 @@
             	    		 		+((selectStartDate.getDate()) < 10 ? "0" + (selectStartDate.getDate()) : (selectStartDate.getDate()));
             	    
             	    if((selectStartDate.getHours()-9)<0){
-            	    	var startTime = ((selectStartDate.getHours()-9)+24)+':'
+            	    	var startTime = (((selectStartDate.getHours()-9)+24) < 10 ? "0" + ((selectStartDate.getHours()-9)+24) : ((selectStartDate.getHours()-9)+24)) +':'
 	    								+((selectStartDate.getMinutes()) < 9 ? "0" + (selectStartDate.getMinutes()) : (selectStartDate.getMinutes()));
             	    }
             	    else{
-            	    	 var startTime = ((selectStartDate.getHours()-9))+':'
+            	    	 var startTime = (((selectStartDate.getHours()-9)) < 10 ? "0" + ((selectStartDate.getHours()-9)) : ((selectStartDate.getHours()-9))) +':'
  	    								+((selectStartDate.getMinutes()) < 9 ? "0" + (selectStartDate.getMinutes()) : (selectStartDate.getMinutes()));
             	    }
             	    
@@ -115,24 +119,28 @@
 				    		 		+((selectEndDate.getDate()) < 10 ? "0" + (selectEndDate.getDate()) : (selectEndDate.getDate()));
     
             	    if((selectEndDate.getHours()-9)<0){
-            	    	var endTime = ((selectEndDate.getHours()-9)+24)+':'
-	    								+((selectEndDate.getMinutes()) < 9 ? "0" + (selectEndDate.getMinutes()) : (selectEndDate.getMinutes()));
+            	    	var endTime = (((selectEndDate.getHours()-9)+24) < 10 ? "0" + ((selectEndDate.getHours()-9)+24) : ((selectEndDate.getHours()-9)+24)) +':'
+	    								+((selectEndDate.getMinutes()) < 10 ? "0" + (selectEndDate.getMinutes()) : (selectEndDate.getMinutes()));
             	    }
             	    else{
-            	    	var endTime = ((selectEndDate.getHours()-9))+':'
-	    							 +((selectEndDate.getMinutes()) < 9 ? "0" + (selectEndDate.getMinutes()) : (selectEndDate.getMinutes()));
+            	    	var endTime = (((selectEndDate.getHours()-9)) < 10 ? "0" + ((selectEndDate.getHours()-9)) : ((selectEndDate.getHours()-9))) +':'
+	    							 +((selectEndDate.getMinutes()) < 10 ? "0" + (selectEndDate.getMinutes()) : (selectEndDate.getMinutes()));
             	    }
             	    
             	    
             	    //console.log(calEvent.el.fcSeg.eventRange.instance.range.start);
             	    //console.log(startDate);
-            	    console.log(startTime);
+            	    //console.log(startTime);
             	    //console.log(calEvent.el.fcSeg.eventRange.instance.range.start);
             	    //console.log(endDate);
-            	    console.log(endTime);
+            	    //console.log(endTime);
             	    
             	    $("#inputDateStrart").val(startDate);
             	    $("#inputDateEnd").val(endDate);
+            	    
+            	    $("#inputTimeStrart").val(startTime);
+            	    $("#inputTimeEnd").val(endTime);
+            	    
             	    $('#eventModal').modal();
             	    
                 },
@@ -183,13 +191,13 @@
 	
 	<div class="pp-content">
 
-		<div id='calendar' class="calendarWidthMain calendarCenter">
-		</div>
+		<div id='calendar' class="calendarWidthMain calendarCenter"></div>
+		
 		<div class="modal fade" id="eventModal" tabindex="-1" aria-labelledby="eventModalLabel" aria-hidden="true">
         <div class="modal-dialog">
         
-            <div class="modal-content">
-            
+            <div class="modal-content calendar-modal-width" style="width:600px;">
+            	
                 <div class="modal-header">
                     <h5 class="modal-title" id="eventModalLabel">일정제목</h5>
                     <button type="button" class="close" data-bs-dismiss="modal">
@@ -200,24 +208,52 @@
                 <div class="modal-body">
                 
                     <div class="mb-3">
+                    	<br>
+                    	<label for="inputCalendar" class="form-label">기간</label><br>
+                        <input type="date" class="inputform" id="inputDateStrart" value=""> 
+                        <input type="time" class="inputform" id="inputTimeStrart" value=""> 
+                         ~ 
+                        <input type="date" class="inputform" id="inputDateEnd" value="">
+                        <input type="time" class="inputform" id="inputTimeEnd" value=""><br>
                         <br>
+                        
                         <label for="inputCalendar" class="form-label">일정내용</label>
                         <textarea class="form-control textarea-resize" rows="5" id="inputContent"></textarea>
                         <br>
-                        
-                        <label for="inputCalendar" class="form-label">기간</label><br>
-                        <input type="date" class="inputform" id="inputDateStrart" value=""> ~ <input type="date" class="inputform" id="inputDateEnd" value="">
                     </div>
                     
+                    <div class="modal-border">
+                    <label for="inputCalendar" class="form-label">&nbsp;&nbsp;작성자:&nbsp;</label>
+			        <span>이승철</span>&nbsp;&nbsp;&nbsp;/
+			        <label for="inputCalendar" class="form-label">&nbsp;&nbsp;수정일:&nbsp;</label>
+			        <span>2023-11-22</span>&nbsp;&nbsp;&nbsp;
+			        </div>
                 </div>
                 
                 <div class="modal-footer">
-                
-                    <button type="button" class="btn btn-secondary">수정하기</button>
-                    <button type="button" class="btn btn-danger" onclick="deleteEvent();">삭제하기</button>
+                    <a type="button" class="btn btn-secondary" onclick="updateEvent();">수정하기</a>
+                    <a type="button" class="btn btn-danger" onclick="deleteEvent();">삭제하기</a>
+                    
+                    <form action="" method="post" id="modalClickForm">
+	            		<input type="hidden" name="schNo" value="">
+	            		<input type="hidden" name="empNo" value="${loginUser.empNo}">
+	            	</form>
+                    
+                    <script>
+                    	function updateEvent(){
+                    		$('#modalClickForm').attr('action', 'deleteSchedule').submit();
+                    	}
+                    	
+                    	function deleteEvent(){
+                    		$('#modalClickForm').attr('action', 'updateSchedule').submit();
+                    	}
+                    </script>
+                    
                     
                 </div>
+                
             </div>
+            
         </div>
     </div>
     

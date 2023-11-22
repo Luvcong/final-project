@@ -49,10 +49,12 @@
 									<td><input type="text" name="empName" id="empName" readonly value="${loginUser.empName}" class="mycalendar_input mycalendar_width" /></td>
 									<input type="hidden" name="empNo" value="${loginUser.empNo}">
 									<th><i class="fa-solid fa-user-tag"></i></th>
-									<td><input type="text" name="deptId" id="deptId" readonly value="${loginUser.deptName}" class="mycalendar_input mycalendar_width time_block" /></td>
+									<td><input type="text" name="deptName" id="deptName" readonly value="${loginUser.deptName}" class="mycalendar_input mycalendar_width time_block" /></td>
+									<input type="hidden" name="deptCode" value="${loginUser.deptCode}">
 								</tr>
 								<tr>
 									<th><i class="fa-solid fa-clock"></i></th>
+									
 									<td colspan="3">
 										<input type="date" name="startDate" id="startDate" class="mycalendar_input2 mycalendar_width2" required/>
 										<input type="time" name="startTime" id="startTime" class="mycalendar_input2 mycalendar_width2" />
