@@ -115,7 +115,7 @@ public class MessageController {
 		map.put("keyword", keyword);
 		map.put("empNo", loginUser.getEmpNo());
 		
-		PageInfo pi = Pagination.getPageInfo(messageService.searchReceivedListCount(map), currentPage, 10, 10);
+		PageInfo pi = Pagination.getPageInfo(messageService.searchReceivedCount(map), currentPage, 10, 10);
 		
 		model.addAttribute("list", messageService.searchReceivedMessage(map, pi));
 		model.addAttribute("pi", pi);
@@ -131,7 +131,7 @@ public class MessageController {
 	// ==================================================================================
 	
 	/**
-	 * 3) 받은 메시지 보관함 전체 리스트 및 개수 조회
+	 * 1) 받은 메시지 보관함 전체 리스트 및 개수 조회
 	 * @param currentPage : 현재 페이지
 	 * @param loginUser : 현재 로그인한 회원의 정보
 	 * @param model
@@ -145,7 +145,7 @@ public class MessageController {
 			 					   		 Model model) {
 		
 		int empNo = loginUser.getEmpNo();
-		int listCount = messageService.receivedStorageListCount(empNo);
+		int listCount = messageService.receivedStorageCount(empNo);
 		
 		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 10);
 		
@@ -158,7 +158,7 @@ public class MessageController {
 	
 	
 	/**
-	 * 4) 받은 메시지 보관함 검색 리스트 및 개수 조회
+	 * 2) 받은 메시지 보관함 검색 리스트 및 개수 조회
 	 * @param currentPage : 현재 페이지
 	 * @param loginUser : 현재 로그인한 회원의 정보
 	 * @param condition : 검색분류 (이름/직급/내용)
@@ -168,8 +168,8 @@ public class MessageController {
 	 * @author JH
 	 * @Date : 2023. 11. 20
 	 */
-	@RequestMapping("searchReceiveStoragedMessage")
-	public String searchReceiveStoragedMessage(@RequestParam(value="page", defaultValue="1") int currentPage,
+	@RequestMapping("searchReceivedStorageMsg")
+	public String searchReceivedStorageMsg(@RequestParam(value="page", defaultValue="1") int currentPage,
 											   @SessionAttribute(name="loginUser", required= false) Employee loginUser,
 											   String condition,
 											   String keyword,
@@ -180,11 +180,11 @@ public class MessageController {
 		map.put("keyword", keyword);
 		map.put("empNo", loginUser.getEmpNo());
 		
-		int listCount = messageService.searchReceivedStorageListCount(map);
+		int listCount = messageService.searchReceivedStorageCount(map);
 		
 		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 10);
 		
-		model.addAttribute("list", messageService.searchReceivedStorageMessage(map, pi));
+		model.addAttribute("list", messageService.searchReceivedStorageMsg(map, pi));
 		model.addAttribute("pi", pi);
 		model.addAttribute("condition", condition);
 		model.addAttribute("keyword", keyword);
@@ -249,7 +249,7 @@ public class MessageController {
 		map.put("keyword", keyword);
 		map.put("empNo", loginUser.getEmpNo());
 		
-		PageInfo pi = Pagination.getPageInfo(messageService.searchSendListCount(map), currentPage, 10, 10);
+		PageInfo pi = Pagination.getPageInfo(messageService.searchSendCount(map), currentPage, 10, 10);
 		
 		model.addAttribute("list", messageService.searchSendMessage(map, pi));
 		model.addAttribute("pi", pi);
@@ -258,6 +258,73 @@ public class MessageController {
 		
 		return "message/sendMessage";
 	}	// searchSendMessage
+	
+	
+	// ==================================================================================
+	// 메시지함 - 보낸 메시지 보관함 관련
+	// ==================================================================================
+		
+		/**
+		 * 1) 보낸 메시지 보관함 전체 리스트 및 개수 조회
+		 * @param currentPage : 현재 페이지
+		 * @param loginUser : 현재 로그인한 회원의 정보
+		 * @param model
+		 * @return 보낸 메시지 보관함 전체 리스트 및 개수 반환
+		 * @author JH
+		 * @Date : 2023. 11. 20
+		 */
+		@RequestMapping("sendStorageMessage")
+		public String sendStorageMessage(@RequestParam(value="page", defaultValue="1") int currentPage,
+				 					   		 @SessionAttribute(name= "loginUser", required= false) Employee loginUser,
+				 					   		 Model model) {
+			
+			int empNo = loginUser.getEmpNo();
+			int listCount = messageService.sendStorageListCount(empNo);
+			
+			PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 10);
+			
+			
+			model.addAttribute("list", messageService.sendStorageList(pi, empNo));
+			model.addAttribute("pi", pi);
+			
+			return "message/sendStorageMessage";
+		}	// sendStorageMessage
+		
+		
+		/**
+		 * 2) 보낸 메시지 보관함 검색 리스트 및 개수 조회
+		 * @param currentPage : 현재 페이지
+		 * @param loginUser : 현재 로그인한 회원의 정보
+		 * @param condition : 검색분류 (이름/직급/내용)
+		 * @param keyword : 사용자가 입력한 검색하고자 하는 키워드 값 (input value)
+		 * @param model
+		 * @return 사용자가 검색한 키워드와 일치하는 조건의 리스트 및 개수 반환
+		 * @author JH
+		 * @Date : 2023. 11. 20
+		 */
+		@RequestMapping("searchSendStorageMsg")
+		public String searchSendStorageMsg(@RequestParam(value="page", defaultValue="1") int currentPage,
+												   @SessionAttribute(name="loginUser", required= false) Employee loginUser,
+												   String condition,
+												   String keyword,
+												   Model model){
+			
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("condition", condition);
+			map.put("keyword", keyword);
+			map.put("empNo", loginUser.getEmpNo());
+			
+			int listCount = messageService.searchSendStorageCount(map);
+			
+			PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 10);
+			
+			model.addAttribute("list", messageService.searchSendStorageMsg(map, pi));
+			model.addAttribute("pi", pi);
+			model.addAttribute("condition", condition);
+			model.addAttribute("keyword", keyword);
+			
+			return "message/sendStorageMessage";							   
+	   }	// searchSendStoragedMessage
 	
 	
 	// ==================================================================================

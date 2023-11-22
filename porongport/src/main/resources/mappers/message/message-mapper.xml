@@ -138,7 +138,7 @@
 	</select>
 	
 	<!-- 4) 받은 메시지 검색 개수 조회 -->
-	<select id="searchReceivedListCount" resultType="_int" parameterType="hashmap">
+	<select id="searchReceivedCount" resultType="_int" parameterType="hashmap">
 	
 		<include refid="messageSearchCountSql" />
 		   AND
@@ -182,7 +182,7 @@
 	</select>
 	
 	<!-- 2) 받은메시지 보관함 전체 개수 조회 -->
-	<select id="receivedStorageListCount" resultType="_int" parameterType="message">
+	<select id="receivedStorageCount" resultType="_int" parameterType="message">
 		SELECT
 				COUNT(*)
 		  FROM
@@ -194,7 +194,7 @@
 	</select>
 	
 	<!-- 3) 받은메시지 보관함 검색 리스트 조회 -->
-	<select id="searchReceivedStorageMessage" resultMap="messageResultSet" parameterType="hashmap">
+	<select id="searchReceivedStorageMsg" resultMap="messageResultSet" parameterType="hashmap">
 		
 		<include refid="messageSql" />
 		   AND
@@ -224,7 +224,7 @@
 	</select>
 	
 	<!-- 4) 받은메시지 보관함 검색 개수 조회 -->
-	<select id="searchReceivedStorageListCount" resultType="_int" parameterType="hashmap">
+	<select id="searchReceivedStorageCount" resultType="_int" parameterType="hashmap">
 		
 		<include refid="messageSearchCountSql" />
 		   AND
@@ -311,7 +311,7 @@
 	</select>
 	
 	<!-- 4) 보낸 메시지 검색 개수 조회 -->
-	<select id="searchSendListCount" resultType="_int">
+	<select id="searchSendCount" resultType="_int">
 	
 		<include refid="messageSearchCountSql" />
 		   AND
@@ -336,6 +336,92 @@
 	  	 </choose>
 	  	  LIKE '%' || #{ keyword } || '%'
 	</select>
+	
+	<!-- ********************************************************* -->
+	<!-- 1) 보낸 메시지 보관함 전체 리스트 조회 -->
+	<select id="sendStorageList" resultMap="messageResultSet" parameterType="message">
+		
+		<include refid="messageSql" />
+		   AND
+		   		M.RECEIVE_USER = E.EMP_NO
+		   AND
+		        M.MESSAGE_STATUS = 'S'
+		   AND
+		        M.SEND_USER = #{ empNo }
+		 ORDER
+		 	BY
+		 		NUM DESC
+	</select>
+	
+	<!-- 2) 보낸 메시지 보관함 검색 개수 조회 -->
+	<select id="sendStorageListCount" resultType="_int">
+		SELECT
+				COUNT(*)
+		  FROM
+		  		MESSAGE
+  		 WHERE
+  		 		MESSAGE_STATUS = 'S'
+  		   AND
+	   			SEND_USER = #{ empNo }
+	</select>
+	
+	<!-- 3) 보낸 메시지 보관함 검색 리스트 조회 -->
+	<select id="searchSendStorageMsg" resultMap="messageResultSet" parameterType="message">
+		
+		<include refid="messageSql" />
+		   AND
+		   		M.RECEIVE_USER = E.EMP_NO
+		   AND
+		   		MESSAGE_STATUS = 'S'
+		   AND
+	   			M.SEND_USER = #{ empNo }
+	  	 <choose>
+	  	 	<when test="condition == 'userName'">
+	  	   		AND
+	  	 			E.EMP_NAME
+	  	 	</when>
+	  	 	<when test="condition == 'jobName'">
+	  	   		AND
+	  	   			J.JOB_NAME
+	  	 	</when>
+	  	 	<otherwise>
+	  	   		AND
+	  	 			M.MESSAGE_CONTENT
+	  	 	</otherwise>
+	  	 </choose>
+	  	 LIKE '%' || #{ keyword } || '%'
+		 ORDER
+		    BY
+		        NUM DESC
+	</select>
+	
+	<!-- 4) 보낸 메시지 보관함 검색 개수 조회 -->
+	<select id="searchSendStorageCount" resultType="_int">
+	
+		<include refid="messageSearchCountSql" />
+		   AND
+		   		M.RECEIVE_USER = E.EMP_NO
+		   AND
+		   		MESSAGE_STATUS = 'S'
+		   AND
+	   			M.SEND_USER = #{ empNo }
+	  	 <choose>
+	  	 	<when test="condition == 'userName'">
+		  	   AND
+		  	 		E.EMP_NAME
+	  	 	</when>
+	  	 	<when test="condition == 'jobName'">
+		  	   AND
+		  	   		J.JOB_NAME
+	  	 	</when>
+	  	 	<otherwise>
+		  	   AND
+		  	 		M.MESSAGE_CONTENT
+	  	 	</otherwise>
+	  	 </choose>
+	  	  LIKE '%' || #{ keyword } || '%'
+	</select>
+	
 	
 	<!-- ********************************************************* -->
 	<!-- 1) 휴지통 메시지 전체 리스트 조회 -->
@@ -375,8 +461,6 @@
 		  		MESSAGE
   		 WHERE
   		 		MESSAGE_STATUS = 'N'
-	 	   AND
- 				RECEIVE_USER = #{ empNo }
 	</select>
 	
 	<!-- 3) 휴지통 메시지 검색 리스트 조회 -->

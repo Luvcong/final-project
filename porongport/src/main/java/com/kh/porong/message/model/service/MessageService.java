@@ -44,7 +44,7 @@ public interface MessageService {
 	ArrayList<Message> searchReceivedMessage(Map<String, Object> map, PageInfo pi);
 	
 	// 4) 메시지 검색 개수 조회
-	int searchReceivedListCount(Map<String, Object> map);
+	int searchReceivedCount(Map<String, Object> map);
 
 	
 	// ==================================================================================
@@ -61,7 +61,7 @@ public interface MessageService {
 	ArrayList<Message> searchSendMessage(Map<String, Object> map, PageInfo pi);
 	
 	// 4) 메시지 검색 개수 조회
-	int searchSendListCount(Map<String, Object> map);
+	int searchSendCount(Map<String, Object> map);
 
 	// ==================================================================================
 	// 메시지함 - 받은 메시지 보관함 관련
@@ -71,13 +71,29 @@ public interface MessageService {
 	ArrayList<Message> receivedStorageList(PageInfo pi, int empNo);
 	
 	// 2) 받은 메시지 보관함 전체 개수 조회
-	int receivedStorageListCount(int empNo);
+	int receivedStorageCount(int empNo);
 	
 	// 3) 받은 메시지 보관함 검색 리스트 조회
-	ArrayList<Message> searchReceivedStorageMessage(Map<String, Object> map, PageInfo pi);
+	ArrayList<Message> searchReceivedStorageMsg(Map<String, Object> map, PageInfo pi);
 	
 	// 4) 받은 메시지 보관함 검색 개수 조회
-	int searchReceivedStorageListCount(Map<String, Object> map);
+	int searchReceivedStorageCount(Map<String, Object> map);
+	
+	// ==================================================================================
+	// 메시지함 - 보낸 메시지 보관함 관련
+	// ==================================================================================
+	
+	// 1) 보낸 메시지 보관함 전체 리스트 조회
+	ArrayList<Message> sendStorageList(PageInfo pi, int empNo);
+	
+	// 2) 보낸 메시지 보관함 전체 개수 조회
+	int sendStorageListCount(int empNo);
+	
+	// 3) 보낸 메시지 보관함 검색 리스트 조회
+	ArrayList<Message> searchSendStorageMsg(Map<String, Object> map, PageInfo pi);
+	
+	// 4) 보낸 메시지 보관함 검색 개수 조회
+	int searchSendStorageCount(Map<String, Object> map);
 	
 
 	

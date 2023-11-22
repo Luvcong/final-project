@@ -100,8 +100,8 @@ public class MessageServiceImpl implements MessageService {
 	
 	// 4) 받은 메시지 검색 개수 조회
 	@Override
-	public int searchReceivedListCount(Map<String, Object> map) {
-		return messageDao.searchReceivedListCount(sqlSession, map);
+	public int searchReceivedCount(Map<String, Object> map) {
+		return messageDao.searchReceivedCount(sqlSession, map);
 	}
 	
 
@@ -122,26 +122,26 @@ public class MessageServiceImpl implements MessageService {
 	
 	// 2) 받은 메시지 보관함 전체 개수 조회
 	@Override
-	public int receivedStorageListCount(int empNo) {
-		return messageDao.receivedStorageListCount(sqlSession, empNo);
+	public int receivedStorageCount(int empNo) {
+		return messageDao.receivedStorageCount(sqlSession, empNo);
 	}	// storageListCount
 
 	
 	// 3) 받은 메시지 보관함 검색 리스트 조회
 	@Override
-	public ArrayList<Message> searchReceivedStorageMessage(Map<String, Object> map, PageInfo pi) {
+	public ArrayList<Message> searchReceivedStorageMsg(Map<String, Object> map, PageInfo pi) {
 		
 		int offset = (pi.getCurrentPage() -1) * pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
 		
-		return messageDao.searchReceivedStorageMessage(sqlSession, map, rowBounds);
+		return messageDao.searchReceivedStorageMsg(sqlSession, map, rowBounds);
 	}	// searchReceivedStorageMessage
 	
 	
 	// 4) 받은 메시지 보관함 검색 개수 조회
 	@Override
-	public int searchReceivedStorageListCount(Map<String, Object> map) {
-		return messageDao.searchReceivedStorageListCount(sqlSession, map);
+	public int searchReceivedStorageCount(Map<String, Object> map) {
+		return messageDao.searchReceivedStorageCount(sqlSession, map);
 	}	// searchReceivedStorageListCount
 	
 
@@ -180,10 +180,47 @@ public class MessageServiceImpl implements MessageService {
 	
 	// 4) 보낸 메시지 검색 개수 조회
 	@Override
-	public int searchSendListCount(Map<String, Object> map) {
-		return messageDao.searchSendListCount(sqlSession, map);
+	public int searchSendCount(Map<String, Object> map) {
+		return messageDao.searchSendCount(sqlSession, map);
 	}	// searchSenddListCount
 
+	
+	// ==================================================================================
+	// 메시지함 - 보낸 메시지 보관함 관련
+	// ==================================================================================
+	
+	// 1) 보낸 메시지 보관함 전체 리스트 조회
+	@Override
+	public ArrayList<Message> sendStorageList(PageInfo pi, int empNo) {
+		
+		int offset = (pi.getCurrentPage() -1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		
+		return messageDao.sendStorageList(sqlSession, empNo, rowBounds);
+	}	// sendStorageList
+	
+	// 2) 보낸 메시지 보관함 전체 개수 조회
+	@Override
+	public int sendStorageListCount(int empNo) {
+		return messageDao.sendStorageListCount(sqlSession, empNo);
+	}	// sendStorageListCount
+	
+	// 3) 보낸 메시지 보관함 검색 리스트 조회
+	@Override
+	public ArrayList<Message> searchSendStorageMsg(Map<String, Object> map, PageInfo pi) {
+		
+		int offset = (pi.getCurrentPage() -1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		
+		return messageDao.searchSendStorageMsg(sqlSession, map, rowBounds);
+	}	// searchSendStorageMessage
+	
+	// 4) 보낸 메시지 보관함 검색 개수 조회
+	@Override
+	public int searchSendStorageCount(Map<String, Object> map) {
+		return messageDao.searchSendStorageCount(sqlSession, map);
+	}	// searchSendStorageListCount
+	
 	
 	// ==================================================================================
 	// 메시지함 - 휴지통 관련
@@ -230,6 +267,7 @@ public class MessageServiceImpl implements MessageService {
 	public int deletePermanentlyMessage(int messageNo) {
 		return messageDao.deletePermanentlyMessage(sqlSession, messageNo);
 	}	// deletePermanentlyMessage
+
 
 
 
