@@ -25,6 +25,10 @@
 
 			$.ajax({
 				url: 'schedule',
+				data: { 
+					empNo: ${loginUser.empNo},
+					deptCode : '${loginUser.deptCode}'
+				},
 				success:list=>{
 					//console.log(list.mySchedule);
 					var mySchedule = list.mySchedule;
@@ -91,7 +95,7 @@
                     $('#eventModalLabel').text(calEvent.event._def.title);
             	    $("#inputContent").val(calEvent.event._def.extendedProps.description);
             	    
-            	    var date = new Date();
+            	    //var date = new Date();
             	    var selectStartDate = calEvent.el.fcSeg.eventRange.instance.range.start;
             	    
             	    var startDate = selectStartDate.getFullYear()+'-'
@@ -99,11 +103,11 @@
             	    		 		+((selectStartDate.getDate()) < 10 ? "0" + (selectStartDate.getDate()) : (selectStartDate.getDate()));
             	    
             	    if((selectStartDate.getHours()-9)<0){
-            	    	var startTime = ((selectStartDate.getHours()-9)+24)+':'
+            	    	var startTime = (((selectStartDate.getHours()-9)+24) < 10 ? "0" + ((selectStartDate.getHours()-9)+24) : ((selectStartDate.getHours()-9)+24)) +':'
 	    								+((selectStartDate.getMinutes()) < 9 ? "0" + (selectStartDate.getMinutes()) : (selectStartDate.getMinutes()));
             	    }
             	    else{
-            	    	 var startTime = ((selectStartDate.getHours()-9))+':'
+            	    	 var startTime = (((selectStartDate.getHours()-9)) < 10 ? "0" + ((selectStartDate.getHours()-9)) : ((selectStartDate.getHours()-9))) +':'
  	    								+((selectStartDate.getMinutes()) < 9 ? "0" + (selectStartDate.getMinutes()) : (selectStartDate.getMinutes()));
             	    }
             	    
@@ -115,12 +119,12 @@
 				    		 		+((selectEndDate.getDate()) < 10 ? "0" + (selectEndDate.getDate()) : (selectEndDate.getDate()));
     
             	    if((selectEndDate.getHours()-9)<0){
-            	    	var endTime = ((selectEndDate.getHours()-9)+24)+':'
-	    								+((selectEndDate.getMinutes()) < 9 ? "0" + (selectEndDate.getMinutes()) : (selectEndDate.getMinutes()));
+            	    	var endTime = (((selectEndDate.getHours()-9)+24) < 10 ? "0" + ((selectEndDate.getHours()-9)+24) : ((selectEndDate.getHours()-9)+24)) +':'
+	    								+((selectEndDate.getMinutes()) < 10 ? "0" + (selectEndDate.getMinutes()) : (selectEndDate.getMinutes()));
             	    }
             	    else{
-            	    	var endTime = ((selectEndDate.getHours()-9))+':'
-	    							 +((selectEndDate.getMinutes()) < 9 ? "0" + (selectEndDate.getMinutes()) : (selectEndDate.getMinutes()));
+            	    	var endTime = (((selectEndDate.getHours()-9)) < 10 ? "0" + ((selectEndDate.getHours()-9)) : ((selectEndDate.getHours()-9))) +':'
+	    							 +((selectEndDate.getMinutes()) < 10 ? "0" + (selectEndDate.getMinutes()) : (selectEndDate.getMinutes()));
             	    }
             	    
             	    
@@ -129,10 +133,14 @@
             	    console.log(startTime);
             	    //console.log(calEvent.el.fcSeg.eventRange.instance.range.start);
             	    //console.log(endDate);
-            	    console.log(endTime);
+            	    //console.log(endTime);
             	    
             	    $("#inputDateStrart").val(startDate);
             	    $("#inputDateEnd").val(endDate);
+            	    
+            	    $("#inputTimeStrart").val(startTime);
+            	    $("#inputTimeEnd").val(endTime);
+            	    
             	    $('#eventModal').modal();
             	    
                 },
@@ -183,13 +191,13 @@
 	
 	<div class="pp-content">
 
-		<div id='calendar' class="calendarWidthMain calendarCenter">
-		</div>
+		<div id='calendar' class="calendarWidthMain calendarCenter"></div>
+		
 		<div class="modal fade" id="eventModal" tabindex="-1" aria-labelledby="eventModalLabel" aria-hidden="true">
         <div class="modal-dialog">
         
-            <div class="modal-content">
-            
+            <div class="modal-content calendar-modal-width" style="width:600px;">
+            	
                 <div class="modal-header">
                     <h5 class="modal-title" id="eventModalLabel">일정제목</h5>
                     <button type="button" class="close" data-bs-dismiss="modal">
@@ -206,18 +214,29 @@
                         <br>
                         
                         <label for="inputCalendar" class="form-label">기간</label><br>
-                        <input type="date" class="inputform" id="inputDateStrart" value=""> ~ <input type="date" class="inputform" id="inputDateEnd" value="">
+                        <input type="date" class="inputform" id="inputDateStrart" value=""> 
+                        <input type="time" class="inputform" id="inputTimeStrart" value=""> 
+                         ~ 
+                        <input type="date" class="inputform" id="inputDateEnd" value="">
+                        <input type="time" class="inputform" id="inputTimeEnd" value=""> 
+                        
+                        <c:choose>
+                        	<c: when test="${schStatus eq '' }">
+                        	</c:>
+                        </c:choose>
                     </div>
                     
                 </div>
                 
                 <div class="modal-footer">
                 
-                    <button type="button" class="btn btn-secondary">수정하기</button>
-                    <button type="button" class="btn btn-danger" onclick="deleteEvent();">삭제하기</button>
+                    <button type="button" class="btn btn-secondary" data-url="updateEvent">수정하기</button>
+                    <button type="button" class="btn btn-danger" data-url="deleteEvent">삭제하기</button>
                     
                 </div>
+                
             </div>
+            
         </div>
     </div>
     

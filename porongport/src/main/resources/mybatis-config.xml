@@ -13,6 +13,7 @@
 		<typeAlias type="com.kh.porong.message.model.vo.Message" alias="message" />
 		<typeAlias type="com.kh.porong.employee.model.vo.Attendance" alias="att" />
 		<typeAlias type="com.kh.porong.approval.model.vo.VacationVO" alias="approval" />
+		<typeAlias type="com.kh.porong.notice.model.vo.Notice" alias="notice" />
 	</typeAliases>
 	
 	<mappers>
@@ -21,6 +22,7 @@
 		<mapper resource="/mappers/calendar/meetingRoom-mapper.xml"/> 
 		<mapper resource="/mappers/message/message-mapper.xml" />
 		<mapper resource="/mappers/approval/approval-mapper.xml" />
+		<mapper resource="/mappers/notice/notice-mapper.xml" />
 	</mappers>
 
 </configuration>

@@ -294,6 +294,7 @@ a:hover{
   border: 1px solid #888;
   width: 80%;
 }
+.calendar-modal-width {width:600px !implement;}
 .close {
   color: #aaa;
   float: right;
@@ -312,9 +313,8 @@ a:hover{
   text-decoration: none;
   color: #333333;
 }
-.calendar-input-size{width: 10px;}
 .inputform{
   border-radius: 10px;
-  width: 200px;
+  width: 120px;
   border: 1px solid rgb(206 212 218);
 }

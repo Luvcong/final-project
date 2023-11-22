@@ -80,7 +80,7 @@
                     <div class="icon"><i class="fa-solid fa-envelope"></i></div>
                     <div class="menu-name">쪽지함</div>
                 </div>
-                <div class="item" data-group='board'>
+                <div class="item" data-group='notice'>
                     <div class="icon"><i class="fa-solid fa-pen-to-square"></i></div>
                     <div class="menu-name">게시판</div>
                 </div>
@@ -147,11 +147,10 @@
 			        <div class="sub-item sub-item-menu" data-url='sendStorageMessage'>보낸 메시지 보관함</div>
 			        <div class="sub-item" data-url='deleteMessageBox'>휴지통</div>
 				</div>
-				<div class="sub-menu d-none" data-group='board'>
-					<div class="sub-item sub-title" data-url='board'>메시지함</div>
-			        <div class="sub-item" data-url='board1'>게시판1</div>
-			        <div class="sub-item" data-url='board2'>게시판2</div>
-			        <div class="sub-item" data-url='board3'>게시판3</div>
+				<div class="sub-menu d-none" data-group='notice'>
+					<div class="sub-item sub-title" data-url=''>게시판</div>
+			        <div class="sub-item" data-url='notice'>공지사항 게시판</div>
+			        <div class="sub-item" data-url=''>자유 게시판</div>
 				</div>
 				<form action="jojigdo.em">
 				

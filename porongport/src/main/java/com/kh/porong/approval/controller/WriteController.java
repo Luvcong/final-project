@@ -12,4 +12,10 @@ public class WriteController {
 		return "approval/writeForm";
 	}
 	
+	@RequestMapping("form")
+	public String form() {
+		
+		return "approval/form";
+	}
+	
 }
