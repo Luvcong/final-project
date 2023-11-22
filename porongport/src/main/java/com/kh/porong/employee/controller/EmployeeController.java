@@ -1,8 +1,6 @@
 package com.kh.porong.employee.controller;
 
-import java.sql.Date;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import javax.activation.DataSource;
 import javax.activation.FileDataSource;
@@ -40,11 +38,19 @@ public class EmployeeController {
 	
 	// 입사자 등록
 	@PostMapping("insert.emp")
-	public String insertEmp(Employee emp, HttpSession session) throws MessagingException{
-		// String encPwd = bcryptPasswordEncoder.encode(emp.getEmpPwd());
-		// emp.setEmpPwd(encPwd);
+	public String insertEmp(Employee emp, HttpSession session) /*throws MessagingException*/{
+		String encPwd = bcryptPasswordEncoder.encode(emp.getEmpPwd());
+		emp.setEmpPwd(encPwd);
+		
+		String toUpperDept = emp.getDeptCode().toUpperCase();
+		String toUpperJob = emp.getJobCode().toUpperCase();
+
+		emp.setDeptCode(toUpperDept);
+		emp.setJobCode(toUpperJob);
 		
 		if(empService.insertEmp(emp) > 0) {
+			
+			/*
 			MimeMessage msg = sender.createMimeMessage();
 			MimeMessageHelper helper = new MimeMessageHelper(msg, false, "UTF-8");
 			
@@ -53,11 +59,11 @@ public class EmployeeController {
 			helper.setTo(to);
 			
 			helper.setSubject("입사자 등록 완료건");
-			
-			DataSource source = new FileDataSource("resources/mail.html");
+			DataSource source = new FileDataSource("/resources/mail.html");
 			helper.addAttachment(source.getName(), source);
 			
 			sender.send(msg);
+			*/
 			
 			session.setAttribute("alertMsg", "입사자 등록에 성공하였습니다.");
 			return "mypage/myPageAttendance";
@@ -79,15 +85,23 @@ public class EmployeeController {
 	public ModelAndView loginEmp(Employee emp, ModelAndView mv, HttpSession session) {
 		Employee loginEmp = empService.loginEmp(emp);
 		
-		if(loginEmp != null) {
-			// 로그인한 유저 정보
+		if(loginEmp != null /*&& bcryptPasswordEncoder.matches(emp.getEmpPwd(), loginEmp.getEmpPwd())*/) {
+			// 로그인한 유저 정보 세션에 담기
 			session.setAttribute("loginUser", loginEmp);
 			
-			// 로그인한 유저 근태 리스트
+			// 로그인한 유저 근태 리스트 조회
 			ArrayList<Attendance> attList = empService.attList(loginEmp.getEmpNo());
 			session.setAttribute("attList", attList);
 			
-			mv.setViewName("mypage/myPageAttendance");
+			// 최초 로그인 판별
+			int flag = empService.firstLogin(emp);
+			// 최초 로그인인 유저 -> 비밀번호 변경 유도 
+			if(flag > 0) {
+				session.setAttribute("alertMsg", "비밀번호를 변경해주세요");
+				mv.setViewName("mypage/myPageUpdateForm");
+			} else {
+				mv.setViewName("mypage/myPageAttendance");
+			}
 			
 		} else {
 			mv.addObject("errorMsgLogin", "로그인 실패. 다시 시도해주세요.").setViewName("common/errorPage");
@@ -106,9 +120,7 @@ public class EmployeeController {
 	@ResponseBody
 	@RequestMapping(value="selectAtt.em", produces="json/application; charset=UTF-8")
 	public String checkAtt(Attendance att) {
-		System.out.println(att);
 		Attendance selectAtt = empService.selectAtt(att);
-		System.out.println(selectAtt);
 		if(att != null) {
 			return new Gson().toJson(selectAtt);
 		} else {

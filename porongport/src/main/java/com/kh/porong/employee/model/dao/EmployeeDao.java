@@ -1,7 +1,6 @@
 package com.kh.porong.employee.model.dao;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
@@ -42,6 +41,10 @@ public class EmployeeDao {
 
 	public ArrayList<Employee> selectJojigdo(SqlSessionTemplate sqlSession, String deptCode) {
 		return (ArrayList)sqlSession.selectList("empMapper.selectJojigdo", deptCode);
+	}
+
+	public int firstLogin(SqlSessionTemplate sqlSession, Employee emp) {
+		return sqlSession.selectOne("empMapper.firstLogin", emp);
 	}
 	
 

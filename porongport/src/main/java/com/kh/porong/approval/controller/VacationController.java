@@ -32,4 +32,11 @@ public class VacationController {
 		ArrayList<VacationVO> list = edmsService.selectOrganiztionChart();
 		return new Gson().toJson(list);
 	}
+	
+	@GetMapping(value="organization", produces="json/application; charset=UTF-8")
+	public String selectOrganization() {
+		
+		ArrayList<VacationVO> list = edmsService.selectOrganiztion();
+		return new Gson().toJson(list);
+	}
 }
