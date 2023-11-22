@@ -38,7 +38,8 @@
 				SCH_STATUS,
 				SCH_SHARE
 		   FROM SCHEDULE
-		  WHERE EMP_NO=#{empNo}
+		   JOIN EMPLOYEE USING (EMP_NO)
+		  WHERE EMP_NO = #{empNo}
 		    AND SCH_SHARE = 'M'
 		    AND SCH_STATUS = 'Y'
 	</select>
@@ -53,7 +54,11 @@
 				SCH_STATUS,
 				SCH_SHARE
 		   FROM SCHEDULE
-		  WHERE SCH_SHARE = 'D'
-		 	AND SCH_STATUS = 'Y'
+		   LEFT JOIN EMPLOYEE USING (EMP_NO)
+		   LEFT JOIN DEPARTMENT USING (DEPT_CODE)
+		  WHERE EMP_NO = #{empNo}
+		  	AND DEPT_CODE = #{deptCode}
+		    AND SCH_SHARE = 'D'
+		    AND SCH_STATUS = 'Y'
 	</select>
 </mapper>
