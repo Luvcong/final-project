@@ -65,11 +65,11 @@ public class EmployeeController {
 			sender.send(msg);
 			*/
 			
-			session.setAttribute("alertMsg", "입사자 등록에 성공하였습니다.");
+			session.setAttribute("alertText", "입사자 등록에 성공하였습니다.");
 			return "mypage/myPageAttendance";
 		} else {
-			session.setAttribute("errorMsg", "입사자 등록에 실패하였습니다.");
-			return "common/errorPage";
+			session.setAttribute("errorText", "입사자 등록에 실패하였습니다.");
+			return "redirect:myPageIn";
 		}
 	}
 	
@@ -97,7 +97,7 @@ public class EmployeeController {
 			int flag = empService.firstLogin(emp);
 			// 최초 로그인인 유저 -> 비밀번호 변경 유도 
 			if(flag > 0) {
-				session.setAttribute("alertMsg", "비밀번호를 변경해주세요");
+				session.setAttribute("alertMsg", "비밀번호를 변경해주세요.");
 				mv.setViewName("mypage/myPageUpdateForm");
 			} else {
 				mv.setViewName("mypage/myPageAttendance");
@@ -110,7 +110,7 @@ public class EmployeeController {
 			mv.setViewName("mypage/myPageAttendance");
 			
 		} else {
-			mv.addObject("goToMain", "로그인 실패. 다시 시도해주세요.").setViewName("common/errorPage");
+			mv.addObject("loginFail", "다시 시도해주세요.").setViewName("common/errorPage");
 		}
 		
 		return mv;
@@ -167,7 +167,7 @@ public class EmployeeController {
 			mv.addObject("jojigdoList", list).setViewName("common/jojigdo");
 		
 		} else {
-			mv.addObject("goToMain", "해당 부서의 조직도가 존재하지 않습니다.").setViewName("common/errorPage");
+			mv.addObject("errorText", "해당 부서의 조직도가 존재하지 않습니다.").setViewName("redirect:myPageAtt");
 		}
 		
 		return mv;
@@ -181,12 +181,13 @@ public class EmployeeController {
 		
 		if(empService.updateEmp(emp) > 0) {
 			session.setAttribute("loginUser", empService.loginEmp(emp));
-			session.setAttribute("alertMsg", "내정보가 변경되었습니다.");
+			
+			session.setAttribute("alertText", "내정보가 변경되었습니다.");
 			mv.setViewName("redirect:myPageUp");
 			
 		} else {
 			
-			mv.addObject("errorMsg", "내정보 변경을 실패했습니다.").setViewName("common/errorPage");
+			mv.addObject("errorText", "내정보 변경을 실패했습니다.").setViewName("redirect:myPageUp");
 		}
 		
 		return mv;

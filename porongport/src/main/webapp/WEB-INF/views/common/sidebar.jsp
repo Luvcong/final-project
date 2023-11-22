@@ -299,4 +299,38 @@
     	}
     }
 </script>
+
+<!-- 알람 띄우기 -->
+<c:if test="${ not empty alertText }">
+	<script>
+		// 성공 알람
+		Swal.fire({
+			title : '성공',
+			text : '${ alertText }',
+			icon : 'success'
+		});
+	
+	</script>
+</c:if>
+<c:if test="${ not empty errorText }">
+	<script>
+		// 실패 및 에러 알람
+		Swal.fire({
+			title : '오류',
+			text : '${ errorText }',
+			icon : 'error'
+		})
+	</script>
+</c:if>
+<c:if test="${ not empty loginFail }">
+	<script>
+		// 로그인 실패 알람
+		Swal.fire({
+			title : '로그인 실패',
+			text : '${ loginFail }',
+			icon : 'info'
+		});
+		location.href = '${path}';
+	</script>
+</c:if>
 </html>
