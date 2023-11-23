@@ -207,15 +207,15 @@
           LEFT
 		  JOIN
 		      JOB USING (JOB_CODE)
-		<if test="deptCode == 'HR'">
+		<if test='deptCode == "HR"'>
 		 WHERE
 		      DEPT_CODE = 'HR'
 		</if>
-		<if test="deptCode == 'PD'">
+		<if test='deptCode == "PD"'>
 		 WHERE
 		      DEPT_CODE = 'PD'
 		</if>
-		<if test="deptCode == 'PM'">
+		<if test='deptCode == "PM"'>
 		 WHERE
 		      DEPT_CODE = 'PM'	
 		</if>
@@ -242,4 +242,22 @@
 		      EMP_STATUS = 'Y'
 	</update>
 
+	<!-- 부서 추가 -->
+	<insert id="insertDept" parameterType="emp">
+		INSERT
+		  INTO
+		      DEPARTMENT
+		      (
+		      DEPT_CODE
+		      ,DEPT_NAME
+		      )
+		VALUES
+		      (
+		      #{deptCode}
+		      ,#{deptName}
+		      )
+	</insert>
+	
+	
+	
 </mapper>

@@ -77,12 +77,28 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-light" data-dismiss="modal">취소</button>
-                    <button type="submit" class="btn btn-primary" onclick="insertDept();">등록</button>
+                    <button type="button" class="btn btn-light" id="reset_btn" data-dismiss="modal">취소</button>
+                    <button type="button" class="btn btn-primary" onclick="insertDept();">등록</button>
                 </div>
             </div>
-
         </div>
     </div>
+    <script>
+   		function insertDept() {
+   			$.ajax({
+   				url : 'insert.de',
+   				data : {
+   					deptCode : $('#deptCode').val(),
+   					deptName : $('#deptName').val()
+   				},
+   				success : result => {
+   					console.log(result);
+   				},
+   				error : () => {
+   					console.log('부서추가 실패');
+   				}
+   			})
+   		}
+    </script>
 </body>
 </html>

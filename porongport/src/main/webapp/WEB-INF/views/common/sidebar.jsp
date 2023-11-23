@@ -173,7 +173,7 @@
 							location.href = '${path}jojigdo.em?deptCode=HR';
 						}
 							
-					};
+					}
 				</script>
 				
 				<div class="sub-menu d-none" data-group='calendar'>

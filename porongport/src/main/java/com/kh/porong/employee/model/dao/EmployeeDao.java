@@ -51,4 +51,8 @@ public class EmployeeDao {
 		return sqlSession.update("empMapper.updateEmp", emp);
 	}
 
+	public int insertDept(SqlSessionTemplate sqlSession, Employee emp) {
+		return sqlSession.insert("empMapper.insertDept", emp);
+	}
+
 }
