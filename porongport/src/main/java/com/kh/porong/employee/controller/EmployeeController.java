@@ -182,8 +182,7 @@ public class EmployeeController {
 		if(empService.updateEmp(emp) > 0) {
 			session.setAttribute("loginUser", empService.loginEmp(emp));
 			
-			session.setAttribute("alertText", "내정보가 변경되었습니다.");
-			mv.setViewName("redirect:myPageUp");
+			mv.addObject("alertText", "내정보가 변경되었습니다.").setViewName("mypage/myPageUpdateForm");
 			
 		} else {
 			
