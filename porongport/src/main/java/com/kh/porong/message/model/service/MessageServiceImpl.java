@@ -60,9 +60,8 @@ public class MessageServiceImpl implements MessageService {
 	// 6) 메시지 작성
 	@Override
 	public int insertMessage(Message m) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+		return messageDao.insertMessage(sqlSession, m);
+	}	// insertMessage
 	
 	
 	// ==================================================================================

@@ -47,7 +47,6 @@
 		<result column="MESSAGE_STATUS" property="messageStatus" />
 		<result column="SEND_USER" property="sendUser" />
 		<result column="RECEIVE_USER" property="reciveUser" />
-		<result column="FILE_NO" property="fileNo" />
 		<result column="NUM" property="messageRank" />
 		<result column="EFFECTIVE_DATE" property="effectiveDate" />
 		<result column="READ_YN" property="readYN" />
@@ -55,6 +54,8 @@
 		<result column="JOB_NAME" property="jobName" />
 		<result column="EMP_NAME" property="empName" />
 		<result column="DEPT_NAME" property="deptName" />
+		<result column="ORIGIN_FILENAME" property="originFileName" />
+		
 	</resultMap>
 	
 	<resultMap id="empResultSet" type="emp">
@@ -606,5 +607,22 @@
 		   AND
 		   		M.RECEIVE_USER = #{ empNo }
 	</select>
+	
+	<insert id="insertMessage" parameterType="message">
+		INSERT
+		  INTO
+		  		MESSAGE
+		VALUES
+				(SEQ_MESSAGE.NEXTVAL,
+				#{ messageContent },
+				SYSDATE,
+				DEFAULT,
+				DEFAULT,
+				#{ sendUser },
+				#{ receiveUser },
+				#{ originFileName },
+				DEFAULT,
+				DEFAULT)
+	</insert>
 
 </mapper>

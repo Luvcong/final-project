@@ -1,8 +1,12 @@
 package com.kh.porong.message.controller;
 
-import java.util.ArrayList;
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.porong.common.model.vo.PageInfo;
 import com.kh.porong.common.template.Pagination;
@@ -50,7 +55,38 @@ public class MessageController {
 		// System.out.println("messageDetailmessgeNo : " + mno);
 		return "message/detailMessage";
 	}	// detailMessage
+	
+	
+	/**
+	 * 메시지 작성하기
+	 * @param m
+	 * @param upfile
+	 * @param session
+	 * @param model
+	 * @return
+	 * @author JH
+	 * @Date : 2023. 11. 23
+	 */
+	@RequestMapping("insertMessage")
+	public String insertMessage(Message m,
+								MultipartFile upfile,
+								HttpSession session) {
 		
+		System.out.println(m);
+		System.out.println(upfile);
+		System.out.println(upfile.getOriginalFilename());
+		// m.setSendUser(loginUser.getEmpNo());
+		if(!upfile.getOriginalFilename().equals("")) {
+			m.setOriginFileName(upfile.getOriginalFilename());
+		}
+		
+		if(messageService.insertMessage(m) > 0){
+			session.setAttribute("successMsg", "메시지 전송에 성공했습니다!");
+		} else {
+			session.setAttribute("failMsg", "메시지 전송에 실패했습니다");
+		}
+		return "redirect:receivedMessage";
+	}	// insertMessage
 	
 	
 	// ==================================================================================
