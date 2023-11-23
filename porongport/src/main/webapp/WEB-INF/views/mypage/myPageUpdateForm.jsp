@@ -123,7 +123,7 @@
 	                }).open();
 	            };
 	            
-	            /* 
+	            /* 아무것도 입력하지 않았을 때에 대한 유효성 검사
 	            $(() => {
 	            	$('button:submit').on('click', e => {
 	            		const $empPwd = $('#empPwd');

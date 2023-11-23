@@ -39,7 +39,7 @@ public class EmployeeController {
 	
 	// 입사자 등록
 	@PostMapping("insert.emp")
-	public String insertEmp(Employee emp, HttpSession session) /*throws MessagingException*/{
+	public String insertEmp(Employee emp, HttpSession session) throws MessagingException{
 		String encPwd = bcryptPasswordEncoder.encode(emp.getEmpPwd());
 		emp.setEmpPwd(encPwd);
 		
@@ -48,23 +48,23 @@ public class EmployeeController {
 
 		emp.setDeptCode(toUpperDept);
 		emp.setJobCode(toUpperJob);
-
+		
+		String jobCode =  emp.getJobCode();
+		
+		// if(jobCode.equals("SM") || )
 		if(empService.insertEmp(emp) > 0) {
 				
-			/*
 			MimeMessage msg = sender.createMimeMessage();
 			MimeMessageHelper helper = new MimeMessageHelper(msg, false, "UTF-8");
 			
-			// 관리자한테 메일 보내기
-			String to = {"kwondy1892@gmail.com"};
-			helper.setTo(to);
+			// 입사자 등록 성공하면 관리자한테 메일 보내기
+			helper.setTo(emp.getEmpEmail());
 			
 			helper.setSubject("입사자 등록 완료건");
 			DataSource source = new FileDataSource("/resources/mail.html");
 			helper.addAttachment(source.getName(), source);
 			
 			sender.send(msg);
-			 */
 			
 			session.setAttribute("successText", "입사자 등록에 성공하였습니다.");
 			return "mypage/myPageAttendance";
