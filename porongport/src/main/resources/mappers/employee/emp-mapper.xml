@@ -65,9 +65,21 @@
 		 WHERE
 		       EMP_NO = #{ empNo }
 		   AND
-		       EMP_PWD = #{ empPwd }
-		   AND
 		       EMP_STATUS = 'Y'
+	</select>
+	
+	<!-- 최초 로그인 여부에 대한 쿼리 -->
+	<select id="firstLogin" parameterType="emp" resultType="_int">
+		SELECT
+		      COUNT(*)
+		  FROM
+		      EMPLOYEE
+		 WHERE
+		      EMP_NO = #{empNo}
+		   AND
+		      EMP_STATUS = 'Y'
+		   AND
+		      FIRST_LOGIN = 'T'
 	</select>
 	
 	<!-- 출근 INSERT -->
@@ -83,17 +95,17 @@
 		VALUES 
 		      (
 		       #{workDate}
-		       ,#{empNo} <!-- number타입 -->
-		       ,#{workStart} <!-- varchar2타입 -->
+		       ,#{empNo} 
+		       ,#{workStart}
 		       )
 	</insert>
 	
 	<!-- 근태 리스트 -->
-	<select id="attList" parameterType="_int" resultType="att">
+	<select id="attList" parameterType="_int" resultMap="attResultSet">
 		SELECT
-		      WORK_DATE workDate
-		      ,WORK_START workStart
-		      ,WORK_END workEnd
+		      WORK_DATE
+		      ,WORK_START
+		      ,WORK_END
 		  FROM
 		      ATTENDANCE
 		 WHERE
@@ -124,26 +136,20 @@
 		      )
 	</insert>
 	
-	<!-- 마지막 근태 레코드 구하는 쿼리 -->
+	<!-- 오늘 근태 기록 쿼리 -->
 	<select id="selectAtt" parameterType="att" resultMap="attResultSet">
 		SELECT 
-		      WORK_DATE 
-		      ,WORK_START 
-		      ,WORK_END 
-		  FROM  
-		      (SELECT 
-		             WORK_DATE
-		             ,WORK_START
-		             ,WORK_END
-		        FROM 
-		             ATTENDANCE 
-		       WHERE 
-		            EMP_NO = #{empNo}
-		         AND
-		            #{workDate} = TO_CHAR(SYSDATE, 'YYYY-MM-DD')
-		       ORDER 
-		          BY WORK_START DESC) 
-		WHERE ROWNUM = 1
+		      WORK_DATE
+		     ,WORK_START
+		     ,WORK_END
+		  FROM 
+		      ATTENDANCE 
+		 WHERE 
+		      EMP_NO = #{empNo}
+		   AND
+		      WORK_DATE LIKE #{workDate}
+		 ORDER 
+		    BY WORK_DATE DESC
 	</select>
 	
 	<!-- 퇴근기록 update -->
@@ -154,6 +160,8 @@
 		      WORK_END = #{workEnd}
 		 WHERE
 		      EMP_NO = #{empNo}
+		   AND
+		      WORK_DATE = #{workDate}
 	</update>
 	
 	<!-- 아이디 중복체크 쿼리 -->
@@ -164,6 +172,8 @@
 		      EMPLOYEE
 		 WHERE
 		      EMP_NO = #{empNo}
+		   AND
+		      EMP_STATUS = 'Y'
 	</select>
 	
 	<!-- 비밀번호 찾기 -->
@@ -176,6 +186,8 @@
 		      EMP_NO = #{empNo}
 		   AND 
 		      EMP_NAME = #{empName}
+		   AND
+		      EMP_STATUS = 'Y'
 	</select>
 	
 	<!-- 조직도 조회 -->
@@ -208,4 +220,26 @@
 		      DEPT_CODE = 'PM'	
 		</if>
 	</select>
+
+	<!-- 사용자 정보 변경 쿼리 -->
+	<update id="updateEmp" parameterType="emp">
+		UPDATE
+		      EMPLOYEE
+		<set>
+		      EMP_PWD = #{empPwd}
+		      ,EMP_PHONE = #{empPhone}
+		      ,EMP_EMAIL = #{empEmail}
+		      ,EMP_ADDRESSCODE = #{empAddressCode}
+		      ,EMP_ADDRESS = #{empAddress}
+		      ,MODIFY_DATE = SYSDATE
+			<if test='firstLogin == "T"'>
+			  ,FIRST_LOGIN = 'F'
+			</if>
+		</set>
+		 WHERE
+		      EMP_NO = #{empNo}
+		   AND
+		      EMP_STATUS = 'Y'
+	</update>
+
 </mapper>

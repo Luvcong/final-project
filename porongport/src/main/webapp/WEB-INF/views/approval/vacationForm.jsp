@@ -108,37 +108,79 @@
 
 								<tbody>
 									<tr>
-										<table class="table table-bordered">
+										<table class="table table-bordered app_jojigdo">
 						                    <thead>
 						                        <tr>
-						                            <th>직급</th>
-						                            <th>이름</th>
+						                        
+						                        	<th>부서</th>
+						                        </tr>
+						                        <tr>
+						                        <!-- 
+						                        <th><button type="button" value="HR">인사부</button></th>
+							                  	<th><button type="button" value="PD">구매관리부</button></th>
+							                  	<th><button type="button" value="PM">영업부</button></th>
+							                  	 -->
+							                  	 <div id="">
+    <span id=""></span>
+</div>
+
+<div id="">
+    <div class="">
+    
+        <!-- left start -->
+        <div class="">
+            <h2 id="">조직도</h2>
+            
+            <div class="">
+            
+                <div class="">
+                    <div id="">
+                    
+                    	<ul class="">
+                    	
+	                    	<li class="">
+	                    	
+		                    	<ul style="">
+		                    	
+			                    	<li class="">
+				                    	<span class="">
+				                    		<span class=""></span>
+				                   			<a href="#" class="">인사부</a>
+				                   	 	</span>
+			                   		 </li>
+			                   		 
+			                    	<li class="">
+			                   	 		<span class="">
+				                    		<span class=""></span>
+				                    		<a href="#" class="">구매관리부</a>
+			                    		</span>
+			                    	</li>
+			                    	
+			                    	<li class="">
+				                    	<span class="">
+					                    	<span class=""></span>
+					                    	<a href="#" class="">영업부</a>
+				                    	</span>
+			                    	</li>
+		                    	</ul>
+		                    </li>
+	                    </ul>
+                    </div>
+                </div>
 						                        </tr>
 						                    </thead>
-						                    <tbody>
-						                    	<c:choose>
-						                    		<c:when test="${ not empty jojigdoList }">
-						                    			<c:forEach var="i" items="${ jojigdoList }">
-									                        <tr>
-									                            <td>${ i.jobName }</td>
-									                            <td>${ i.empName }</td>
-									                        </tr>
-						                    			</c:forEach>
-						                    		</c:when>
-						                    		<c:otherwise>
-						                    			<tr>
-						                    				<td colspan="2">해당 부서에는 직원이 존재하지 않습니다.</td>
-						                    			</tr>
-						                    		</c:otherwise>
-						                    	</c:choose>
+						                    <tbody id="job_table">
+						                  	
 						                    </tbody>
 						                </table>
 									</tr>
+									<!-- 
 									<tr>
 										<th>직원 검색</th> 
 										<td><input type="text"> <i class="fa-solid fa-magnifying-glass" style="color: #000000;"></i></td>
 										
 									</tr>
+									 -->
 									<tr>
 										<th style="height:250px;">결재구분</th>
 										<td><select id="div_apv_sq" class="form-control"
@@ -174,18 +216,59 @@
 		<script>
 		$(()=>{
 			$.ajax({
-				url: 'organizationChart',
+				url: 'organization',
+				data: {deptCode: }
 				success: data=>{
-					console.log(data);
+					//console.log(data);
+					console.log(data[0].deptName);
+					
 					let value = ' ';
 
-					for(let i in data){
+					for(i=0; i<data.length; i++){
+						value += '<tr>'
+						         + '<td>' + data[i].deptName + '</td>'
+						         + '</tr>'
+						        
+					}
+					 console.log(value);
+					
+					$('#job_table').html(value);
+					
+                   
+				},
+				error:()=>{
+					console.log('실패');
+				}
+					
+			})
+		})
+		
+		$(()=>{
+			$.ajax({
+				url: 'organizationChart',
+				success: data=>{
+					deptName : $('#deptName').val()
+				},
+					//console.log(data);
+					console.log(data[0].deptName);
+					console.log(data[0].empName);
+					console.log(data[0].jobName);
+					
+					let value = ' ';
+
+					for(i=0; i<data.length; i++){
 						value += '<tr>'
 						         + '<td>' + data[i].deptName + '</td>'
 						         + '<td>' + data[i].empName + '</td>'
 					             + '<td>' + data[i].jobName + '</td>'
-						         + '</td>'
+						         + '</tr>'
+						        
 					}
+					 console.log(value);
+					
+					$('#job_table').html(value);
+					
+                   
 				},
 				error:()=>{
 					console.log('실패');

@@ -25,9 +25,9 @@
 	                </div>
 	                <div class="form-group">
 	                    <label for="empNo">아이디</label>
-	                    <input type="text" id="empNo" name="empNo" required class="form-control" />
+	                    <input type="text" id="empNo" name="empNo" required class="form-control" maxlength="7" />
 	                    <!-- 아이디 중복체크 결과 -->
-	                    <div id="id_check_result" style="font-size: 0.7em; display: none;"></div>
+	                    <div id="id_check_result" style="font-size: 0.8em; display: none;"></div>
 	                </div>
 	                <div class="form-group">
 	                    <label for="empPwd">비밀번호</label>
@@ -43,7 +43,7 @@
 	                </div>
 	
 	                <div class="btn_area">
-	                    <button type="reset" class="btn btn-default">취소</button>
+	                    <button type="reset" class="btn btn-light">취소</button>
 	                    <button type="submit" class="btn btn-primary" disabled>확인</button>
 	                </div>
 	            </div>
@@ -56,13 +56,13 @@
 		    		const $idCheckResult = $('#id_check_result');
 		    		
 		    		$empNo.keyup(() => {
-		    			if($empNo.val().length >= 10){
+		    			if($empNo.val().length >= 7){
 		    				$.ajax({
 		    					url : 'idCheck.em',
 		    					data : {checkId : $empNo.val()},
 		    					success : result => {
 									if(result === 'N'){ // 아이디 사용불가
-										$idCheckResult.show().css('color', 'red').text('중복된 아이디');
+										$idCheckResult.show().css('color', 'white').text('중복된 아이디');
 										$btn.attr('disabled', true);
 									}
 									else{ // 아이디 사용가능

@@ -15,13 +15,18 @@
 		document.addEventListener('DOMContentLoaded', ()=>{
 			$.ajax({
 				url: 'schedule',
+				data: { 
+					empNo: ${loginUser.empNo},
+					deptCode : '${loginUser.deptCode}'
+				},
 				success:list=>{
 					//console.log(list.mySchedule);
 					var mySchedule = list.mySchedule;
 					var departmentSchedule = list.departmentSchedule;
 					//console.log(mySchedule[0].schTitle);
+					//console.log(mySchedule[3].schEnd);
 					
-					for(i=0;  i<mySchedule.length; i++){
+					for(i=0; i<mySchedule.length; i++){
 						calendar.addEvent({
 							title: mySchedule[i].schTitle,
 							description: mySchedule[i].schContent,
@@ -40,6 +45,7 @@
 							color : "#8e7cc3"
 				        });
 					}
+					
 				},
 				error:()=>{
 					console.log('실패');
@@ -50,7 +56,7 @@
 				url: 'meetingRoom',
 				success:data=>{
 					
-				console.log(data[0].meetTitle);
+				//console.log(data[0].meetTitle);
 				for(i=0;  i<data.length; i++){
 					calendar.addEvent({
 						title: data[i].meetTitle,
@@ -95,8 +101,7 @@
 	<!-- 풀캘린더사용법: https://velog.io/@faulty337/Spring-boot-fullCalendar-ajax-%ED%99%9C%EC%9A%A9 -->
 
         <div class="calendar-mini-background">
-		<div id='calendar' class="calendarWidthMini calendarleft">
-        </div>
+			<div id='calendar' class="calendarWidthMini calendarleft"></div>
         </div>
 </body>
 </html>

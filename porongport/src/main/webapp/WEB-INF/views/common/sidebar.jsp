@@ -31,9 +31,11 @@
 	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css"/>
 	<!-- Semantic UI theme -->
 	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/semantic.min.css"/>
+    <!-- sweetalert2 -->
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
-	<c:if test="${not empty alertMsg }">
+	<c:if test="${ not empty alertMsg }">
 		<script>
 			alertify.alert('Completion','${alertMsg}', function(){alertify.success('success')});
 		</script>
@@ -46,7 +48,7 @@
             <div class="logo"><img src="resources\images\logo.png"></div>
             <!-- 프로필이미지 & 직급명 & 로그아웃 영역 -->
             <div class="setting">       
-                <div class="profile">
+                <div class="profile" onclick="myPage();">
                 	<img src="resources\images\profile.png">
                     <span>${ sessionScope.loginUser.empName }</span>
                 </div>
@@ -57,6 +59,9 @@
 		<script>
 			function logout(){
 				location.href = 'logout.em';
+			};
+			function myPage(){
+				location.href = 'myPageAtt';
 			}
 		</script>
 		
@@ -80,7 +85,7 @@
                     <div class="icon"><i class="fa-solid fa-envelope"></i></div>
                     <div class="menu-name">쪽지함</div>
                 </div>
-                <div class="item" data-group='board'>
+                <div class="item" data-group='notice'>
                     <div class="icon"><i class="fa-solid fa-pen-to-square"></i></div>
                     <div class="menu-name">게시판</div>
                 </div>
@@ -147,11 +152,10 @@
 			        <div class="sub-item sub-item-menu" data-url='sendStorageMessage'>보낸 메시지 보관함</div>
 			        <div class="sub-item" data-url='deleteMessageBox'>휴지통</div>
 				</div>
-				<div class="sub-menu d-none" data-group='board'>
-					<div class="sub-item sub-title" data-url='board'>메시지함</div>
-			        <div class="sub-item" data-url='board1'>게시판1</div>
-			        <div class="sub-item" data-url='board2'>게시판2</div>
-			        <div class="sub-item" data-url='board3'>게시판3</div>
+				<div class="sub-menu d-none" data-group='notice'>
+					<div class="sub-item sub-title" data-url='board'>게시판</div>
+			        <div class="sub-item" data-url='notice'>공지사항 게시판</div>
+			        <div class="sub-item" data-url='board'>자유 게시판</div>
 				</div>
 				<form action="jojigdo.em">
 				
@@ -187,7 +191,7 @@
 		                    </div>
 		                    <div class="modal-footer">
 		                        <button type="button" class="btn" id="modal_close_btn" data-dismiss="modal">취소</button>
-		                        <button type="submit" class="btn btn-primary" >등록</button>
+		                        <button type="submit" class="btn btn-primary">등록</button>
 		                    </div>
 		                </div>
 		
@@ -294,4 +298,38 @@
     	}
     }
 </script>
+
+<!-- 알람 띄우기 -->
+<c:if test="${ not empty alertText }">
+	<script>
+		// 성공 알람
+		Swal.fire({
+			title : '성공',
+			text : '${ alertText }',
+			icon : 'success'
+		});
+	
+	</script>
+</c:if>
+<c:if test="${ not empty errorText }">
+	<script>
+		// 실패 및 에러 알람
+		Swal.fire({
+			title : '오류',
+			text : '${ errorText }',
+			icon : 'error'
+		})
+	</script>
+</c:if>
+<c:if test="${ not empty loginFail }">
+	<script>
+		// 로그인 실패 알람
+		Swal.fire({
+			title : '로그인 실패',
+			text : '${ loginFail }',
+			icon : 'info'
+		});
+		location.href = '${path}';
+	</script>
+</c:if>
 </html>

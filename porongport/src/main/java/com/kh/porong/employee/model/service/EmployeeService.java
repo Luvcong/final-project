@@ -11,16 +11,18 @@ public interface EmployeeService {
 
 	// 로그인
 	Employee loginEmp(Employee emp);
-	
-	// 출근기록 리스트
+	// 근태 리스트 조회
 	ArrayList<Attendance> attList(int empNo);
+	// 최초 로그인 판별
+	int firstLogin(Employee emp);
+	
+	// 최초 로그인 판별 후 update
+	
 	
 	// 출근기록 insert
 	int insertAtt(Attendance att);
-	
-	// 마지막 출근기록 조회
+	// 근태기록 조회
 	Attendance selectAtt(Attendance att);
-	
 	// 퇴근기록 update
 	int updateAtt(Attendance att);
 
@@ -35,7 +37,8 @@ public interface EmployeeService {
 	// 조직도 조회
 	ArrayList<Employee> selectJojigdo(String deptCode);
 	
-	
+	// 유저 정보 update
+	int updateEmp(Employee emp);
 
 
 }
