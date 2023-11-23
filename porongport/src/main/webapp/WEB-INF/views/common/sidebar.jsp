@@ -276,7 +276,7 @@
 			icon : 'success'
 		});
 	</script>
-	<c:remove var="alertText" />
+	<c:remove var="successText" />
 </c:if>
 <c:if test="${ not empty errorText }">
 	<script>
