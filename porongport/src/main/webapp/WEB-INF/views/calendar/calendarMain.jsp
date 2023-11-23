@@ -22,7 +22,8 @@
 	<script>
 
 		document.addEventListener('DOMContentLoaded', () => {
-
+			
+			
 			$.ajax({
 				url: 'schedule',
 				success:list=>{
@@ -143,6 +144,7 @@
                 eventDidMount: function(info) {
                     var tooltip = new Tooltip(info.el, {
                       title: info.event.extendedProps.description,
+                      minDate: '0',
                       placement: 'top',
                       trigger: 'hover',
                       container: 'body'
@@ -160,8 +162,9 @@
                 navLinks: true,
                 editable: false,
                 initialView: 'dayGridMonth',
-                dayMaxEvents: true
-                
+                dayMaxEvents: true,
+                minDate: 0
+
 			});
             calendar.render();
         });
@@ -173,9 +176,10 @@
 			  // 모달 폼 숨기기
 			  var eventModal = new bootstrap.Modal(document.getElementById('eventModal'));
 			  eventModal.hide();
+			  
+			
 			}
 	</script>
-</html>
 </head>
 <body>
 

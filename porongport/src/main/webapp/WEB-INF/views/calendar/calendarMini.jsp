@@ -77,7 +77,6 @@
                 selectMirror: true,
                 navLinks: true,
                 editable: false,
-               
                 dayMaxEvents: true
                 
 			});

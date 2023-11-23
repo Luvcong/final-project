@@ -28,6 +28,11 @@ public class MeetingRoomServiceImpl implements MeetingRoomService {
 	}
 	
 	@Override
+	public ArrayList<MeetingRoomVO> timeCheck(String checkTime, String checkTimes) {
+		return MeetingRoomDao.timeCheck(sqlSession, checkTime, checkTimes) ;
+	}
+	
+	@Override
 	public MeetingRoomVO selectDetailMeetingRoom(MeetingRoomVO room) {
 		return null;
 	}
@@ -72,6 +77,11 @@ public class MeetingRoomServiceImpl implements MeetingRoomService {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
+	
+
+
+
 
 
 
