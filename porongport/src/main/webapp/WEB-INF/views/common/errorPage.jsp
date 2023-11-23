@@ -14,7 +14,6 @@
 	<c:if test="${ not empty loginFail }">
 		<script>
 			Swal.fire({
-				title : '오류',
 				text : '${ loginFail }',
 				icon : 'error'
 			});
