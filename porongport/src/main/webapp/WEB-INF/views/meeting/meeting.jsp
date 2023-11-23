@@ -30,10 +30,11 @@
 	<h2 class="title-align">회의실 예약하기</h2>
 	<jsp:include page="../calendar/calendarMini.jsp" />
 			
-			<div class="insertMeetingForm insertForm-rigth insertForm-position ">
+			<div class="insertMeetingForm insertForm-rigth insertForm-position">
 		<form id="insertMeeting" method="post" action="insertMeeting">
 			<div class="myCalendar-btn meetingWidth"></div>
 			<table class="table">
+			
 				<thead>
 				
 				</thead>
@@ -57,44 +58,39 @@
 					<tr>
 						<th><i class="fa-solid fa-clock"></i></th>
 						
-						<td colspan="3"><input type="date" class="meetingStartDay" min="0"
-							id="meetStartDay" class="meeting_input2 meeting-width2" name="meetStartDay">
+						<td colspan="3">
+						<input type="date" name="meetStartDate" id="meetStartDate" class="meeting_input2 meeting-width2">
+						<input type="time" name="meetStartTime" id="meetStartTime" class="meeting_input2 meeting-width2" >
+							<!-- 
 							<select name="meetStartTime" id="meetStartTime"
 							class="meeting_input2 meeting_width2">
-								<option value="09:00">09:00</option>
-								<option value="09:30">09:30</option>
-								<option value="10:00">10:00</option>
-								<option value="10:30">10:30</option>
-								<option value="11:00">11:00</option>
-								<option value="11:30">11:30</option>
-								<option value="12:00">12:00</option>
-								<option value="12:30">12:30</option>
+								<option value="09:00">09:00</option><option value="09:30">09:30</option>
+								<option value="10:00">10:00</option><option value="10:30">10:30</option>
+								<option value="11:00">11:00</option><option value="11:30">11:30</option>
+								<option value="12:00">12:00</option><option value="12:30">12:30</option>
 								<option value="13:00">1:00</option>
-								<option value="13:30">1:30</option>
-								<option value="14:00">2:00</option>
-								<option value="14:30">2:30</option>
-								<option value="15:00">3:00</option>
-								<option value="15:30">3:30</option>
-								<option value="16:00">4:00</option>
-								<option value="16:30">4:30</option>
-								<option value="17:00">5:00</option>
+								<option value="13:30">1:30</option><option value="14:00">2:00</option>
+								<option value="14:30">2:30</option><option value="15:00">3:00</option>
+								<option value="15:30">3:30</option><option value="16:00">4:00</option>
+								<option value="16:30">4:30</option><option value="17:00">5:00</option>
 								<option value="17:30">5:30</option>
-						</select> <label class="switch"> <input type="checkbox"> <span class="slider round"></span>
+						</select> -->
+						 <label class="switch"> <input type="checkbox"> <span class="slider round"></span>
 						</label>
 							<p>하루종일</p>
-							<p style="display: none;">하루종일</p>
+							<p style="display:none;">하루종일</p>
 								 <script>
 									var check = $("input[type='checkbox']");
 									check.click(()=>{
 									$("p").toggle();
-									$("select").toggle();
-									$('input[type="date"]').toggleClass('meeting-width3');
+									$("input[type='time']").toggle();
+									$("input[type='date']").toggleClass('meeting-width3');
 										
 										}); </script> 
 										<br> 
-										<label for="meetingEndDay"></label>
-										<input type="date" class="meetingEndDay"id="meetEndDay" name="meetEndDay">
-										<label for="meetingEndTime"></label> 
+										<input type="date" name="meetEndDate" id="meetEndDate" class="meeting_input2 meeting-width2">
+										<input type="time" name="meetEndTime" id="meetEndTime" class="meeting_input2 meeting-width2" >
+					<!-- 					
 							<select name="meetEndTime" id="meetEndTime" class="meeting_input2 meeting_width2">
 								<option value="09:30">09:30</option>
 								<option value="10:00">10:00</option>
@@ -114,7 +110,7 @@
 								<option value="17:00">5:00</option>
 								<option value="17:30">5:30</option>
 								<option value="18:00">6:00</option>
-						</select>
+						</select> -->
 						※하루종일/장기간예약시 미리 연락바랍니다</td>
 
 					</tr>
@@ -137,13 +133,26 @@
 				<button type="reset" class="btn btn-danger">취소</button>
 			</div>
 			</form>
+			
 		</div>
 	</div>
+	<script>
+
+	var now_utc = Date.now() 
+	var timeOff = new Date().getTimezoneOffset()*60000; 
+	var today = new Date(now_utc-timeOff).toISOString().split("T")[0];
+	document.getElementById("meetStartDate").setAttribute("min", today);
+	document.getElementById("meetEndDay").setAttribute("min", today);
+  
+
+</script>
+	
+	
 	<!-- 
 	
 	
 	<script>
-    	$(function(){
+    	$(function(){	
     		const $idInput = $('.form-group #userId');
     		const $checkResult = $('#checkResult');
     		const $enrollFormSubmit = $('#enroll-form :submit');
