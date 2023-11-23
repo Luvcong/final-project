@@ -13,6 +13,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -73,13 +74,6 @@ public class EmployeeController {
 		}
 	}
 	
-	// 아이디 중복체크
-	@ResponseBody
-	@GetMapping("idCheck.em")
-	public String idCheck(int checkId) {
-		return empService.idCheck(checkId) > 0 ? "N" : "Y"; 
-	}
-	
 	// 로그인
 	@PostMapping("login.em")
 	public ModelAndView loginEmp(Employee emp, ModelAndView mv, HttpSession session) {
@@ -123,40 +117,6 @@ public class EmployeeController {
 		return "redirect:/";
 	}
 	
-	// 근태기록 조회
-	@ResponseBody
-	@RequestMapping(value="selectAtt.em", produces="json/application; charset=UTF-8")
-	public String checkAtt(Attendance att) {
-		Attendance selectAtt = empService.selectAtt(att);
-		if(att != null) {
-			return new Gson().toJson(selectAtt);
-		} else {
-			return "redirect:myPageAtt";
-		}
-	}
-	
-	// 출근기록 인서트
-	@ResponseBody
-	@GetMapping(value="insert.at", produces="json/application; charset=UTF-8")
-	public String insertAtt(Attendance att) {
-		if(empService.insertAtt(att) > 0) {
-			return new Gson().toJson(att.getWorkStart());
-		} else {
-			return "redirect:myPageAtt";
-		}
-	
-	}
-	
-	// 퇴근기록 업데이트
-	@ResponseBody
-	@GetMapping(value="update.at", produces="json/application; charset=UTF-8")
-	public String updateAtt(Attendance att) {
-		if(empService.updateAtt(att) > 0) {
-			return new Gson().toJson(att.getWorkEnd());
-		} else {
-			return "redirect:myPageAtt";
-		}
-	}
 	
 	// 조직도 조회
 	@GetMapping("jojigdo.em")
@@ -182,14 +142,75 @@ public class EmployeeController {
 		if(empService.updateEmp(emp) > 0) {
 			session.setAttribute("loginUser", empService.loginEmp(emp));
 			
-			session.setAttribute("alertText", "내정보가 변경되었습니다.");
-			mv.setViewName("redirect:myPageUp");
+			mv.addObject("alertText", "내정보가 변경되었습니다.").setViewName("mypage/myPageUpdateForm");
 			
 		} else {
 			
 			mv.addObject("errorText", "내정보 변경을 실패했습니다.").setViewName("redirect:myPageUp");
 		}
 		
+		return mv;
+	}
+	
+	// AJAX통신 -----------------------------------------------------------------------------------------------
+
+	// 아이디 중복체크
+	@ResponseBody
+	@GetMapping("idCheck.em")
+	public String idCheck(int checkId) {
+		return empService.idCheck(checkId) > 0 ? "N" : "Y"; 
+	}
+		
+	// 근태기록 조회
+	@ResponseBody
+	@GetMapping(value="selectAtt.em", produces="json/application; charset=UTF-8")
+	public String checkAtt(Attendance att) {
+		Attendance selectAtt = empService.selectAtt(att);
+		if(att != null) {
+			return new Gson().toJson(selectAtt);
+		} else {
+			return "redirect:myPageAtt";
+		}
+	}
+	
+	// 출근기록 인서트
+	@ResponseBody
+	@GetMapping(value="insert.at", produces="json/application; charset=UTF-8")
+	public String insertAtt(Attendance att) {
+		if(empService.insertAtt(att) > 0) {
+			return new Gson().toJson(att.getWorkStart());
+		} else {
+			return "redirect:myPageAtt";
+		}
+		
+	}
+	
+	// 퇴근기록 업데이트
+	@ResponseBody
+	@GetMapping(value="update.at", produces="json/application; charset=UTF-8")
+	public String updateAtt(Attendance att) {
+		if(empService.updateAtt(att) > 0) {
+			return new Gson().toJson(att.getWorkEnd());
+		} else {
+			return "redirect:myPageAtt";
+		}
+	}
+	
+	// 부서추가
+	@ResponseBody
+	@GetMapping(value="insert.de", produces="json/application; charset=UTF-8")
+	public ModelAndView insertDept(Employee emp, ModelAndView mv) {
+		
+		System.out.println(emp);
+		String toUpper = emp.getDeptCode().toUpperCase();
+		emp.setDeptCode(toUpper);
+		System.out.println(emp);
+		
+		if(empService.insertDept(emp) > 0) {
+			mv.addObject("alertText", "부서추가가 완료됐습니다.").setViewName("common/jojigdo");
+		} else {
+			mv.addObject("errorText", "부서추가를 실패했습니다.").setViewName("common/jojigdo");
+		}
 		return mv;
 	}
 }

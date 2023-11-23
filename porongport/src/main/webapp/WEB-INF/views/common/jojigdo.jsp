@@ -23,7 +23,7 @@
 	            	<b>${ jojigdoList[0].deptName }</b> 조직도
 	            </h2>
 	            <!-- <span>20명</span> -->
-	
+		
 	            <div id="jojigdo_chart">
 	                <table class="table table-bordered">
 	                    <thead>
@@ -51,8 +51,54 @@
 	                    </tbody>
 	                </table>
 	            </div>
+	            
 		    </div>
+		    
 		</div>
 	</div>
+	
+	<!-- 조직도, 부서 추가 모달창 -->
+    <div id="insertDept" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>부서추가</h3>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="deptName">부서이름</label>
+                        <input type="text" id="deptName" name="deptName" required class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label for="deptCode">부서코드</label>
+                        <input type="text" id="deptCode" name="deptCode" required class="form-control" />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" id="reset_btn" data-dismiss="modal">취소</button>
+                    <button type="button" class="btn btn-primary" onclick="insertDept();">등록</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+   		function insertDept() {
+   			$.ajax({
+   				url : 'insert.de',
+   				data : {
+   					deptCode : $('#deptCode').val(),
+   					deptName : $('#deptName').val()
+   				},
+   				success : result => {
+   					console.log(result);
+   				},
+   				error : () => {
+   					console.log('부서추가 실패');
+   				}
+   			})
+   		}
+    </script>
 </body>
 </html>

@@ -158,45 +158,14 @@
 			        <div class="sub-item" data-url='board'>자유 게시판</div>
 				</div>
 				<form action="jojigdo.em">
-				
 					<div class="sub-menu d-none" data-group='jojigdo.em'>
 						<div class="sub-item sub-title" data-url='jojigdo.em'>조직도</div>
-						<div class="sub-item" data-url='insert.de'>
-							<button type="button" class="btn btn-info" data-toggle="modal" data-target="#insertDept" style="width: 100%; height: 100%; font-size: 15px;">부서추가</button>
-						</div>
+						<button type="button" class="btn btn-info" data-toggle="modal" data-target="#insertDept" style="width: 100%; height: 100%; font-size: 15px;">부서추가</button>
 				        <button type="submit" class="sub-item" data-url='jojigdo.em'>인사부</button>
 				        <input type="hidden" name="deptCode" value="HR" />
 					</div>
-				
 				</form>
 						
-		        <!-- 조직도, 부서 추가 모달창 -->
-		        <div id="insertDept" class="modal fade" role="dialog">
-		            <div class="modal-dialog">
-		
-		                <!-- Modal content-->
-		                <div class="modal-content">
-		                    <div class="modal-header">
-		                        <h3>부서추가</h3>
-		                    </div>
-		                    <div class="modal-body">
-		                        <div class="form-group">
-		                            <label for="deptName">부서이름</label>
-		                            <input type="text" id="deptName" required class="form-control" />
-		                        </div>
-		                        <div class="form-group">
-		                            <label for="deptCode">부서코드</label>
-		                            <input type="text" id="deptCode" required class="form-control" />
-		                        </div>
-		                    </div>
-		                    <div class="modal-footer">
-		                        <button type="button" class="btn" id="modal_close_btn" data-dismiss="modal">취소</button>
-		                        <button type="submit" class="btn btn-primary">등록</button>
-		                    </div>
-		                </div>
-		
-		            </div>
-		        </div>
 				<script>
 					function jojigdo(e){
 						
@@ -204,7 +173,7 @@
 							location.href = '${path}jojigdo.em?deptCode=HR';
 						}
 							
-					};
+					}
 				</script>
 				
 				<div class="sub-menu d-none" data-group='calendar'>
@@ -308,8 +277,8 @@
 			text : '${ alertText }',
 			icon : 'success'
 		});
-	
 	</script>
+	<c:remove var="alertText" />
 </c:if>
 <c:if test="${ not empty errorText }">
 	<script>
@@ -320,6 +289,7 @@
 			icon : 'error'
 		})
 	</script>
+	<c:remove var="errorText" />
 </c:if>
 <c:if test="${ not empty loginFail }">
 	<script>
@@ -331,5 +301,6 @@
 		});
 		location.href = '${path}';
 	</script>
+	<c:remove var="loginFail" />
 </c:if>
 </html>

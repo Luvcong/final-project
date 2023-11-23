@@ -72,6 +72,11 @@ public class EmployeeServiceImpl implements EmployeeService {
 		return empDao.updateEmp(sqlSession, emp);
 	}
 
+	@Override
+	public int insertDept(Employee emp) {
+		return empDao.insertDept(sqlSession, emp);
+	}
+
 	
 
 }

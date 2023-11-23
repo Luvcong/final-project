@@ -21,8 +21,10 @@
 	<link rel="stylesheet" href="resources/css/calendar.css">
 	<script>
 
+		// 풀캘린더 참고: https://ksyy.tistory.com/113
 		document.addEventListener('DOMContentLoaded', () => {
-
+			
+			
 			$.ajax({
 				url: 'schedule',
 				data: { 
@@ -151,6 +153,7 @@
                 eventDidMount: function(info) {
                     var tooltip = new Tooltip(info.el, {
                       title: info.event.extendedProps.description,
+                      minDate: '0',
                       placement: 'top',
                       trigger: 'hover',
                       container: 'body'
@@ -168,8 +171,9 @@
                 navLinks: true,
                 editable: false,
                 initialView: 'dayGridMonth',
-                dayMaxEvents: true
-                
+                dayMaxEvents: true,
+                minDate: 0
+
 			});
             calendar.render();
         });
@@ -181,9 +185,10 @@
 			  // 모달 폼 숨기기
 			  var eventModal = new bootstrap.Modal(document.getElementById('eventModal'));
 			  eventModal.hide();
+			  
+			
 			}
 	</script>
-</html>
 </head>
 <body>
 
