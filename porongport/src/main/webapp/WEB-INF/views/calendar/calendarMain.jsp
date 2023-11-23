@@ -21,6 +21,7 @@
 	<link rel="stylesheet" href="resources/css/calendar.css">
 	<script>
 
+		// 풀캘린더 참고: https://ksyy.tistory.com/113
 		document.addEventListener('DOMContentLoaded', () => {
 
 			$.ajax({
