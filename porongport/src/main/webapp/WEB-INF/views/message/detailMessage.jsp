@@ -29,7 +29,7 @@
 		
 		<div class='toolbar'>
 			<div class="l-messageBtn">
-				<button class="btn btn-sm btn-outline-primary">목록으로</button>
+				<i class="fa-regular fa-circle-left fa-2xl" id="backIcon" onclick="historyBack()"></i>
 			</div>
 			
 			<div class="r-messageBtn">
@@ -39,40 +39,39 @@
       	</div>	<!-- toolbar  -->
       	
       	<div class="detailContent">
-      		<div>수신날짜 <span>2023-11-02 오후 15:24:21</span></div>
-      		<div>프로필사진 <span>김진희대리 / 개발팀</span></div>
-      		<div>
-      			<div>
-	      			메시지내용 어쩌구 저쩌구
-      			</div>
-   			</div>
-      	
-<!--       		<table class="table table-sm shadow rounded-3">
+      		<table class="table table-sm rounded-3">
       			<tr>
-      				<th>수신날짜</th>
-      				<td>2023-11-02 오후 15:24:21</td>
+      				<th width="100px">수신날짜</th>
+      				<td><input class="form-control form-control-sm detail-input" readonly value="${ list.createDate }"></td>
       			</tr>
       			<tr>
-      				<th>프로필사진</th>
-      				<td>김진희대리 / 개발팀<td>
+      				<th>보낸사람</th>
+      				<td><img id="profile-message" src="resources/images/20231106.png"  alt="프로필사진">
+      				<input class="form-control form-control-sm detail-input" readonly value="${ list.empName } ${ list.jobName } / ${ list.deptName }"></td>
       			</tr>
       			<tr>
-      				<th></th>
-      				<td>
-      				<span>
-      				안녕하세요
-					박유저 팀장입니다.
-					
-					박유저드림
-      				</span>
-      				</td>
-      				
+      				<th>첨부파일</th>
+      				<td><input class="form-control form-control-sm detail-input" readonly value="첨부파일"></td>
       			</tr>
-      				
-      		</table> -->
+      			<tr>
+      				<th>메시지내용</th>
+      				<td><textarea id="messageTextarea" class="form-control form-control-sm detail-input" rows="3" readonly>${ list.messageContent }</textarea></td>
+      			</tr>
+      		</table>
       	</div>
 		
 	</div>	<!-- pp-content  -->
+	
+	<script>
+	function historyBack(){
+		
+		document.getElementById("backIcon").addEventListener("click", () => {
+			  history.back();
+		});
+	}	// historyBack
+		
+		
+	</script>
 
 </body>
 </html>

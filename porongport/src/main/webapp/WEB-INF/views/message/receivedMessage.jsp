@@ -285,20 +285,21 @@
 		// ------------------------------------------------------------------
 		// 메시지 상세보기
 		// ------------------------------------------------------------------
-/* 		function detailMessage(){
-			console.log(event.currentTarget);
+ 		function detailMessage(){
+			// console.log(event.currentTarget);
 			
 			let tr = event.currentTarget;
+			let content = tr.children[4];
+			
 			let input = tr.querySelector('td input');
 			let messageNo = input.value;
-			console.log(input);
-			console.log(input.value);
+			// console.log(input);
+			// console.log(input.value);
 			
-			tr.addEventListener('click', function(){
+			content.addEventListener('click', function(){
 				location.href = 'detailMessage?mno=' + messageNo;
 			})
-			
-		} */
+		}	// detailMessage
 			
 		
 		// ------------------------------------------------------------------

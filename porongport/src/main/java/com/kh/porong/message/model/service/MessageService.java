@@ -25,7 +25,7 @@ public interface MessageService {
 	int moveMessageBox(int messageNo);
 	
 	// 5) 메시지 상세보기
-	Message detailMessage(int messageNo);
+	Message detailMessage(Map<String, Integer> map);
 	
 	// 6) 메시지 작성
 	int insertMessage(Message m);

@@ -53,8 +53,8 @@ public class MessageServiceImpl implements MessageService {
 	
 	// 5) 메시지 상세보기
 	@Override
-	public Message detailMessage(int messageNo) {
-		return messageDao.detailMessage(sqlSession, messageNo);
+	public Message detailMessage(Map<String, Integer> map) {
+		return messageDao.detailMessage(sqlSession, map);
 	}	// detailMessage
 	
 	// 6) 메시지 작성

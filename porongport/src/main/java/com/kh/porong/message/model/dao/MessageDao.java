@@ -76,8 +76,8 @@ public class MessageDao {
 	 * @author JH
 	 * @Date : 2023. 11. 21
 	 */
-	public Message detailMessage(SqlSessionTemplate sqlSession, int messageNo) {
-		return sqlSession.selectOne("messageMapper.detailMessage", messageNo);
+	public Message detailMessage(SqlSessionTemplate sqlSession, Map<String, Integer> map) {
+		return sqlSession.selectOne("messageMapper.detailMessage", map);
 	}	// detailMessage
 
 	
