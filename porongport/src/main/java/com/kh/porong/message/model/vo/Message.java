@@ -18,6 +18,7 @@ public class Message {
 	
 	private String empName;
 	private String jobName;
+	private String deptName;
 	
 	private int messageRank;
 	private String effectiveDate;

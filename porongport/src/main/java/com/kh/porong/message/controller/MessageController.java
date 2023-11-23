@@ -1,5 +1,6 @@
 package com.kh.porong.message.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,6 +15,7 @@ import com.kh.porong.common.model.vo.PageInfo;
 import com.kh.porong.common.template.Pagination;
 import com.kh.porong.employee.model.vo.Employee;
 import com.kh.porong.message.model.service.MessageService;
+import com.kh.porong.message.model.vo.Message;
 
 @Controller
 public class MessageController {
@@ -29,12 +31,23 @@ public class MessageController {
 	 * 1) 받은 메시지 상세보기
 	 * @param mno : 메시지 상세보기 메시지 번호 - MESSAGE_NO
 	 * @param model
-	 * @return MESSAGE_NO 에 해당하는 일자, 작성자, 직급, 메시지내용 반환
+	 * @return MESSAGE_NO 에 해당하는 일자, 작성자, 직급, 메시지내용, 첨부파일 반환
 	 * @author JH
 	 * @Date : 2023. 11. 21
 	 */
 	@RequestMapping("detailMessage")
-	public String detailMessage(int mno, Model model) {
+	public String detailMessage(int mno,
+								@SessionAttribute(name="loginUser", required=false) Employee loginUser,
+								Model model) {
+		
+		int empNo = loginUser.getEmpNo();
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		map.put("empNo", empNo);
+		map.put("messageNo", mno);
+		
+		model.addAttribute("list", messageService.detailMessage(map));
+		
+		// System.out.println("messageDetailmessgeNo : " + mno);
 		return "message/detailMessage";
 	}	// detailMessage
 		
@@ -57,7 +70,6 @@ public class MessageController {
 	public String receivedMessage(@RequestParam(value="page", defaultValue="1") int currentPage,
 								  @SessionAttribute(name = "loginUser", required = false) Employee loginUser,
 								  Model model) {
-		
 		int empNo = loginUser.getEmpNo();
 		int listCount = messageService.receivedListCount(empNo);
 		int boardLimit = 10;

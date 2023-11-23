@@ -48,12 +48,13 @@
 		<result column="SEND_USER" property="sendUser" />
 		<result column="RECEIVE_USER" property="reciveUser" />
 		<result column="FILE_NO" property="fileNo" />
-		<result column="JOB_NAME" property="jobName" />
-		<result column="EMP_NAME" property="empName" />
 		<result column="NUM" property="messageRank" />
 		<result column="EFFECTIVE_DATE" property="effectiveDate" />
 		<result column="READ_YN" property="readYN" />
 		<result column="BOOKMARK_YN" property="bookmarkYN" />
+		<result column="JOB_NAME" property="jobName" />
+		<result column="EMP_NAME" property="empName" />
+		<result column="DEPT_NAME" property="deptName" />
 	</resultMap>
 	
 	<resultMap id="empResultSet" type="emp">
@@ -586,8 +587,24 @@
 		 		MESSAGE_NO = #{ messageNo }
 	</update>
 	
-	<!-- 5) 메시지 상세보기 -->
-	<select id="detailMessage" resultType="message" parameterType="message">
+	<!-- 5) 받은 메시지 상세보기 -->
+	<select id="detailMessage" resultMap="messageResultSet" parameterType="hashmap">
+		SELECT
+				M.CREATE_DATE, E.EMP_NAME, D.DEPT_NAME, J.JOB_NAME, M.MESSAGE_CONTENT
+		  FROM
+		  		MESSAGE M, DEPARTMENT D, JOB J, EMPLOYEE E
+		 WHERE
+		 		M.SEND_USER = E.EMP_NO
+		   AND
+		   		E.DEPT_CODE = D.DEPT_CODE
+		   AND
+		   		E.JOB_CODE = J.JOB_CODE
+		   AND
+		   		M.MESSAGE_STATUS = 'Y'
+		   AND
+		   		M.MESSAGE_NO = #{ messageNo }
+		   AND
+		   		M.RECEIVE_USER = #{ empNo }
 	</select>
 
 </mapper>
