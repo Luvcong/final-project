@@ -18,14 +18,10 @@
 
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-<script
-	src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
-<script
-	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-<script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script	src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 
 </head>
 <body>
@@ -39,6 +35,7 @@
 			<div class="myCalendar-btn meetingWidth"></div>
 			<table class="table">
 				<thead>
+				
 				</thead>
 				<tbody>
 					<tr>
@@ -60,7 +57,7 @@
 					<tr>
 						<th><i class="fa-solid fa-clock"></i></th>
 						
-						<td colspan="3"><input type="date" class="meetingStartDay"
+						<td colspan="3"><input type="date" class="meetingStartDay" min="0"
 							id="meetStartDay" class="meeting_input2 meeting-width2" name="meetStartDay">
 							<select name="meetStartTime" id="meetStartTime"
 							class="meeting_input2 meeting_width2">
@@ -85,18 +82,19 @@
 						</select> <label class="switch"> <input type="checkbox"> <span class="slider round"></span>
 						</label>
 							<p>하루종일</p>
-							<p style="display: none;">하루종일</p> <script>
-											var check = $("input[type='checkbox']");
-											check.click(()=>{
-												$("p").toggle();
-												$("select").toggle();
-												$('input[type="date"]').toggleClass('meeting-width3');
+							<p style="display: none;">하루종일</p>
+								 <script>
+									var check = $("input[type='checkbox']");
+									check.click(()=>{
+									$("p").toggle();
+									$("select").toggle();
+									$('input[type="date"]').toggleClass('meeting-width3');
 										
-											});
-			
-										</script> <br> <label for="meetingEndDay"></label><input
-							type="date" class="meetingEndDay"id="meetEndDay" name="meetEndDay"><label
-							for="meetingEndTime"></label> 
+										}); </script> 
+										<br> 
+										<label for="meetingEndDay"></label>
+										<input type="date" class="meetingEndDay"id="meetEndDay" name="meetEndDay">
+										<label for="meetingEndTime"></label> 
 							<select name="meetEndTime" id="meetEndTime" class="meeting_input2 meeting_width2">
 								<option value="09:30">09:30</option>
 								<option value="10:00">10:00</option>
@@ -141,7 +139,71 @@
 			</form>
 		</div>
 	</div>
+	<!-- 
 	
+	
+	<script>
+    	$(function(){
+    		const $idInput = $('.form-group #userId');
+    		const $checkResult = $('#checkResult');
+    		const $enrollFormSubmit = $('#enroll-form :submit');
+    		$idInput.keyup(function(){
+    			// console.log($idInput.val());
+    			// 최소 5글자 이상으로 입력했을 때만 AJAX요청을 보내서 중복체크
+    			if($idInput.val().length >=5){
+    				$.ajax({
+    					url : 'idCheck.me',
+    					data : {checkId : $idInput.val()},
+    					success : function(result){
+    						//console.log(result.substr(4));	
+    						
+    						if(result.substr(4)==='N'){
+    							$checkResult.show().css('color','crimson').text('중복된 아이디가 존재합니다');
+    							$enrollFormSubmit.attr('disabled', true);
+    						}else {
+    							$checkResult.show().css('color','lightgreen').text('사용가능한 아이디입니다');
+    							$enrollFormSubmit.removeAttr('disabled');
+    						}
+    					},
+    					error : function(){
+    						console.log('아디디중복체크용 ajax실패')
+    					}
+    				});
+    			}
+    			else{
+    				$checkResult.hide();
+    				$enrollFormSubmit.attr('disabled',true);
+    			}
+    		})
+    		
+    	})
+    </script>
+	<script>
+	function test1(){
+		$.ajax({
+			url : 'ajax1.do', //필수 정의 속성(url매핑값)
+			data : {// 요청시전달값
+				startTime : $(meetStartTime).val(), // value속성값에 접근했을 경우 !! 무조건 String 타입
+				endTime : $(meetEndTime).val()
+				},
+				success : function(result){ //해당 통신에 성공했을 때
+					console.log(result);
+				
+					// 응답데이터가 배열의 형태! => 인덱스로 접근가능[인덱스]
+					//  const value = '이름: ' + result[0] + '<br>나이: ' +result[1];
+				
+					// 응답데이터가 객체의 형태! => 속성에 접근가능. 속성명
+					const value = '이름: ' + result.name + '<br>나이 : ' + result.age;
+					// 몇번째 들어오는 건지 몰라도 name, age 이런거 알면 되기 떄문에 Object타입을 더 많이씀
+					$('#result1').html(value);
+				},
+				error : function(){ //통신에 실패했을떄
+					console.log('ajax통신 실패~');
+				}
+		});
+	}
+	</script>
+	. -->
 	
 
 

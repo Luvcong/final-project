@@ -40,4 +40,8 @@ public interface MeetingRoomService {
 	
 	// 예약 승인 취소
 	int updateCancel(MeetingRoomVO room);
+
+	// 예약 신청중복체크
+	ArrayList<MeetingRoomVO> timeCheck(String checkTime, String checkTimes);
+	
 }

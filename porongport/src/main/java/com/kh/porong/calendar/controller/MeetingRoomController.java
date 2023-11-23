@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
 import com.kh.porong.calendar.model.service.MeetingRoomService;
+import com.kh.porong.calendar.model.service.MeetingRoomServiceImpl;
 import com.kh.porong.calendar.model.vo.MeetingRoomVO;
 
 @Controller
@@ -39,7 +40,6 @@ public class MeetingRoomController {
 			mr.setMeetStart(meetStartDay+'T'+meetStartTime);
 			mr.setMeetEnd(meetEndDay+'T'+meetEndTime);
 		}
-		
 		if(meetingRoomService.insertMeetingRoom(mr) > 0) {
 			session.setAttribute("alertMsg", "일정추가성공");
 			return "redirect:reservation";
@@ -47,9 +47,7 @@ public class MeetingRoomController {
 			session.setAttribute("alertMsg", "일정추가실패");
 			return "redirect:reservation";
 		}
-		
 	}
-	
 	@ResponseBody
 	@GetMapping(value="meetingRoom", produces="application/json; charset=UTF-8")
 	public String ajaxMethod3(MeetingRoomVO room) {
@@ -57,5 +55,17 @@ public class MeetingRoomController {
 		
 		return new Gson().toJson(meetingRoom);
 	}
+	
+	@ResponseBody
+	@RequestMapping("timeCheck")
+	public ArrayList<MeetingRoomVO> timeCheck(String checkTime, String checkTimes) {
+		return meetingRoomService.timeCheck(checkTime, checkTimes);{
+			
+			if(checkTime >= MRS) { //이미 존재하는 아디디 -> 사용 불가능 (NNNNN)
+			}else { //사용가능 (NNNNY)
+			}
+		}
+	}
+	
 	
 }
