@@ -77,6 +77,11 @@ public class EmployeeServiceImpl implements EmployeeService {
 		return empDao.insertDept(sqlSession, emp);
 	}
 
+	@Override
+	public int dcCheck(String checkDc) {
+		return empDao.dcCheck(sqlSession, checkDc);
+	}
+
 	
 
 }

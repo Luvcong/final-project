@@ -46,7 +46,7 @@
 		       ,EMP_EMAIL
 		       ,DEPT_CODE
 		       ,DEPT_NAME
-		       ,DEPT_CODE
+		       ,JOB_CODE
 		       ,JOB_NAME
 		       ,CREATE_DATE
 		       ,MODIFY_DATE
@@ -63,7 +63,7 @@
 		  JOIN
 		       JOB USING(JOB_CODE)
 		 WHERE
-		       EMP_NO = #{ empNo }
+		       EMP_NO = #{empNo}
 		   AND
 		       EMP_STATUS = 'Y'
 	</select>
@@ -116,6 +116,30 @@
 	
 	<!-- 입사자 등록 -->
 	<insert id="insertEmp" parameterType="emp">
+		<choose>
+			<when test="jobCode == 'SM'">
+		INSERT
+		  INTO
+		      EMPLOYEE
+		      (
+		      EMP_NAME
+		      ,EMP_NO
+		      ,EMP_PWD
+		      ,DEPT_CODE
+		      ,JOB_CODE
+		      ,EMP_ADMIN
+		      )
+		VALUES
+		      (
+		      #{empName}
+		      ,#{empNo}
+		      ,#{empPwd}
+		      ,#{deptCode}
+		      ,#{jobCode}
+		      ,'A'
+		      )
+			</when>
+			<otherwise>
 		INSERT
 		  INTO
 		      EMPLOYEE
@@ -134,6 +158,9 @@
 		      ,#{deptCode}
 		      ,#{jobCode}
 		      )
+			</otherwise>
+		</choose>
+
 	</insert>
 	
 	<!-- 오늘 근태 기록 쿼리 -->
@@ -207,7 +234,7 @@
           LEFT
 		  JOIN
 		      JOB USING (JOB_CODE)
-		<if test='deptCode == "HR"'>
+		<if test="deptCode == 'HR'">
 		 WHERE
 		      DEPT_CODE = 'HR'
 		</if>
@@ -258,6 +285,17 @@
 		      )
 	</insert>
 	
+	<!-- 부서코드 중복체크 -->
+	<select id="dcCheck" parameterType="string" resultType="_int">
+		SELECT
+		      COUNT(*)
+		  FROM 
+		      DEPARTMENT
+		WHERE
+		     DEPT_CODE = #{checkDc}
+		  AND
+		     DEPT_STATUS = 'Y'
+	</select>
 	
 	
 </mapper>

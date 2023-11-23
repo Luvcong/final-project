@@ -7,42 +7,46 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>비밀번호 찾기</title>
     <!-- CSS -->
-    <link rel="stylesheet" href="../resources/css/findPwd.css">
-     <!--bootstrap-->
-     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="resources/css/findPwd.css">
 </head>
 <body>
-    <div id="findPwd_area">
-
-        <form action="" method="post">
-            <fieldset>비밀번호 찾기</fieldset>
-
-            <div class="form_wrap">
-                <div class="form-group">
-                    <label for="userName">이름</label>
-                    <input type="text" id="userName" required class="form-control" />
-                </div>
-                <div class="form-group">
-                    <label for="userId">아이디</label>
-                    <input type="text" id="userId" required class="form-control" />
-                </div>
-                <div class="form-group">
-                    <label for="email">이메일</label>
-                    <div class="email_box">
-                        <input type="text" id="email" required class="form-control" />
-                        <button type="button" class="btn btn-info" id="cert_btn">인증번호</button>
-                    </div>
-                </div>
-                <div class="btn_area">
-                    <button type="reset" class="btn">취소</button>
-                    <button type="submit" class="btn btn-primary">확인</button>
-                </div>
-            </div>
-
-        </form>
-
+	<jsp:include page="../common/sidebar.jsp" />
+	
+	<div class="pp-content">
+	    <div id="findPwd_area">
+	
+	        <form action="findPwd.em" method="post">
+	            <fieldset>비밀번호 찾기</fieldset>
+	
+	            <div class="form_wrap">
+	                <div class="form-group">
+	                    <label for="empName">이름</label>
+	                    <input type="text" id="empName" name="empName" required class="form-control" />
+	                </div>
+	                <div class="form-group">
+	                    <label for="empNo">아이디</label>
+	                    <input type="text" id="empNo" name="empNo" required class="form-control" />
+	                </div>
+	                <div class="form-group">
+	                    <label for="empEmail">이메일</label>
+	                    <div class="email_box">
+	                        <input type="text" id="empEmail" name="empEmail" required class="form-control" />
+	                        <button type="button" class="btn btn-info" id="cert_btn" onclick="">인증번호 받기</button>
+	                    </div>
+	                </div>
+   	                <div class="form-group">
+	                    <label for="">인증번호</label>
+	                    <input type="text" id="" name="" required class="form-control" />
+	                </div>
+	                <div class="btn_area">
+	                    <button type="reset" class="btn">취소</button>
+	                    <button type="submit" class="btn btn-primary">확인</button>
+	                </div>
+	            </div>
+	
+	        </form>
+	
+	    </div>
     </div>
 </body>
 </html>

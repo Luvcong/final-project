@@ -58,32 +58,67 @@
 	</div>
 	
 	<!-- 조직도, 부서 추가 모달창 -->
-    <div id="insertDept" class="modal fade" role="dialog">
-        <div class="modal-dialog">
-
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h3>부서추가</h3>
-                </div>
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label for="deptName">부서이름</label>
-                        <input type="text" id="deptName" name="deptName" required class="form-control" />
-                    </div>
-                    <div class="form-group">
-                        <label for="deptCode">부서코드</label>
-                        <input type="text" id="deptCode" name="deptCode" required class="form-control" />
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-light" id="reset_btn" data-dismiss="modal">취소</button>
-                    <button type="button" class="btn btn-primary" onclick="insertDept();">등록</button>
-                </div>
-            </div>
-        </div>
-    </div>
+	<form action="insert.de" method="get">
+	
+	
+	    <div id="insertDept" class="modal fade" role="dialog">
+	        <div class="modal-dialog">
+	
+	            <!-- Modal content-->
+	            <div class="modal-content">
+	                <div class="modal-header">
+	                    <h3>부서추가</h3>
+	                </div>
+	                <div class="modal-body">
+	                    <div class="form-group">
+	                        <label for="deptName">부서이름</label>
+	                        <input type="text" id="deptName" name="deptName" required class="form-control" />
+	                    </div>
+	                    <div class="form-group">
+	                        <label for="deptCode">부서코드</label>
+	                        <input type="text" id="deptCode" name="deptCode" required class="form-control" />
+	                        <div id="dcCheck_box" style="font-size: 0.7em; display: none;"></div>
+	                    </div>
+	                </div>
+	                <div class="modal-footer">
+	                    <button type="reset" class="btn btn-light" id="reset_btn" data-dismiss="modal">취소</button>
+	                    <button type="submit" class="btn btn-primary" disabled >등록</button>
+	                </div>
+	            </div>
+	        </div>
+	    </div>
+	</form>
     <script>
+    	$(() => {
+    		
+    		$('#deptCode').keyup(() => {
+    			
+    			const $btn = $('.modal-footer>button[type=submit]');
+    			
+    			if($('#deptCode').val().length >= 2){
+    				$.ajax({
+    					url : 'dcCheck.de',
+    					data : {checkDc : $('#deptCode').val()},
+    					success : result => {
+    						console.log(result);
+							if(result === 'N'){ 
+								$('#dcCheck_box').show().css('color', 'red').text('중복된 부서코드');
+								$btn.attr('disabled', true);
+							}
+    						else{
+    							$btn.removeAttr('disabled');
+    						}
+    					},
+    					error : () => {
+    						console.log('fail');
+    					}
+    					
+    				})
+    			}
+    		})
+    	})
+    
+	/*
    		function insertDept() {
    			$.ajax({
    				url : 'insert.de',
@@ -99,6 +134,7 @@
    				}
    			})
    		}
+    */
     </script>
 </body>
 </html>

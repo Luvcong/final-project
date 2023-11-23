@@ -73,7 +73,7 @@
 	                		</td>
 	                	</tr>
                 		<c:if test="${ not empty attList }">
-	                		<c:forEach var="i" items="${ sessionScope.attList }" begin="0" end="3">
+	                		<c:forEach var="i" items="${ sessionScope.attList }" begin="1" end="3">
 			                	<c:if test="${ not empty i.workEnd }">
 				                	<tr>
 				                		<td>${i.workDate}</td>

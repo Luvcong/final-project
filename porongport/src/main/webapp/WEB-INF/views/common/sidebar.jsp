@@ -22,7 +22,6 @@
     <!-- 메인화면 css-->
     <link rel="stylesheet" href="resources/css/main.css">
     
-    <!-- alertMsg -->
 	<!-- JavaScript -->
 	<script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
 	<!-- CSS -->
@@ -269,12 +268,11 @@
 </script>
 
 <!-- 알람 띄우기 -->
-<c:if test="${ not empty alertText }">
+<c:if test="${ not empty successText }">
 	<script>
 		// 성공 알람
 		Swal.fire({
-			title : '성공',
-			text : '${ alertText }',
+			text : '${ successText }',
 			icon : 'success'
 		});
 	</script>
@@ -284,23 +282,21 @@
 	<script>
 		// 실패 및 에러 알람
 		Swal.fire({
-			title : '오류',
 			text : '${ errorText }',
 			icon : 'error'
 		})
 	</script>
 	<c:remove var="errorText" />
 </c:if>
-<c:if test="${ not empty loginFail }">
+<c:if test="${ not empty alertText }">
 	<script>
-		// 로그인 실패 알람
+		// 알람
 		Swal.fire({
-			title : '로그인 실패',
-			text : '${ loginFail }',
+			text : '${ alertText }',
 			icon : 'info'
-		});
-		location.href = '${path}';
+		})
 	</script>
-	<c:remove var="loginFail" />
+	<c:remove var="alertText" />
 </c:if>
+
 </html>

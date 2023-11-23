@@ -26,4 +26,9 @@ public class ForwardingController {
 	public String jojigdo() {
 		return "common/jojigdo";
 	}
+	
+	@GetMapping("findPwd")
+	public String findPwd() {
+		return "common/findPwd";
+	}
 }

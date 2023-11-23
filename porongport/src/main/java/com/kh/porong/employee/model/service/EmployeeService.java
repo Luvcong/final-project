@@ -47,6 +47,9 @@ public interface EmployeeService {
 	
 	// 부서 추가
 	int insertDept(Employee emp);
+	
+	// 부서코드 중복체크
+	int dcCheck(String checkDc);
 
 
 }
