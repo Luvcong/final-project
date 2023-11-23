@@ -138,23 +138,38 @@
 			            <div class="modal-content">
 			                <!-- Modal Header -->
 			                <div class="modal-header">
-			                    <h4 class="modal-title">메시지 작성</h4>
-			                    <button type="button" class="close" data-dismiss="modal">&times;</button>	<!-- x 닫기버튼 -->
+			                    <span class="modal-title">메시지 작성</span>
+			                    <button type="button" class="close" data-dismiss="modal" style="padding-top:10px;">&times;</button>	<!-- x 닫기버튼 -->
 			                </div> 
 			                <!-- Modal body -->
 			                <div class="modal-body">
-			                	<div>
-			                		<label>받는사람<input type="text" /></label>
-			                	</div>
-			                	<div>
-			                		<label>내용<textarea rows="3" style="overflow: scroll;"></textarea></label>
-			                	</div>
-			                	<div>
-			                		<label>보내는사람<input type="text" value="${ loginUser.empName } [${ loginUser.jobName }]" readonly/></label>
-			                	</div>
-						        <div style="float:right; padding-right:25px; font-size:12px; margin-top:15px;">
-						          <span id="writeCnt">0</span>/<span id="writeMax">1000Byte</span>
-						        </div>
+			                <table class="table table-sm">
+			                	<tr>
+			                		<th>To</th>
+			                		<td><input class="form-control form-control-sm" type="text" placeholder="받는 사람"/></td>
+			                	</tr>
+			                	<tr>
+			                		<th>Message</th>
+			                		<td><textarea id="messageTextarea" class="form-control form-control-sm" rows="3" placeholder="메시지 내용을 입력하세요"></textarea></td>
+			                	</tr>
+			                	<tr>
+			                		<th>From</th>
+			                		<td><input class="form-control form-control-sm" type="text" value="${ loginUser.empName } [${ loginUser.jobName }]" readonly/></td>
+			                	</tr>
+			                	<tr>
+			                		<th>첨부파일</th>
+			                		<td class="filebox">
+				                		<input class="upload-name form-control form-control-sm" value="" placeholder="첨부파일" readonly>
+			                		    <label for="file">파일찾기</label> 
+										<input type="file" id="file">
+			                		</td>
+			                	</tr>
+			                	<tr>
+							        <div class="writeCount">
+							        	<span id="writeCnt">0</span>/<span id="writeMax">1000Byte</span>
+							        </div>
+			                	</tr>
+			                </table>
 			                </div>
 			                <!-- Modal footer -->
 			                <div class="modal-footer">
@@ -165,6 +180,13 @@
 			        </div>
 			</form>
 		  </div>
+		  
+		  <script>
+		  $("#file").on('change',function(){
+			  var fileName = $("#file").val();
+			  $(".upload-name").val(fileName);
+		  });
+		  </script>
 			
 			<div id="pagingArea">
                 <ul class="pagination justify-content-center">
@@ -303,7 +325,7 @@
   			if(checked_tr == null){
   				Swal.fire('실패', '삭제할 메시지를 선택해주세요!', 'warning');
   				return;
-  			}
+  			} 
 			
   			// 체크가 되어있는 경우 confirm창 발생
 			Swal.fire({

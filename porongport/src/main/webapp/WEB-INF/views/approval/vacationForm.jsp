@@ -140,12 +140,13 @@
                     	
 	                    	<li class="">
 	                    	
+	                    	<form action="" method="post" id="HRForm">
 		                    	<ul style="">
 		                    	
 			                    	<li class="">
 				                    	<span class="">
 				                    		<span class=""></span>
-				                   			<a href="#" class="">인사부</a>
+				                   			<a class="HRdept" onclick="HRsubmit(0);">인사부</a>
 				                   	 	</span>
 			                   		 </li>
 			                   		 
@@ -163,6 +164,7 @@
 				                    	</span>
 			                    	</li>
 		                    	</ul>
+		                    	</form>
 		                    </li>
 	                    </ul>
                     </div>
@@ -214,6 +216,9 @@
        </div>
 
 		<script>
+		function HRsubmit(num){
+			$('#HRForm').attr('action', 'approval/vacationForm').submit();
+		}
 		$(()=>{
 			$.ajax({
 				url: 'organization',

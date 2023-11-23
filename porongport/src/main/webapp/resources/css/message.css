@@ -64,5 +64,52 @@
 #effectiveDate{
 	color: #DC3545;
 }
-
-
+#messageTextarea{
+	height: 300px;
+	overflow: scroll;
+}
+.writeCount{
+	float:right;
+	padding-right:25px;
+	font-size:12px;
+	margin-top:15px;
+}
+.modal-header{
+	height: 50px;
+    background-color: #6C79E0;
+    color: white;
+}
+.modal-header .modal-title{
+    color: white;
+}
+.filebox .upload-name {
+    display: inline-block;
+    padding: 0 10px;
+    vertical-align: middle;
+    border: 1px solid #ced4da;
+    width: 87%;
+}
+.filebox label {
+	display: inline-block;
+    padding: 6px 10px;
+    color: #fff;
+    vertical-align: middle;
+    background-color: #999999;
+    cursor: pointer;
+    font-size: 13px;
+    border-radius: 4px;
+    margin: 0px;
+    height: 32px;
+    width: 72px;
+}
+.filebox input[type="file"] {
+    position: absolute;
+    width: 0;
+    height: 0;
+    padding: 0;
+    overflow: hidden;
+    border: 0;
+}
+#messageTextarea{
+	resize: none;
+}

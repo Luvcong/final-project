@@ -18,5 +18,7 @@ public class MeetingRoomDao {
 		return (ArrayList)sqlSession.selectList("meetingRoomMapper.selectMeetingRoomList", room);
 	}
 
-	
+	public ArrayList<MeetingRoomVO> timeCheck(SqlSessionTemplate sqlSession, String checkTime, String checkTimes) {
+		return (ArrayList)sqlSession.selectList("meetingRoomMapper.timeCheck");
+	}
 }
