@@ -40,6 +40,7 @@
 					
 					for(i=0; i<mySchedule.length; i++){
 						calendar.addEvent({
+							id: mySchedule[i].schNo,
 							title: mySchedule[i].schTitle,
 							description: mySchedule[i].schContent,
 							start: mySchedule[i].schStart,
@@ -50,6 +51,7 @@
 					
 					for(i=0;  i<departmentSchedule.length; i++){
 						calendar.addEvent({
+							id: departmentSchedule[i].schNo,
 							title: departmentSchedule[i].schTitle,
 							description: departmentSchedule[i].schContent,
 							start: departmentSchedule[i].schStart,
@@ -92,19 +94,28 @@
             		var endDate = info.endStr;
             		$('#startDate').val(startDate);
             		$('#endDate').val(endDate);
+            		
+            		//console.log(info);
+            		
             		$('#insertEventModal').modal();
+            		
             	},
-            	dateClick: function(info) {
+            	
+            	dateClick: info=>{
+            		//var id = info.event._def.defId;
             		var startDate = info.dateStr;
             		var endDate = info.dateStr;
             		$('#startDate').val(startDate);
             		$('#endDate').val(endDate);
-            		$('#insertEventModal').modal();
-            		//console.log(info);
-            	},
-            	eventClick: (calEvent, jsEvent, view) => {
-                    //console.log(calEvent);
             		
+            		$('#insertEventModal').modal();
+            	},
+            	
+            	eventClick: (calEvent, jsEvent, view) => {
+                    console.log(calEvent.event._def.publicId);
+            		
+                    $('#schNo').text(calEvent.event._def.publicId);
+                    
                     $('#eventModalLabel').text(calEvent.event._def.title);
             	    $("#inputContent").val(calEvent.event._def.extendedProps.description);
             	    
@@ -174,14 +185,6 @@
                     right: 'scheduleButton prevYear,prev,next,nextYear'
                 },
                 
-                eventAdd: function(obj) {
-                	
-                	console.log(obj);
-                	$("#instanceId").val(obj.event._instance["defId"]);
-               		$("#defId").val(obj.event._instance["instanceId"]);
-                	
-    			},
-				
                 selectable: true,
                 selectMirror: true,
                 navLinks: true,
@@ -201,7 +204,8 @@
 			  // 모달 폼 숨기기
 			  var eventModal = new bootstrap.Modal(document.getElementById('eventModal'));
 			  eventModal.hide();
-			}
+		}
+		
 	</script>
 </head>
 <body>

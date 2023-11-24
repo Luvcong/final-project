@@ -32,39 +32,15 @@ public class ScheduleServiceImple implements ScheduleService {
 		return scheduleDao.insertSchedule(sqlSession, schedule);
 	}
 
-	@Override
-	public int updateDepartment(ScheduleVO schedule) {
-		return 0;
-	}
 
 	@Override
-	public int updateIndividual(ScheduleVO schedule) {
+	public int updateSchedule(ScheduleVO schedule) {
 		return 0;
 	}
 
 	@Override
 	public int deleteDepartment(ScheduleVO schedule) {
 		return 0;
-	}
-
-	@Override
-	public int deleteIndividual(ScheduleVO schedule) {
-		return 0;
-	}
-
-	@Override
-	public ScheduleVO selectDatilView(ScheduleVO schedule) {
-		return null;
-	}
-
-	@Override
-	public ScheduleVO selectDailDepartment(ScheduleVO schedule) {
-		return null;
-	}
-
-	@Override
-	public ScheduleVO selectDailIndividual(ScheduleVO schedule) {
-		return null;
 	}
 
 }
