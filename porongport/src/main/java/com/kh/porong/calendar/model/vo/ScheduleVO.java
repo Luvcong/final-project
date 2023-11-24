@@ -16,6 +16,9 @@ public class ScheduleVO {
 	private String schEnd;		//SCH_END		DATE
 	private String schStatus;	//SCH_STATUS	VARCHAR2(1 BYTE)
 	private String schShare;	//SCH_SHARE		VARCHAR2(1 BYTE)
+	private String instanceId;
+	private String defId;
+	private String correctionDate;
 	
 	private String startDate;
 	private String startTime;
@@ -24,4 +27,6 @@ public class ScheduleVO {
 	
 	private String deptName;	//DEPT_NAME VARCHAR2(20 BYTE)
 	private String deptCode;
+	
+	
 }

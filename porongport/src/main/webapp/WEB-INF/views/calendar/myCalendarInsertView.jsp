@@ -39,7 +39,7 @@
 						</div>
 						<br>
 						<div class="calendarWidth">
-							<table class="table table-sm">
+							<table class="table table-sm" id="insertMySchedule">
 								<tr>
 									<th><i class="fa-solid fa-pen"></i></th>
 									<td colspan="3"><input type="text" name="schTitle" id="schTitle" class="mycalendar_input mycalendar_width" placeholder="일정 제목 추가" required/></td>
@@ -51,6 +51,8 @@
 									<th><i class="fa-solid fa-user-tag"></i></th>
 									<td><input type="text" name="deptName" id="deptName" readonly value="${loginUser.deptName}" class="mycalendar_input mycalendar_width time_block" /></td>
 									<input type="hidden" name="deptCode" value="${loginUser.deptCode}">
+									<input type="hidden" name="instanceId" value="">
+									<input type="hidden" name="defId" value="">
 								</tr>
 								<tr>
 									<th><i class="fa-solid fa-clock"></i></th>
