@@ -1,6 +1,7 @@
 package com.kh.porong.message.controller;
 
 import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -50,7 +51,13 @@ public class MessageController {
 		map.put("empNo", empNo);
 		map.put("messageNo", mno);
 		
-		model.addAttribute("list", messageService.detailMessage(map));
+		Message m = messageService.detailMessage(map);
+		
+		if(m.getReadYN().equals("N")){
+			messageService.readMsg(mno);
+		}
+		
+		model.addAttribute("list", m);
 		
 		// System.out.println("messageDetailmessgeNo : " + mno);
 		return "message/detailMessage";
@@ -72,12 +79,14 @@ public class MessageController {
 								MultipartFile upfile,
 								HttpSession session) {
 		
-		System.out.println(m);
-		System.out.println(upfile);
-		System.out.println(upfile.getOriginalFilename());
+//		System.out.println(m);
+//		System.out.println(upfile);
+//		System.out.println(upfile.getOriginalFilename());
 		// m.setSendUser(loginUser.getEmpNo());
+		
 		if(!upfile.getOriginalFilename().equals("")) {
 			m.setOriginFileName(upfile.getOriginalFilename());
+			m.setChangeFileName(saveFile(upfile, session));
 		}
 		
 		if(messageService.insertMessage(m) > 0){
@@ -88,6 +97,34 @@ public class MessageController {
 		return "redirect:receivedMessage";
 	}	// insertMessage
 	
+	
+	
+	public String saveFile(MultipartFile upfile, HttpSession session) {
+	
+		String originName = upfile.getOriginalFilename();
+		
+		String currentTime = new SimpleDateFormat("yyyyMMddHHmm").format(new Date());
+		
+		// 임의의 난수(5자리 랜덤값)
+		int ranNum = (int)Math.random() * 90000 + 10000;
+		
+		// 확장자
+		String ext = originName.substring(originName.lastIndexOf("."));
+		
+		String changeName = currentTime + ranNum + ext;
+		
+		String savePath = session.getServletContext().getRealPath("/resources/uploadFiles/message/");
+		
+		try {
+			upfile.transferTo(new File(savePath + changeName));
+		} catch (IllegalStateException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		return "resources/uploadFiles/message/" + changeName;
+	}
 	
 	// ==================================================================================
 	// 메시지함 - 받은 메시지 관련

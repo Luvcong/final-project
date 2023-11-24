@@ -29,7 +29,7 @@ public interface EdmsService {
 	int insertVacation(VacationVO vacation);
 	// 지출결의서 등록 
 
-	ArrayList<VacationVO> selectOrganiztionChart();
+	ArrayList<VacationVO> selectOrganiztionChart(String deptName);
 	
 	ArrayList<VacationVO> selectOrganiztion();
 	

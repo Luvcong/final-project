@@ -39,7 +39,7 @@
 						</div>
 						<br>
 						<div class="calendarWidth">
-							<table class="table table-sm">
+							<table class="table table-sm" id="insertMySchedule">
 								<tr>
 									<th><i class="fa-solid fa-pen"></i></th>
 									<td colspan="3"><input type="text" name="schTitle" id="schTitle" class="mycalendar_input mycalendar_width" placeholder="일정 제목 추가" required/></td>
@@ -51,6 +51,8 @@
 									<th><i class="fa-solid fa-user-tag"></i></th>
 									<td><input type="text" name="deptName" id="deptName" readonly value="${loginUser.deptName}" class="mycalendar_input mycalendar_width time_block" /></td>
 									<input type="hidden" name="deptCode" value="${loginUser.deptCode}">
+									<input type="hidden" name="instanceId" value="">
+									<input type="hidden" name="defId" value="">
 								</tr>
 								<tr>
 									<th><i class="fa-solid fa-clock"></i></th>
@@ -69,21 +71,9 @@
 												$("p").toggle();
 												$("input[type='time']").toggle();
 												$('input[type="date"]').toggleClass('mycalendar_width3');
-												/*
-												if($('input[type="date"]').className == 'mycalendar_width2'){
-													$('input[type="date"]').addClass += 'mycalendar_width3';
-													$('input[type="date"]').removeClass ='mycalendar_width2';
-												}
-												else if($('input[type="date"]').className == 'mycalendar_width3'){
-													$('input[type="date"]').addClass += 'mycalendar_width2';
-													$('input[type="date"]').removeClass ='mycalendar_width3';
-												}
-												*/
 											});
-			
-											
-										
 										</script>
+										
 										<br>
 										<input type="date" name="endDate" id="endDate" class="mycalendar_input2 mycalendar_width2" required/>
 										<input type="time" name="endTime" id="endTime" class="mycalendar_input2 mycalendar_width2" />
@@ -99,14 +89,17 @@
 							</table>
 						</div>
 					</form>
-
+				
+				
 				<script>
-					var now_utc = Date.now() 
-					var timeOff = new Date().getTimezoneOffset()*60000; 
+					/*
+					var now_utc = Date();
+					var timeOff = new Date().getTimezoneOffset()*60000;
 					var today = new Date(now_utc-timeOff).toISOString().split("T")[0];
 					document.getElementById("startDate").setAttribute("min", today);
 					document.getElementById("endDate").setAttribute("min", today);
-					</script>
+					*/
+				</script>
 			</div>
 			</div>    
     </div>

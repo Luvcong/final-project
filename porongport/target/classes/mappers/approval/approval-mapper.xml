@@ -63,15 +63,15 @@
           LEFT
 		  JOIN
 		      JOB USING (JOB_CODE)
-		<if test="deptCode == 'HR'">
+		<if test="deptCode == '인사부'">
 		 WHERE
 		      DEPT_CODE = 'HR'
 		</if>
-		<if test="deptCode == 'PD'">
+		<if test="deptCode == '구매관리부'">
 		 WHERE
 		      DEPT_CODE = 'PD'
 		</if>
-		<if test="deptCode == 'PM'">
+		<if test="deptCode == '영업부'">
 		 WHERE
 		      DEPT_CODE = 'PM'	
 		</if>

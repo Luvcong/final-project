@@ -1,5 +1,6 @@
 package com.kh.porong.message.model.vo;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,6 +16,7 @@ public class Message {
 	private int sendUser;
 	private int receiveUser;
 	private String originFileName;
+	private String changeFileName;
 	
 	private String empName;
 	private String jobName;

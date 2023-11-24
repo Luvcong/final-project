@@ -21,15 +21,15 @@ public class VacationController {
 
 	@RequestMapping("vacation")
 	public String selectVacationDetail() {
-		
 		return "approval/vacationForm";
 	}
 	
 	@ResponseBody
 	@GetMapping(value="organizationChart", produces="json/application; charset=UTF-8")
-	public String selectOrganizationChart() {
+	public String selectOrganizationChart(String deptName) {
+		System.out.println(deptName);
 		
-		ArrayList<VacationVO> list = edmsService.selectOrganiztionChart();
+		ArrayList<VacationVO> list = edmsService.selectOrganiztionChart(deptName);
 		return new Gson().toJson(list);
 	}
 	

@@ -22,11 +22,8 @@ public interface ScheduleService {
 
 	
 	// -------- 입력--------
-	// 부서스케줄 입력
-	int insertDepartment(ScheduleVO schedule);
-	
-	// 개인스케줄 입력
-	int insertIndividual(ScheduleVO schedule);
+	// 스케줄 입력
+	int insertSchedule(ScheduleVO schedule);
 	
 	// -------- 수정 --------
 	// 부서 스케줄 수정

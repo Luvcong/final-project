@@ -120,7 +120,7 @@
 									<td><i class="fa-solid fa-envelope td-fa-envelope"></i></td>
 								</c:when>
 								<c:otherwise>
-				                    <td><i class="fa-solid fa-envelope-open td-fa-envelope"></i></td>
+				                    <td><i class="fa-solid fa-envelope-open td-fa-envelope" style="color: #d4d4d4;"></i></td>
 								</c:otherwise>
 							</c:choose>
 						</tr>
@@ -245,6 +245,22 @@
 
 	
 	<script>
+		// ------------------------------------------------------------------
+		// 메시지 읽은 경우 tr 색상 변경
+		// ------------------------------------------------------------------
+		$(function(){
+			let table = document.getElementById('tb-received');
+			let trs = table.querySelectorAll('tbody tr');
+			console.log(trs);
+			
+			for(let tr of trs){
+				if(tr.children[6].children[0].classList.contains('fa-envelope-open')){
+					tr.style.color = 'darkgray';
+					tr.style.fontWeight = 'normal';
+				}
+			}
+				
+		})
 		
 		function messageForm(){
 			$('#messageForm').modal('show');
@@ -288,17 +304,31 @@
  		function detailMessage(){
 			// console.log(event.currentTarget);
 			
-			let tr = event.currentTarget;
-			let content = tr.children[4];
+			let target = event.currentTarget;
+			let target_msg = target.querySelector('.td-fa-envelope');
+			let read_YN = target_msg.classList.contains('fa-envelope');	// 만약 편지가 닫혀있다면 true
 			
-			let input = tr.querySelector('td input');
-			let messageNo = input.value;
-			// console.log(input);
-			// console.log(input.value);
+/* 			if(read_YN){	// 편지가 닫혀있다면
+				read_YN.classList.remove('fa-envelope');	// 닫힌 편지 클래스 삭제하고,
+				read_YN.classList.add('fa-envelope-open');	// 열린 편지 클래스 추가
+			}
+			 */
+			
+			// console.log(target);
+			// console.log(target_msg);
+			// console.log(read_YN);
+			
+			let content = target.children[4];
+			let input = target.querySelector('td input');
+			let message_no = input.value;
+			console.log(input);
+			console.log(input.value);
 			
 			content.addEventListener('click', function(){
-				location.href = 'detailMessage?mno=' + messageNo;
+				location.href = 'detailMessage?mno=' + message_no;
 			})
+
+			
 		}	// detailMessage
 			
 		
@@ -520,7 +550,22 @@
 		
 	
 	</script>
-	
+		
+ 	<c:choose>
+ 		<c:when test="${ not empty sessionScope.successMsg }">
+ 			<script>
+	 			Swal.fire('성공', '${ successMsg }', 'success');
+ 			</script>
+ 		</c:when>
+ 		<c:when test="${ not empty sessionScope.failMsg }">
+ 			<script>
+ 			Swal.fire('실패', '${ failMsg }', 'error');
+ 			</script>
+ 		</c:when>
+ 	</c:choose>
+ 	
+ 	<c:remove var="successMsg" />
+ 	<c:remove var="failMsg" />
 
 </body>
 </html>

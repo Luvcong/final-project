@@ -10,12 +10,8 @@ import com.kh.porong.calendar.model.vo.ScheduleVO;
 @Repository
 public class ScheduleDao {
 	
-	public int insertIndividual(SqlSessionTemplate sqlSession, ScheduleVO schedule) {
-		return sqlSession.insert("scheduleMapper.insertIndividual", schedule);
-	}
-
-	public int insertDepartment(SqlSessionTemplate sqlSession, ScheduleVO schedule) {
-		return sqlSession.insert("scheduleMapper.insertDepartment", schedule);
+	public int insertSchedule(SqlSessionTemplate sqlSession, ScheduleVO schedule) {
+		return sqlSession.insert("scheduleMapper.insertSchedule", schedule);
 	}
 
 	public ArrayList<ScheduleVO> selectIndividual(SqlSessionTemplate sqlSession, ScheduleVO schedule) {

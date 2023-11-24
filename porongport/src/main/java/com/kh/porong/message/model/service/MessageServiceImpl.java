@@ -63,6 +63,12 @@ public class MessageServiceImpl implements MessageService {
 		return messageDao.insertMessage(sqlSession, m);
 	}	// insertMessage
 	
+	// 7) 메시지 읽음 설정
+	@Override
+	public int readMsg(int messageNo) {
+		return messageDao.readMsg(sqlSession, messageNo);
+	}	// readMsg
+	
 	
 	// ==================================================================================
 	// 메시지함 - 받은 메시지 관련
