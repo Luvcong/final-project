@@ -84,7 +84,39 @@
                 navLinks: true,
                 editable: false,
                 dayMaxEvents: true
-                
+                <%--
+                eventAdd: function(obj){
+                	const $schTitle = $('#schTitle');
+            		const $schContent = $('#schContent');
+            		const $schStart = $('#schStart');
+            		const $schEnd = $('#schEnd');
+            		
+            		const $startTime = $('#startTime');
+            		const $startEnd = $('#startEnd');
+                	
+    				$.ajax({
+    					  url: "insertMyCalendar",
+    					  data: {
+    						  empNo: ${loginUser.empNo},
+    						  schTitle: $schTitle,
+    						  schContent: $schContent, 
+    						  schStart: $schStart,
+    						  schEnd: $schEnd,
+    						  startTime: $startTime,
+    						  startEnd: $startEnd,
+    						  instanceId: obj.event._instance["instanceId"],
+    						  defId: obj.event._instance["defId"]
+    					  },
+    					  success : data=>{
+    						 	console.log(data);
+								successCallback(data);
+    					  },
+    					  error : ()=>{
+    							console.log("error");
+    					  }
+    				});
+    			}
+                --%>
 			});
             calendar.render();
         });
