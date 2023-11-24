@@ -134,7 +134,7 @@
 				<div class="modal-content" style="width: 1000px; height: 900px;">
 
 					<div class="modal-header">
-						<h4 class="modal-title">결재선 지정</h4>
+						<h2 class="modal-title">결재선 지정</h2>
 						<button type="button" class="close" data-dismiss="modal">&times;</button>
 					</div>
 
@@ -170,12 +170,11 @@
    													 <span id=""></span>
 												 </div>
 
-<div id="">
-    <div class="">
+
     
         <!-- left start -->
         <div class="">
-            <h2 id="">조직도</h2>
+            <h3 id="">조직도</h3>
             
             <div class="">
             
@@ -214,51 +213,44 @@
 	                    </ul>
                     </div>
                 </div>
-                                	</form>
+                </form>
 						                        </tr>
+						                        
 						                    </thead>
 						                    <tbody id="job_table">
 						                    
 						                      <div class="">
 						                      
 						                      <div class="gm_box">
-            <table>
-                <tbody>
-	                <tr>
-	                    <td>
-	                        <!--버튼 -->
-	                        <button id="" class="" onclick="">결재자</button> <br>
-	                        <button id="" class="" onclick="">부서</button>
-	                    </td>
-	                    <td>
-	                        <span id="thApprover" class="tdHeader">결재자</span>
-	                        
-	                        <!-- 목록 -->
-	                        <div>
-	                            <table>
-		                            <thead>
-		                            
-		                                    <tr>
-		                                        <th class="" id="">순서</th>
-		                                        <th class="" id="" >이름</th>
-		                                        <th class="" id="">직책</th>
-		                                        <th class="" id="">부서</th>
-		                                        <th class="" id="">결재선</th>
-		                                    </tr>
-		                                  
-		                            </thead>
-	                                <tbody>
-	                                    <tr>
-	                                    
-	                                    </tr>
-	                                </tbody>
-	                            </table>
-      
-						                  	
-						                    </tbody>
-						                </table>
+            
+                
+               	<div>
+	               <table class="table table-bordered">
+	                <h3 id="">결재자 ></h3>
+		                  <tr>
+		                   <th>순서</th>
+		                   <th>성함</th>
+		                   <th>직책</th>
+		                   <th>부서</th>
+		                   <th>결재선</th>
+		                  </tr>
+	                   </table>
+	                   </div>
+	                   <div>
+	               <table class="table table-bordered">
+		                 <tr>
+		                  	<h3 id="">수신 부서 ></h3>
+							<th>담당자</th>	                  
+							<th>부서</th>
+		                </tr>
+	                   </table>
+	                   </div>
+	                   
+	                  
+				 </tbody>
+						                
 		    
-									</tr>
+									
 									<!-- 
 									<tr>
 										<th>직원 검색</th> 
