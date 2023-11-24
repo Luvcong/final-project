@@ -18,9 +18,44 @@
 
 	<jsp:include page="../common/sidebar.jsp" />
 	<script>
-		function hrSubmit(){
-			console.log('hi');
-			$('#HRForm').attr('action', 'vacation').submit();
+		function hrSubmit(e){
+			console.log(e.innerText);
+			//$('#HRForm').attr('action', 'vacation').submit();
+			$.ajax({
+				url: 'organizationChart',
+				data : {deptName : e.innerText},
+				success: data=>{ 
+					
+				
+				console.log(data);
+				/*
+					console.log(data[0].deptName);
+					console.log(data[0].empName);
+					console.log(data[0].jobName);
+					*/
+					
+					let value = ' ';
+
+					for(i=0; i<data.length; i++){
+						value += '<tr>'
+						         + '<td>' + data[i].deptName + '</td>'
+						         + '<td>' + data[i].empName + '</td>'
+					             + '<td>' + data[i].jobName + '</td>'
+						         + '</tr>'
+						        
+					}
+					 console.log(value);
+					
+					$('#job_table').html(value);
+					
+                   
+				},
+				error:()=>{
+					console.log('실패');
+				}
+					
+			})
+			
 		}	
 	</script>
 	
@@ -154,21 +189,21 @@
 			                    	<li class="">
 				                    	<span class="">
 				                    		<span class=""></span>
-				                   			<a type="button" class="HRdept" onclick="hrSubmit();">인사부</a>
+				                   			<button type="button" class="HRdept" onclick="hrSubmit(this);">인사부</button>
 				                   	 	</span>
 			                   		 </li>
 			                   		 
 			                    	<li class="">
 			                   	 		<span class="">
 				                    		<span class=""></span>
-				                    		<a href="#" class="">구매관리부</a>
+				                    		<button type="button" class="HRdept" onclick="hrSubmit(this);">구매관리부</button>
 			                    		</span>
 			                    	</li>
 			                    	
 			                    	<li class="">
 				                    	<span class="">
 					                    	<span class=""></span>
-					                    	<a href="#" class="">영업부</a>
+					                    	<button type="button" class="HRdept" onclick="hrSubmit(this);">영업부</button>
 				                    	</span>
 			                    	</li>
 		                    	</ul>
@@ -228,6 +263,7 @@
 
 		
 		$(()=>{
+			/*
 			$.ajax({
 				url: 'organization',
 				data: {deptCode: 'HR'},
@@ -254,40 +290,11 @@
 				}
 					
 			})
+			*/
 		})
 		
 		$(()=>{
-			$.ajax({
-				url: 'organizationChart',
-				success: data=>{
-					deptName : $('#deptName').val()
-				},
-					//console.log(data);
-					console.log(data[0].deptName);
-					console.log(data[0].empName);
-					console.log(data[0].jobName);
-					
-					let value = ' ';
-
-					for(i=0; i<data.length; i++){
-						value += '<tr>'
-						         + '<td>' + data[i].deptName + '</td>'
-						         + '<td>' + data[i].empName + '</td>'
-					             + '<td>' + data[i].jobName + '</td>'
-						         + '</tr>'
-						        
-					}
-					 console.log(value);
-					
-					$('#job_table').html(value);
-					
-                   
-				},
-				error:()=>{
-					console.log('실패');
-				}
-					
-			})
+			
 		})
 		
 		</script>   
