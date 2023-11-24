@@ -112,4 +112,17 @@
 }
 #messageTextarea{
 	resize: none;
+	background-color: white;
+	height: 400px;
+}
+#profile-message{
+	border-radius: 50%;
+	width: 50px;
+}
+.detailContent th{
+	text-align: center;
+	background-color: white;
+}
+.detailContent .detail-input{
+	background-color: white;
 }

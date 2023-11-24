@@ -76,9 +76,22 @@ public class MessageDao {
 	 * @author JH
 	 * @Date : 2023. 11. 21
 	 */
-	public Message detailMessage(SqlSessionTemplate sqlSession, int messageNo) {
-		return sqlSession.selectOne("messageMapper.detailMessage", messageNo);
+	public Message detailMessage(SqlSessionTemplate sqlSession, Map<String, Integer> map) {
+		return sqlSession.selectOne("messageMapper.detailMessage", map);
 	}	// detailMessage
+	
+	
+	/**
+	 * 메시지 작성
+	 * @param sqlSession
+	 * @param m
+	 * @return
+	 * @author JH
+	 * @Date : 2023. 11. 23
+	 */
+	public int insertMessage(SqlSessionTemplate sqlSession, Message m) {
+		return sqlSession.insert("messageMapper.insertMessage", m);
+	}	// insertMessage
 
 	
 	// ==================================================================================
@@ -380,6 +393,7 @@ public class MessageDao {
 	public int deletePermanentlyMessage(SqlSessionTemplate sqlSession, int messageNo) {
 		return sqlSession.delete("messageMapper.deletePermanentlyMessage", messageNo);
 	}	// deletePermanentlyMessage
+
 
 
 

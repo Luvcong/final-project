@@ -133,7 +133,7 @@
 			
 			<!-- 메시지보내기  modal창 -->
 		 	<div class="modal" id="messageForm">
-				<form method="post" action="updateMessage">
+				<form method="post" action="insertMessage" enctype="multipart/form-data">
 			        <div class="modal-dialog modal-lg">
 			            <div class="modal-content">
 			                <!-- Modal Header -->
@@ -146,22 +146,24 @@
 			                <table class="table table-sm">
 			                	<tr>
 			                		<th>To</th>
-			                		<td><input class="form-control form-control-sm" type="text" placeholder="받는 사람"/></td>
+			                		<td><input class="form-control form-control-sm" type="text" name="receiveUser" placeholder="받는 사람"/></td>
 			                	</tr>
 			                	<tr>
 			                		<th>Message</th>
-			                		<td><textarea id="messageTextarea" class="form-control form-control-sm" rows="3" placeholder="메시지 내용을 입력하세요"></textarea></td>
+			                		<td><textarea id="messageTextarea" class="form-control form-control-sm" rows="3" name="messageContent" placeholder="메시지 내용을 입력하세요"></textarea></td>
 			                	</tr>
 			                	<tr>
 			                		<th>From</th>
-			                		<td><input class="form-control form-control-sm" type="text" value="${ loginUser.empName } [${ loginUser.jobName }]" readonly/></td>
+			                		<td>
+			                		<input hidden type="text" name="sendUser" value="${ loginUser.empNo }" />
+			                		<input class="form-control form-control-sm" type="text" placeholder="${ loginUser.empName } ${ loginUser.jobName } / ${ loginUser.deptName}" readonly/></td>
 			                	</tr>
 			                	<tr>
 			                		<th>첨부파일</th>
 			                		<td class="filebox">
-				                		<input class="upload-name form-control form-control-sm" value="" placeholder="첨부파일" readonly>
+				                		<input class="upload-name form-control form-control-sm" placeholder="첨부파일" readonly>
 			                		    <label for="file">파일찾기</label> 
-										<input type="file" id="file">
+										<input type="file" id="file" name="upfile">
 			                		</td>
 			                	</tr>
 			                	<tr>
@@ -174,7 +176,7 @@
 			                <!-- Modal footer -->
 			                <div class="modal-footer">
 			             		<button type="submit" class="btn btn-sm btn-primary">답변</button>
-			                    <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">취소</button>
+			                    <button type="reset" class="btn btn-sm btn-secondary" data-dismiss="modal">취소</button>
 			                </div>
 			            </div>
 			        </div>
@@ -233,8 +235,6 @@
 		</div>	<!-- pp-content-message  -->
 	</div>	<!-- pp-content  -->
 	
-	
-	
 	<c:if test="${ not empty condition }">
 		<script>
 		$(() => {
@@ -285,20 +285,21 @@
 		// ------------------------------------------------------------------
 		// 메시지 상세보기
 		// ------------------------------------------------------------------
-/* 		function detailMessage(){
-			console.log(event.currentTarget);
+ 		function detailMessage(){
+			// console.log(event.currentTarget);
 			
 			let tr = event.currentTarget;
+			let content = tr.children[4];
+			
 			let input = tr.querySelector('td input');
 			let messageNo = input.value;
-			console.log(input);
-			console.log(input.value);
+			// console.log(input);
+			// console.log(input.value);
 			
-			tr.addEventListener('click', function(){
+			content.addEventListener('click', function(){
 				location.href = 'detailMessage?mno=' + messageNo;
 			})
-			
-		} */
+		}	// detailMessage
 			
 		
 		// ------------------------------------------------------------------

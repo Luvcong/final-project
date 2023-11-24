@@ -40,11 +40,13 @@
 .modal-footer{
     border: none;
 }
-#modal_close_btn{
+.modal-footer>#reset_btn{
     float: left;
-    width: 49%;
+    width: 50%;
+    margin: 0;
 }
 .modal-footer>button[type=submit]{
     float: right;
-    width: 49%;
+    width: 50%;
+    margin: 0;
 }
