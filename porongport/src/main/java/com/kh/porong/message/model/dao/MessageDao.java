@@ -17,10 +17,10 @@ public class MessageDao {
 	// ==================================================================================
 	
 	/**
-	 * 1) 받은 메시지 북마크 설정
+	 * 1) 메시지 북마크 설정
 	 * @param sqlSession
-	 * @param messageNo : 북마크 설정하려고 하는 메시지 번호
-	 * @return 받은 메시지 북마크 설정 성공 여부 반환
+	 * @param map - messageNo(북마크 설정하려고 하는 메시지 번호), bookmarkYN(북마크 유무 여부)
+	 * @return 메시지 북마크 설정 성공 여부 반환
 	 * @author JH
 	 * @Date : 2023. 11. 19
 	 */
@@ -32,7 +32,7 @@ public class MessageDao {
 	/**
 	 * 2) 받은 메시지 삭제 - 휴지통 이동
 	 * @param messageNo : 휴지통으로 이동하려고 하는 메시지 번호
-	 * @return 메시지 삭제 성공 여부 반환
+	 * @return 삭제 성공 여부 반환
 	 * @author JH
 	 * @param sqlSession 
 	 * @Date : 2023. 11. 16
@@ -82,7 +82,7 @@ public class MessageDao {
 	
 	
 	/**
-	 * 메시지 작성
+	 * 6) 메시지 작성
 	 * @param sqlSession
 	 * @param m
 	 * @return
@@ -92,6 +92,19 @@ public class MessageDao {
 	public int insertMessage(SqlSessionTemplate sqlSession, Message m) {
 		return sqlSession.insert("messageMapper.insertMessage", m);
 	}	// insertMessage
+	
+	
+	/**
+	 * 7) 메시지 읽음 설정
+	 * @param sqlSession
+	 * @param map - messageNo(읽음 메시지 번호), bookmarkYN(읽음 유무 여부)
+	 * @return 메시지 읽음 설정 여부 반환
+	 * @author JH
+	 * @Date : 2023. 11. 23
+	 */
+	public int readMsg(SqlSessionTemplate sqlSession, int messageNo) {
+		return sqlSession.update("messageMapper.readMsg", messageNo);
+	}	// readMsg
 
 	
 	// ==================================================================================
@@ -393,8 +406,6 @@ public class MessageDao {
 	public int deletePermanentlyMessage(SqlSessionTemplate sqlSession, int messageNo) {
 		return sqlSession.delete("messageMapper.deletePermanentlyMessage", messageNo);
 	}	// deletePermanentlyMessage
-
-
 
 
 

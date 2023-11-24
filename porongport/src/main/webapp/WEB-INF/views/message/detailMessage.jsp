@@ -51,7 +51,17 @@
       			</tr>
       			<tr>
       				<th>첨부파일</th>
-      				<td><input class="form-control form-control-sm detail-input" readonly value="첨부파일"></td>
+      				<c:choose>
+      					<c:when test="${ empty list.originFileName }">
+      						<td><input class="form-control form-control-sm detail-input" readonly placeholder="첨부파일이 존재하지 않습니다."></td>
+      					</c:when>
+      					<c:otherwise>
+		      				<td>
+		      				<a class="form-control form-control-sm detail-input upload-name" 
+		      				   href="${ list.changeFileName }" download="${ list.originFileName }">
+		      				   <i class="fa-regular fa-floppy-disk"></i> ${ list.originFileName }</a>
+      					</c:otherwise>
+      				</c:choose>
       			</tr>
       			<tr>
       				<th>메시지내용</th>
@@ -63,15 +73,14 @@
 	</div>	<!-- pp-content  -->
 	
 	<script>
+	// ------------------------------------------------------------------
+	// 뒤로가기 버튼 클릭 (이전페이지 이동)
+	// ------------------------------------------------------------------
 	function historyBack(){
-		
 		document.getElementById("backIcon").addEventListener("click", () => {
-			  history.back();
+			  location.href = document.referrer;
 		});
 	}	// historyBack
-		
-		
 	</script>
-
 </body>
 </html>

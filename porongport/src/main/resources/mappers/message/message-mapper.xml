@@ -55,6 +55,7 @@
 		<result column="EMP_NAME" property="empName" />
 		<result column="DEPT_NAME" property="deptName" />
 		<result column="ORIGIN_FILENAME" property="originFileName" />
+		<result column="CHANGE_FILENAME" property="changeFileName" />
 		
 	</resultMap>
 	
@@ -591,7 +592,14 @@
 	<!-- 5) 받은 메시지 상세보기 -->
 	<select id="detailMessage" resultMap="messageResultSet" parameterType="hashmap">
 		SELECT
-				M.CREATE_DATE, E.EMP_NAME, D.DEPT_NAME, J.JOB_NAME, M.MESSAGE_CONTENT
+				M.CREATE_DATE,
+				E.EMP_NAME,
+				D.DEPT_NAME,
+				J.JOB_NAME,
+				M.MESSAGE_CONTENT,
+				M.READ_YN,
+				M.ORIGIN_FILENAME,
+				M.CHANGE_FILENAME
 		  FROM
 		  		MESSAGE M, DEPARTMENT D, JOB J, EMPLOYEE E
 		 WHERE
@@ -608,10 +616,24 @@
 		   		M.RECEIVE_USER = #{ empNo }
 	</select>
 	
+	<!-- 6) 메시지 작성 -->
 	<insert id="insertMessage" parameterType="message">
 		INSERT
 		  INTO
 		  		MESSAGE
+		  		(
+		  		MESSAGE_NO,
+		  		MESSAGE_CONTENT,
+		  		CREATE_DATE,
+		  		DELETE_DATE,
+		  		MESSAGE_STATUS,
+		  		SEND_USER,
+		  		RECEIVE_USER,
+		  		ORIGIN_FILENAME,
+		  		CHANGE_FILENAME,
+		  		READ_YN,
+		  		BOOKMARK_YN
+		  		)
 		VALUES
 				(SEQ_MESSAGE.NEXTVAL,
 				#{ messageContent },
@@ -621,8 +643,19 @@
 				#{ sendUser },
 				#{ receiveUser },
 				#{ originFileName },
+				#{ changeFileName },
 				DEFAULT,
 				DEFAULT)
 	</insert>
-
+	
+	<!-- 7) 메시지 읽음 설정 -->
+	<update id="readMsg" parameterType="_int">
+		UPDATE
+				MESSAGE
+		   SET
+		   		READ_YN = 'Y'
+		 WHERE
+		 		MESSAGE_NO = #{ messageNo }
+	</update>
+	
 </mapper>
