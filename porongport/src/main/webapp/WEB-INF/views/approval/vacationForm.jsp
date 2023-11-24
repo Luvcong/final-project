@@ -17,6 +17,49 @@
 <body>
 
 	<jsp:include page="../common/sidebar.jsp" />
+	<script>
+		function hrSubmit(e){
+			console.log(e.innerText);
+			//$('#HRForm').attr('action', 'vacation').submit();
+			$.ajax({
+				url: 'organizationChart',
+				data : {deptName : e.innerText},
+				success: data=>{ 
+					
+				
+				console.log(data);
+				/*
+					console.log(data[0].deptName);
+					console.log(data[0].empName);
+					console.log(data[0].jobName);
+					*/
+					
+					let value = ' ';
+
+					for(i=0; i<data.length; i++){
+						value += '<tr>'
+						         + '<td>' + data[i].deptName + '</td>'
+						         + '<td>' + data[i].empName + '</td>'
+					             + '<td>' + data[i].jobName + '</td>'
+						         + '</tr>'
+						        
+					}
+					 console.log(value);
+					
+					$('#job_table').html(value);
+					
+                   
+				},
+				error:()=>{
+					console.log('실패');
+				}
+					
+			})
+			
+		}	
+	</script>
+	
+	
 	
 	<div class="pp-content">
 	
@@ -88,7 +131,7 @@
        
        <div class="modal fade" id="myModal" role="dialog">
 			<div class="modal-dialog">
-				<div class="modal-content">
+				<div class="modal-content" style="width: 1000px; height: 900px;">
 
 					<div class="modal-header">
 						<h4 class="modal-title">결재선 지정</h4>
@@ -98,7 +141,7 @@
 					<div class="modal-body">
 
 						<form role="form" id="frm" method="post" enctype="multipart/form-data"
-							action="/approval/register">
+							action="/approval/register"></form>
 							<table class="table table-striped table-bordered">
 
 								<colgroup>
@@ -113,7 +156,10 @@
 						                        <tr>
 						                        
 						                        	<th>부서</th>
+						                        	<th>성명</th>
+						                        	<th>직급</th>
 						                        </tr>
+						                     
 						                        <tr>
 						                        <!-- 
 						                        <th><button type="button" value="HR">인사부</button></th>
@@ -121,8 +167,8 @@
 							                  	<th><button type="button" value="PM">영업부</button></th>
 							                  	 -->
 							                  	 <div id="">
-    <span id=""></span>
-</div>
+   													 <span id=""></span>
+												 </div>
 
 <div id="">
     <div class="">
@@ -133,6 +179,7 @@
             
             <div class="">
             
+	                    	<form action="" method="post" id="HRForm">
                 <div class="">
                     <div id="">
                     
@@ -140,41 +187,77 @@
                     	
 	                    	<li class="">
 	                    	
-	                    	<form action="" method="post" id="HRForm">
 		                    	<ul style="">
 		                    	
 			                    	<li class="">
 				                    	<span class="">
 				                    		<span class=""></span>
-				                   			<a class="HRdept" onclick="HRsubmit(0);">인사부</a>
+				                   			<button type="button" class="HRdept" onclick="hrSubmit(this);">인사부</button>
 				                   	 	</span>
 			                   		 </li>
 			                   		 
 			                    	<li class="">
 			                   	 		<span class="">
 				                    		<span class=""></span>
-				                    		<a href="#" class="">구매관리부</a>
+				                    		<button type="button" class="HRdept" onclick="hrSubmit(this);">구매관리부</button>
 			                    		</span>
 			                    	</li>
 			                    	
 			                    	<li class="">
 				                    	<span class="">
 					                    	<span class=""></span>
-					                    	<a href="#" class="">영업부</a>
+					                    	<button type="button" class="HRdept" onclick="hrSubmit(this);">영업부</button>
 				                    	</span>
 			                    	</li>
 		                    	</ul>
-		                    	</form>
 		                    </li>
 	                    </ul>
                     </div>
                 </div>
+                                	</form>
 						                        </tr>
 						                    </thead>
 						                    <tbody id="job_table">
+						                    
+						                      <div class="">
+						                      
+						                      <div class="gm_box">
+            <table>
+                <tbody>
+	                <tr>
+	                    <td>
+	                        <!--버튼 -->
+	                        <button id="" class="" onclick="">결재자</button> <br>
+	                        <button id="" class="" onclick="">부서</button>
+	                    </td>
+	                    <td>
+	                        <span id="thApprover" class="tdHeader">결재자</span>
+	                        
+	                        <!-- 목록 -->
+	                        <div>
+	                            <table>
+		                            <thead>
+		                            
+		                                    <tr>
+		                                        <th class="" id="">순서</th>
+		                                        <th class="" id="" >이름</th>
+		                                        <th class="" id="">직책</th>
+		                                        <th class="" id="">부서</th>
+		                                        <th class="" id="">결재선</th>
+		                                    </tr>
+		                                  
+		                            </thead>
+	                                <tbody>
+	                                    <tr>
+	                                    
+	                                    </tr>
+	                                </tbody>
+	                            </table>
+      
 						                  	
 						                    </tbody>
 						                </table>
+		    
 									</tr>
 									<!-- 
 									<tr>
@@ -216,13 +299,13 @@
        </div>
 
 		<script>
-		function HRsubmit(num){
-			$('#HRForm').attr('action', 'approval/vacationForm').submit();
-		}
+
+		
 		$(()=>{
+			/*
 			$.ajax({
 				url: 'organization',
-				data: {deptCode: }
+				data: {deptCode: 'HR'},
 				success: data=>{
 					//console.log(data);
 					console.log(data[0].deptName);
@@ -246,40 +329,11 @@
 				}
 					
 			})
+			*/
 		})
 		
 		$(()=>{
-			$.ajax({
-				url: 'organizationChart',
-				success: data=>{
-					deptName : $('#deptName').val()
-				},
-					//console.log(data);
-					console.log(data[0].deptName);
-					console.log(data[0].empName);
-					console.log(data[0].jobName);
-					
-					let value = ' ';
-
-					for(i=0; i<data.length; i++){
-						value += '<tr>'
-						         + '<td>' + data[i].deptName + '</td>'
-						         + '<td>' + data[i].empName + '</td>'
-					             + '<td>' + data[i].jobName + '</td>'
-						         + '</tr>'
-						        
-					}
-					 console.log(value);
-					
-					$('#job_table').html(value);
-					
-                   
-				},
-				error:()=>{
-					console.log('실패');
-				}
-					
-			})
+			
 		})
 		
 		</script>   
