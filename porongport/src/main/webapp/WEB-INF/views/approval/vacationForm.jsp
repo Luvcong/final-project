@@ -156,7 +156,10 @@
 						                        <tr>
 						                        
 						                        	<th>부서</th>
+						                        	<th>성명</th>
+						                        	<th>직급</th>
 						                        </tr>
+						                     
 						                        <tr>
 						                        <!-- 
 						                        <th><button type="button" value="HR">인사부</button></th>
