@@ -131,7 +131,7 @@
        
        <div class="modal fade" id="myModal" role="dialog">
 			<div class="modal-dialog">
-				<div class="modal-content">
+				<div class="modal-content" style="width: 1000px; height: 900px;">
 
 					<div class="modal-header">
 						<h4 class="modal-title">결재선 지정</h4>
@@ -167,8 +167,8 @@
 							                  	<th><button type="button" value="PM">영업부</button></th>
 							                  	 -->
 							                  	 <div id="">
-    <span id=""></span>
-</div>
+   													 <span id=""></span>
+												 </div>
 
 <div id="">
     <div class="">
@@ -218,6 +218,42 @@
 						                        </tr>
 						                    </thead>
 						                    <tbody id="job_table">
+						                    
+						                      <div class="">
+						                      
+						                      <div class="gm_box">
+            <table>
+                <tbody>
+	                <tr>
+	                    <td>
+	                        <!--버튼 -->
+	                        <button id="" class="" onclick="">결재자</button> <br>
+	                        <button id="" class="" onclick="">부서</button>
+	                    </td>
+	                    <td>
+	                        <span id="thApprover" class="tdHeader">결재자</span>
+	                        
+	                        <!-- 목록 -->
+	                        <div>
+	                            <table>
+		                            <thead>
+		                            
+		                                    <tr>
+		                                        <th class="" id="">순서</th>
+		                                        <th class="" id="" >이름</th>
+		                                        <th class="" id="">직책</th>
+		                                        <th class="" id="">부서</th>
+		                                        <th class="" id="">결재선</th>
+		                                    </tr>
+		                                  
+		                            </thead>
+	                                <tbody>
+	                                    <tr>
+	                                    
+	                                    </tr>
+	                                </tbody>
+	                            </table>
+      
 						                  	
 						                    </tbody>
 						                </table>
