@@ -112,9 +112,9 @@
             	},
             	
             	eventClick: (calEvent, jsEvent, view) => {
-                    console.log(calEvent.event._def.publicId);
+                    //console.log(calEvent.event._def.publicId);
             		
-                    $('#schNo').text(calEvent.event._def.publicId);
+                    $('#schNo').val(calEvent.event._def.publicId);
                     
                     $('#eventModalLabel').text(calEvent.event._def.title);
             	    $("#inputContent").val(calEvent.event._def.extendedProps.description);
@@ -242,7 +242,7 @@
                         <br>
                         
                         <label for="inputCalendar" class="form-label">일정내용</label>
-                        <textarea class="form-control textarea-resize" rows="5" id="inputContent"></textarea>
+                        <textarea class="form-control textarea-resize" rows="5" id="inputContent" value=""></textarea>
                         <br>
                     </div>
                     
@@ -258,9 +258,9 @@
                     <a type="button" class="btn btn-secondary" onclick="updateEvent();">수정하기</a>
                     <a type="button" class="btn btn-danger" onclick="deleteEvent();">삭제하기</a>
                     
-	            	<input type="hidden" name="schNo" value="">
+	            	<input type="hidden" id="schNo" name="schNo" value="">
 	            	<input type="hidden" name="empNo" value="${loginUser.empNo}">
-	            	</form>
+	            	
                     
                     <script>
                     	function updateEvent(){
@@ -271,10 +271,10 @@
                     		$('#modalClickForm').attr('action', 'deleteSchedule').submit();
                     	}
                     </script>
+                  
                     
-                    
-                </div>
-                
+                </div><!-- 모달 footer -->
+                 </form>
             </div>
             
         </div>
