@@ -28,13 +28,8 @@ public class ScheduleServiceImple implements ScheduleService {
 	}
 
 	@Override
-	public int insertDepartment(ScheduleVO schedule) {
-		return scheduleDao.insertDepartment(sqlSession, schedule);
-	}
-
-	@Override
-	public int insertIndividual(ScheduleVO schedule) {
-		return scheduleDao.insertIndividual(sqlSession, schedule);
+	public int insertSchedule(ScheduleVO schedule) {
+		return scheduleDao.insertSchedule(sqlSession, schedule);
 	}
 
 	@Override

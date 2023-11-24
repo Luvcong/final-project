@@ -31,12 +31,14 @@ public class ScheduleController {
 	public String ajaxMethod3(ScheduleVO schedule) {
 		// hashmap으로 담아서 -> json타입으로 보내줘서 -> 다시 결과 뽑아주기
 		//System.out.println(schedule);
+		
 		ArrayList<ScheduleVO> mySchedule = scheduleService.selectIndividual(schedule);
 		ArrayList<ScheduleVO> departmentSchedule = scheduleService.selectDepartment(schedule);
 		
 		//System.out.println(departmentSchedule);
 		
 		HashMap<String, ArrayList<ScheduleVO>> AllSchdule = new HashMap();
+		
 		AllSchdule.put("mySchedule", mySchedule);
 		AllSchdule.put("departmentSchedule", departmentSchedule);
 		
@@ -54,6 +56,35 @@ public class ScheduleController {
 	public String enrollFormDepartmentcalendar() {
 		return "calendar/departmentCalendarInsertView";
 	}
+	
+	@RequestMapping("insertCalendar")
+	public String insertSchedule(ScheduleVO schedule, HttpSession session) {
+		String startDate = schedule.getStartDate();
+		String startTime = schedule.getStartTime();
+		
+		String endDate = schedule.getEndDate();
+		String endTime = schedule.getEndTime();
+		
+		if(startTime != "") {
+			schedule.setSchStart(startDate+'T'+startTime);
+			schedule.setSchEnd(endDate+'T'+endTime);
+		}else {
+			schedule.setSchStart(startDate);
+			schedule.setSchEnd(endDate);
+		}
+		
+		//System.out.println(schedule);
+		
+		if(scheduleService.insertSchedule(schedule)>0) {
+			session.setAttribute("alertMsg", "개인일정 등록이 완료되었습니다.");
+			return "redirect:myCalendar";
+		}else {
+			session.setAttribute("errorMsg", "개인일정 등록에 실패하였습니다.");
+			return "common/errorPage";
+		}
+		
+	}
+	/*
 	
 	@RequestMapping("insertMyCalendar")
 	public String insertMySchedule(ScheduleVO schedule, HttpSession session) {
@@ -108,6 +139,6 @@ public class ScheduleController {
 			return "common/errorPage";
 		}
 	}
-	
+	*/
 	
 }

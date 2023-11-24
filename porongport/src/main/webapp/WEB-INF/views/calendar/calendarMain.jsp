@@ -19,11 +19,11 @@
 	
 	<!-- css-->
 	<link rel="stylesheet" href="resources/css/calendar.css">
+	<link rel="stylesheet" href="resources/css/myCalendar.css">
 	<script>
 
 		// 풀캘린더 참고: https://ksyy.tistory.com/113
 		document.addEventListener('DOMContentLoaded', () => {
-			
 			
 			$.ajax({
 				url: 'schedule',
@@ -86,18 +86,28 @@
         	
 			var calendarEl = document.getElementById('calendar');
             var calendar = new FullCalendar.Calendar(calendarEl, {
-            	/*
-            	eventClick: function(info){
-            		alertify.alert(info.event.title, '기간: '+info.event.start+'<br>'+'내용: '+info.event.extendedProps.description);
+            	
+            	select: function(info) {
+            		var startDate = info.startStr;
+            		var endDate = info.endStr;
+            		$('#startDate').val(startDate);
+            		$('#endDate').val(endDate);
+            		$('#insertEventModal').modal();
             	},
-            	*/
+            	dateClick: function(info) {
+            		var startDate = info.dateStr;
+            		var endDate = info.dateStr;
+            		$('#startDate').val(startDate);
+            		$('#endDate').val(endDate);
+            		$('#insertEventModal').modal();
+            		//console.log(info);
+            	},
             	eventClick: (calEvent, jsEvent, view) => {
-                    console.log(calEvent);
+                    //console.log(calEvent);
             		
                     $('#eventModalLabel').text(calEvent.event._def.title);
             	    $("#inputContent").val(calEvent.event._def.extendedProps.description);
             	    
-            	    //var date = new Date();
             	    var selectStartDate = calEvent.el.fcSeg.eventRange.instance.range.start;
             	    
             	    var startDate = selectStartDate.getFullYear()+'-'
@@ -114,7 +124,6 @@
             	    }
             	    
             	    var selectEndDate = calEvent.el.fcSeg.eventRange.instance.range.end;
-            	    //console.log(selectEndDate);
             	    
             	    var endDate = selectEndDate.getFullYear()+'-'
 				    		 		+((selectEndDate.getMonth()+1) < 10 ? "0" + (selectEndDate.getMonth()+1) : (selectEndDate.getMonth()+1))+'-'
@@ -129,14 +138,6 @@
 	    							 +((selectEndDate.getMinutes()) < 10 ? "0" + (selectEndDate.getMinutes()) : (selectEndDate.getMinutes()));
             	    }
             	    
-            	    
-            	    //console.log(calEvent.el.fcSeg.eventRange.instance.range.start);
-            	    //console.log(startDate);
-            	    //console.log(startTime);
-            	    //console.log(calEvent.el.fcSeg.eventRange.instance.range.start);
-            	    //console.log(endDate);
-            	    //console.log(endTime);
-            	    
             	    $("#inputDateStrart").val(startDate);
             	    $("#inputDateEnd").val(endDate);
             	    
@@ -144,10 +145,8 @@
             	    $("#inputTimeEnd").val(endTime);
             	    
             	    $('#eventModal').modal();
-            	    
                 },
             	
-                // Tool Bar 목록 document : https://fullcalendar.io/docs/toolbar
                 height: '750px',
 
                 eventDidMount: function(info) {
@@ -160,12 +159,29 @@
                     });
                 },
                 
+                customButtons: {
+            		scheduleButton: { 
+                        text: '회의실예약', 
+                        click: function(event) { 
+                        	location.href="/porong/reservation";
+                        } 
+            		}
+            	},
+            	
                 headerToolbar: {
-                    left: 'dayGridMonth,dayGridWeek,dayGridDay',
+                    left: 'dayGridMonth,dayGridWeek,dayGridDay today',
                     center: 'title',
-                    right: 'today prevYear,prev,next,nextYear'
+                    right: 'scheduleButton prevYear,prev,next,nextYear'
                 },
-
+                
+                eventAdd: function(obj) {
+                	
+                	console.log(obj);
+                	$("#instanceId").val(obj.event._instance["defId"]);
+               		$("#defId").val(obj.event._instance["instanceId"]);
+                	
+    			},
+				
                 selectable: true,
                 selectMirror: true,
                 navLinks: true,
@@ -185,8 +201,6 @@
 			  // 모달 폼 숨기기
 			  var eventModal = new bootstrap.Modal(document.getElementById('eventModal'));
 			  eventModal.hide();
-			  
-			
 			}
 	</script>
 </head>
@@ -260,7 +274,94 @@
             </div>
             
         </div>
-    </div>
+    </div><!-- 일정조회 모달 -->
+    
+    <div class="modal fade" id="insertEventModal" tabindex="-1" aria-labelledby="eventModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+        
+            <div class="modal-content calendar-modal-width" style="width:700px;">
+            	
+                <div class="modal-header">
+                    <h5 class="modal-title" id="eventModalLabel">일정추가</h5>
+                    
+                    <button type="button" class="close" data-bs-dismiss="modal">
+                    	<a href="calendar" class="calendar-a-color">&times;</a>
+                    </button>
+                </div>
+                
+                <div class="modal-body">
+						<div class="calendarWidth">
+						<form id="insertCalendar" method="post" action="insertCalendar">
+							<table class="table table-sm" id="insertSchedule">
+								
+								<tr>
+									<th><i class="fa-solid fa-user-plus"></i></th>
+									<td colspan="3">
+										<select name="schShare" class="mycalendar_input2 mycalendar_width2">
+					                    	<option value="M">나의일정</option>
+					                    	<option value="D">부서일정</option>
+					                    </select>
+					                </td>
+								</tr>
+								
+								<tr>
+									<th><i class="fa-solid fa-pen"></i></th>
+									<td colspan="3"><input type="text" name="schTitle" id="schTitle" class="mycalendar_input mycalendar_width" placeholder="일정 제목 추가" required/></td>
+								</tr>
+								<tr>
+									<th><i class="fa-solid fa-user"></i></th>
+									<td><input type="text" name="empName" id="empName" readonly value="${loginUser.empName}" class="mycalendar_input mycalendar_width" /></td>
+									<input type="hidden" name="empNo" value="${loginUser.empNo}">
+									<th><i class="fa-solid fa-user-tag"></i></th>
+									<td><input type="text" name="deptName" id="deptName" readonly value="${loginUser.deptName}" class="mycalendar_input mycalendar_width time_block" /></td>
+									<input type="hidden" name="deptCode" value="${loginUser.deptCode}">
+									<input type="hidden" name="instanceId" id="instanceId" value="">
+									<input type="hidden" name="defId" id="defId" value="">
+								</tr>
+								
+								<tr>
+									<th><i class="fa-solid fa-clock"></i></th>
+									
+									<td colspan="3">
+										<input type="date" name="startDate" id="startDate" class="mycalendar_input2 mycalendar_width2" required/>
+										<input type="time" name="startTime" id="startTime" class="mycalendar_input2 mycalendar_width2" />
+										<label class="switch">
+											<input type="checkbox" />
+											<span class="slider round"></span>
+										</label><p>하루종일</p><p style="display:none;">하루종일</p>
+		
+										<script>
+											var check = $("input[type='checkbox']");
+											check.click(()=>{
+												$("p").toggle();
+												$("input[type='time']").toggle();
+												$('input[type="date"]').toggleClass('mycalendar_width3');
+											});
+										</script>
+										
+										<br>
+										<input type="date" name="endDate" id="endDate" class="mycalendar_input2 mycalendar_width2" required/>
+										<input type="time" name="endTime" id="endTime" class="mycalendar_input2 mycalendar_width2" />
+									</td>
+									
+								</tr>
+								
+								<tr>
+									<th><i class="fa-solid fa-file"></i></th>
+									<td colspan="3"><textarea type="text" name="schContent" id="schContent" class="mycalendar_input calendarTextarea" placeholder="일정 설명 추가"></textarea></td>
+								</tr>
+								<tr><th></th><td colspan="3"></td></tr>
+							</table>
+						</div>
+                <div class="modal-footer">
+					<button type="submit" class="btn btn-sm btn-secondary btn-rigth">일정추가</button>
+                </div><!-- modal footer -->
+                
+            </div><!-- modal-body -->
+		</form>
+            
+        </div>
+    </div><!-- insert 모달 -->
     
     </div>
     
