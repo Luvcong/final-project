@@ -74,6 +74,7 @@
 												
 											});
 			
+											
 										</script>
 										<br>
 										<input type="date" name="endDate" id="endDate" class="mycalendar_input2 mycalendar_width2">
@@ -89,6 +90,14 @@
 							</table>
 						</div>
 					</form>
+					
+					<script>
+					var now_utc = Date.now() 
+					var timeOff = new Date().getTimezoneOffset()*60000; 
+					var today = new Date(now_utc-timeOff).toISOString().split("T")[0];
+					document.getElementById("startDate").setAttribute("min", today);
+					document.getElementById("endDate").setAttribute("min", today);
+					</script>
 					
 				</div>
 			</div>    

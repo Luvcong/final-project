@@ -6,26 +6,29 @@
 	<!-- ======================== resultMap ======================== -->
 	<!-- =========================================================== -->
 	<resultMap type="schedule" id="scheduleResultMap">
-		<result column="SCH_NO"	  		property="schNo"/>
-		<result column="EMP_NO" 		property="empNo"/>
-		<result column="SCH_TITLE"  	property="schTitle"/>
-		<result column="SCH_CONTENT" 	property="schContent"/>
-		<result column="SCH_START" 		property="schStart"/>
-		<result column="SCH_END"  		property="schEnd"/>
-		<result column="SCH_STATUS" 	property="schStatus"/>
-		<result column="SCH_SHARE"  	property="schShare"/>
+		<result column="SCH_NO"	  			property="schNo"/>
+		<result column="EMP_NO" 			property="empNo"/>
+		<result column="SCH_TITLE"  		property="schTitle"/>
+		<result column="SCH_CONTENT" 		property="schContent"/>
+		<result column="SCH_START" 			property="schStart"/>
+		<result column="SCH_END"  			property="schEnd"/>
+		<result column="SCH_STATUS" 		property="schStatus"/>
+		<result column="SCH_SHARE"  		property="schShare"/>
+		<result column="SCH_INSTANCEID"  	property="instanceId"/>
+		<result column="SCH_DEFID"  		property="defId"/>
+		<result column="SCH_CORRECTIONDATE"	property="correctionDate"/>
 	</resultMap>
 	
 	<!-- =========================== SQL =========================== -->
 	<!-- =========================================================== -->
 	<insert id="insertIndividual" parameterType="schedule">
-		INSERT INTO SCHEDULE(SCH_NO, EMP_NO, SCH_TITLE, SCH_CONTENT, SCH_START, SCH_END, SCH_SHARE)
-		VALUES (SEQ_SCH_NO.NEXTVAL, #{empNo}, #{schTitle}, #{schContent}, #{schStart}, #{schEnd}, 'M')
+		INSERT INTO SCHEDULE(SCH_NO, EMP_NO, SCH_TITLE, SCH_CONTENT, SCH_START, SCH_END, SCH_SHARE, SCH_INSTANCEID, SCH_DEFID, SCH_CORRECTIONDATE)
+		VALUES (SEQ_SCH_NO.NEXTVAL, #{empNo}, #{schTitle}, #{schContent}, #{schStart}, #{schEnd}, 'M', #{instanceId}, #{"defId"}, SYSDATE)
 	</insert>
 	
 	<insert id="insertDepartment" parameterType="schedule">
-		INSERT INTO SCHEDULE(SCH_NO, EMP_NO, SCH_TITLE, SCH_CONTENT, SCH_START, SCH_END, SCH_SHARE)
-		VALUES (SEQ_SCH_NO.NEXTVAL, #{empNo}, #{schTitle}, #{schContent}, #{schStart}, #{schEnd}, 'D')
+		INSERT INTO SCHEDULE(SCH_NO, EMP_NO, SCH_TITLE, SCH_CONTENT, SCH_START, SCH_END, SCH_SHARE, SCH_INSTANCEID, SCH_DEFID, SCH_CORRECTIONDATE)
+		VALUES (SEQ_SCH_NO.NEXTVAL, #{empNo}, #{schTitle}, #{schContent}, #{schStart}, #{schEnd}, 'D', #{instanceId}, #{"defId"}, SYSDATE)
 	</insert>
 	
 	<select id="selectIndividual" parameterType="schedule" resultMap="scheduleResultMap">

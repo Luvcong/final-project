@@ -80,7 +80,7 @@
 		    				$btn.attr('disabled', true);
 		    			}
 		    		})
-		    		
+
 		    	})
 	        </script>
 	    </div>

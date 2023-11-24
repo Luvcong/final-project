@@ -13,6 +13,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,7 +39,7 @@ public class EmployeeController {
 	
 	// 입사자 등록
 	@PostMapping("insert.emp")
-	public String insertEmp(Employee emp, HttpSession session) /*throws MessagingException*/{
+	public String insertEmp(Employee emp, HttpSession session) throws MessagingException{
 		String encPwd = bcryptPasswordEncoder.encode(emp.getEmpPwd());
 		emp.setEmpPwd(encPwd);
 		
@@ -48,43 +49,37 @@ public class EmployeeController {
 		emp.setDeptCode(toUpperDept);
 		emp.setJobCode(toUpperJob);
 		
+		String jobCode =  emp.getJobCode();
+		
+		// if(jobCode.equals("SM") || )
 		if(empService.insertEmp(emp) > 0) {
-			
-			/*
+				
 			MimeMessage msg = sender.createMimeMessage();
 			MimeMessageHelper helper = new MimeMessageHelper(msg, false, "UTF-8");
 			
-			// 관리자들한테 메일 보내기
-			String[] to = {"kwondy1892@gmail.com"};
-			helper.setTo(to);
+			// 입사자 등록 성공하면 관리자한테 메일 보내기
+			helper.setTo(emp.getEmpEmail());
 			
 			helper.setSubject("입사자 등록 완료건");
 			DataSource source = new FileDataSource("/resources/mail.html");
 			helper.addAttachment(source.getName(), source);
 			
 			sender.send(msg);
-			*/
 			
-			session.setAttribute("alertText", "입사자 등록에 성공하였습니다.");
+			session.setAttribute("successText", "입사자 등록에 성공하였습니다.");
 			return "mypage/myPageAttendance";
 		} else {
 			session.setAttribute("errorText", "입사자 등록에 실패하였습니다.");
 			return "redirect:myPageIn";
 		}
-	}
 	
-	// 아이디 중복체크
-	@ResponseBody
-	@GetMapping("idCheck.em")
-	public String idCheck(int checkId) {
-		return empService.idCheck(checkId) > 0 ? "N" : "Y"; 
 	}
 	
 	// 로그인
 	@PostMapping("login.em")
 	public ModelAndView loginEmp(Employee emp, ModelAndView mv, HttpSession session) {
 		Employee loginEmp = empService.loginEmp(emp);
-	
+		
 		if(loginEmp != null && bcryptPasswordEncoder.matches(emp.getEmpPwd(), loginEmp.getEmpPwd())) {
 			// 로그인한 유저 정보 세션에 담기
 			session.setAttribute("loginUser", loginEmp);
@@ -97,13 +92,13 @@ public class EmployeeController {
 			int flag = empService.firstLogin(emp);
 			// 최초 로그인인 유저 -> 비밀번호 변경 유도 
 			if(flag > 0) {
-				session.setAttribute("alertMsg", "비밀번호를 변경해주세요.");
+				session.setAttribute("alertText", "비밀번호를 변경해주세요.");
 				mv.setViewName("mypage/myPageUpdateForm");
 			} else {
 				mv.setViewName("mypage/myPageAttendance");
 			}
 			
-		} else if(loginEmp.getEmpNo() == 0){
+		} else if(loginEmp.getEmpNo() == 0){ // 웹관리자는 암호화된 비밀번호 매치 구문 피하도록
 			session.setAttribute("loginUser", loginEmp);
 			ArrayList<Attendance> attList = empService.attList(loginEmp.getEmpNo());
 			session.setAttribute("attList", attList);
@@ -112,7 +107,7 @@ public class EmployeeController {
 		} else {
 			mv.addObject("loginFail", "다시 시도해주세요.").setViewName("common/errorPage");
 		}
-		
+	
 		return mv;
 	}
 	
@@ -123,9 +118,67 @@ public class EmployeeController {
 		return "redirect:/";
 	}
 	
+	
+	// 조직도 조회
+	@GetMapping("jojigdo.em")
+	public ModelAndView selectJojigdo(ModelAndView mv, String deptCode) {
+		ArrayList<Employee> list = empService.selectJojigdo(deptCode); 
+		
+		if(!list.isEmpty()) {
+			mv.addObject("jojigdoList", list).setViewName("common/jojigdo");
+		
+		} else {
+			mv.addObject("alertText", "해당 부서의 조직도가 존재하지 않습니다.").setViewName("redirect:myPageAtt");
+		}
+		
+		return mv;
+	}
+	
+	// 유저 정보 변경
+	@PostMapping("update.em")
+	public ModelAndView updateEmp(Employee emp, ModelAndView mv, HttpSession session) {
+		String encPwd = bcryptPasswordEncoder.encode(emp.getEmpPwd());
+		emp.setEmpPwd(encPwd);
+		
+		if(empService.updateEmp(emp) > 0) {
+			session.setAttribute("loginUser", empService.loginEmp(emp));
+			
+			mv.addObject("successText", "내정보가 변경되었습니다.").setViewName("mypage/myPageUpdateForm");
+			
+		} else {
+			
+			mv.addObject("errorText", "내정보 변경을 실패했습니다.").setViewName("redirect:myPageUp");
+		}
+		
+		return mv;
+	}
+	
+	// 부서추가
+	@GetMapping(value="insert.de")
+	public ModelAndView insertDept(Employee emp, ModelAndView mv) {
+		String toUpper = emp.getDeptCode().toUpperCase();
+		emp.setDeptCode(toUpper);
+		
+		if(empService.insertDept(emp) > 0) {
+			mv.addObject("successText", "부서추가가 완료됐습니다.").setViewName("common/jojigdo");
+		} else {
+			mv.addObject("errorText", "부서추가를 실패했습니다.").setViewName("common/jojigdo");
+		}
+		return mv;
+	}
+	
+	// AJAX통신 -----------------------------------------------------------------------------------------------
+
+	// 아이디 중복체크
+	@ResponseBody
+	@GetMapping("idCheck.em")
+	public String idCheck(int checkId) {
+		return empService.idCheck(checkId) > 0 ? "N" : "Y"; 
+	}
+		
 	// 근태기록 조회
 	@ResponseBody
-	@RequestMapping(value="selectAtt.em", produces="json/application; charset=UTF-8")
+	@GetMapping(value="selectAtt.em", produces="json/application; charset=UTF-8")
 	public String checkAtt(Attendance att) {
 		Attendance selectAtt = empService.selectAtt(att);
 		if(att != null) {
@@ -144,7 +197,7 @@ public class EmployeeController {
 		} else {
 			return "redirect:myPageAtt";
 		}
-	
+		
 	}
 	
 	// 퇴근기록 업데이트
@@ -158,38 +211,12 @@ public class EmployeeController {
 		}
 	}
 	
-	// 조직도 조회
-	@GetMapping("jojigdo.em")
-	public ModelAndView selectJojigdo(ModelAndView mv, String deptCode) {
-		ArrayList<Employee> list = empService.selectJojigdo(deptCode); 
-		
-		if(!list.isEmpty()) {
-			mv.addObject("jojigdoList", list).setViewName("common/jojigdo");
-		
-		} else {
-			mv.addObject("errorText", "해당 부서의 조직도가 존재하지 않습니다.").setViewName("redirect:myPageAtt");
-		}
-		
-		return mv;
+	// 부서코드 중복체크
+	@ResponseBody
+	@GetMapping("dcCheck.de")
+	public String dcCheck(String checkDc) {
+		String toUpper = checkDc.toUpperCase();
+		return empService.dcCheck(toUpper) > 0 ? "N" : "Y";
 	}
 	
-	// 유저 정보 변경
-	@PostMapping("update.em")
-	public ModelAndView updateEmp(Employee emp, ModelAndView mv, HttpSession session) {
-		String encPwd = bcryptPasswordEncoder.encode(emp.getEmpPwd());
-		emp.setEmpPwd(encPwd);
-		
-		if(empService.updateEmp(emp) > 0) {
-			session.setAttribute("loginUser", empService.loginEmp(emp));
-			
-			session.setAttribute("alertText", "내정보가 변경되었습니다.");
-			mv.setViewName("redirect:myPageUp");
-			
-		} else {
-			
-			mv.addObject("errorText", "내정보 변경을 실패했습니다.").setViewName("redirect:myPageUp");
-		}
-		
-		return mv;
-	}
 }

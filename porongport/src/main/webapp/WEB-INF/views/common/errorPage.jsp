@@ -7,21 +7,21 @@
 <head>
 <meta charset="UTF-8">
 <title>오류</title>
+<!-- sweetalert -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
-	<c:choose>
-		<c:when test="${ not empty goToMain }">
-			<script>
-				alert('${ goToMain }');
-				location.href = '${path}';
-			</script>
-		</c:when>
-		<c:otherwise>
-			<script>
-				alert('${ errorMsg }');
-			</script>
-		</c:otherwise>
-	</c:choose>
+	<c:if test="${ not empty loginFail }">
+		<script>
+			Swal.fire({
+				text : '${ loginFail }',
+				icon : 'error'
+			});
+			
+			location.href = '${path}';
+		</script>
+		<c:remove var="loginFail" />
+	</c:if>	
 
 </body>
 </html>

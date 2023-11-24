@@ -23,8 +23,8 @@
 	height:px;
 	}
 	
-	.meeting-width2{width: 22%;}
-	.meeting-width3{width: 38%;}
+	.meeting-width2{width: 18% !important;}
+	.meeting-width3{width: 40% !important;}
 
 	.meeting_input{border: none;}
 	.meeting_input2{	
@@ -37,7 +37,7 @@
 	border-width:520px;
 	}
 	
-	.meetingStartDay, .meetingEndDay, .meeting_input2{
+	.meetingStartDay, .meetingEndDay, .meeting_input2, .meetingStartTime, .meetingEndDay{
 	border-radius: 10px;
 	border: 1px solid gray;
 	}

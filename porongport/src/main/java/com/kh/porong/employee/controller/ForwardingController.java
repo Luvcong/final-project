@@ -21,4 +21,14 @@ public class ForwardingController {
 	public String myPageUpdateForm() {
 		return "mypage/myPageUpdateForm";
 	}
+	
+	@GetMapping("jojigdo")
+	public String jojigdo() {
+		return "common/jojigdo";
+	}
+	
+	@GetMapping("findPwd")
+	public String findPwd() {
+		return "common/findPwd";
+	}
 }

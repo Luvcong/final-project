@@ -1,7 +1,12 @@
 package com.kh.porong.message.controller;
 
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,11 +14,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.porong.common.model.vo.PageInfo;
 import com.kh.porong.common.template.Pagination;
 import com.kh.porong.employee.model.vo.Employee;
 import com.kh.porong.message.model.service.MessageService;
+import com.kh.porong.message.model.vo.Message;
 
 @Controller
 public class MessageController {
@@ -29,15 +36,57 @@ public class MessageController {
 	 * 1) 받은 메시지 상세보기
 	 * @param mno : 메시지 상세보기 메시지 번호 - MESSAGE_NO
 	 * @param model
-	 * @return MESSAGE_NO 에 해당하는 일자, 작성자, 직급, 메시지내용 반환
+	 * @return MESSAGE_NO 에 해당하는 일자, 작성자, 직급, 메시지내용, 첨부파일 반환
 	 * @author JH
 	 * @Date : 2023. 11. 21
 	 */
 	@RequestMapping("detailMessage")
-	public String detailMessage(int mno, Model model) {
+	public String detailMessage(int mno,
+								@SessionAttribute(name="loginUser", required=false) Employee loginUser,
+								Model model) {
+		
+		int empNo = loginUser.getEmpNo();
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		map.put("empNo", empNo);
+		map.put("messageNo", mno);
+		
+		model.addAttribute("list", messageService.detailMessage(map));
+		
+		// System.out.println("messageDetailmessgeNo : " + mno);
 		return "message/detailMessage";
 	}	// detailMessage
+	
+	
+	/**
+	 * 메시지 작성하기
+	 * @param m
+	 * @param upfile
+	 * @param session
+	 * @param model
+	 * @return
+	 * @author JH
+	 * @Date : 2023. 11. 23
+	 */
+	@RequestMapping("insertMessage")
+	public String insertMessage(Message m,
+								MultipartFile upfile,
+								HttpSession session) {
 		
+		System.out.println(m);
+		System.out.println(upfile);
+		System.out.println(upfile.getOriginalFilename());
+		// m.setSendUser(loginUser.getEmpNo());
+		if(!upfile.getOriginalFilename().equals("")) {
+			m.setOriginFileName(upfile.getOriginalFilename());
+		}
+		
+		if(messageService.insertMessage(m) > 0){
+			session.setAttribute("successMsg", "메시지 전송에 성공했습니다!");
+		} else {
+			session.setAttribute("failMsg", "메시지 전송에 실패했습니다");
+		}
+		return "redirect:receivedMessage";
+	}	// insertMessage
 	
 	
 	// ==================================================================================
@@ -57,7 +106,6 @@ public class MessageController {
 	public String receivedMessage(@RequestParam(value="page", defaultValue="1") int currentPage,
 								  @SessionAttribute(name = "loginUser", required = false) Employee loginUser,
 								  Model model) {
-		
 		int empNo = loginUser.getEmpNo();
 		int listCount = messageService.receivedListCount(empNo);
 		int boardLimit = 10;

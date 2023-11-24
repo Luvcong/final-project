@@ -38,11 +38,11 @@
 	                    </div>
 	                    <div class="form-group">
 	                        <label for="empPwd">* 비밀번호</label>
-	                        <input type="password" id="empPwd" name="empPwd" class="form-control" required />
+	                        <input type="password" id="empPwd" name="empPwd" class="form-control" />
 	                    </div>
 	                    <div class="form-group">
 	                        <label>* 비밀번호 확인</label>
-	                        <input type="password" class="form-control" required />
+	                        <input type="password" class="form-control" />
 	                    </div>
 	                    <div class="form-group">
 	                        <label for="empPhone">연락처</label>
@@ -61,17 +61,16 @@
 	                <!-- 주소API -->
 	                <div id="updateAddrForm">
 	                    <div class="post_box">
-	                        <input type="text" id="empAddressCode" name="empAddressCode" placeholder="우편번호" class="form-control" />
-	                        <button onclick="findAddr();" class="btn btn-info">주소찾기</button>
+	                        <input type="text" id="empAddressCode" name="empAddressCode" placeholder="우편번호" class="form-control" value="${ loginUser.empAddressCode }" />
+	                        <button type="button" onclick="findAddr();" class="btn btn-info">주소찾기</button>
 	                    </div>
-	                    <input type="text" id="empAddress" name="empAddress" placeholder="주소" class="form-control" />
+	                    <input type="text" id="empAddress" name="empAddress" placeholder="주소" class="form-control" value="${ loginUser.empAddress }" />
 	                    <input type="text" id="detailAddress" placeholder="상세주소" class="form-control" />
 	                    <input type="text" id="extraAddress" placeholder="참고항목" class="form-control" />
 	                </div>
 	
 	                <div class="btn_area">
-	                    <button type="reset" class="btn btn-light">취소</button>
-	                    <button type="submit" class="btn btn-primary">확인</button>
+	                    <button type="submit" class="btn btn-primary" style="width: 100%">확인</button>
 	                </div>
 	            </form>
 	        </div>
@@ -109,20 +108,47 @@
 	                                extraAddr = ' (' + extraAddr + ')';
 	                            }
 	                            // 조합된 참고항목을 해당 필드에 넣는다.
-	                            document.getElementById("sample6_extraAddress").value = extraAddr;
+	                            document.getElementById("extraAddress").value = extraAddr;
 	                        
 	                        } else {
-	                            document.getElementById("sample6_extraAddress").value = '';
+	                            document.getElementById("extraAddress").value = '';
 	                        }
 	
 	                        // 우편번호와 주소 정보를 해당 필드에 넣는다.
-	                        document.getElementById('sample6_postcode').value = data.zonecode;
-	                        document.getElementById("sample6_address").value = addr;
+	                        document.getElementById('empAddressCode').value = data.zonecode;
+	                        document.getElementById("empAddress").value = addr;
 	                        // 커서를 상세주소 필드로 이동한다.
-	                        document.getElementById("sample6_detailAddress").focus();
+	                        document.getElementById("detailAddress").focus();
 	                    }
 	                }).open();
-	            }
+	            };
+	            
+	            /* 아무것도 입력하지 않았을 때에 대한 유효성 검사
+	            $(() => {
+	            	$('button:submit').on('click', e => {
+	            		const $empPwd = $('#empPwd');
+	            		const $empPhone = $('#empPhone');
+	            		const $empEmail = $('#empEmail');
+	            		
+	            		if($empPwd && $empPhone && $empEmail){
+	            			Swal.fire({
+	            				title : '오류',
+	            				text : '입력된 정보가 없습니다.',
+	            				icon : 'info'
+	            			});
+	            			console.log('인풋 벨류값이 없음');
+	            			console.log($('#empPwd').val());
+	            			console.log($('#empPhone').val());
+	            			console.log($('#firstLogin').val());
+	            			return false;
+            			}
+	            		else{
+	            			return true;
+	            		}
+	            	})
+	            })
+	            */
+	            
 	        </script>
 	
 	    </div>

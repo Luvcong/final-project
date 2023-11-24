@@ -14,10 +14,11 @@ public class Message {
 	private String messageStatus;
 	private int sendUser;
 	private int receiveUser;
-	private int fileNo;
+	private String originFileName;
 	
 	private String empName;
 	private String jobName;
+	private String deptName;
 	
 	private int messageRank;
 	private String effectiveDate;
