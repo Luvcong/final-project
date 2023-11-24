@@ -219,6 +219,7 @@
 		<div class="modal fade" id="eventModal" tabindex="-1" aria-labelledby="eventModalLabel" aria-hidden="true">
         <div class="modal-dialog">
         
+        	<form action="" method="post" id="modalClickForm">
             <div class="modal-content calendar-modal-width" style="width:600px;">
             	
                 <div class="modal-header">
@@ -257,18 +258,17 @@
                     <a type="button" class="btn btn-secondary" onclick="updateEvent();">수정하기</a>
                     <a type="button" class="btn btn-danger" onclick="deleteEvent();">삭제하기</a>
                     
-                    <form action="" method="post" id="modalClickForm">
-	            		<input type="hidden" name="schNo" value="">
-	            		<input type="hidden" name="empNo" value="${loginUser.empNo}">
+	            	<input type="hidden" name="schNo" value="">
+	            	<input type="hidden" name="empNo" value="${loginUser.empNo}">
 	            	</form>
                     
                     <script>
                     	function updateEvent(){
-                    		$('#modalClickForm').attr('action', 'deleteSchedule').submit();
+                    		$('#modalClickForm').attr('action', 'updateSchedule').submit();
                     	}
                     	
                     	function deleteEvent(){
-                    		$('#modalClickForm').attr('action', 'updateSchedule').submit();
+                    		$('#modalClickForm').attr('action', 'deleteSchedule').submit();
                     	}
                     </script>
                     
@@ -319,8 +319,6 @@
 									<th><i class="fa-solid fa-user-tag"></i></th>
 									<td><input type="text" name="deptName" id="deptName" readonly value="${loginUser.deptName}" class="mycalendar_input mycalendar_width time_block" /></td>
 									<input type="hidden" name="deptCode" value="${loginUser.deptCode}">
-									<input type="hidden" name="instanceId" id="instanceId" value="">
-									<input type="hidden" name="defId" id="defId" value="">
 								</tr>
 								
 								<tr>

@@ -14,8 +14,6 @@
 		<result column="SCH_END"  			property="schEnd"/>
 		<result column="SCH_STATUS" 		property="schStatus"/>
 		<result column="SCH_SHARE"  		property="schShare"/>
-		<result column="SCH_INSTANCEID"  	property="instanceId"/>
-		<result column="SCH_DEFID"  		property="defId"/>
 		<result column="SCH_CORRECTIONDATE"	property="correctionDate"/>
 	</resultMap>
 	

@@ -84,11 +84,13 @@ public class ScheduleController {
 		}
 		
 	}
-	@RequestMapping("insertCalendar")
+	
+	@RequestMapping("updateSchedule")
 	public String updateSchedule(ScheduleVO schedule) {
 		System.out.println(schedule);
-		return "";
+		return "redirect:calendar";
 	}
+	
 	/*
 	
 	@RequestMapping("insertMyCalendar")
