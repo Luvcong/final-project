@@ -21,14 +21,9 @@
 	
 	<!-- =========================== SQL =========================== -->
 	<!-- =========================================================== -->
-	<insert id="insertIndividual" parameterType="schedule">
-		INSERT INTO SCHEDULE(SCH_NO, EMP_NO, SCH_TITLE, SCH_CONTENT, SCH_START, SCH_END, SCH_SHARE, SCH_INSTANCEID, SCH_DEFID, SCH_CORRECTIONDATE)
-		VALUES (SEQ_SCH_NO.NEXTVAL, #{empNo}, #{schTitle}, #{schContent}, #{schStart}, #{schEnd}, 'M', #{instanceId}, #{"defId"}, SYSDATE)
-	</insert>
-	
-	<insert id="insertDepartment" parameterType="schedule">
-		INSERT INTO SCHEDULE(SCH_NO, EMP_NO, SCH_TITLE, SCH_CONTENT, SCH_START, SCH_END, SCH_SHARE, SCH_INSTANCEID, SCH_DEFID, SCH_CORRECTIONDATE)
-		VALUES (SEQ_SCH_NO.NEXTVAL, #{empNo}, #{schTitle}, #{schContent}, #{schStart}, #{schEnd}, 'D', #{instanceId}, #{"defId"}, SYSDATE)
+	<insert id="insertSchedule" parameterType="schedule">
+		INSERT INTO SCHEDULE(SCH_NO, EMP_NO, SCH_TITLE, SCH_CONTENT, SCH_START, SCH_END, SCH_SHARE, SCH_CORRECTIONDATE)
+		VALUES (SEQ_SCH_NO.NEXTVAL, #{empNo}, #{schTitle}, #{schContent}, #{schStart}, #{schEnd}, #{schShare}, SYSDATE)
 	</insert>
 	
 	<select id="selectIndividual" parameterType="schedule" resultMap="scheduleResultMap">

@@ -6,17 +6,16 @@
     border: 1px solid rgb(201, 196, 196);
     border-radius: 10px;
 }
+.calendarWidth{width:600px;}
+.mycalendar_width2{width: 22%;}
+.mycalendar_width3{width: 45%;}
 .mycalendar_width{width: 100%;}
 .calendarTextarea{
     resize: none;
     width: 100%;
-    height: 300px;
+    height: 150px;
     border-radius: 10px;
 }
-.calendarWidth{width:600px;}
-.mycalendar_width2{width: 22%;}
-.mycalendar_width3{width: 45%;}
-
 .calendar-outer{width:100%}
 .calendar-inner{width:100%;}
 .insertForm-rigth{float:right;}

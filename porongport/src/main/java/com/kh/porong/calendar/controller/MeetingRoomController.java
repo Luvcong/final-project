@@ -24,8 +24,9 @@ public class MeetingRoomController {
 	
 	@RequestMapping("reservation")
 	public String meeting() {
-		return "meeting/meeting";
+		return "meeting/meetingCalendar";
 	}
+	
 	
 	@RequestMapping("insertMeeting")
 	public String insertmeeting(MeetingRoomVO mr, HttpSession session) {
@@ -54,17 +55,6 @@ public class MeetingRoomController {
 		ArrayList<MeetingRoomVO> meetingRoom = meetingRoomService.selectMeetingRoomList(room);
 		
 		return new Gson().toJson(meetingRoom);
-	}
-	
-	@ResponseBody
-	@RequestMapping("timeCheck")
-	public ArrayList<MeetingRoomVO> timeCheck(String checkTime, String checkTimes) {
-		return meetingRoomService.timeCheck(checkTime, checkTimes);{
-			
-			if(checkTime >= MRS) { //이미 존재하는 아디디 -> 사용 불가능 (NNNNN)
-			}else { //사용가능 (NNNNY)
-			}
-		}
 	}
 	
 	
