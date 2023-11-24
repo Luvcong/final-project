@@ -235,8 +235,6 @@
 		                   <th>결재선</th>
 		                  </tr>
 	                   </table>
-	                   </div>
-	                   <div>
 	               <table class="table table-bordered">
 		                 <tr>
 		                  	<h3 id="">수신 부서 ></h3>
@@ -244,10 +242,8 @@
 							<th>부서</th>
 		                </tr>
 	                   </table>
-	                   </div>
 	                   
-	                  
-				 </tbody>
+				 
 						                
 		    
 									
@@ -271,6 +267,7 @@
 										<td><input type="file" id="apv_pl_rt" name="file"
 											class="form-control"></td>
 									</tr>
+									</div>
 								</tbody>
 
 							</table>
