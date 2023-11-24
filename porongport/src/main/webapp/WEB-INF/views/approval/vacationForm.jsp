@@ -17,6 +17,14 @@
 <body>
 
 	<jsp:include page="../common/sidebar.jsp" />
+	<script>
+		function hrSubmit(){
+			console.log('hi');
+			$('#HRForm').attr('action', 'vacation').submit();
+		}	
+	</script>
+	
+	
 	
 	<div class="pp-content">
 	
@@ -98,7 +106,7 @@
 					<div class="modal-body">
 
 						<form role="form" id="frm" method="post" enctype="multipart/form-data"
-							action="/approval/register">
+							action="/approval/register"></form>
 							<table class="table table-striped table-bordered">
 
 								<colgroup>
@@ -133,6 +141,7 @@
             
             <div class="">
             
+	                    	<form action="" method="post" id="HRForm">
                 <div class="">
                     <div id="">
                     
@@ -140,13 +149,12 @@
                     	
 	                    	<li class="">
 	                    	
-	                    	<form action="" method="post" id="HRForm">
 		                    	<ul style="">
 		                    	
 			                    	<li class="">
 				                    	<span class="">
 				                    		<span class=""></span>
-				                   			<a class="HRdept" onclick="HRsubmit(0);">인사부</a>
+				                   			<a type="button" class="HRdept" onclick="hrSubmit();">인사부</a>
 				                   	 	</span>
 			                   		 </li>
 			                   		 
@@ -164,17 +172,18 @@
 				                    	</span>
 			                    	</li>
 		                    	</ul>
-		                    	</form>
 		                    </li>
 	                    </ul>
                     </div>
                 </div>
+                                	</form>
 						                        </tr>
 						                    </thead>
 						                    <tbody id="job_table">
 						                  	
 						                    </tbody>
 						                </table>
+		    
 									</tr>
 									<!-- 
 									<tr>
@@ -216,13 +225,12 @@
        </div>
 
 		<script>
-		function HRsubmit(num){
-			$('#HRForm').attr('action', 'approval/vacationForm').submit();
-		}
+
+		
 		$(()=>{
 			$.ajax({
 				url: 'organization',
-				data: {deptCode: }
+				data: {deptCode: 'HR'},
 				success: data=>{
 					//console.log(data);
 					console.log(data[0].deptName);

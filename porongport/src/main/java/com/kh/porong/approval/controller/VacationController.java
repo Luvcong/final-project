@@ -21,7 +21,6 @@ public class VacationController {
 
 	@RequestMapping("vacation")
 	public String selectVacationDetail() {
-		
 		return "approval/vacationForm";
 	}
 	
