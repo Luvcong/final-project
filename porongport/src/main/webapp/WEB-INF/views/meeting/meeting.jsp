@@ -142,7 +142,7 @@
 	var timeOff = new Date().getTimezoneOffset()*60000; 
 	var today = new Date(now_utc-timeOff).toISOString().split("T")[0];
 	document.getElementById("meetStartDate").setAttribute("min", today);
-	document.getElementById("meetEndDay").setAttribute("min", today);
+	document.getElementById("meetEndDate").setAttribute("min", today);
   
 
 </script>
