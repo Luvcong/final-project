@@ -53,7 +53,7 @@ public class MessageServiceImpl implements MessageService {
 	
 	// 5) 메시지 상세보기
 	@Override
-	public Message detailMessage(Map<String, Integer> map) {
+	public Message detailMessage(Map<String, Object> map) {
 		return messageDao.detailMessage(sqlSession, map);
 	}	// detailMessage
 	
@@ -65,8 +65,8 @@ public class MessageServiceImpl implements MessageService {
 	
 	// 7) 메시지 읽음 설정
 	@Override
-	public int readMsg(int messageNo) {
-		return messageDao.readMsg(sqlSession, messageNo);
+	public int readMsg(Map<String, Object> map) {
+		return messageDao.readMsg(sqlSession, map);
 	}	// readMsg
 	
 	

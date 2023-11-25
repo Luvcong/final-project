@@ -54,8 +54,11 @@
 	font-size: 14px;
 }
 
-.td-fa-envelope{
+.fa-envelope {
 	color: #E35F21;
+}
+.fa-envelope-open {
+	color: #d4d4d4;
 }
 
 .td-fa-star{

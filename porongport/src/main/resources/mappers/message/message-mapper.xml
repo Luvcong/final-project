@@ -649,11 +649,11 @@
 	</insert>
 	
 	<!-- 7) 메시지 읽음 설정 -->
-	<update id="readMsg" parameterType="_int">
+	<update id="readMsg" parameterType="hashmap">
 		UPDATE
 				MESSAGE
 		   SET
-		   		READ_YN = 'Y'
+		   		READ_YN = #{ readYN }
 		 WHERE
 		 		MESSAGE_NO = #{ messageNo }
 	</update>

@@ -76,7 +76,7 @@ public class MessageDao {
 	 * @author JH
 	 * @Date : 2023. 11. 21
 	 */
-	public Message detailMessage(SqlSessionTemplate sqlSession, Map<String, Integer> map) {
+	public Message detailMessage(SqlSessionTemplate sqlSession, Map<String, Object> map) {
 		return sqlSession.selectOne("messageMapper.detailMessage", map);
 	}	// detailMessage
 	
@@ -102,8 +102,8 @@ public class MessageDao {
 	 * @author JH
 	 * @Date : 2023. 11. 23
 	 */
-	public int readMsg(SqlSessionTemplate sqlSession, int messageNo) {
-		return sqlSession.update("messageMapper.readMsg", messageNo);
+	public int readMsg(SqlSessionTemplate sqlSession, Map<String, Object> map) {
+		return sqlSession.update("messageMapper.readMsg", map);
 	}	// readMsg
 
 	
