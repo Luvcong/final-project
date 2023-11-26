@@ -139,7 +139,7 @@ body {
 	pointer-events: none;
 }
 
-.pp-sub-sidebar .sub-item:hover {
+.pp-sub-sidebar .sub-item:hover:not(.not-hover) {
     cursor: pointer;
     color: white;
     background-color: rgb(227, 95, 33);
