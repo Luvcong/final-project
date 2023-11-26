@@ -1,9 +1,11 @@
 package com.kh.porong.message.model.service;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import com.kh.porong.common.model.vo.PageInfo;
+import com.kh.porong.employee.model.vo.Employee;
 import com.kh.porong.message.model.vo.Message;
 
 public interface MessageService {
@@ -32,6 +34,9 @@ public interface MessageService {
 	
 	// 7) 메시지 읽음 설정
 	int readMsg(Map<String, Object> map);
+	
+	// 8) 전체 회원 목록 조회
+	List<Employee> selectAllEmployee();
 
 	
 	// ==================================================================================

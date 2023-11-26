@@ -132,6 +132,8 @@
 			</div>	<!-- tableBody  -->
 			
 			<!-- 메시지보내기  modal창 -->
+			<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+			<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 		 	<div class="modal" id="messageForm">
 				<form method="post" action="insertMessage" enctype="multipart/form-data">
 			        <div class="modal-dialog modal-lg">
@@ -146,7 +148,16 @@
 			                <table class="table table-sm">
 			                	<tr>
 			                		<th>To</th>
-			                		<td><input class="form-control form-control-sm" type="text" name="receiveUser" placeholder="받는 사람"/></td>
+			                		<td>
+										<select class="select-user select2-container form-control form-control-sm" name="receiveUser" multiple="multiple" style="width: 100%; font-size: 5pt;" >
+											<c:forEach var="userList" items="${ userList }">
+												<option value="${ userList.empNo }">${ userList.empName } [${ userList.jobName } / ${ userList.deptName }]</option>
+											</c:forEach>
+										</select>			                		
+			                		
+			                		</td>
+			                		
+			                		<!-- <td><input class="form-control form-control-sm" type="text" name="receiveUser" placeholder="받는 사람"/></td> -->
 			                	</tr>
 			                	<tr>
 			                		<th>Message</th>
@@ -259,6 +270,15 @@
 					tr.style.fontWeight = 'normal';
 				}
 			}
+			
+			$('.select-user').select2({
+				placeholder: "받는 사람",
+				allowClear: true,
+ 				language: {
+			       noResults: function() {return "검색결과가 없습니다";}
+			   },
+			   dropdownCssClass: "text-sm"
+			});
 		})
 		
 		// ------------------------------------------------------------------

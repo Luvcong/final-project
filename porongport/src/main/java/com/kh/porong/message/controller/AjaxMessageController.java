@@ -15,7 +15,7 @@ import com.google.gson.JsonArray;
 import com.kh.porong.message.model.service.MessageService;
 
 @Controller
-public class ajaxMessageController {
+public class AjaxMessageController {
 	
 	@Autowired
 	private MessageService messageService;

@@ -1,6 +1,7 @@
 package com.kh.porong.message.model.service;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.kh.porong.common.model.vo.PageInfo;
+import com.kh.porong.employee.model.vo.Employee;
 import com.kh.porong.message.model.dao.MessageDao;
 import com.kh.porong.message.model.vo.Message;
 
@@ -69,6 +71,14 @@ public class MessageServiceImpl implements MessageService {
 		return messageDao.readMsg(sqlSession, map);
 	}	// readMsg
 	
+	
+	// 8) 전체 회원 목록 조회
+	@Override
+	public List<Employee> selectAllEmployee() {
+		return messageDao.selectAllEmployee(sqlSession);
+	}	// selectAllEmployee
+
+
 	
 	// ==================================================================================
 	// 메시지함 - 받은 메시지 관련
@@ -272,8 +282,6 @@ public class MessageServiceImpl implements MessageService {
 	public int deletePermanentlyMessage(int messageNo) {
 		return messageDao.deletePermanentlyMessage(sqlSession, messageNo);
 	}	// deletePermanentlyMessage
-
-
 
 
 

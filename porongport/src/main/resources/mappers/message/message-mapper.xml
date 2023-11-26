@@ -56,7 +56,7 @@
 		<result column="DEPT_NAME" property="deptName" />
 		<result column="ORIGIN_FILENAME" property="originFileName" />
 		<result column="CHANGE_FILENAME" property="changeFileName" />
-		
+		<result column="MESSAGE_TYPE" property="messageType" />
 	</resultMap>
 	
 	<resultMap id="empResultSet" type="emp">
@@ -431,6 +431,7 @@
 	<select id="deleteMessageBoxList" resultMap="messageResultSet" parameterType="message">
 		SELECT
 				ROW_NUMBER() OVER(ORDER BY M.DELETE_DATE ASC) AS NUM,
+				DECODE(M.SEND_USER, #{ empNo} , '발신', M.RECEIVE_USER, #{ empNo }, '수신') AS MESSAGE_TYPE,
 		        M.MESSAGE_NO,
 		        E.EMP_NAME,
 		        J.JOB_NAME,
@@ -451,7 +452,7 @@
 		   AND
 		   		MESSAGE_STATUS = 'N'
 		   AND
-	   			M.RECEIVE_USER = #{ empNo }
+	   			(M.RECEIVE_USER = #{ empNo } OR M.SEND_USER = #{ empNo })
 		 ORDER
 		 	BY NUM DESC
 	</select>
@@ -464,6 +465,8 @@
 		  		MESSAGE
   		 WHERE
   		 		MESSAGE_STATUS = 'N'
+  		   AND
+		   		(RECEIVE_USER = #{ empNo } OR SEND_USER = #{ empNo })
 	</select>
 	
 	<!-- 3) 휴지통 메시지 검색 리스트 조회 -->
@@ -657,5 +660,31 @@
 		 WHERE
 		 		MESSAGE_NO = #{ messageNo }
 	</update>
+	
+	<!--8) 전체 회원 목록 조회 -->
+	<select id="selectAllEmployee" resultMap="empResultSet" parameterType="emp">
+		SELECT
+				EMP_NO,
+				EMP_NAME,
+				EMP_PHONE,
+				EMP_STATUS,
+				EMP_ADMIN,
+				EMP_EMAIL,
+				DEPT_NAME,
+				JOB_NAME,
+				CREATE_DATE
+		  FROM
+		  		EMPLOYEE E,
+		  		DEPARTMENT D,
+		  		JOB J
+		 WHERE
+		 		E.DEPT_CODE = D.DEPT_CODE
+		   AND
+		   		E.JOB_CODE = J.JOB_CODE
+		   AND
+		   		EMP_STATUS = 'Y'
+	</select>
+	
+	
 	
 </mapper>
