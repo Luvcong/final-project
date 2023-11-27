@@ -26,6 +26,7 @@ public class Message {
 	private String effectiveDate;
 	private String readYN;
 	private String bookmarkYN;
+	private String messageType;
 	
 	
 	
