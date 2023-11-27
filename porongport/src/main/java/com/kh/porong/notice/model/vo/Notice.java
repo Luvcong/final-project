@@ -12,13 +12,15 @@ public class Notice {
 	private String noticeTitle;
 	private String noticeContent;
 	private String createDate;
-//	private String updateDate;		// 현재 DB컬럼에 없음 추가해야함
+//	private String modifyDate;		// 현재 DB컬럼에 없음 추가해야함
 	private String noticeStatus;
 	private int noticeCount;
-	private int noticeType;
+	private String noticeType;
 	
 	private String deptName;
+	private String empName;
+	private String jobName;
 	private int replyCount;
-	private String OriginName;
+	private String originFileName;
 
 }	// end class

@@ -10,10 +10,10 @@ import com.kh.porong.reply.vo.Reply;
 public interface NoticeService {
 	
 	// 공지사항 게시글 전체 리스트 조회
-	ArrayList<Notice> noticeList(PageInfo pi, int empNo);
+	ArrayList<Notice> noticeList(PageInfo pi);
 	
 	// 공지사항 게시글 전체 개수 조회
-	int noticeListCount(int empNo);
+	int noticeListCount();
 	
 	// 공지사항 게시글 검색 리스트 조회
 	ArrayList<Notice> searchNoticeList(Map<String, Object> map, PageInfo pi);

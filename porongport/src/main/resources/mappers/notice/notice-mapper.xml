@@ -4,5 +4,73 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="noticeMapper">
+
+	<resultMap id="noticeResultSet" type="notice">
+		<result column="NOTICE_NO" property="noticeNo" />
+		<result column="NOTICE_WRITER" property="noticeWriter" />
+		<result column="NOTICE_TITLE" property="noticeTitle" />
+		<result column="NOTICE_CONTENT" property="noticeContent" />
+		<result column="CREATE_DATE" property="createDate" />
+		<result column="MODIFY_DATE" property="updateDate" />	<!--아직 미추가 -->
+		<result column="NOTICE_STATUS" property="noticeStatus" />
+		<result column="NOTICE_COUNT" property="noticeCount" />
+		<result column="NOTICE_TYPE" property="noticeType" />
+		<result column="DEPT_NAME" property="deptName" />
+		<result column="NOTICE_ORIGIN_FILENAME" property="originFileName" />
+		<result column="NOTICE_CHANGE_FILENAME" property="changeFileName" />
+		<result column="NOTICE_REPLY_CNT" property="replyCount" />
+		<result column="EMP_NAME" property="empName" />
+		<result column="JOB_NAME" property="jobName" />
+	</resultMap>
+	
+	<!-- 공지사항 리스트 전체 조회 -->
+	<select id="noticeList" resultMap="noticeResultSet" parameterType="notice">
+		SELECT
+				N.NOTICE_TYPE,
+				N.NOTICE_NO,
+				N.NOTICE_TITLE,
+				E.EMP_NAME,
+				J.JOB_NAME,
+				D.DEPT_NAME,
+				N.CREATE_DATE,
+				AT.NOTICE_ORIGIN_FILENAME,
+				N.NOTICE_COUNT, 
+	      		NVL(RR.NOTICE_REPLY_CNT, 0) AS NOTICE_REPLY_CNT
+	  	 FROM
+	  			(
+	      		SELECT NOTICE_NO, COUNT(NOTICE_NO) AS NOTICE_REPLY_CNT
+	        	  FROM REPLY
+	       		 GROUP BY NOTICE_NO) RR,
+	       		NOTICE N, EMPLOYEE E, JOB J, DEPARTMENT D, NOTICE_ATTACHMENT AT
+		 WHERE
+		 		N.NOTICE_WRITER = E.EMP_NO
+		   AND
+		   		E.JOB_CODE = J.JOB_CODE
+		   AND
+		   		E.DEPT_CODE = D.DEPT_CODE
+   		   AND
+   		   		N.NOTICE_STATUS = 'Y'
+		   AND
+		   		N.NOTICE_NO = AT.NOTICE_NO(+)
+		   AND
+		   		N.NOTICE_NO = RR.NOTICE_NO(+)
+		 ORDER
+		    BY
+		    	N.NOTICE_NO DESC
+	</select>
+	
+	<!-- 공지사항 전체 리스트 개수 조회 -->
+	<select id="noticeListCount" resultType="_int">
+		SELECT
+				COUNT(*)
+		  FROM
+		  		NOTICE
+  		 WHERE
+  		 		NOTICE_STATUS = 'Y'
+	</select>
+	
+	
+
+
 </mapper>
 	
