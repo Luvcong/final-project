@@ -46,6 +46,7 @@
 							start: mySchedule[i].schStart,
 							end: mySchedule[i].schEnd,
 							color : "#f1c232"
+							
 				        });
 					}
 					
@@ -57,6 +58,7 @@
 							start: departmentSchedule[i].schStart,
 							end: departmentSchedule[i].schEnd,
 							color : "#8e7cc3"
+							
 				        });
 					}
 					
