@@ -5,6 +5,8 @@
 <head>
 <meta charset="UTF-8">
 <title>휴가신청서</title>
+	<!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 	<!-- 부트스트립트 -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
@@ -53,11 +55,20 @@
 		}
 
 			
-			function apSubmit(e){
-				console.log(e.target);
-				//$('#appCheck>tbody').(e);
-
+		function apSubmit(e){
+			//console.log($(e).children()[0]);
+			//console.log($(e).children()[1]);
+			//console.log($(e).children()[2]);
+			var index = 1;
+			var department = $(e).children()[0];
+			var empName = $(e).children()[1];
+			var position = $(e).children()[2];
 			
+			console.log(index);
+			$('#appCheck>tbody>tr').children('td:eq(0)').html(index);
+			$('#appCheck>tbody>tr').children('td:eq(1)').html(department);
+			$('#appCheck>tbody>tr').children('td:eq(2)').html(empName);
+			$('#appCheck>tbody>tr').children('td:eq(3)').html(position);
 		}	
 	</script>
 	
@@ -175,36 +186,29 @@
 	                    	<form action="" method="post" id="HRForm">
                 <div class="">
                     <div id="">
-                    
-                    	<ul class="">
+                    	<ul style="">
                     	
 	                    	<li class="">
+		                    	<span class="">
+		                    		<span class=""></span>
+		                   			<button type="button" class="HRdept" onclick="hrSubmit(this);">인사부</button>
+		                   	 	</span>
+	                   		 </li>
+	                   		 
+	                    	<li class="">
+	                   	 		<span class="">
+		                    		<span class=""></span>
+		                    		<button type="button" class="HRdept" onclick="hrSubmit(this);">구매관리부</button>
+	                    		</span>
+	                    	</li>
 	                    	
-		                    	<ul style="">
-		                    	
-			                    	<li class="">
-				                    	<span class="">
-				                    		<span class=""></span>
-				                   			<button type="button" class="HRdept" onclick="hrSubmit(this);">인사부</button>
-				                   	 	</span>
-			                   		 </li>
-			                   		 
-			                    	<li class="">
-			                   	 		<span class="">
-				                    		<span class=""></span>
-				                    		<button type="button" class="HRdept" onclick="hrSubmit(this);">구매관리부</button>
-			                    		</span>
-			                    	</li>
-			                    	
-			                    	<li class="">
-				                    	<span class="">
-					                    	<span class=""></span>
-					                    	<button type="button" class="HRdept" onclick="hrSubmit(this);">영업부</button>
-				                    	</span>
-			                    	</li>
-		                    	</ul>
-		                    </li>
-	                    </ul>
+	                    	<li class="">
+		                    	<span class="">
+			                    	<span class=""></span>
+			                    	<button type="button" class="HRdept" onclick="hrSubmit(this);">영업부</button>
+		                    	</span>
+	                    	</li>
+                    	</ul>
                     </div>
                 </div>
                 </form>
@@ -217,7 +221,6 @@
 	               <table class="table table-bordered app_jojigdo" id="appCheck">
 	                <h3 id="">결재자 ></h3>
 	                <thead>
-	                	
 		                  <tr>
 		                   <th>순서</th>
 		                   <th>부서</th>
@@ -225,7 +228,14 @@
 		                   <th>직급</th>
 		                  </tr>
 		            </thead>   
-		            	<tbody></tbody>   
+		            	<tbody>
+		            		<tr>
+		            			<td>1</td>
+		            			<td></td>
+		            			<td></td>
+		            			<td></td>
+		            		</tr>
+		            	</tbody>   
 	                   </table>
 	               <table class="table table-bordered">
 		                 <tr>
