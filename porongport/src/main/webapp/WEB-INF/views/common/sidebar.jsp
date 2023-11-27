@@ -165,16 +165,18 @@
 						<button type="button" class="btn btn-info" data-toggle="modal" data-target="#insertDept" style="width: 100%; height: 100%; font-size: 15px;">부서추가</button>
 				        <button type="submit" class="sub-item" data-url='jojigdo.em'>인사부</button>
 				        <input type="hidden" name="deptCode" value="HR" />
+				        <!-- 
+				        <div class="sub-item" data-url='jojigdo.em' onclick="jojigdo(HR);">인사부</div>
+			       		<div class="sub-item" data-url='jojigdo.em' onclick="jojigdo(PD);">구매관리부</div>		        
+				        <div class="sub-item" data-url='jojigdo.em' onclick="jojigdo(PM);">영업부</div>
+				        
+				         -->
 					</div>
 				</form>
-						
 				<script>
-					function jojigdo(e){
-						
-						if(this == 'HR'){
-							location.href = '${path}jojigdo.em?deptCode=HR';
-						}
-							
+					function jojigdo(deptCode){
+						console.log(deptCode);
+						location.href = '${path}jojigdo.em?deptCode=' + this;
 					}
 				</script>
 				

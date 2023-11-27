@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.kh.porong.employee.model.vo.Attachment;
 import com.kh.porong.employee.model.vo.Attendance;
 import com.kh.porong.employee.model.vo.Employee;
 
@@ -57,6 +58,10 @@ public class EmployeeDao {
 
 	public int dcCheck(SqlSessionTemplate sqlSession, String checkDc) {
 		return sqlSession.selectOne("empMapper.dcCheck", checkDc);
+	}
+
+	public int insertProfile(SqlSessionTemplate sqlSession, Attachment att) {
+		return sqlSession.insert("empMapper.insertProfile", att);
 	}
 
 }

@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -46,8 +48,8 @@
 	                &lt; 신규 입사자 등록 &gt;
 	            </h4>
 	            <p>
-                                   인사관리부-대리급 <br>
-               		<b>홍길동</b>
+                    ${insertEmp.deptName}-${insertEmp.jobName}급 <br>
+               		<b>${insertEmp.empName}</b>
 			               님의 <br>
 			               등록이 완료되었습니다.
 	            </p>
