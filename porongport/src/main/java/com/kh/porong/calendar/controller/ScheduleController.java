@@ -86,10 +86,37 @@ public class ScheduleController {
 	}
 	
 	@RequestMapping("updateSchedule")
-	public String updateSchedule(ScheduleVO schedule) {
-		System.out.println("비엇니"+schedule);
+	public String updateSchedule(ScheduleVO schedule, HttpSession session) {
+		//System.out.println(schedule);
 		
-		return "redirect:calendar";
+		schedule.setSchStart(schedule.getStartDate()+"T"+schedule.getStartTime());
+		schedule.setSchEnd(schedule.getEndDate()+"T"+schedule.getEndTime());
+		
+		//System.out.println(schedule);
+		if(scheduleService.updateSchedule(schedule)>0) {
+			session.setAttribute("alertMsg", "수정이 완료되었습니다.");
+			return "redirect:calendar";
+		}else {
+			session.setAttribute("errorMsg", "수정에 실패하였습니다.");
+			return "common/errorPage";
+		}
+	}
+	
+	@RequestMapping("deleteSchedule")
+	public String deleteSchedule(ScheduleVO schedule, HttpSession session) {
+		//System.out.println(schedule);
+		
+		schedule.setSchStart(schedule.getStartDate()+"T"+schedule.getStartTime());
+		schedule.setSchEnd(schedule.getEndDate()+"T"+schedule.getEndTime());
+		
+		//System.out.println(schedule);
+		if(scheduleService.deleteSchedule(schedule)>0) {
+			session.setAttribute("alertMsg", "삭제가 완료되었습니다.");
+			return "redirect:calendar";
+		}else {
+			session.setAttribute("errorMsg", "삭제에 실패하였습니다.");
+			return "common/errorPage";
+		}
 	}
 	
 	/*

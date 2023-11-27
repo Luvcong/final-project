@@ -27,7 +27,7 @@ public class VacationController {
 	@ResponseBody
 	@GetMapping(value="organizationChart", produces="json/application; charset=UTF-8")
 	public String selectOrganizationChart(String deptName) {
-		System.out.println(deptName);
+		//System.out.println(deptName);
 		
 		ArrayList<VacationVO> list = edmsService.selectOrganiztionChart(deptName);
 		return new Gson().toJson(list);
@@ -37,6 +37,13 @@ public class VacationController {
 	public String selectOrganization() {
 		
 		ArrayList<VacationVO> list = edmsService.selectOrganiztion();
+		return new Gson().toJson(list);
+	}
+	
+	@GetMapping(value="Approver", produces="json/application; charset=UTF-8")
+	public String selectApprover(String deptName) {
+		
+		ArrayList<VacationVO> list = edmsService.selectApprover(deptName);
 		return new Gson().toJson(list);
 	}
 }

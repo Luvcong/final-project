@@ -22,5 +22,13 @@ public class ScheduleDao {
 		return (ArrayList)sqlSession.selectList("scheduleMapper.selectDepartment", schedule);
 	}
 
+	public int updateSchedule(SqlSessionTemplate sqlSession, ScheduleVO schedule) {
+		return sqlSession.update("scheduleMapper.updateSchedule", schedule);
+	}
+
+	public int deleteSchedule(SqlSessionTemplate sqlSession, ScheduleVO schedule) {
+		return  sqlSession.update("scheduleMapper.deleteSchedule", schedule);
+	}
+
 
 }

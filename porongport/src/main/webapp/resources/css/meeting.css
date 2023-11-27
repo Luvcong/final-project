@@ -17,11 +17,16 @@
     width: 100%;
     height: 300px;
     border-radius: 10px;
+    resize: none;
 }
-	.meetingWidth{
-	width:600px;
-	height:px;
-	}
+
+
+.mymeeting_width, .mymeeting_input, .mymeeting_input2{
+ border-radius: 10px;
+ border: 1px solid #888;
+}
+
+.meeting-modal-width {width:600px !implement;}
 	
 	.meeting-width2{width: 18% !important;}
 	.meeting-width3{width: 40% !important;}
@@ -97,6 +102,12 @@
   
 input:checked + .slider {
     background-color: rgb(227, 98, 33);
+}
+
+.inputform{
+  border-radius: 10px;
+  width: 120px;
+  border: 1px solid rgb(206 212 218);
 }
   
 input:focus + .slider {

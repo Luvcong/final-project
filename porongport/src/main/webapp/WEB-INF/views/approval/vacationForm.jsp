@@ -5,6 +5,8 @@
 <head>
 <meta charset="UTF-8">
 <title>휴가신청서</title>
+	<!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 	<!-- 부트스트립트 -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
@@ -19,43 +21,54 @@
 	<jsp:include page="../common/sidebar.jsp" />
 	<script>
 		function hrSubmit(e){
-			console.log(e.innerText);
+			//console.log(e.innerText);
 			//$('#HRForm').attr('action', 'vacation').submit();
 			$.ajax({
 				url: 'organizationChart',
 				data : {deptName : e.innerText},
 				success: data=>{ 
-					
-				
-				console.log(data);
-				/*
+					//console.log(data);
+					/*
 					console.log(data[0].deptName);
 					console.log(data[0].empName);
 					console.log(data[0].jobName);
 					*/
 					
-					let value = ' ';
+					let value = '';
 
 					for(i=0; i<data.length; i++){
-						value += '<tr>'
+						value += '<tr onclick="apSubmit(this);">'
 						         + '<td>' + data[i].deptName + '</td>'
 						         + '<td>' + data[i].empName + '</td>'
 					             + '<td>' + data[i].jobName + '</td>'
 						         + '</tr>'
-						        
 					}
-					 console.log(value);
+					 //console.log(value);
 					
 					$('#job_table').html(value);
-					
-                   
 				},
 				error:()=>{
 					console.log('실패');
 				}
 					
 			})
+		}
+
 			
+		function apSubmit(e){
+			//console.log($(e).children()[0]);
+			//console.log($(e).children()[1]);
+			//console.log($(e).children()[2]);
+			var index = 1;
+			var department = $(e).children()[0];
+			var empName = $(e).children()[1];
+			var position = $(e).children()[2];
+			
+			console.log(index);
+			$('#appCheck>tbody>tr').children('td:eq(0)').html(index);
+			$('#appCheck>tbody>tr').children('td:eq(1)').html(department);
+			$('#appCheck>tbody>tr').children('td:eq(2)').html(empName);
+			$('#appCheck>tbody>tr').children('td:eq(3)').html(position);
 		}	
 	</script>
 	
@@ -160,78 +173,73 @@
 						                        	<th>직급</th>
 						                        </tr>
 						                     
-						                        <tr>
+						             <tr>
 						                        <!-- 
 						                        <th><button type="button" value="HR">인사부</button></th>
 							                  	<th><button type="button" value="PD">구매관리부</button></th>
 							                  	<th><button type="button" value="PM">영업부</button></th>
 							                  	 -->
-							                  	 <div id="">
-   													 <span id=""></span>
-												 </div>
-    
+
         <!-- left start -->
-        <div class="">
             <h3 id="">조직도</h3>
-            
-            <div class="">
             
 	                    	<form action="" method="post" id="HRForm">
                 <div class="">
                     <div id="">
-                    
-                    	<ul class="">
+                    	<ul style="">
                     	
 	                    	<li class="">
+		                    	<span class="">
+		                    		<span class=""></span>
+		                   			<button type="button" class="HRdept" onclick="hrSubmit(this);">인사부</button>
+		                   	 	</span>
+	                   		 </li>
+	                   		 
+	                    	<li class="">
+	                   	 		<span class="">
+		                    		<span class=""></span>
+		                    		<button type="button" class="HRdept" onclick="hrSubmit(this);">구매관리부</button>
+	                    		</span>
+	                    	</li>
 	                    	
-		                    	<ul style="">
-		                    	
-			                    	<li class="">
-				                    	<span class="">
-				                    		<span class=""></span>
-				                   			<button type="button" class="HRdept" onclick="hrSubmit(this);">인사부</button>
-				                   	 	</span>
-			                   		 </li>
-			                   		 
-			                    	<li class="">
-			                   	 		<span class="">
-				                    		<span class=""></span>
-				                    		<button type="button" class="HRdept" onclick="hrSubmit(this);">구매관리부</button>
-			                    		</span>
-			                    	</li>
-			                    	
-			                    	<li class="">
-				                    	<span class="">
-					                    	<span class=""></span>
-					                    	<button type="button" class="HRdept" onclick="hrSubmit(this);">영업부</button>
-				                    	</span>
-			                    	</li>
-		                    	</ul>
-		                    </li>
-	                    </ul>
+	                    	<li class="">
+		                    	<span class="">
+			                    	<span class=""></span>
+			                    	<button type="button" class="HRdept" onclick="hrSubmit(this);">영업부</button>
+		                    	</span>
+	                    	</li>
+                    	</ul>
                     </div>
                 </div>
                 </form>
 				 </tr>
 				</thead>
 				<tbody id="job_table">
-					<div class="">
-						<div class="gm_box">
+					<div class="gm_box">
                 
-               		<div>
-	               <table class="table table-bordered">
+               		</div>
+	               <table class="table table-bordered app_jojigdo" id="appCheck">
 	                <h3 id="">결재자 ></h3>
+	                <thead>
 		                  <tr>
 		                   <th>순서</th>
-		                   <th>성함</th>
-		                   <th>직책</th>
 		                   <th>부서</th>
-		                   <th>결재선</th>
+		                   <th>성명</th>
+		                   <th>직급</th>
 		                  </tr>
+		            </thead>   
+		            	<tbody>
+		            		<tr>
+		            			<td>1</td>
+		            			<td></td>
+		            			<td></td>
+		            			<td></td>
+		            		</tr>
+		            	</tbody>   
 	                   </table>
 	               <table class="table table-bordered">
 		                 <tr>
-		                  	<h3 id="">수신 부서 ></h3>
+		                  	<h3>수신 부서 ></h3>
 							<th>담당자</th>	                  
 							<th>부서</th>
 		                </tr>
