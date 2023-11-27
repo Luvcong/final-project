@@ -51,10 +51,12 @@
 					
 			})
 		}
-		
-		function apSubmit(e){
-			console.log(e);
-			//$('#appCheck>tbody').innserHtml(e);
+
+			
+			function apSubmit(e){
+				console.log(e.target);
+				//$('#appCheck>tbody').(e);
+
 			
 		}	
 	</script>
