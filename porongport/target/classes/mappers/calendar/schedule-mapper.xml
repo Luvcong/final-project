@@ -15,6 +15,7 @@
 		<result column="SCH_STATUS" 		property="schStatus"/>
 		<result column="SCH_SHARE"  		property="schShare"/>
 		<result column="SCH_CORRECTIONDATE"	property="correctionDate"/>
+		<result column="EMP_NAME"	property="empName"/>
 	</resultMap>
 	
 	<!-- =========================== SQL =========================== -->

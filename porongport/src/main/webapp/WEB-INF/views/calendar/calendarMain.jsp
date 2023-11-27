@@ -46,7 +46,6 @@
 							start: mySchedule[i].schStart,
 							end: mySchedule[i].schEnd,
 							color : "#f1c232"
-							
 				        });
 					}
 					
@@ -58,7 +57,6 @@
 							start: departmentSchedule[i].schStart,
 							end: departmentSchedule[i].schEnd,
 							color : "#8e7cc3"
-							
 				        });
 					}
 					
@@ -114,12 +112,17 @@
             	},
             	
             	eventClick: (calEvent, jsEvent, view) => {
-                    //console.log(calEvent.event._def.publicId);
-            		
-                    $('#schNo').val(calEvent.event._def.publicId);
+                    console.log(calEvent);
+                    var schNo = parseInt(calEvent.event._def.publicId);
+                    console.log(schNo);
+                    
+                    $('#hidenSchNo').val(schNo);
                     
                     $('#eventModalLabel').text(calEvent.event._def.title);
+                    $('#hidenSchTitle').val(calEvent.event._def.title);
+                    
             	    $("#inputContent").val(calEvent.event._def.extendedProps.description);
+            	    $("#hiddenSchShare").val(calEvent.event._def.extendedProps.description);
             	    
             	    var selectStartDate = calEvent.el.fcSeg.eventRange.instance.range.start;
             	    
@@ -141,15 +144,15 @@
             	    var endDate = selectEndDate.getFullYear()+'-'
 				    		 		+((selectEndDate.getMonth()+1) < 10 ? "0" + (selectEndDate.getMonth()+1) : (selectEndDate.getMonth()+1))+'-'
 				    		 		+((selectEndDate.getDate()) < 10 ? "0" + (selectEndDate.getDate()) : (selectEndDate.getDate()));
-    
+            	    
             	    if((selectEndDate.getHours()-9)<0){
-            	    	var endTime = (((selectEndDate.getHours()-9)+24) < 10 ? "0" + ((selectEndDate.getHours()-9)+24) : ((selectEndDate.getHours()-9)+24)) +':'
-	    								+((selectEndDate.getMinutes()) < 10 ? "0" + (selectEndDate.getMinutes()) : (selectEndDate.getMinutes()));
-            	    }
-            	    else{
-            	    	var endTime = (((selectEndDate.getHours()-9)) < 10 ? "0" + ((selectEndDate.getHours()-9)) : ((selectEndDate.getHours()-9))) +':'
-	    							 +((selectEndDate.getMinutes()) < 10 ? "0" + (selectEndDate.getMinutes()) : (selectEndDate.getMinutes()));
-            	    }
+                	    var endTime = (((selectEndDate.getHours()-9)+24) < 10 ? "0" + ((selectEndDate.getHours()-9)+24) : ((selectEndDate.getHours()-9)+24)) +':'
+    	    						  +((selectEndDate.getMinutes()) < 10 ? "0" + (selectEndDate.getMinutes()) : (selectEndDate.getMinutes()));
+                	}
+                	else{
+                	    var endTime = (((selectEndDate.getHours()-9)) < 10 ? "0" + ((selectEndDate.getHours()-9)) : ((selectEndDate.getHours()-9))) +':'
+    	    						  +((selectEndDate.getMinutes()) < 10 ? "0" + (selectEndDate.getMinutes()) : (selectEndDate.getMinutes()));
+                	}
             	    
             	    $("#inputDateStrart").val(startDate);
             	    $("#inputDateEnd").val(endDate);
@@ -236,33 +239,28 @@
                     <div class="mb-3">
                     	<br>
                     	<label for="inputCalendar" class="form-label">기간</label><br>
-                        <input type="date" class="inputform" id="inputDateStrart" value=""> 
-                        <input type="time" class="inputform" id="inputTimeStrart" value=""> 
+                        <input type="date" class="inputform" id="inputDateStrart"  name="startDate" value=""> 
+                        <input type="time" class="inputform" id="inputTimeStrart"  name="startTime" value=""> 
                          ~ 
-                        <input type="date" class="inputform" id="inputDateEnd" value="">
-                        <input type="time" class="inputform" id="inputTimeEnd" value=""><br>
+                        <input type="date" class="inputform" id="inputDateEnd"  name="endDate" value="">
+                        <input type="time" class="inputform" id="inputTimeEnd"  name="endTime" value=""><br>
                         <br>
                         
                         <label for="inputCalendar" class="form-label">일정내용</label>
-                        <textarea class="form-control textarea-resize" rows="5" id="inputContent" value=""></textarea>
+                        <textarea class="form-control textarea-resize" rows="5" id="inputContent" name="schContent" value=""></textarea>
                         <br>
                     </div>
                     
-                    <div class="modal-border">
-                    <label for="inputCalendar" class="form-label">&nbsp;&nbsp;작성자:&nbsp;</label>
-			        <span>이승철</span>&nbsp;&nbsp;&nbsp;/
-			        <label for="inputCalendar" class="form-label">&nbsp;&nbsp;수정일:&nbsp;</label>
-			        <span>2023-11-22</span>&nbsp;&nbsp;&nbsp;
-			        </div>
                 </div>
                 
                 <div class="modal-footer">
                     <a type="button" class="btn btn-secondary" onclick="updateEvent();">수정하기</a>
                     <a type="button" class="btn btn-danger" onclick="deleteEvent();">삭제하기</a>
                     
-	            	<input type="hidden" id="schNo" name="schNo" value="">
+	            	<input type="hidden" id="hiddenSchNo" name="schNo" value="">
 	            	<input type="hidden" name="empNo" value="${loginUser.empNo}">
-	            	
+	            	<input type="hidden" id="hidenSchTitle" name="schTitle" value="">
+	            	<input type="hidden" id="hiddenSchShare" name="schShare" value="">
                     
                     <script>
                     	function updateEvent(){
@@ -299,7 +297,6 @@
 						<div class="calendarWidth">
 						<form id="insertCalendar" method="post" action="insertCalendar">
 							<table class="table table-sm" id="insertSchedule">
-								
 								<tr>
 									<th><i class="fa-solid fa-user-plus"></i></th>
 									<td colspan="3">
