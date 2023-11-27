@@ -39,4 +39,11 @@ public class VacationController {
 		ArrayList<VacationVO> list = edmsService.selectOrganiztion();
 		return new Gson().toJson(list);
 	}
+	
+	@GetMapping(value="Approver", produces="json/application; charset=UTF-8")
+	public String selectApprover(String deptName) {
+		
+		ArrayList<VacationVO> list = edmsService.selectApprover(deptName);
+		return new Gson().toJson(list);
+	}
 }
