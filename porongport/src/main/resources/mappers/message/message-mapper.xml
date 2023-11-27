@@ -616,7 +616,7 @@
 		   AND
 		   		M.MESSAGE_NO = #{ messageNo }
 		   AND
-		   		M.RECEIVE_USER = #{ empNo }
+		   		(M.RECEIVE_USER = #{ empNo } OR M.SEND_USER = #{ empNo })
 	</select>
 	
 	<!-- 6) 메시지 작성 -->
