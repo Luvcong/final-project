@@ -58,7 +58,7 @@
 		}
 			
 			function apSubmit(e){
-				console.log(e);
+				console.log(e.target);
 				//$('#appCheck>tbody').(e);
 			
 		}	
