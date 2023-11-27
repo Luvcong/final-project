@@ -19,7 +19,7 @@
 	<jsp:include page="../common/sidebar.jsp" />
 	<script>
 		function hrSubmit(e){
-			console.log(e.innerText);
+			//console.log(e.innerText);
 			//$('#HRForm').attr('action', 'vacation').submit();
 			$.ajax({
 				url: 'organizationChart',
@@ -27,7 +27,7 @@
 				success: data=>{ 
 					
 				
-				console.log(data);
+				//console.log(data);
 				/*
 					console.log(data[0].deptName);
 					console.log(data[0].empName);
@@ -37,14 +37,14 @@
 					let value = ' ';
 
 					for(i=0; i<data.length; i++){
-						value += '<tr>'
-						         + '<td>' + data[i].deptName + '</td>'
+						value += '<tr onclick="apSubmit(this);">'
+						         + '<td>'  + data[i].deptName + '</td>'
 						         + '<td>' + data[i].empName + '</td>'
 					             + '<td>' + data[i].jobName + '</td>'
 						         + '</tr>'
 						        
 					}
-					 console.log(value);
+					 //console.log(value);
 					
 					$('#job_table').html(value);
 					
@@ -55,6 +55,11 @@
 				}
 					
 			})
+		}
+			
+			function apSubmit(e){
+				console.log(e.target);
+				//$('#appCheck>tbody').(e);
 			
 		}	
 	</script>
@@ -160,21 +165,15 @@
 						                        	<th>직급</th>
 						                        </tr>
 						                     
-						                        <tr>
+						             <tr>
 						                        <!-- 
 						                        <th><button type="button" value="HR">인사부</button></th>
 							                  	<th><button type="button" value="PD">구매관리부</button></th>
 							                  	<th><button type="button" value="PM">영업부</button></th>
 							                  	 -->
-							                  	 <div id="">
-   													 <span id=""></span>
-												 </div>
-    
+
         <!-- left start -->
-        <div class="">
             <h3 id="">조직도</h3>
-            
-            <div class="">
             
 	                    	<form action="" method="post" id="HRForm">
                 <div class="">
@@ -215,23 +214,25 @@
 				 </tr>
 				</thead>
 				<tbody id="job_table">
-					<div class="">
-						<div class="gm_box">
+					<div class="gm_box">
                 
-               		<div>
-	               <table class="table table-bordered">
+               		</div>
+	               <table class="table table-bordered app_jojigdo" id="appCheck">
 	                <h3 id="">결재자 ></h3>
+	                <thead>
+	                	
 		                  <tr>
 		                   <th>순서</th>
-		                   <th>성함</th>
-		                   <th>직책</th>
 		                   <th>부서</th>
-		                   <th>결재선</th>
+		                   <th>성명</th>
+		                   <th>직급</th>
 		                  </tr>
+		            </thead>   
+		            	<tbody></tbody>   
 	                   </table>
 	               <table class="table table-bordered">
 		                 <tr>
-		                  	<h3 id="">수신 부서 ></h3>
+		                  	<h3>수신 부서 ></h3>
 							<th>담당자</th>	                  
 							<th>부서</th>
 		                </tr>

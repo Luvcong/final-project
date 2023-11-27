@@ -181,13 +181,8 @@
 				<div class="sub-menu d-none" data-group='calendar'>
 
 			    	<div class="sub-item sub-title" data-url='calendar'>캘린더</div>
-
-			        <div class="sub-item" data-url='myCalendar'>나의 일정 추가</div>
-			        <div class="sub-item" data-url='departmentCalendar'>부서 일정 추가</div>
-			        <div class="sub-item"data-url='reservation'>회의실 예약</div>
-			        <c:if test="${loginUser.empAdmin eq 'A' and loginUser.deptCode eq 'PD'}">
-                <div class="sub-item" data-url='meetingRoom'>회의실 일정 관리</div>
-                </c:if>
+					<c:if test="${loginUser.empAdmin eq 'A' and loginUser.deptCode eq 'PD'}"></c:if>
+                	<div class="sub-item" data-url='adminMeetingRoom'>회의실 일정 관리</div>
 				</div>
             </div>  <!-- pp-sub-sidebar -->
             

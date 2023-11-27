@@ -27,11 +27,14 @@ public interface EdmsService {
 	// --------결재서류 등록----------
 	// 휴가신청서 등록
 	int insertVacation(VacationVO vacation);
-	// 지출결의서 등록 
-
+	
 	ArrayList<VacationVO> selectOrganiztionChart(String deptName);
 	
 	ArrayList<VacationVO> selectOrganiztion();
+	
+	ArrayList<VacationVO> selectApprover(String deptName);
+	// 지출결의서 등록 
+
 	
 	// 인사발령서 등록
 	

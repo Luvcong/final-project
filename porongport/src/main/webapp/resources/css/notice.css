@@ -1,0 +1,49 @@
+@charset "UTF-8";
+.pp-content .h-title {
+	margin-bottom: 16px;
+    font-size: 16pt;
+    font-weight: bold;
+}
+.pp-content .toolbar {
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 16px;
+}
+
+.pp-content .pp-content-notice {
+	text-align: center;
+}
+
+.pp-content .pp-content-notice .td-content, .fa-star{
+	cursor: pointer;
+}
+.pp-content .selectCount {
+	float: right;
+	color: #4A4A4A;
+    margin-bottom: 12px;
+}
+
+.pp-content .pp-content-notice .selectCount .count {
+	color: #6C79E0;
+}
+
+.pp-content .pp-content-notice .tableBody{
+	font-size: 14px;
+	font-weight: bold;
+}
+
+.pp-content .pp-content-notice .tableBody .tb-title-tr{
+    background-color: #6C79E0;
+    color: white;
+}
+
+.pp-content .pp-content-notice .tableBody .tb-delte-title-tr{
+    background-color: #DC3545;
+    color: white;
+}
+
+#pagingArea{
+	margin-top: 100px;
+}
+
+}

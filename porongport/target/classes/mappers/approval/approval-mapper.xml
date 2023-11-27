@@ -77,6 +77,35 @@
 		</if>
 	</select>
  	
+ 		<select id="selectApprover" resultMap="approvalResultSet">
+		SELECT
+		      DEPT_CODE deptCode 
+		      ,DEPT_NAME deptName
+		      ,JOB_CODE jobCode
+		      ,JOB_NAME jobName
+		      ,EMP_NO 
+		      ,EMP_NAME empName
+		  FROM
+		      EMPLOYEE
+		  LEFT
+		  JOIN
+		      DEPARTMENT USING (DEPT_CODE)
+          LEFT
+		  JOIN
+		      JOB USING (JOB_CODE)
+		<if test="deptCode == '인사부'">
+		 WHERE
+		      DEPT_CODE = 'HR'
+		</if>
+		<if test="deptCode == '구매관리부'">
+		 WHERE
+		      DEPT_CODE = 'PD'
+		</if>
+		<if test="deptCode == '영업부'">
+		 WHERE
+		      DEPT_CODE = 'PM'	
+		</if>
+	</select>
 	
 
 </mapper>

@@ -25,6 +25,7 @@ public class ScheduleVO {
 	
 	private String deptName;	//DEPT_NAME VARCHAR2(20 BYTE)
 	private String deptCode;
+	private String empName;	//EMP_NAME
 	
 	
 }

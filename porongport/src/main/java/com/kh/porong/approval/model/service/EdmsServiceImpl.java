@@ -54,6 +54,11 @@ public class EdmsServiceImpl implements EdmsService{
 		return EdmsDao.selectOrganiztionChart(sqlSession, deptName);
 	}
 
+	@Override
+	public ArrayList<VacationVO> selectApprover(String deptName) {
+		return EdmsDao.selectApprover(sqlSession, deptName);
+	}
+
 
 
 }

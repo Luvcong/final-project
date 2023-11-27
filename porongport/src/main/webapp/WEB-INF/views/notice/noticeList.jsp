@@ -6,13 +6,12 @@
 <head>
 <meta charset="UTF-8">
 <title>[포롱포트] 공지사항 게시판</title>
-    <!-- 메인화면 css-->
-    <link rel="stylesheet" href="resources/css/message.css">
-    
+
+	<link rel="stylesheet" href="resources/css/notice.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    
+   
     <!-- sweetalert2 -->
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
@@ -23,12 +22,12 @@
 	<div class="pp-content">
 		<div class="header">
 			<div class="h-title">
-				공지사항 게시팡
+				공지사항 게시판
 			</div>
 		</div>	<!-- header  -->
 		
 		<div class='toolbar'>
-			<div class="messageBtn">
+			<div class="noticeBtn">
 				<c:if test="${ loginUser.empAdmin eq 'A' }">
 					<button class="btn btn-sm btn-primary" onclick="noticeWrite()">공지사항 작성</button>
 				</c:if>
@@ -73,7 +72,7 @@
 				}
 			</script> --%>
 		
-		<div class="pp-content-message">
+		<div class="pp-content-notice">
 			<div class="selectCount">
 			공지사항 게시글 수 <span class="count" id="noticeListCount">${ pi.listCount }</span>개
 			</div>
@@ -83,7 +82,6 @@
 				<thead>
 					<tr class="tb-title-tr">
 						<th><input type="checkbox" onclick="checkAll()"></th>
-						<th></th>
 						<th>No</th>
 						<th>제목</th>
 						<th>작성자</th>
@@ -98,7 +96,7 @@
 				<c:choose>
 	           	<c:when test="${ empty list }">
 	   	            <tr>
-		            	<td colspan="10">받은 메시지가 없습니다.</td>
+		            	<td colspan="10">공지 게시글이 없습니다.</td>
 	                </tr>
 	           	</c:when>
 	           	<c:otherwise>
@@ -107,7 +105,7 @@
 		                    <td><input type="checkbox" onclick="checkOnce()" value=${ notice.noticeNo }></td>
 		                    <c:choose>
 		                    	<c:when test="${ notice.noticeType eq 'Y' }">
-			                    	<td><i class="fa-solid fa-triangle-exclamation" data-no=${ notice.noticeNo }></i></td>
+			                    	<td><i class="fa-solid fa-triangle-exclamation" style="color: #d4d4d4;" data-no=${ notice.noticeNo }></i></td>
 		                    	</c:when>
 		                    	<c:otherwise>
 				                    <td>${ notice.noticeNo }</td>
@@ -118,7 +116,7 @@
 							<td class="td-content">${ notice.deptName }</td>
 							<td>${ notice.createDate }</td>
 							<c:choose>
-								<c:when test="${ not empty notice.originName }">
+								<c:when test="${ not empty notice.originFileName }">
 									<td><i class="fa-solid fa-paperclip"></i></td> <!-- 첨부파일 확인 필요 -->
 								</c:when>
 								<c:otherwise>
@@ -223,7 +221,22 @@
 			hd_input.checked = is_all_checked;
 		}	// checkOnce
 		
+		// ------------------------------------------------------------------
+		// 공지사항 글 작성하기
+		// ------------------------------------------------------------------
 		
+		function noticeWrite(){
+			console.log(event.currentTarget);
+			let target = event.currentTarget;
+			
+			// target.addEventListener('click', function(){
+				location.href = 'noticeWrite';
+			// })
+		}
+		
+		function noticeWrite_ck(){
+			location.href = 'noticeWrite_ck';
+		}
 		
 	
 	</script>
