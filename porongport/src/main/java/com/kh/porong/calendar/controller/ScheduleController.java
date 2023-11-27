@@ -66,8 +66,8 @@ public class ScheduleController {
 		String endTime = schedule.getEndTime();
 		
 		if(startTime != "") {
-			schedule.setSchStart(startDate+'T'+startTime);
-			schedule.setSchEnd(endDate+'T'+endTime);
+			schedule.setSchStart(startDate+"T"+startTime);
+			schedule.setSchEnd(endDate+"T"+endTime);
 		}else {
 			schedule.setSchStart(startDate);
 			schedule.setSchEnd(endDate);
@@ -77,7 +77,7 @@ public class ScheduleController {
 		
 		if(scheduleService.insertSchedule(schedule)>0) {
 			session.setAttribute("alertMsg", "개인일정 등록이 완료되었습니다.");
-			return "redirect:myCalendar";
+			return "redirect:calendar";
 		}else {
 			session.setAttribute("errorMsg", "개인일정 등록에 실패하였습니다.");
 			return "common/errorPage";
@@ -88,6 +88,7 @@ public class ScheduleController {
 	@RequestMapping("updateSchedule")
 	public String updateSchedule(ScheduleVO schedule) {
 		System.out.println("비엇니"+schedule);
+		
 		return "redirect:calendar";
 	}
 	
