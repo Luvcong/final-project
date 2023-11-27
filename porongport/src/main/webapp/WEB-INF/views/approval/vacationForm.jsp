@@ -25,30 +25,25 @@
 				url: 'organizationChart',
 				data : {deptName : e.innerText},
 				success: data=>{ 
-					
-				
-				//console.log(data);
-				/*
+					//console.log(data);
+					/*
 					console.log(data[0].deptName);
 					console.log(data[0].empName);
 					console.log(data[0].jobName);
 					*/
 					
-					let value = ' ';
+					let value = '';
 
 					for(i=0; i<data.length; i++){
 						value += '<tr onclick="apSubmit(this);">'
-						         + '<td>'  + data[i].deptName + '</td>'
+						         + '<td>' + data[i].deptName + '</td>'
 						         + '<td>' + data[i].empName + '</td>'
 					             + '<td>' + data[i].jobName + '</td>'
 						         + '</tr>'
-						        
 					}
 					 //console.log(value);
 					
 					$('#job_table').html(value);
-					
-                   
 				},
 				error:()=>{
 					console.log('실패');
@@ -56,10 +51,10 @@
 					
 			})
 		}
-			
-			function apSubmit(e){
-				console.log(e);
-				//$('#appCheck>tbody').(e);
+		
+		function apSubmit(e){
+			console.log(e);
+			//$('#appCheck>tbody').innserHtml(e);
 			
 		}	
 	</script>
