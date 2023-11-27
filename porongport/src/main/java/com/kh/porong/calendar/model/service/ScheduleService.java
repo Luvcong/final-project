@@ -18,6 +18,6 @@ public interface ScheduleService {
 	int updateSchedule(ScheduleVO schedule);
 	
 	// 스케줄 삭제
-	int deleteDepartment(ScheduleVO schedule);
+	int deleteSchedule(ScheduleVO schedule);
 	
 }

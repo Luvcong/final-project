@@ -37,7 +37,6 @@
 					var departmentSchedule = list.departmentSchedule;
 					//console.log(mySchedule[0].schTitle);
 					//console.log(mySchedule[3].schEnd);
-					
 					for(i=0; i<mySchedule.length; i++){
 						calendar.addEvent({
 							id: mySchedule[i].schNo,
@@ -45,7 +44,10 @@
 							description: mySchedule[i].schContent,
 							start: mySchedule[i].schStart,
 							end: mySchedule[i].schEnd,
-							color : "#f1c232"
+							color : "#f1c232",
+							groupId:"M",
+							regid: mySchedule[i].empName,
+							source: mySchedule[i].correctionDate
 				        });
 					}
 					
@@ -56,7 +58,10 @@
 							description: departmentSchedule[i].schContent,
 							start: departmentSchedule[i].schStart,
 							end: departmentSchedule[i].schEnd,
-							color : "#8e7cc3"
+							color : "#8e7cc3",
+							groupId: "D",
+							regid: departmentSchedule[i].empName,
+							source: departmentSchedule[i].correctionDate
 				        });
 					}
 					
@@ -112,17 +117,21 @@
             	},
             	
             	eventClick: (calEvent, jsEvent, view) => {
-                    console.log(calEvent);
-                    var schNo = parseInt(calEvent.event._def.publicId);
-                    console.log(schNo);
+                    //console.log(calEvent.event._def.extendedProps. source);
+
+                    var schNo = parseInt(calEvent.event.id);
                     
-                    $('#hidenSchNo').val(schNo);
+                   	$('#hiddenSchNo').attr("value", schNo);
+                   	$('#updateEmp').text(calEvent.event.extendedProps.regid);
+                   	$('#updateDate').text(calEvent.event._def.extendedProps.source);
+                   	
+                   	
+                   	$('#hiddenSchShare').val(calEvent.event.groupId);
                     
-                    $('#eventModalLabel').text(calEvent.event._def.title);
-                    $('#hidenSchTitle').val(calEvent.event._def.title);
+                    $('#eventModalLabel').text(calEvent.event.title);
+                    $('#hiddenSchTitle').val(calEvent.event.title);
                     
             	    $("#inputContent").val(calEvent.event._def.extendedProps.description);
-            	    $("#hiddenSchShare").val(calEvent.event._def.extendedProps.description);
             	    
             	    var selectStartDate = calEvent.el.fcSeg.eventRange.instance.range.start;
             	    
@@ -178,7 +187,7 @@
                 customButtons: {
             		scheduleButton: { 
                         text: '회의실예약', 
-                        click: function(event) { 
+                        click: event=>{ 
                         	location.href="/porong/reservation";
                         } 
             		}
@@ -251,15 +260,21 @@
                         <br>
                     </div>
                     
+                     <div class="modal-border">
+	                    <label for="inputCalendar" class="form-label">&nbsp;&nbsp;작성자:&nbsp;</label>
+		                <span id="updateEmp"></span>&nbsp;&nbsp;&nbsp;/
+		                <label for="inputCalendar" class="form-label">&nbsp;&nbsp;수정일:&nbsp;</label>
+						<span id="updateDate"></span>&nbsp;&nbsp;&nbsp;
+	                 </div>
                 </div>
                 
                 <div class="modal-footer">
-                    <a type="button" class="btn btn-secondary" onclick="updateEvent();">수정하기</a>
-                    <a type="button" class="btn btn-danger" onclick="deleteEvent();">삭제하기</a>
+                    <button type="button" class="btn btn-secondary" onclick="updateEvent();" id="updateButton" disabled>수정하기</button>
+                    <button type="button" class="btn btn-danger" onclick="deleteEvent();">삭제하기</button>
                     
 	            	<input type="hidden" id="hiddenSchNo" name="schNo" value="">
 	            	<input type="hidden" name="empNo" value="${loginUser.empNo}">
-	            	<input type="hidden" id="hidenSchTitle" name="schTitle" value="">
+	            	<input type="hidden" id="hiddenSchTitle" name="schTitle" value="">
 	            	<input type="hidden" id="hiddenSchShare" name="schShare" value="">
                     
                     <script>
@@ -270,6 +285,48 @@
                     	function deleteEvent(){
                     		$('#modalClickForm').attr('action', 'deleteSchedule').submit();
                     	}
+                    </script>
+                    <script>
+                    	$('select').on('input', function() {
+                        	if ($(this).val() !== '') {
+                            	$('#updateButton').removeAttr("disabled");
+                            }
+                         	else {
+                                $('#updateButton').attr('disabled', 'disabled');
+                            }
+						});
+                        $('input[type=date]').on('input', function() {
+                        	if ($(this).val() !== '') {
+                            	$('#updateButton').removeAttr("disabled");
+                        	}
+                       		else {
+                            	$('#updateButton').attr('disabled', 'disabled');
+                        	}
+                        });
+                        $('input[type=time]').on('input', function() {
+                            if ($(this).val() !== '') {
+                            	$('#updateButton').removeAttr("disabled");
+                            }
+                        	else {
+                               $('#updateButton').attr('disabled', 'disabled');
+                            }
+                        });
+                        $('input[type=text]').on('input', function() {
+                            if ($(this).val() !== '') {
+                                $('#updateButton').removeAttr("disabled");
+                            }
+                            else {
+                                $('#updateButton').attr('disabled', 'disabled');
+                            }
+                        });
+						$('textarea').on('input', function() {
+                         	if ($(this).val() !== '') {
+                            	$('#updateButton').removeAttr("disabled");
+                            }
+                            else {
+                                 $('button').attr('disabled', 'disabled');
+                            }
+                        });
                     </script>
                   
                     
@@ -315,6 +372,7 @@
 									<th><i class="fa-solid fa-user"></i></th>
 									<td><input type="text" name="empName" id="empName" readonly value="${loginUser.empName}" class="mycalendar_input mycalendar_width" /></td>
 									<input type="hidden" name="empNo" value="${loginUser.empNo}">
+									<input type="hidden" name="empName" value="${loginUser.empName}">
 									<th><i class="fa-solid fa-user-tag"></i></th>
 									<td><input type="text" name="deptName" id="deptName" readonly value="${loginUser.deptName}" class="mycalendar_input mycalendar_width time_block" /></td>
 									<input type="hidden" name="deptCode" value="${loginUser.deptCode}">
@@ -360,7 +418,7 @@
                 
             </div><!-- modal-body -->
 		</form>
-            
+		
         </div>
     </div><!-- insert 모달 -->
     

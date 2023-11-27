@@ -35,12 +35,12 @@ public class ScheduleServiceImple implements ScheduleService {
 
 	@Override
 	public int updateSchedule(ScheduleVO schedule) {
-		return 0;
+		return scheduleDao.updateSchedule(sqlSession, schedule);
 	}
 
 	@Override
-	public int deleteDepartment(ScheduleVO schedule) {
-		return 0;
+	public int deleteSchedule(ScheduleVO schedule) {
+		return scheduleDao.deleteSchedule(sqlSession, schedule);
 	}
 
 }

@@ -22,7 +22,7 @@
 	<!-- =========================================================== -->
 	<insert id="insertSchedule" parameterType="schedule">
 		INSERT INTO SCHEDULE(SCH_NO, EMP_NO, SCH_TITLE, SCH_CONTENT, SCH_START, SCH_END, SCH_SHARE, SCH_CORRECTIONDATE)
-		VALUES (SEQ_SCH_NO.NEXTVAL, #{empNo}, #{schTitle}, #{schContent}, #{schStart}, #{schEnd}, #{schShare}, SYSDATE)
+		VALUES (SEQ_SCH_NO.NEXTVAL, #{empNo}, #{schTitle}, #{schContent}, #{schStart}, #{schEnd}, #{schShare}, TO_CHAR(SYSDATE, 'YYYY-MM-DD'))
 	</insert>
 	
 	<select id="selectIndividual" parameterType="schedule" resultMap="scheduleResultMap">
@@ -33,7 +33,9 @@
 				SCH_START,
 				SCH_END,
 				SCH_STATUS,
-				SCH_SHARE
+				SCH_SHARE,
+				SCH_CORRECTIONDATE,
+				EMP_NAME
 		   FROM SCHEDULE
 		   JOIN EMPLOYEE USING (EMP_NO)
 		  WHERE EMP_NO = #{empNo}
@@ -49,11 +51,33 @@
 				SCH_START,
 				SCH_END,
 				SCH_STATUS,
-				SCH_SHARE
+				SCH_SHARE,
+				SCH_CORRECTIONDATE,
+				EMP_NAME
 		   FROM SCHEDULE
 		   JOIN EMPLOYEE USING (EMP_NO)
 		  WHERE DEPT_CODE = #{deptCode}
 		    AND SCH_SHARE = 'D'
 		    AND SCH_STATUS = 'Y'
 	</select>
+	
+	<update id="updateSchedule" parameterType="schedule">
+		 UPDATE SCHEDULE
+		    SET EMP_NO = #{empNo},
+				SCH_TITLE = #{schTitle},
+				SCH_CONTENT = #{schContent},
+				SCH_START = #{schStart},
+				SCH_END = #{schEnd},
+				SCH_SHARE = #{schShare},
+				SCH_CORRECTIONDATE = TO_CHAR(SYSDATE, 'YYYY-MM-DD')
+		  WHERE SCH_STATUS = 'Y'
+		    AND SCH_NO = #{schNo}
+	</update>
+	
+	<update id="deleteSchedule" parameterType="schedule">
+		UPDATE SCHEDULE
+		   SET SCH_STATUS = 'N'
+		 WHERE SCH_NO = #{schNo}
+	</update>
+	
 </mapper>
