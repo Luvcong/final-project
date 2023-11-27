@@ -61,7 +61,7 @@
 	<!-- 풀캘린더사용법: https://chobopark.tistory.com/245#google_vignette -->
 	<!-- 풀캘린더사용법: https://velog.io/@faulty337/Spring-boot-fullCalendar-ajax-%ED%99%9C%EC%9A%A9 -->
 
-        <div class="calendar-mini-background">
+        <div class="">
 			<div id='calendar' class="calendarWidthMini calendarleft"></div>
         </div>
 </body>

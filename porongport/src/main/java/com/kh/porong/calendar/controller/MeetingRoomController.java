@@ -28,7 +28,7 @@ public class MeetingRoomController {
 	}
 	@RequestMapping("adminMeetingRoom")
 	public String adminMeetingRoom() {
-		return "meeting/meetingCalendar";
+		return "meeting/adminView";
 	}
 	
 	@RequestMapping("insertMeeting")
