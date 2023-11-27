@@ -169,8 +169,6 @@
 							                  	 <div id="">
    													 <span id=""></span>
 												 </div>
-
-
     
         <!-- left start -->
         <div class="">
@@ -214,17 +212,13 @@
                     </div>
                 </div>
                 </form>
-						                        </tr>
-						                        
-						                    </thead>
-						                    <tbody id="job_table">
-						                    
-						                      <div class="">
-						                      
-						                      <div class="gm_box">
-            
+				 </tr>
+				</thead>
+				<tbody id="job_table">
+					<div class="">
+						<div class="gm_box">
                 
-               	<div>
+               		<div>
 	               <table class="table table-bordered">
 	                <h3 id="">결재자 ></h3>
 		                  <tr>
@@ -242,33 +236,27 @@
 							<th>부서</th>
 		                </tr>
 	                   </table>
-	                   
-				 
-						                
-		    
-									
-									<!-- 
-									<tr>
-										<th>직원 검색</th> 
-										<td><input type="text"> <i class="fa-solid fa-magnifying-glass" style="color: #000000;"></i></td>
-										
-									</tr>
-									 -->
-									<tr>
-										<th style="height:250px;">결재구분</th>
-										<td><select id="div_apv_sq" class="form-control"
-											name="div_apv_sq">
-												<option value="1">결재</option>
-												<option value="2">반려</option>
-										</select></td>
-									</tr>
-									<tr>
-										<th style="width:150px;">결재파일 업로드</th>
-										<td><input type="file" id="apv_pl_rt" name="file"
-											class="form-control"></td>
-									</tr>
-									</div>
-								</tbody>
+						<!-- 
+							<tr>
+								<th>직원 검색</th> 
+								<td><input type="text"> <i class="fa-solid fa-magnifying-glass" style="color: #000000;"></i></td>
+							</tr>
+						-->
+							<tr>
+								<th style="height:250px;">결재구분</th>
+									<td>
+										<select id="div_apv_sq" class="form-control" name="div_apv_sq">
+											<option value="1">결재</option>
+											<option value="2">반려</option>
+										</select>
+									</td>
+							</tr>
+							<tr>
+								<th style="width:150px;">결재파일 업로드</th>
+									<td><input type="file" id="apv_pl_rt" name="file" class="form-control"></td>
+							</tr>
+							</div>
+							</tbody>
 
 							</table>
 						</form>
@@ -282,14 +270,9 @@
 				</div>
 			</div>
 		</div>
-       
-
-           
        </div>
 
 		<script>
-
-		
 		$(()=>{
 			/*
 			$.ajax({
