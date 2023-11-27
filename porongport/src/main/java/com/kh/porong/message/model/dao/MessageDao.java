@@ -1,12 +1,14 @@
 package com.kh.porong.message.model.dao;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.kh.porong.employee.model.vo.Employee;
 import com.kh.porong.message.model.vo.Message;
 
 @Repository
@@ -76,7 +78,7 @@ public class MessageDao {
 	 * @author JH
 	 * @Date : 2023. 11. 21
 	 */
-	public Message detailMessage(SqlSessionTemplate sqlSession, Map<String, Integer> map) {
+	public Message detailMessage(SqlSessionTemplate sqlSession, Map<String, Object> map) {
 		return sqlSession.selectOne("messageMapper.detailMessage", map);
 	}	// detailMessage
 	
@@ -102,8 +104,8 @@ public class MessageDao {
 	 * @author JH
 	 * @Date : 2023. 11. 23
 	 */
-	public int readMsg(SqlSessionTemplate sqlSession, int messageNo) {
-		return sqlSession.update("messageMapper.readMsg", messageNo);
+	public int readMsg(SqlSessionTemplate sqlSession, Map<String, Object> map) {
+		return sqlSession.update("messageMapper.readMsg", map);
 	}	// readMsg
 
 	
@@ -406,6 +408,11 @@ public class MessageDao {
 	public int deletePermanentlyMessage(SqlSessionTemplate sqlSession, int messageNo) {
 		return sqlSession.delete("messageMapper.deletePermanentlyMessage", messageNo);
 	}	// deletePermanentlyMessage
+
+
+	public List<Employee> selectAllEmployee(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectList("messageMapper.selectAllEmployee");
+	}	// selectAllEmployee
 
 
 

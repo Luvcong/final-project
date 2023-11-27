@@ -47,14 +47,15 @@ public class MessageController {
 								Model model) {
 		
 		int empNo = loginUser.getEmpNo();
-		Map<String, Integer> map = new HashMap<String, Integer>();
+		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("empNo", empNo);
 		map.put("messageNo", mno);
 		
 		Message m = messageService.detailMessage(map);
 		
 		if(m.getReadYN().equals("N")){
-			messageService.readMsg(mno);
+			map.put("readYN", "Y");
+			messageService.readMsg(map);
 		}
 		
 		model.addAttribute("list", m);

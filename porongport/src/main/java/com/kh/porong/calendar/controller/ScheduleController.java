@@ -87,7 +87,7 @@ public class ScheduleController {
 	
 	@RequestMapping("updateSchedule")
 	public String updateSchedule(ScheduleVO schedule) {
-		System.out.println(schedule);
+		System.out.println("비엇니"+schedule);
 		return "redirect:calendar";
 	}
 	

@@ -144,6 +144,9 @@
 				</div>
 				<div class="sub-menu d-none" data-group='receivedMessage'>
 					<div class="sub-item sub-title" data-url='receivedMessage'>메시지함</div>
+					<div class="sub-item not-hover" onclick='messageForm()'>
+						<button class='btn btn-sm btn-primary msg-write'>메시지 작성</button>
+					</div>
 			        <div class="sub-item" data-url='receivedMessage'>받은 메시지</div>
 			        <div class="sub-item" data-url='sendMessage'>보낸 메시지</div>
 			        <div class="sub-item" data-url=''>메시지 보관함</div>
@@ -239,6 +242,8 @@
     	
     	for(let menu of sub_menus) {
     		let data_url = menu.getAttribute('data-url');
+    		if(data_url == null)
+    			continue;
     		
     		menu.addEventListener('click', function() {
     			location.href = data_url;

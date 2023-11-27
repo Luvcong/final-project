@@ -32,7 +32,7 @@
 				<button class="btn btn-sm btn-primary" onclick="messageForm()">메시지 작성</button>
 				<button class="btn btn-sm btn-outline-primary" onclick="storageMessage()">보관</button>
 				<button class="btn btn-sm btn-outline-primary"  onclick="deleteMessage()">삭제</button>
-				<button class="btn btn-sm btn-outline-primary">읽음설정</button>
+				<button id="readYN" class="btn btn-sm btn-outline-primary" onclick="readMessage()">읽음</button>
 			</div>
 			
 	        <div class="searchTable">
@@ -101,7 +101,7 @@
 	           	</c:when>
 	           	<c:otherwise>
 	           		<c:forEach var="message" items="${ list }">
-	           			<tr onclick="detailMessage()">
+	           			<tr >
 		                    <td><input type="checkbox" onclick="checkOnce()" value=${ message.messageNo }></td>
 		                    <c:choose>
 		                    	<c:when test="${ message.bookmarkYN eq 'N' }">
@@ -113,14 +113,14 @@
 		                    </c:choose>
 		                    <td>${ message.messageRank }</td>
 							<td>${ message.empName } [${ message.jobName }]</td>
-							<td class="td-content">${ message.messageContent }</td>
+							<td class="td-content" onclick="detailMessage()">${ message.messageContent }</td>
 							<td>${ message.createDate }</td>
 							<c:choose>
 								<c:when test="${ message.readYN eq 'N' }">
 									<td><i class="fa-solid fa-envelope td-fa-envelope"></i></td>
 								</c:when>
 								<c:otherwise>
-				                    <td><i class="fa-solid fa-envelope-open td-fa-envelope" style="color: #d4d4d4;"></i></td>
+				                    <td><i class="fa-solid fa-envelope-open td-fa-envelope"></i></td>
 								</c:otherwise>
 							</c:choose>
 						</tr>
@@ -132,6 +132,8 @@
 			</div>	<!-- tableBody  -->
 			
 			<!-- 메시지보내기  modal창 -->
+			<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+			<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 		 	<div class="modal" id="messageForm">
 				<form method="post" action="insertMessage" enctype="multipart/form-data">
 			        <div class="modal-dialog modal-lg">
@@ -146,7 +148,16 @@
 			                <table class="table table-sm">
 			                	<tr>
 			                		<th>To</th>
-			                		<td><input class="form-control form-control-sm" type="text" name="receiveUser" placeholder="받는 사람"/></td>
+			                		<td>
+										<select class="select-user select2-container form-control form-control-sm" name="receiveUser" multiple="multiple" style="width: 100%; font-size: 5pt;" >
+											<c:forEach var="userList" items="${ userList }">
+												<option value="${ userList.empNo }">${ userList.empName } [${ userList.jobName } / ${ userList.deptName }]</option>
+											</c:forEach>
+										</select>			                		
+			                		
+			                		</td>
+			                		
+			                		<!-- <td><input class="form-control form-control-sm" type="text" name="receiveUser" placeholder="받는 사람"/></td> -->
 			                	</tr>
 			                	<tr>
 			                		<th>Message</th>
@@ -259,14 +270,119 @@
 					tr.style.fontWeight = 'normal';
 				}
 			}
-				
+			
+			$('.select-user').select2({
+				placeholder: "받는 사람",
+				allowClear: true,
+ 				language: {
+			       noResults: function() {return "검색결과가 없습니다";}
+			   },
+			   dropdownCssClass: "text-sm"
+			});
 		})
 		
+		// ------------------------------------------------------------------
+		// 메시지 읽음설정 버튼 클릭
+		// ------------------------------------------------------------------
+		function toggleReadBtn(inputs) {
+			// 읽음 / 안읽음 상태 변경
+			let read_yn_btn = document.getElementById('readYN');
+			
+			// 하나라도 안읽은게 있으면 true
+			// 그렇지 않으면 false
+			let token = true;
+			for(let input of inputs){
+				if(input.checked == false)
+					continue;
+				
+				let tr   = input.parentElement.parentElement;
+				let icon = tr.children[6].children[0];
+				// thead의 input도 같이 오기 때문에...
+				if(icon == null)
+					continue;
+				
+				token = icon.classList.contains('fa-envelope');
+				if(token)
+					break;
+			}
+			
+			read_yn_btn.innerHTML = token ? '읽음' : '안읽음';		// 클래스명에 fa-envelope가 포함되어 있는게 1개라도 있으면
+		}
+		
+		function readMessage(){
+			let table = document.getElementById('tb-received');
+			let inputs = table.querySelectorAll('tr input');
+			
+			let message_no_list = [];
+			let icon_list = [];
+			
+			let read_yn_btn = document.getElementById('readYN');
+			let token = read_yn_btn.textContent == '읽음';
+			
+			for(let input of inputs) {
+				if(input.checked == false)
+					continue;
+				
+				let tr   = input.parentElement.parentElement;
+				let icon = tr.children[6].children[0];
+				// thead의 input도 같이 오기 때문에...
+				if(icon == null)
+					continue;
+				
+				icon_list.push(icon);
+				message_no_list.push(parseInt(input.value));
+				
+			}
+			
+			$.ajax({
+ 				url : 'readMessage',
+				type : 'get',
+				data : { 
+							messageNoList : message_no_list,
+					 		readYN : token					// token이 true로 넘어오면 읽음 / false인 경우 안읽음
+						},
+				success : function(result){
+					if(!result) {
+						console.log('작업 실패');
+						return;
+					}
+					
+					for (let icon of icon_list) {
+						if(!token) {
+							icon.classList.remove('fa-envelope-open');
+							icon.classList.add('fa-envelope');
+							
+							let tr = icon.parentElement.parentElement;
+							tr.style.color = '';
+							tr.style.fontWeight = '';		
+						} else {
+							icon.classList.add('fa-envelope-open');
+							icon.classList.remove('fa-envelope');
+							
+							let tr = icon.parentElement.parentElement;
+							tr.style.color = 'darkgray';
+							tr.style.fontWeight = 'normal';
+						}
+					}
+
+					read_yn_btn.textContent = token ? '안읽음' : '읽음';
+				},	// success
+				error : function(result){
+					console.log('통신오류! 실패');
+				},	// error
+			});	// ajax
+		}	// readMessage
+		
+		
+		
+		// ------------------------------------------------------------------
+		// 메시지 작성 modal창 실행
+		// ------------------------------------------------------------------
 		function messageForm(){
 			$('#messageForm').modal('show');
-		}
-	
-	
+		}	// messageForm
+		
+		
 		// ------------------------------------------------------------------
 		// 체크박스 선택 / 해제 기능
 		// ------------------------------------------------------------------
@@ -274,11 +390,13 @@
 		function checkAll(){
 			
 			let table = document.getElementById('tb-received');
-			let inputs = document.querySelectorAll('tr input');
+			let inputs = table.querySelectorAll('tr input');
 			
 			for(let input of inputs){
 				input.checked = event.target.checked;
 			}
+			
+			toggleReadBtn(inputs);
 		}	// checkAll
 		
 		// 체크박스
@@ -295,6 +413,8 @@
 				}
 			}
 			hd_input.checked = is_all_checked;
+			
+			toggleReadBtn(inputs);
 		}	// checkOnce
 		
 		
@@ -303,10 +423,11 @@
 		// ------------------------------------------------------------------
  		function detailMessage(){
 			// console.log(event.currentTarget);
+			console.log('나야?')
 			
-			let target = event.currentTarget;
-			let target_msg = target.querySelector('.td-fa-envelope');
-			let read_YN = target_msg.classList.contains('fa-envelope');	// 만약 편지가 닫혀있다면 true
+			//let target = event.currentTarget;
+			//let target_msg = target.querySelector('.td-fa-envelope');
+			//let read_YN = target_msg.classList.contains('fa-envelope');	// 만약 편지가 닫혀있다면 true
 			
 /* 			if(read_YN){	// 편지가 닫혀있다면
 				read_YN.classList.remove('fa-envelope');	// 닫힌 편지 클래스 삭제하고,
@@ -318,15 +439,15 @@
 			// console.log(target_msg);
 			// console.log(read_YN);
 			
-			let content = target.children[4];
-			let input = target.querySelector('td input');
+			let content = event.currentTarget; //target.children[4];
+			let input = content.parentElement.querySelector('td input');
 			let message_no = input.value;
 			console.log(input);
 			console.log(input.value);
 			
-			content.addEventListener('click', function(){
-				location.href = 'detailMessage?mno=' + message_no;
-			})
+			//content.addEventListener('click', function(){
+			location.href = 'detailMessage?mno=' + message_no;
+			//})
 
 			
 		}	// detailMessage
@@ -517,6 +638,7 @@
 		// 메시지 북마크 ajax
 		// ------------------------------------------------------------------
 		function bookmark_msg(){
+			event.stopPropagation();
 			
 			let target = event.currentTarget;
 			let message_no = target.getAttribute('data-no');
