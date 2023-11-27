@@ -19,8 +19,10 @@ public class Notice {
 	
 	private String deptName;
 	private String empName;
+	private int empNo;
 	private String jobName;
 	private int replyCount;
 	private String originFileName;
-
+	private String changeFileName;
+	
 }	// end class

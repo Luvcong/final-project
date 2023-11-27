@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.kh.porong.common.model.vo.PageInfo;
 import com.kh.porong.notice.model.vo.Notice;
+import com.kh.porong.notice.model.vo.NoticeAttachment;
 import com.kh.porong.reply.vo.Reply;
 
 public interface NoticeService {
@@ -24,11 +25,14 @@ public interface NoticeService {
 	// 공지사항 게시글 작성
 	int insertNotice(Notice n);
 	
+	// 공지사항 게시글 작성 - 첨부파일
+	int insertAttachment(NoticeAttachment at);
+	
 	// 공지사항 게시글 삭제
 	int deleteNotice(int noticeNo);
 	
 	// 공지사항 게시글 상세보기
-	ArrayList<Notice> detailNotice(int noticeNo);
+	ArrayList<Notice> detailNotice(Map<String, Object> map);
 	
 	// 공지사항 게시글 조회 수 증가
 	int increaseCount(int noticeNo);
