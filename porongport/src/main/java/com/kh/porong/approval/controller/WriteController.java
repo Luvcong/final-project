@@ -9,7 +9,7 @@ public class WriteController {
 	@RequestMapping("document1")
 	public String insertDocument() {
 		
-		return "approval/writeForm";
+		return "approval/personalDepartmentForm";
 	}
 	
 	@RequestMapping("form")

@@ -15,7 +15,7 @@ public class EdmsController {
 	@RequestMapping("approval")
 	public String selectEdmsList() {
 		
-		return "approval/approvalMain";
+		return "approval/personalDepartmentForm";
 	}
 
 }
