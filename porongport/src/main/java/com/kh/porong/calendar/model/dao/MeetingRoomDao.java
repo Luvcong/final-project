@@ -2,6 +2,7 @@ package com.kh.porong.calendar.model.dao;
 
 import java.util.ArrayList;
 
+import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -20,5 +21,13 @@ public class MeetingRoomDao {
 
 	public ArrayList<MeetingRoomVO> timeCheck(SqlSessionTemplate sqlSession, String checkTime, String checkTimes) {
 		return (ArrayList)sqlSession.selectList("meetingRoomMapper.timeCheck");
+	}
+
+	public int selectListCount(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("meetingRoomMapper.selectListCount");
+	}
+
+	public ArrayList<MeetingRoomVO> selectList(SqlSessionTemplate sqlSession, RowBounds rowBounds) {
+		return (ArrayList)sqlSession.selectList("meetingRoomMapper.selectList", null, rowBounds);
 	}
 }

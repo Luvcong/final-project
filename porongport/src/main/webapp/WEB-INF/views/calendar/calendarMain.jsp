@@ -20,6 +20,7 @@
 	<!-- css-->
 	<link rel="stylesheet" href="resources/css/calendar.css">
 	<link rel="stylesheet" href="resources/css/myCalendar.css">
+	
 	<script>
 
 		// 풀캘린더 참고: https://ksyy.tistory.com/113
@@ -124,7 +125,7 @@
             	},
             	
             	eventClick: (calEvent, jsEvent, view) => {
-                    //console.log(calEvent.event._def.allDay);
+                    console.log(calEvent);
 					var allDay = calEvent.event._def.allDay;
 					
                     var schNo = parseInt(calEvent.event.id);
@@ -306,8 +307,6 @@
                     	}
                     </script>
                     <script>
-                    
-		                    
 		                    
                     
                     	$('select').on('input', function() {
