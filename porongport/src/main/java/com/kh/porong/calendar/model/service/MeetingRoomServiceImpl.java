@@ -2,12 +2,14 @@ package com.kh.porong.calendar.model.service;
 
 import java.util.ArrayList;
 
+import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.porong.calendar.model.dao.MeetingRoomDao;
 import com.kh.porong.calendar.model.vo.MeetingRoomVO;
+import com.kh.porong.common.model.vo.PageInfo;
 
 @Service
 public class MeetingRoomServiceImpl implements MeetingRoomService {
@@ -76,6 +78,18 @@ public class MeetingRoomServiceImpl implements MeetingRoomService {
 	public int updateCancel(MeetingRoomVO room) {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public int selectListCount() {
+		return MeetingRoomDao.selectListCount(sqlSession);
+	}
+
+	@Override
+	public ArrayList<MeetingRoomVO> selectList(PageInfo pi) {
+		int offset = (pi.getCurrentPage()-1)*pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return MeetingRoomDao.selectList(sqlSession, rowBounds);
 	}
 
 	

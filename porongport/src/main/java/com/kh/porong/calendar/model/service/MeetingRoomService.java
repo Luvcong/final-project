@@ -3,6 +3,7 @@ package com.kh.porong.calendar.model.service;
 import java.util.ArrayList;
 
 import com.kh.porong.calendar.model.vo.MeetingRoomVO;
+import com.kh.porong.common.model.vo.PageInfo;
 
 public interface MeetingRoomService {
 	
@@ -43,5 +44,9 @@ public interface MeetingRoomService {
 
 	// 예약 신청중복체크
 	ArrayList<MeetingRoomVO> timeCheck(String checkTime, String checkTimes);
+
+	int selectListCount();
+
+	ArrayList<MeetingRoomVO> selectList(PageInfo pi);
 	
 }
