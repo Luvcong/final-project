@@ -89,8 +89,13 @@ public class EmployeeServiceImpl implements EmployeeService {
 	}
 
 	@Override
-	public Attachment selectProfile(Attachment att) {
-		return empDao.selectProfile(sqlSession, att);
+	public Attachment selectProfile(int refEmpNo) {
+		return empDao.selectProfile(sqlSession, refEmpNo);
+	}
+
+	@Override
+	public int findPwd(Employee emp) {
+		return empDao.findPwd(sqlSession, emp);
 	}
 
 	

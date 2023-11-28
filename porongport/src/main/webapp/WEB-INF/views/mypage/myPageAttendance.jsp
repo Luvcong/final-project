@@ -21,7 +21,19 @@
 	        <div class="content_top">
 	            <div class="top_box">
 	                <div class="myProfile">
-	                    <img src="resources/images/profile.png"  alt="입사자 사진">
+	                   <c:choose>
+		            		<c:when test="${ empty sessionScope.profile.fileNo }">
+				                <div class="img_box">
+					                <img src="resources/images/profile.png"  alt="기본 프로필 사진">
+				                </div>
+		            		</c:when>
+		            		<c:otherwise>
+			            		<div class="img_box">
+			            			<img src="${profile.filePath}${ profile.changeFileName }"  alt="입사자 사진">
+			            		</div>
+		            		</c:otherwise>
+		            	</c:choose>
+	                    
 	                    <div class="info">
 	                        <h3>${ sessionScope.loginUser.empName }</h3><span>${ sessionScope.loginUser.jobName }</span>
 	                        <h5>${ sessionScope.loginUser.deptName }</h5>
