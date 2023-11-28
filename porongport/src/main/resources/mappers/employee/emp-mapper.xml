@@ -306,9 +306,21 @@
 		      ,#{filePath}
 		      ,SYSDATE
 		      ,#{refEmpNo}
-		      );
+		      )
 	</insert>
 	
-	<
+	<select id="selectProfile" parameterType="com.kh.porong.employee.model.vo.Attachment" resultType="com.kh.porong.employee.model.vo.Attachment">
+		SELECT
+		      FILE_NO fileNo
+		      ,ORIGIN_FILENAME originFileName
+		      ,CHANGE_FILENAME changeFileName
+		      ,FILE_PATH filePath
+		      ,UPLOAD_DATE uploadDate
+		      ,REF_EMP_NO refEmpNo
+		  FROM
+		      ATTACHMENT 
+		 WHERE
+		      REF_EMP_NO = #{refEmpNo}
+	</select>
 	
 </mapper>
