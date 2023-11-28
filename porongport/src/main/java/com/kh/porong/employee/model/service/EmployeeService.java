@@ -18,6 +18,7 @@ public interface EmployeeService {
 	int idCheck(int checkId);
 
 	// 비밀번호 찾기
+	int findPwd(Employee emp);
 	
 	// --- 마이페이지 ---
 	// 유저 정보 변경
@@ -27,7 +28,7 @@ public interface EmployeeService {
 	int insertProfile(Attachment att);
 	
 	// 프로필 사진 조회
-	Attachment selectProfile(Attachment att);
+	Attachment selectProfile(int refEmpNo);
 	
 	// 프로필 사진 재업
 	

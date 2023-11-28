@@ -25,21 +25,16 @@
 	                </div>
 	                <div class="form-group">
 	                    <label for="empNo">아이디</label>
-	                    <input type="text" id="empNo" name="empNo" required class="form-control" />
+	                    <input type="text" id="empNo" name="empNo" required class="form-control" maxlength="7" />
 	                </div>
 	                <div class="form-group">
 	                    <label for="empEmail">이메일</label>
 	                    <div class="email_box">
 	                        <input type="text" id="empEmail" name="empEmail" required class="form-control" />
-	                        <button type="button" class="btn btn-info" id="cert_btn" onclick="">인증번호 받기</button>
 	                    </div>
 	                </div>
-   	                <div class="form-group">
-	                    <label for="">인증번호</label>
-	                    <input type="text" id="" name="" required class="form-control" />
-	                </div>
 	                <div class="btn_area">
-	                    <button type="reset" class="btn">취소</button>
+	                    <button type="reset" class="btn btn-light">취소</button>
 	                    <button type="submit" class="btn btn-primary">확인</button>
 	                </div>
 	            </div>

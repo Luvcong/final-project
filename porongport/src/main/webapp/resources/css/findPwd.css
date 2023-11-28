@@ -2,14 +2,15 @@
 
 #findPwd_area{
     width: 600px;
+    height: 450px;
     margin: auto;
 }
 
 #findPwd_area>form{
     width: 100%;
+    height: 100%;
     background-color: rgb(227, 95, 33);
     border-radius: 5px;
-    height: 500px;
     
 }
 
@@ -34,6 +35,7 @@
 
 .btn_area{
     width: 100%;
+    height: 100%;
     text-align: center;
 }
 .btn_area>button{
