@@ -122,7 +122,7 @@ html, body {
     		$('#meetStartDay').val(startday);
     		$('#meetEndDay').val(endday);
     		$('#insertMeetModal').modal();
-    	
+
     	},
     	
     	 select : info=>{
@@ -249,9 +249,9 @@ html, body {
 					<div class="modal-header">
 						<h5 class="modal-title" id="meetModalLabel">회의실 예약신청</h5>
 
-						<button type="button" class="close" data-bs-dismiss="meet">
-							<a href="reservation" class="calendar-a-color">&times;</a>
-						</button>
+						       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						       <span aria-hidden="true">&times;</span>
+						       </button>
 					</div>
 
 					<div class="modal-body">
