@@ -34,7 +34,6 @@
 	                    </div>
 	                </div>
 	                <div class="btn_area">
-	                    <button type="reset" class="btn btn-light">취소</button>
 	                    <button type="submit" class="btn btn-primary">확인</button>
 	                </div>
 	            </div>

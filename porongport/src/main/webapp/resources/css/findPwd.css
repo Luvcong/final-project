@@ -39,15 +39,9 @@
     text-align: center;
 }
 .btn_area>button{
-    width: 48%;
+    width: 100%;
     margin: 0;
     margin-top: 20px;
-}
-.btn_area>button[type=reset]{
-    float: left;
-}
-.btn_area>button[type=submit]{
-    float: right;
 }
 .email_box{
     position: relative;

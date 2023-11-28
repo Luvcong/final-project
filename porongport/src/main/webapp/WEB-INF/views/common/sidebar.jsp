@@ -44,11 +44,11 @@
         <!-- 메인화면 상단 헤더 영역 -->
         <div class="pp-header">      
         	<!-- 프롱포트 로고 영역 -->   
-            <div class="logo"><img src="resources\images\logo.png"></div>
+            <div class="logo"><img src="resources\images\logo.png" onclick="location.reload();"></div>
             <!-- 프로필이미지 & 직급명 & 로그아웃 영역 -->
             <div class="setting">       
                 <div class="profile" onclick="myPage();">
-                	<img src="resources\images\profile.png">
+                	<img src="resources\images\profile.png" alt="포롱포트 로고 이미지" />
                     <span>${ sessionScope.loginUser.empName }</span>
                 </div>
                 <div class="icon" onclick="logout();"><i class="fa-solid fa-right-from-bracket"></i></div>
@@ -61,7 +61,8 @@
 			};
 			function myPage(){
 				location.href = 'myPageAtt';
-			}
+			};
+			
 		</script>
 		
         <!-- 메인화면 메인 사이드바 영역-->
@@ -170,9 +171,6 @@
 			       		<div class="sub-item" data-url='jojigdo.em' onclick="jojigdo(PD);">구매관리부</div>		        
 				        <div class="sub-item" data-url='jojigdo.em' onclick="jojigdo(PM);">영업부</div>
 				        
-				         -->
-					</div>
-				</form>
 				<script>
 					function jojigdo(deptCode){
 						console.log(deptCode);
@@ -180,6 +178,9 @@
 					}
 				</script>
 				
+				         -->
+					</div>
+				</form>
 				<div class="sub-menu d-none" data-group='calendar'>
 
 			    	<div class="sub-item sub-title" data-url='calendar'>캘린더</div>
@@ -197,6 +198,23 @@
 
 <!-- 사이드바 관련 스크립트 -->
 <script>
+	window.onload = () => {
+		
+		console.log('문서 다읽음');
+			// 로그인 시, 웹소켓 연결
+			const uri = 'ws://localhost:8003/porong/';
+			var socket = new WebSocket(uri);
+			
+			console.log(socket);
+			
+			socket.onopen = () => {
+				console.log('소켓 열림');
+			};
+			socket.onclose = () => {
+				console.log('소켓 닫힘');
+			};
+	};
+
 	// pp-content(자식요소)를 pp-main안으로 이동
 	$(function(){
 	    let main = document.querySelector('.pp-main');
@@ -225,7 +243,7 @@
     			group_list[group_key].push(item.getAttribute('data-url'));
     		}
     	}
-    	console.log(group_list);
+    	// console.log(group_list);
     	
     	// 1) 현재 url을 구하기
         let path_arr = window.location.pathname.split('/');
@@ -269,10 +287,10 @@
     }
 </script>
 
-<!-- 알람 띄우기 -->
+<!-- 알림 띄우기 -->
 <c:if test="${ not empty successText }">
 	<script>
-		// 성공 알람
+		// 성공 알림
 		Swal.fire({
 			text : '${ successText }',
 			icon : 'success'
@@ -282,7 +300,7 @@
 </c:if>
 <c:if test="${ not empty errorText }">
 	<script>
-		// 실패 및 에러 알람
+		// 실패 및 에러 알림
 		Swal.fire({
 			text : '${ errorText }',
 			icon : 'error'
@@ -292,7 +310,7 @@
 </c:if>
 <c:if test="${ not empty alertText }">
 	<script>
-		// 알람
+		// 알림
 		Swal.fire({
 			text : '${ alertText }',
 			icon : 'info'
