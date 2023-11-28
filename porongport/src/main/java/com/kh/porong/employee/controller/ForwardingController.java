@@ -31,4 +31,5 @@ public class ForwardingController {
 	public String findPwd() {
 		return "common/findPwd";
 	}
+	
 }
