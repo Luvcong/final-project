@@ -620,29 +620,31 @@
 		      <form action="" method="post">
 		        <div class="modal-body pb-0 card" style="box-shadow: none;">
 		          <div class="row card-body vertical-scroll">
-		            <div class="col-lg-6" style="overflow-y: auto; height: 400px;">
+		            <div class="col-lg-6" style="width:1000px; height: 500px;">
+		              
 		              <!-- 왼쪽 컨텐츠 내용 -->
 		              <h3>부서 목록</h3>
 		              <table class="table table-striped table-bordered">
-					<thead>
-						<tr>
-						<ul>
-							<li><button type="button" class="HRdept btn" onclick="hrSubmit(this);">인사부</button></li>
-							<li><button type="button" class="HRdept btn" onclick="hrSubmit(this);">구매관리부</button></li>
-							<li><button type="button" class="HRdept btn" onclick="hrSubmit(this);">영업부</button></li>
-						</ul>
-						</tr>
-                        <tr>
-                        	<th>부서</th>
-                        	<th>성명</th>
-                        	<th>직급</th>
-                        </tr>
-					</thead>
-					<tbody id="job_table">
-						<div class="gm_box">
-							<table class="table table-bordered app_jojigdo" id="appCheck">
-						    </table>
-		            <div class="col-lg-6">
+						<thead>
+							<tr>
+							<ul>
+								<li><button type="button" class="HRdept btn" onclick="hrSubmit(this);">인사부</button></li>
+								<li><button type="button" class="HRdept btn" onclick="hrSubmit(this);">구매관리부</button></li>
+								<li><button type="button" class="HRdept btn" onclick="hrSubmit(this);">영업부</button></li>
+							</ul>
+							</tr>
+	                        <tr>
+	                        	<th>부서</th>
+	                        	<th>성명</th>
+	                        	<th>직급</th>
+	                        </tr>
+	                        <br>
+						</thead>
+						<tbody id="job_table">
+			            </tbody>
+					</table>
+					
+		            <div class="col-lg-6" style="float:right;">
 		              <!-- 오른쪽 컨텐츠 내용 -->
 		              <h3>선택된 결재자</h3>
 		                <table>

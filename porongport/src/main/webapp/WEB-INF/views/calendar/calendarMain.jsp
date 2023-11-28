@@ -390,7 +390,7 @@
 									<th><i class="fa-solid fa-clock"></i></th>
 									
 									<td colspan="3">
-										<input type="date" name="startDate" id="startDate" class="mycalendar_input2 mycalendar_width2" required/>
+										<input type="date" name="startDate" id="startDate" class="mycalendar_input2 mycalendar_width2" readonly/>
 										<input type="time" name="startTime" id="startTime" class="mycalendar_input2 mycalendar_width2" />
 										<label class="switch">
 											<input type="checkbox" />
@@ -407,7 +407,7 @@
 										</script>
 										
 										<br>
-										<input type="date" name="endDate" id="endDate" class="mycalendar_input2 mycalendar_width2" required/>
+										<input type="date" name="endDate" id="endDate" class="mycalendar_input2 mycalendar_width2" readonly/>
 										<input type="time" name="endTime" id="endTime" class="mycalendar_input2 mycalendar_width2" />
 									</td>
 									
