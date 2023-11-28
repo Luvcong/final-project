@@ -124,7 +124,7 @@
             	},
             	
             	eventClick: (calEvent, jsEvent, view) => {
-                    //console.log(calEvent.event._def.allDay);
+                    console.log(calEvent);
 					var allDay = calEvent.event._def.allDay;
 					
                     var schNo = parseInt(calEvent.event.id);
@@ -306,8 +306,6 @@
                     	}
                     </script>
                     <script>
-                    
-		                    
 		                    
                     
                     	$('select').on('input', function() {

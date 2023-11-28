@@ -139,12 +139,12 @@ html, body {
      		
      		$('#insertMeetModal').modal();
      		
-     		console.log(info);
  	    },
 	    
 	    
 	    eventClick: (calEvent, jsEvent, view) => {
-            console.log(calEvent);
+            
+	    	
     		
             $('#meetNo').val(calEvent.event._def.publicId);
             
