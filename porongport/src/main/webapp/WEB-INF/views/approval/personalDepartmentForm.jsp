@@ -620,6 +620,7 @@
 		      <form action="" method="post">
 		        <div class="modal-body pb-0 card" style="box-shadow: none;">
 		          <div class="row card-body vertical-scroll">
+
 		            <div class="col-lg-6" style="width: 1000px; height: 500px;">
 		              <!-- 왼쪽 컨텐츠 내용 -->
 		              <h3>부서 목록</h3>
@@ -645,6 +646,7 @@
 			    </table>
    		            </div>
 		            <div class="col-lg-6">
+
 		              <!-- 오른쪽 컨텐츠 내용 -->
 		              <h3>선택된 결재자</h3>
 		                <table >
