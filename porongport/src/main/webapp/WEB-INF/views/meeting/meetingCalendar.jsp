@@ -108,9 +108,17 @@ html, body {
 	    slotMaxTime: '18:00',
 
 	    dateClick: info=>{
+
     		var meetStartTime = info.dataStr;
     		var meetEndTime = info.dataStr;
     		$('#meetStartTime').val(meetStartTime);
+	
+    		var result = meetStartTime.substr(11, 18);
+    		var result2 = result.substr(0, 8);
+    		console.log(result2);
+    		
+    		
+    		$('#meetStartTime').val(result2);
     		$('#meetEndTime').val(meetEndTime);
     		
     		$('#insertMeetModal').modal();

@@ -146,20 +146,15 @@ public class EmployeeController {
 		String encPwd = bcryptPasswordEncoder.encode(emp.getEmpPwd());
 		emp.setEmpPwd(encPwd);
 		
+		int result = 0;
+		
 		if(!upfile.getOriginalFilename().equals("")) {
 			String originName = upfile.getOriginalFilename();
-			
-			// 오늘 일자
 			String cTime = new SimpleDateFormat("yyyyMMdd").format(new Date());
-			// 랜덤값
 			int ranNum = (int)Math.random() * 90000 + 10000;
-			// 확장자
 			String ext = originName.substring(originName.lastIndexOf("."));
-			
 			String changeName = cTime + ranNum + ext;
-			
-			String savePath = session.getServletContext().getRealPath("/resources/upProfiles");
-			
+			String savePath = session.getServletContext().getRealPath("/resources/upProfiles/");
 			try {
 				upfile.transferTo(new File(savePath + changeName));
 			} catch (IllegalStateException | IOException e) {
@@ -171,17 +166,20 @@ public class EmployeeController {
 			att.setFilePath(savePath);
 			att.setRefEmpNo(emp.getEmpNo());
 			
-			if(empService.insertProfile(att) > 0) { // 프로필 업로드 성공 시
-				
+		}
+		
+		if(empService.insertProfile(att) > 0) {
+			session.setAttribute("profile", empService.selectProfile(att));
+			System.out.println("인서트까지 됨");
+			
+			if(empService.updateEmp(emp) > 0) {
+				session.setAttribute("loginUser", empService.loginEmp(emp));
+				mv.addObject("successText", "내정보가 변경되었습니다.").setViewName("mypage/myPageUpdateForm");
+			} else {
+				mv.addObject("errorText", "내정보 변경을 실패했습니다.").setViewName("redirect:myPageUp");
 			}
 		}
 		
-		if(empService.updateEmp(emp) > 0) {
-			session.setAttribute("loginUser", empService.loginEmp(emp));
-			mv.addObject("successText", "내정보가 변경되었습니다.").setViewName("mypage/myPageUpdateForm");
-		} else {
-			mv.addObject("errorText", "내정보 변경을 실패했습니다.").setViewName("redirect:myPageUp");
-		}
 		
 		return mv;
 	}

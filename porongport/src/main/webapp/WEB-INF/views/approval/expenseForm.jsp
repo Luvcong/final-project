@@ -136,6 +136,7 @@
 								</tbody>
 
 							</table>
+							
 						</form>
 					</div>
 
@@ -225,15 +226,6 @@
 		    	Swal.fire({
 					  icon: 'error',
 					  title: '마감일자란이 비어있습니다.',
-					  text: '확인 후 등록하세요!'
-				})
-			        
-			    return false;
-		    } else if(erWriteForm.monetaryUnit.value=="") {
-		    	/* alert("화폐단위를 선택해주세요."); */
-		    	Swal.fire({
-					  icon: 'error',
-					  title: '화폐단위를 선택해주세요.',
 					  text: '확인 후 등록하세요!'
 				})
 			        

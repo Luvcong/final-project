@@ -88,6 +88,11 @@ public class EmployeeServiceImpl implements EmployeeService {
 		return empDao.insertProfile(sqlSession, att);
 	}
 
+	@Override
+	public Attachment selectProfile(Attachment att) {
+		return empDao.selectProfile(sqlSession, att);
+	}
+
 	
 
 }
