@@ -122,7 +122,7 @@
             	},
             	
             	eventClick: (calEvent, jsEvent, view) => {
-                    console.log(calEvent.event._def.allDay);
+                    //console.log(calEvent.event._def.allDay);
 					var allDay = calEvent.event._def.allDay;
 					
                     var schNo = parseInt(calEvent.event.id);
@@ -140,6 +140,7 @@
             	    $("#inputContent").val(calEvent.event._def.extendedProps.description);
             	    
             	    var selectStartDate = calEvent.el.fcSeg.eventRange.instance.range.start;
+            	    var selectEndDate = calEvent.el.fcSeg.eventRange.instance.range.end;
             	    
             	    if(!allDay){
 	            	    var startDate = selectStartDate.getFullYear()+'-'
@@ -161,7 +162,6 @@
  	    								+((selectStartDate.getMinutes()) < 9 ? "0" + (selectStartDate.getMinutes()) : (selectStartDate.getMinutes()));
             	    }
             	    
-            	    var selectEndDate = calEvent.el.fcSeg.eventRange.instance.range.end;
             	    var endDate = selectEndDate.getFullYear()+'-'
 			    		 		+((selectEndDate.getMonth()+1) < 10 ? "0" + (selectEndDate.getMonth()+1) : (selectEndDate.getMonth()+1))+'-'
 			    		 		+((selectEndDate.getDate()-1) < 10 ? "0" + (selectEndDate.getDate()-1) : (selectEndDate.getDate()-1));
@@ -278,7 +278,7 @@
                      <div class="modal-border">
 	                    <label for="inputCalendar" class="form-label">&nbsp;&nbsp;작성자:&nbsp;</label>
 		                <span id="updateEmp"></span>&nbsp;&nbsp;&nbsp;/
-		                <label for="inputCalendar" class="form-label">&nbsp;&nbsp;수정일:&nbsp;</label>
+		                <label for="inputCalendar" class="form-label">&nbsp;&nbsp;마지막 작성일:&nbsp;</label>
 						<span id="updateDate"></span>&nbsp;&nbsp;&nbsp;
 	                 </div>
                 </div>
