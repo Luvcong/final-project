@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>test</title>
+<title>Insert title here</title>
 	<!-- jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 	<!-- 부트스트립트 -->
@@ -15,8 +15,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <!-- css-->
    <link rel="stylesheet" href="resources/css/vacation.css">
-
-<script>
+</head>
+<body>
+<jsp:include page="../common/sidebar.jsp" />
+<div class="pp-content">
+	<script>
 	
     $(document).ready(function(){
         // 파일 개수 3개제한
@@ -930,9 +933,6 @@ function refReset(){
 		  </div>
 		</div>
 
-        
-
-
 	<!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->
     <script src="../assets/vendor/libs/jquery/jquery.js"></script>
@@ -953,5 +953,6 @@ function refReset(){
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
+    </div>
 </body>
 </html>
