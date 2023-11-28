@@ -122,8 +122,9 @@
             	},
             	
             	eventClick: (calEvent, jsEvent, view) => {
-                    //console.log(calEvent.event._def.extendedProps. source);
-
+                    //console.log(calEvent.event._def.allDay);
+					var allDay = calEvent.event._def.allDay;
+					
                     var schNo = parseInt(calEvent.event.id);
                     
                    	$('#hiddenSchNo').attr("value", schNo);
@@ -139,10 +140,18 @@
             	    $("#inputContent").val(calEvent.event._def.extendedProps.description);
             	    
             	    var selectStartDate = calEvent.el.fcSeg.eventRange.instance.range.start;
+            	    var selectEndDate = calEvent.el.fcSeg.eventRange.instance.range.end;
             	    
-            	    var startDate = selectStartDate.getFullYear()+'-'
-            	    		 		+((selectStartDate.getMonth()+1) < 10 ? "0" + (selectStartDate.getMonth()+1) : (selectStartDate.getMonth()+1))+'-'
-            	    		 		+((selectStartDate.getDate()) < 10 ? "0" + (selectStartDate.getDate()) : (selectStartDate.getDate()));
+            	    if(!allDay){
+	            	    var startDate = selectStartDate.getFullYear()+'-'
+	            	    		 		+((selectStartDate.getMonth()+1) < 10 ? "0" + (selectStartDate.getMonth()+1) : (selectStartDate.getMonth()+1))+'-'
+	            	    		 		+((selectStartDate.getDate()-1) < 10 ? "0" + (selectStartDate.getDate()-1) : (selectStartDate.getDate()-1));
+            	    }
+            	    else{
+            	    	var startDate = selectStartDate.getFullYear()+'-'
+					    		 		+((selectStartDate.getMonth()+1) < 10 ? "0" + (selectStartDate.getMonth()+1) : (selectStartDate.getMonth()+1))+'-'
+					    		 		+((selectStartDate.getDate()) < 10 ? "0" + (selectStartDate.getDate()) : (selectStartDate.getDate()));
+            	    }
             	    
             	    if((selectStartDate.getHours()-9)<0){
             	    	var startTime = (((selectStartDate.getHours()-9)+24) < 10 ? "0" + ((selectStartDate.getHours()-9)+24) : ((selectStartDate.getHours()-9)+24)) +':'
@@ -153,21 +162,19 @@
  	    								+((selectStartDate.getMinutes()) < 9 ? "0" + (selectStartDate.getMinutes()) : (selectStartDate.getMinutes()));
             	    }
             	    
-            	    var selectEndDate = calEvent.el.fcSeg.eventRange.instance.range.end;
-            	    
             	    var endDate = selectEndDate.getFullYear()+'-'
-				    		 		+((selectEndDate.getMonth()+1) < 10 ? "0" + (selectEndDate.getMonth()+1) : (selectEndDate.getMonth()+1))+'-'
-				    		 		+((selectEndDate.getDate()) < 10 ? "0" + (selectEndDate.getDate()) : (selectEndDate.getDate()));
-            	    
-            	    if((selectEndDate.getHours()-9)<0){
-                	    var endTime = (((selectEndDate.getHours()-9)+24) < 10 ? "0" + ((selectEndDate.getHours()-9)+24) : ((selectEndDate.getHours()-9)+24)) +':'
-    	    						  +((selectEndDate.getMinutes()) < 10 ? "0" + (selectEndDate.getMinutes()) : (selectEndDate.getMinutes()));
-                	}
-                	else{
-                	    var endTime = (((selectEndDate.getHours()-9)) < 10 ? "0" + ((selectEndDate.getHours()-9)) : ((selectEndDate.getHours()-9))) +':'
-    	    						  +((selectEndDate.getMinutes()) < 10 ? "0" + (selectEndDate.getMinutes()) : (selectEndDate.getMinutes()));
-                	}
-            	    
+			    		 		+((selectEndDate.getMonth()+1) < 10 ? "0" + (selectEndDate.getMonth()+1) : (selectEndDate.getMonth()+1))+'-'
+			    		 		+((selectEndDate.getDate()-1) < 10 ? "0" + (selectEndDate.getDate()-1) : (selectEndDate.getDate()-1));
+    
+				    if((selectEndDate.getHours()-9)<0){
+					    var endTime = (((selectEndDate.getHours()-9)+24) < 10 ? "0" + ((selectEndDate.getHours()-9)+24) : ((selectEndDate.getHours()-9)+24)) +':'
+									  +((selectEndDate.getMinutes()) < 10 ? "0" + (selectEndDate.getMinutes()) : (selectEndDate.getMinutes()));
+					}
+					else{
+					    var endTime = (((selectEndDate.getHours()-9)) < 10 ? "0" + ((selectEndDate.getHours()-9)) : ((selectEndDate.getHours()-9))) +':'
+									  +((selectEndDate.getMinutes()) < 10 ? "0" + (selectEndDate.getMinutes()) : (selectEndDate.getMinutes()));
+					}
+				    
             	    $("#inputDateStrart").val(startDate);
             	    $("#inputDateEnd").val(endDate);
             	    
@@ -271,7 +278,7 @@
                      <div class="modal-border">
 	                    <label for="inputCalendar" class="form-label">&nbsp;&nbsp;작성자:&nbsp;</label>
 		                <span id="updateEmp"></span>&nbsp;&nbsp;&nbsp;/
-		                <label for="inputCalendar" class="form-label">&nbsp;&nbsp;수정일:&nbsp;</label>
+		                <label for="inputCalendar" class="form-label">&nbsp;&nbsp;마지막 작성일:&nbsp;</label>
 						<span id="updateDate"></span>&nbsp;&nbsp;&nbsp;
 	                 </div>
                 </div>

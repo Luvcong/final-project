@@ -19,7 +19,6 @@
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
-<%--
 	<div class="wrap">
 	 	<!-- 현재 시간 띄워주기 -->
 	     <header>
@@ -73,8 +72,6 @@
 		</script>
 		<c:remove var="alertMsg" />
 	</c:if>	
-	--%>
 	
-	<jsp:forward page="WEB-INF/views/main.jsp" />
 </body>
 </html>

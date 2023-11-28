@@ -21,13 +21,17 @@
 	            <form action="update.em" method="post" enctype="multipart/form-data" id="emp_update">
 		            <div class="myProfile">
 		            	<c:choose>
-		            		<c:when test="${ empty profile.changeFileName }">
-				                <img src="resources/images/profile.png"  alt="기본 프로필 사진">
+		            		<c:when test="${ empty sessionScope.profile.fileNo }">
+				                <div class="img_box">
+				                	<img src="resources/images/profile.png"  alt="기본 프로필 사진">
+				                </div>
 				                <label for="profile">이미지 변경</label>
 				                <input type="file" id="profile" name="upfile" />
 		            		</c:when>
 		            		<c:otherwise>
-		            			<img src="${ profile.changeName }"  alt="입사자 사진">
+		            			<div class="img_box">
+			            			<img src="${ profile.changeFileName }"  alt="입사자 사진">
+		            			</div>
 				                <label for="profile">이미지 변경</label>
 				                <input type="file" id="profile" name="upfile" />
 		            		</c:otherwise>
@@ -82,7 +86,7 @@
 	                </div>
 	
 	                <div class="btn_area">
-	                    <button type="submit" class="btn btn-primary btn_width" disabled>확인</button>
+	                    <button type="submit" class="btn btn-primary" disabled id="form_btn">확인</button>
 	                </div>
 	            </form>
 	        </div>
