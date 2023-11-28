@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.porong.approval.model.dao.EdmsDao;
 import com.kh.porong.approval.model.vo.EdmsVO;
+import com.kh.porong.approval.model.vo.GeneralVO;
 import com.kh.porong.approval.model.vo.VacationVO;
 
 @Service
@@ -57,6 +58,11 @@ public class EdmsServiceImpl implements EdmsService{
 	@Override
 	public ArrayList<VacationVO> selectApprover(String deptName) {
 		return EdmsDao.selectApprover(sqlSession, deptName);
+	}
+
+	@Override
+	public int insertGeneralDocument(GeneralVO general) {
+		return EdmsDao.insertGeneralDocument(sqlSession, general);
 	}
 
 
