@@ -8,8 +8,8 @@ import lombok.NoArgsConstructor;
 public class NoticeAttachment {
 
 	private int noticeFileNo;
-	private String noticeOriginFileName;
-	private String noticeChangeFileName;
+	private String originFileName;
+	private String changeFileName;
 	private String filePath;
 	private String uploadDate;
 	private int noticeNo;

@@ -13,9 +13,6 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 	<!-- font-awesome (icon) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!-- SweetAlert2 추가 -->
-<script type="text/javascript" src="${pageContext.request.contextPath}/smartEditor/js/HuskyEZCreator.js"></script>
     <!-- css-->
    <link rel="stylesheet" href="resources/css/vacation.css">
 </head>
@@ -434,6 +431,72 @@ function refReset(){
 <!-- Layout wrapper -->
 	<div class="layout-wrapper layout-content-navbar">
 		<div class="layout-container">
+			<!-- Menu -->
+			<aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
+				<div class="app-brand demo">
+					<a href="${pageContext.request.contextPath}">
+						<img src="${pageContext.request.contextPath}/assets/img/logo/yeyebooks_logo.png"
+						     style="width:100%">
+					</a>
+				</div>
+		
+				<div class="menu-inner-shadow"></div>
+				
+				<!-- 메뉴바 게시판 클릭 구현부 -->
+					<ul class="menu-inner py-1">
+					
+		            <!-- Dashboard -->
+		            <li class="menu-item">
+		              <a href="/yeyebooks/approval/approvalList?status=0" data-title="내 문서함" class="menu-link">
+		                <i class="menu-icon tf-icons bx bx-layout"></i>
+		                <div data-i18n="Analytics">내 문서함</div>
+		              </a>
+		            </li>
+		
+		            <li class="menu-item">
+		              <a href="/yeyebooks/approval/approvalList?status=1" data-title="진행중인 문서" class="menu-link">
+		                <i class="menu-icon tf-icons bx bx-layout"></i>
+		                <div data-i18n="Analytics">진행중인 문서</div>
+		              </a>
+		            </li>
+		
+		            <li class="menu-item">
+		              <a href="/yeyebooks/approval/approvalList?status=2" data-title="승인대기 문서" class="menu-link">
+		                <i class="menu-icon tf-icons bx bx-layout"></i>
+		                <div data-i18n="Analytics">승인대기 문서</div>
+		              </a>
+		            </li>
+		            <li class="menu-item">
+		              <a href="/yeyebooks/approval/approvalList?status=3" data-title="결재대기 문서" class="menu-link">
+		                <i class="menu-icon tf-icons bx bx-layout"></i>
+		                <div data-i18n="Analytics">결재대기 문서</div>
+		              </a>
+		            </li>
+		
+		
+		            </li>
+					<li class="menu-item">
+		              <a href="/yeyebooks/approval/approvalList?status=4" data-title="처리 완료된 문서" class="menu-link">
+		                <i class="menu-icon tf-icons bx bx-layout"></i>
+		                <div data-i18n="Analytics">처리 완료된 문서</div>
+		              </a>
+		            </li>
+		            <li class="menu-item">
+		              <a href="/yeyebooks/approval/approvalList?status=5" data-title="반려된 문서" class="menu-link">
+		                <i class="menu-icon tf-icons bx bx-layout"></i>
+		                <div data-i18n="Analytics">반려된 문서</div>
+		              </a>
+		            </li>
+		            <li class="menu-item">
+		              <a href="/yeyebooks/approval/approvalList?status=6" data-title="회수된 문서" class="menu-link">
+		                <i class="menu-icon tf-icons bx bx-layout"></i>
+		                <div data-i18n="Analytics">회수된 문서</div>
+		              </a>
+		            </li>
+				<!-- /메뉴바 게시판 클릭 구현부 -->
+			</aside>
+			<!-- / Menu -->
+			
 			<!-- 입력 레이아웃 -->
 			<div class="layout-page">
 				<!-- Content wrapper -->
@@ -464,11 +527,7 @@ function refReset(){
 			                    						<tbody>
 			                    							<tr>
 			                    								<th>기안자</th>
-			                    								<td>${loginUser.empName}</td>
-			                    							</tr>
-			                    							<tr>
-			                    								<th>부서명</th>
-			                    								<td>${loginUser.deptName}</td>
+			                    								<td>${sessionScope.userNm}</td>
 			                    							</tr>
 			                    							<tr>
 			                    								<th>기안일</th>
@@ -477,11 +536,15 @@ function refReset(){
 			                    								</td>
 			                    							</tr>
 			                    							<tr>
+			                    								<th>문서번호</th>
+			                    								<td>&nbsp;</td>
+			                    							</tr>
+			                    							<tr>
 			                    								<th>문서종류</th>
 			                    								<td>
 															        <select id="docCatCd" name="docCatCd" class="form-select">
 															            <option value="03">일반 문서</option>
-															            <option value="01">휴가신청서</option>
+															            <option value="01">지출 결의서</option>
 															        </select>
 			                    								</td>
 			                    							</tr>
@@ -492,7 +555,7 @@ function refReset(){
 					                    		<div class="col-md-3">&nbsp;</div>
 					                    		
 					                    		<!-- 결재선 -->
-					                    		<div class="col-md-5 table-bordered" style="height: 122px;">
+					                    		<div class="col-md-5 table-bordered">
 					                    			<!-- 결재 -->
 					                    			<div class="row mb-1">
 					                    				<button class="col-sm-1 modalAddUserToDeptBtn" 
@@ -501,8 +564,7 @@ function refReset(){
 					                    								display: flex;
 																        justify-content: center;
 																        align-items: center;
-																        border: 1px solid #d9dee3;
-																        ">결재
+																        border: 1px solid #d9dee3;">결재
 														</button>
 					                    				<div class="col-sm-11">
 					                    					<!-- 선택된 결재자 정보를 표시할 HTML 요소 -->
@@ -512,6 +574,31 @@ function refReset(){
 															    <p>세 번째 결재자: <span id="thirdApproverName"></span></p>
 															</div>
 								                        </div>
+					                    			</div>
+					                    			<!-- 참조 -->
+					                    			<div class="row">
+					                    				<button class="col-sm-1" 
+					                    						data-bs-toggle="modal" data-bs-target="#refModal"
+					                    						style="font-weight: bolder; 
+					                    								display: flex;
+																        justify-content: center;
+																        align-items: center;
+																        border: 1px solid #d9dee3;">참조
+												        </button>
+												        <div class="col-sm-11">
+												        	<div class="table table-bordered">
+													        	<input 
+													        		class="form-control" 
+													        		type="text" 
+													        		name="userName" 
+													        		id="refUserList"
+													        		placeholder="참조를 선택하세요" 
+													        		readonly="readonly" 
+													        		value="" 
+										        				 />
+												        		
+												        	</div>
+												        </div>
 					                    			</div>
 					                    		</div>
 					                    	</div>
@@ -586,54 +673,70 @@ function refReset(){
 											</div>
 											<br>
 											
-			<!-- 휴가신청서 -->
-			<div id="01" style="display: none; margin: 20px 0;">
-			<table class="table table-sm table-bordered">
-				<tbody style="text-align: center;">
-					<table class="table-bordered">
-	                <tr>
-						<th class="vacation-th-size">일 시</th>
-	                    <td id="vct_date"><input type="date" name="vctStart"> ~ <input type="date" name="vctEnd"></td>
-	                    <th class="vacation-th-size">잔여 휴가</th>
-	                    <td id="vct_day"><input type="text" readonly value="${loginUser.empAnnual - loginUser.empCount}">일</td>
-	                </tr>
-	                <tr>
-	                    
-	                    <td><th class="vacation-th-size">기간</th>
-	                    <td><input type="text" value=""></td>
-	                    <th class="vacation-th-size">휴가 구분</th>
-		                    <select class="vctKind">
-		                    	<option value="1">연차</option>
-		                    	<option value="0.5">반차</option>
-		                    </select>
-	                    </td>
-	               </tr>
-	             <div class="blank"></div>    
-					<tr>
-						<th class="vacation-th-size">비 상 연 락 망</th>
-	                    <td id="vct_num" colspan="3"><input type="text" value="${ loginUser.empPhone }"></td>
-	                </tr>
-	                <tr>
-	                    <th class="vacation-th-size">사유</th>
-	                    <td ><textarea rows="8" cols="100"></textarea></td>
-	                </tr>
-	                <tr>
-	                    <td colspan="2"><p class="ex_txt">위와 같이 휴가를 신청하오니 허락하여 주시기 바랍니다.</p></td>
-	                </tr>
-	                <tr>
-	                    <td colspan="2"><p class="ex_txt">2023-11-17</p></td>
-	                </tr>
-	              </table>
-				  </div>
-         			<label for="files">첨부 파일:</label>
-		                <button type="button" id="addFile" class="btn btn-primary btn-sm">추가</button>
-		                <button type="button" id="removeFile" class="btn btn-primary btn-sm">삭제</button>
-		            <div id="files" class="my-2">
-		                <input class="form-control approvalFiles" type="file" name="multipartFile" multiple><br>
-		            </div>
-		            
-		            <button type="button" class='btn btn-primary' onclick="submitForm()"  style="float: right;">문서등록</button>
-					</form>
+											<!-- 지출결의서 -->
+											<div id="01" style="display: none; margin: 20px 0;">
+											<table class="table table-sm table-bordered">
+												<tbody style="text-align: center;">
+													<tr>
+														<th colspan="4">
+															<h2>지&nbsp;&nbsp;출&nbsp;&nbsp;내&nbsp;&nbsp;역</h2>
+														</th>
+													</tr>
+													<tr>
+														<th>제목</th>
+														<td colspan="3">
+								                        	<input type="text" name="aprvTitle" maxlength="50" class="form-control" placeholder="제목을 입력하세요" required="required"/>
+														</td>
+													</tr>
+													<tr>
+														<th>지출내용</th>
+														<td colspan="3">
+								                        	<textarea name="aprvContents" class="form-control" placeholder="내용을 입력하세요" required="required"></textarea>
+														</td>
+													</tr>
+													<tr>
+														<th>사용내역</th>
+														<td colspan="3">
+				   											<textarea id="acntContents" name="acntContents" class="form-control" placeholder="내용을 입력하세요" required="required"></textarea><br>
+														</td>
+													</tr>
+													<tr>
+														<th>지출날짜</th>
+														<td>
+															<div style="display: flex; justify-content: center;">
+																<input type="date" id="acntYmd" name="acntYmd" class="form-control form-control-sm">
+															</div>
+														</td>
+													
+														<th>사용처</th>
+														<td><input type="text" id="acntNm" name="acntNm" class="form-control form-control-sm"></td>
+														
+														
+													</tr>
+													<tr>
+														<th>지출금액</th>
+														<td><input type="number" id="acntAmount" name="acntAmount" value=0 class="form-control form-control-sm"></td>
+														<th>구분</th>
+														<td colspan="3">
+															<select id="acntCreditCd" name="acntCreditCd" class="form-select">
+													            <option value="01">법인</option>
+													            <option value="02">개인</option>
+													        </select>
+														</td>
+													</tr>
+												</tbody>
+											</table>
+											</div>
+											
+	               							  	<label for="files">첨부 파일:</label>
+									                <button type="button" id="addFile" class="btn btn-primary btn-sm">추가</button>
+									                <button type="button" id="removeFile" class="btn btn-primary btn-sm">삭제</button>
+									            <div id="files" class="my-2">
+									                <input class="form-control approvalFiles" type="file" name="multipartFile" multiple><br>
+									            </div>
+									            
+									            <button type="button" class='btn btn-primary' onclick="submitForm()"  style="float: right;">문서등록</button>
+										</form>
 										<!-- 문서 끝 -->
 										<br>
 									</div>
@@ -668,7 +771,7 @@ function refReset(){
 		          aria-label="Close"
 		        ></button>
 		      </div>
-		      <form action="" method="post">
+		      <form action="${pageContext.request.contextPath}/modifyUserDept" method="post">
 		        <div class="modal-body pb-0 card" style="box-shadow: none;">
 		          <div class="row card-body vertical-scroll">
 		            <div class="col-lg-6" style="overflow-y: auto; height: 400px;">
@@ -687,6 +790,13 @@ function refReset(){
 		                            <li>
 		                              <input type="checkbox" class="userCheckbox" id="user_${u.userId}" value="${u.userId}" data-username="${u.userNm}">
 		                              <label for="user_${u.userId}">
+		                                <div class="col-md-3">
+		                                  <c:set var="photoUrl" value="${pageContext.request.contextPath}/assets/img/avatars/default.png"></c:set>
+		                                  <c:if test="${u.userImg != null}">
+		                                    <c:set var="photoUrl" value="/yeyebooks/${u.userPath}${u.userImg}"></c:set>
+		                                  </c:if>
+		                                  <img src="${photoUrl}" alt="Avatar" class="rounded-circle" width="100%" />
+		                                </div>
 		                                <div class="col-md-9">
 		                                  <h5 class="mb-0">${u.userNm}</h5>
 		                                  <h6><small class="text-muted">${u.rankNm}</small></h6>

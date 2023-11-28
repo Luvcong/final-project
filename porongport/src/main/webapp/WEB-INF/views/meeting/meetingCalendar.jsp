@@ -7,7 +7,6 @@
 
 
 <style data-fullcalendar=""></style>
-<link href="/docs/dist/demo-to-codepen.css" rel="stylesheet">
 
 
 <style>
@@ -29,7 +28,6 @@ html, body {
 
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar-scheduler@6.1.9/index.global.min.js"></script>
 
-<script src="/docs/dist/demo-to-codepen.js"></script>
 <link rel="stylesheet" href="resources/css/meeting.css">
 
 
@@ -82,8 +80,11 @@ html, body {
   	
   	$.ajax({
 			url: 'meetingRoom',
+			data: { 
+				empNo: ${loginUser.empNo},
+				deptCode : '${loginUser.deptCode}'
+			},
 			success:data=>{
-				
 			//console.log(data[0].meetTitle);
 			for(i=0;  i<data.length; i++){
 				calendar.addEvent({
@@ -99,6 +100,7 @@ html, body {
 				console.log('실패');
 			}
 		})
+		
 	  
 	  var calendar = new FullCalendar.Calendar(calendarEl, {
 	    selectable: true,
@@ -108,8 +110,12 @@ html, body {
 	    dateClick: info=>{
     		var meetStartTime = info.dateStr;
     		var meetEndTime = info.dateStr;
+    		var meetStartDay = info.dataStr;
+    		var meetEndDay = info.dataStr;
     		$('#meetStartTime').val(meetStartTime);
     		$('#meetEndTime').val(meetEndTime);
+    		$('#meetStartDay').val(meetStartDay);
+    		$('#meetEndDay').val(meetEndDay);
     		
     		$('#insertMeetModal').modal();
     	},
@@ -117,8 +123,12 @@ html, body {
 	    select : info=>{
 	    	var meetStartTime = info.startStr;
     		var meetEndTime = info.endStr;
+    		var meetStartDay = info.dataStr;
+    		var meetEndDay = info.dataStr;
     		$('#meetStartTime').val(meetStartTime);
     		$('#meetEndTime').val(meetEndTime);
+    		$('#meetStartDay').val(meetStartDay);
+    		$('#meetEndDay').val(meetEndDay);
     		
     		$('#insertMeetModal').modal();
 	    },
@@ -216,11 +226,6 @@ html, body {
     	  });
     	  calendar.render();
     	});
-	    
-	    
-	  
-	
-	
 </script>
 
 </head>
@@ -239,7 +244,7 @@ html, body {
 						<h5 class="modal-title" id="meetModalLabel">회의실 예약신청</h5>
 
 						<button type="button" class="close" data-bs-dismiss="meet">
-							<a href="calendar" class="calendar-a-color">&times;</a>
+							<a href="reservation" class="calendar-a-color">&times;</a>
 						</button>
 					</div>
 
@@ -270,9 +275,9 @@ html, body {
 									<tr>
 										<th><i class="fa-solid fa-clock"></i></th>
 										<td colspan="5">
-											<input type="date" name="meetStartDay"	id="meetStartDay" class="mymeeting_input2 mymeeting_width2" readonly/>
+											<input type="date" name="meetStartDay"	id="meetStartDay" class="mymeeting_input2 mymeeting_width2" value="${fc-dom-1}" />
 											<input type="time" name="meetStartTime"	id="meetStartTime" class="mymeeting_input2 mymeeting_width2" required /> ~
-											<input type="date" name="meetEndDay"	id="meetEndDay" class="mymeeting_input2 mymeeting_width2" readonly/>
+											<input type="date" name="meetEndDay"	id="meetEndDay" class="mymeeting_input2 mymeeting_width2" />
 											<input type="time" name="meetEndTime" id="meetEndTime" class="mymeeting_input2 mymeeting_width2" required />
 										</td>
 									</tr>
@@ -304,7 +309,16 @@ html, body {
 				
 			</div>
 			<!-- insert 모달 -->
+	
+			<script>
 
+   				var now_utc = Date.now() 
+   				var timeOff = new Date().getTimezoneOffset()*60000; 
+   				var today = new Date(now_utc-timeOff).toISOString().split("T")[0];
+   				document.getElementById("meetStartDay").setAttribute("min", today);
+   				document.getElementById("meetEndDay").setAttribute("min", today);
+			</script>
+			 
 		</div>
 	</div>
 
