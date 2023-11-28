@@ -10,6 +10,7 @@ import javax.activation.DataSource;
 import javax.activation.FileDataSource;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +38,7 @@ public class EmployeeController {
 	private EmployeeServiceImpl empService;
 	
 	@Autowired
-	private BCryptPasswordEncoder bcryptPasswordEncoder;
+	private BCryptPasswordEncoder bcrypt;
 	
 	@Autowired
 	private JavaMailSender sender;
@@ -45,7 +46,7 @@ public class EmployeeController {
 	// 입사자 등록
 	@PostMapping("insert.em")
 	public String insertEmp(Employee emp, HttpSession session) throws MessagingException{
-		String encPwd = bcryptPasswordEncoder.encode(emp.getEmpPwd());
+		String encPwd = bcrypt.encode(emp.getEmpPwd());
 		emp.setEmpPwd(encPwd);
 		
 		String toUpperDept = emp.getDeptCode().toUpperCase();
@@ -90,13 +91,15 @@ public class EmployeeController {
 	public ModelAndView loginEmp(Employee emp, ModelAndView mv, HttpSession session) {
 		Employee loginEmp = empService.loginEmp(emp);
 		
-		if(loginEmp != null && (bcryptPasswordEncoder.matches(emp.getEmpPwd(), loginEmp.getEmpPwd()) || loginEmp.getEmpNo() == 0)) {
+		if(loginEmp != null && (bcrypt.matches(emp.getEmpPwd(), loginEmp.getEmpPwd()) || loginEmp.getEmpNo() == 0)) {
 			// 로그인한 유저 정보 세션에 담기
 			session.setAttribute("loginUser", loginEmp);
-			
+
 			// 로그인한 유저 근태 리스트 조회
-			ArrayList<Attendance> attList = empService.attList(loginEmp.getEmpNo());
-			session.setAttribute("attList", attList);
+			session.setAttribute("attList", empService.attList(loginEmp.getEmpNo()));
+			
+			// 로그인한 유저 프로필 조회
+			session.setAttribute("profile", empService.selectProfile(emp.getEmpNo()));
 			
 			// 최초 로그인 판별
 			int flag = empService.firstLogin(emp);
@@ -109,7 +112,7 @@ public class EmployeeController {
 			}
 			
 		}  else {
-			mv.addObject("loginFail", "다시 시도해주세요.").setViewName("common/errorPage");
+			mv.addObject("alertMsg", "로그인 실패, 다시 시도해주세요.").setViewName("main");
 		}
 	
 		return mv;
@@ -121,7 +124,6 @@ public class EmployeeController {
 		session.invalidate();
 		return "redirect:/";
 	}
-	
 	
 	// 조직도 조회
 	@GetMapping("jojigdo.em")
@@ -143,23 +145,17 @@ public class EmployeeController {
 	public ModelAndView updateEmp(Employee emp, ModelAndView mv, 
 								  HttpSession session, MultipartFile upfile,
 								  Attachment att) {
-		String encPwd = bcryptPasswordEncoder.encode(emp.getEmpPwd());
+
+		String encPwd = bcrypt.encode(emp.getEmpPwd());
 		emp.setEmpPwd(encPwd);
 		
 		if(!upfile.getOriginalFilename().equals("")) {
 			String originName = upfile.getOriginalFilename();
-			
-			// 오늘 일자
 			String cTime = new SimpleDateFormat("yyyyMMdd").format(new Date());
-			// 랜덤값
-			int ranNum = (int)Math.random() * 90000 + 10000;
-			// 확장자
+			int ranNum = (int)(Math.random() * 90000) + 10000;
 			String ext = originName.substring(originName.lastIndexOf("."));
-			
 			String changeName = cTime + ranNum + ext;
-			
-			String savePath = session.getServletContext().getRealPath("/resources/upProfiles");
-			
+			String savePath = session.getServletContext().getRealPath("/resources/upProfiles/");
 			try {
 				upfile.transferTo(new File(savePath + changeName));
 			} catch (IllegalStateException | IOException e) {
@@ -171,12 +167,11 @@ public class EmployeeController {
 			att.setFilePath(savePath);
 			att.setRefEmpNo(emp.getEmpNo());
 			
-			if(empService.insertProfile(att) > 0) { // 프로필 업로드 성공 시
-				
-			}
+			empService.insertProfile(att);
 		}
 		
 		if(empService.updateEmp(emp) > 0) {
+			session.setAttribute("profile", empService.selectProfile(att.getRefEmpNo()));
 			session.setAttribute("loginUser", empService.loginEmp(emp));
 			mv.addObject("successText", "내정보가 변경되었습니다.").setViewName("mypage/myPageUpdateForm");
 		} else {
@@ -187,7 +182,7 @@ public class EmployeeController {
 	}
 	
 	// 부서추가
-	@GetMapping(value="insert.de")
+	@GetMapping("insert.de")
 	public ModelAndView insertDept(Employee emp, ModelAndView mv) {
 		String toUpper = emp.getDeptCode().toUpperCase();
 		emp.setDeptCode(toUpper);
@@ -200,7 +195,37 @@ public class EmployeeController {
 		return mv;
 	}
 	
-	// AJAX통신 -----------------------------------------------------------------------------------------------
+	// 비밀번호 찾기
+	@PostMapping("findPwd.em")
+	public ModelAndView findPwd(Employee emp, ModelAndView mv, HttpServletRequest request) throws MessagingException {
+		// 메일로 보낼 임시비번
+		int tempPwd = (int)(Math.random() * 90000) + 10000;
+		
+		emp.setEmpPwd(bcrypt.encode(String.valueOf(tempPwd)));
+		
+		if(empService.findPwd(emp) > 0) {
+			
+			MimeMessage msg = sender.createMimeMessage();
+			
+			MimeMessageHelper helper = new MimeMessageHelper(msg, false, "UTF-8");
+			helper.setTo(emp.getEmpEmail());
+			helper.setSubject("[포롱포트]임시 비밀번호 발급 메일");
+			helper.setText("<b style='font-size: 30px;'>" + emp.getEmpName() + "</b>님의"
+					+ "<br/>비밀번호 찾기를 통한 임시 비밀번호입니다."
+					+ "<br/>임시비밀번호 : <b>" + tempPwd +"</b>" 
+					+ "<br/>로그인 후 비밀번호 변경을 해주세요."
+					+ " >> <a href='http://localhost:8003/" + request.getContextPath() + "'>로그인 페이지</a>", true);
+			
+			sender.send(msg);
+			
+			mv.addObject("alertMsg", "메일함을 확인해주세요.").setViewName("main");
+			
+		}
+		return mv;
+		
+	}
+	
+	// AJAX -----------------------------------------------------------------------------------------------
 
 	// 아이디 중복체크
 	@ResponseBody

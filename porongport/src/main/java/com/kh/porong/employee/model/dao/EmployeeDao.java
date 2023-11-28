@@ -64,4 +64,12 @@ public class EmployeeDao {
 		return sqlSession.insert("empMapper.insertProfile", att);
 	}
 
+	public Attachment selectProfile(SqlSessionTemplate sqlSession, int refEmpNo) {
+		return sqlSession.selectOne("empMapper.selectProfile", refEmpNo);
+	}
+
+	public int findPwd(SqlSessionTemplate sqlSession, Employee emp) {
+		return sqlSession.update("empMapper.findPwd", emp);
+	}
+
 }

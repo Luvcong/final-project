@@ -108,29 +108,34 @@ html, body {
 	    slotMaxTime: '18:00',
 
 	    dateClick: info=>{
+
     		var meetStartTime = info.dateStr;
     		var meetEndTime = info.dateStr;
-    		var meetStartDay = info.dataStr;
-    		var meetEndDay = info.dataStr;
-    		$('#meetStartTime').val(meetStartTime);
-    		$('#meetEndTime').val(meetEndTime);
-    		$('#meetStartDay').val(meetStartDay);
-    		$('#meetEndDay').val(meetEndDay);
+    		var meetStartDay = info.dateStr;
+    		var meetEndDay = info.dateStr;
     		
+    		var startday = meetStartDay.substr(0,10);
+    		var endday = meetEndDay.substr(0,10);
+    		
+    		$('#meetStartDay').val(startday);
+    		$('#meetEndDay').val(endday);
     		$('#insertMeetModal').modal();
     	},
     	
 	    select : info=>{
 	    	var meetStartTime = info.startStr;
     		var meetEndTime = info.endStr;
-    		var meetStartDay = info.dataStr;
-    		var meetEndDay = info.dataStr;
-    		$('#meetStartTime').val(meetStartTime);
-    		$('#meetEndTime').val(meetEndTime);
-    		$('#meetStartDay').val(meetStartDay);
-    		$('#meetEndDay').val(meetEndDay);
+    		
+    		var result = meetStartTime.substr(11, 18);
+    		var result2 = result.substr(0, 8);
+    		var result3 = meetEndTime.substr(11, 18);
+    		var result4 = result3.substr(0, 8);
+    		
+    		$('#meetStartTime').val(result2);
+    		$('#meetEndTime').val(result4);
     		
     		$('#insertMeetModal').modal();
+    		
 	    },
 	    
 	    
@@ -159,7 +164,7 @@ html, body {
     	    
     	    var selectMeetEndDay = calEvent.el.fcSeg.eventRange.instance.range.end;
     	    
-    	    var meetEndDaye = selectMeetEndDay.getFullYear()+'-'
+    	    var meetEndDay = selectMeetEndDay.getFullYear()+'-'
 	 		+((selectMeetEndDay.getMonth()+1) < 10 ? "0" + (selectMeetEndDay.getMonth()+1) : (selectMeetEndDay.getMonth()+1))+'-'
 	 		+((selectMeetEndDay.getDate()) < 10 ? "0" + (selectMeetEndDay.getDate()) : (selectMeetEndDay.getDate()));
 
@@ -173,17 +178,14 @@ html, body {
 							 +((selectMeetEndDay.getMinutes()) < 10 ? "0" + (selectMeetEndDay.getMinutes()) : (selectMeetEndDay.getMinutes()));
     	    }
     	      	    
-    	    $("#meetStartDay").val(meetStartDay);
-            $("#meetEndDay").val(meetEmdDay);
-    	    
     	    $("#meetStartTime").val(meetStartTime);
     	    $("#meetEndTime").val(meetEndTime);
+
     	    
     	    $('#eventModal').modal();
         },
     	
         height: '230px',
-        width:'100%',
 
         eventDidMount: function(info) {
             var tooltip = new Tooltip(info.el, {
@@ -196,18 +198,18 @@ html, body {
         },
         
         customButtons: {
-    		scheduleButton: { 
-                text: '회의실예약', 
+    		meetingroomButton: { 
+                text: '내일정', 
                 click: function(event) { 
-                	location.href="/porong/reservation";
+                	location.href="/porong/calendar";
                 } 
     		}
     	},
     	
-    	  headerToolbar: {
+    	  headerToolbar: {	
     	      left: 'prev,next',
     	      center: 'title',
-    	      right: 'today'
+    	      right: 'meetingroomButton today'
     	    },
     	    initialView: 'resourceTimelineDay',
     	    aspectRatio: 1.5,
@@ -275,10 +277,10 @@ html, body {
 									<tr>
 										<th><i class="fa-solid fa-clock"></i></th>
 										<td colspan="5">
-											<input type="date" name="meetStartDay"	id="meetStartDay" class="mymeeting_input2 mymeeting_width2" value="${fc-dom-1}" />
-											<input type="time" name="meetStartTime"	id="meetStartTime" class="mymeeting_input2 mymeeting_width2" required /> ~
-											<input type="date" name="meetEndDay"	id="meetEndDay" class="mymeeting_input2 mymeeting_width2" />
-											<input type="time" name="meetEndTime" id="meetEndTime" class="mymeeting_input2 mymeeting_width2" required />
+											<input type="date" name="meetStartDay"	id="meetStartDay"  class="mymeeting_input2 mymeeting_width2" readonly />
+											<input type="time" name="meetStartTime"	id="meetStartTime" class="mymeeting_input2 mymeeting_width2" required readonly/> ~
+											<input type="date" name="meetEndDay"	id="meetEndDay"    class="mymeeting_input2 mymeeting_width2" readonly/>
+											<input type="time" name="meetEndTime"   id="meetEndTime"   class="mymeeting_input2 mymeeting_width2" required readonly/>
 										</td>
 									</tr>
 									<tr>
@@ -309,16 +311,15 @@ html, body {
 				
 			</div>
 			<!-- insert 모달 -->
-	
-			<script>
-
+		<!--  	 날짜 불러오는건데 다음날가도 오늘로돼서 실패 
+			 <script>
    				var now_utc = Date.now() 
    				var timeOff = new Date().getTimezoneOffset()*60000; 
    				var today = new Date(now_utc-timeOff).toISOString().split("T")[0];
    				document.getElementById("meetStartDay").setAttribute("min", today);
    				document.getElementById("meetEndDay").setAttribute("min", today);
-			</script>
-			 
+			</script>-->
+			
 		</div>
 	</div>
 

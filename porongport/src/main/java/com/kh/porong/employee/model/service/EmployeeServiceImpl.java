@@ -88,6 +88,16 @@ public class EmployeeServiceImpl implements EmployeeService {
 		return empDao.insertProfile(sqlSession, att);
 	}
 
+	@Override
+	public Attachment selectProfile(int refEmpNo) {
+		return empDao.selectProfile(sqlSession, refEmpNo);
+	}
+
+	@Override
+	public int findPwd(Employee emp) {
+		return empDao.findPwd(sqlSession, emp);
+	}
+
 	
 
 }

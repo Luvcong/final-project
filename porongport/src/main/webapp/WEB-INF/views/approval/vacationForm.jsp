@@ -134,9 +134,6 @@
 	                <tr>
 	                    <td colspan="2"><p class="ex_txt">위와 같이 휴가를 신청하오니 허락하여 주시기 바랍니다.</p></td>
 	                </tr>
-	                <tr>
-	                    <td colspan="2"><p class="ex_txt">2023-11-17</p></td>
-	                </tr>
 	               </table>
 	       		</div>
 	       </form>
@@ -144,7 +141,7 @@
        
        <div class="modal fade" id="myModal" role="dialog">
 			<div class="modal-dialog">
-				<div class="modal-content" style="width: 1000px; height: 900px;">
+				<div class="modal-content" style="width:1000px; height: 900px;">
 
 					<div class="modal-header">
 						<h2 class="modal-title">결재선 지정</h2>
@@ -172,7 +169,6 @@
 						                        	<th>성명</th>
 						                        	<th>직급</th>
 						                        </tr>
-						                     
 						             <tr>
 						                        <!-- 
 						                        <th><button type="button" value="HR">인사부</button></th>
@@ -182,7 +178,6 @@
 
         <!-- left start -->
             <h3 id="">조직도</h3>
-            
 	                    	<form action="" method="post" id="HRForm">
                 <div class="">
                     <div id="">

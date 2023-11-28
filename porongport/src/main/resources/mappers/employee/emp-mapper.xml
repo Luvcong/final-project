@@ -204,18 +204,18 @@
 	</select>
 	
 	<!-- 비밀번호 찾기 -->
-	<select id="findPwd" parameterType="emp" resultType="emp">
-		SELECT
-		      EMP_PWD
-		  FROM
+	<update id="findPwd" parameterType="emp">
+		UPDATE
 		      EMPLOYEE
+		   SET
+		      EMP_PWD = #{empPwd}
 		 WHERE
 		      EMP_NO = #{empNo}
 		   AND 
 		      EMP_NAME = #{empName}
 		   AND
 		      EMP_STATUS = 'Y'
-	</select>
+	</update>
 	
 	<!-- 조직도 조회 -->
 	<select id="selectJojigdo" parameterType="string" resultMap="empResultSet">
@@ -294,7 +294,7 @@
 		     DEPT_STATUS = 'Y'
 	</select>
 	
-	<insert id="insertProfile" parameterType="com.kh.porong.employee.model.vo.Attachment">
+	<insert id="insertProfile" parameterType="profile">
 		INSERT
 		  INTO
 		      ATTACHMENT
@@ -306,8 +306,33 @@
 		      ,#{filePath}
 		      ,SYSDATE
 		      ,#{refEmpNo}
-		      );
+		      )
 	</insert>
 	
+	<select id="selectProfile" parameterType="profile" resultType="profile">
+		SELECT
+		      FILE_NO fileNo
+		      ,ORIGIN_FILENAME originFileName
+		      ,CHANGE_FILENAME changeFileName
+		      ,FILE_PATH filePath
+		      ,UPLOAD_DATE uploadDate
+		      ,REF_EMP_NO refEmpNo
+		  FROM (
+		        SELECT
+		              FILE_NO
+		              ,ORIGIN_FILENAME
+		              ,CHANGE_FILENAME
+		              ,FILE_PATH
+		              ,UPLOAD_DATE
+		              ,REF_EMP_NO
+		          FROM
+		              ATTACHMENT 
+		         WHERE
+		              REF_EMP_NO = #{refEmpNo}
+		         ORDER 
+		            BY UPLOAD_DATE DESC)
+		 WHERE
+		      ROWNUM = 1
+	</select>
 	
 </mapper>
