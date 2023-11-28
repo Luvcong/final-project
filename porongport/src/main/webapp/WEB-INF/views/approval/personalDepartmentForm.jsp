@@ -620,7 +620,7 @@
 		      <form action="" method="post">
 		        <div class="modal-body pb-0 card" style="box-shadow: none;">
 		          <div class="row card-body vertical-scroll">
-		            <div class="col-lg-6" style="overflow-y: auto; height: 400px;">
+		            <div class="col-lg-6" style="width: 1000px; height: 500px;">
 		              <!-- 왼쪽 컨텐츠 내용 -->
 		              <h3>부서 목록</h3>
 		              <table class="table table-striped table-bordered">
@@ -639,13 +639,15 @@
                         </tr>
 					</thead>
 					<tbody id="job_table">
+					</tbody>
 						<div class="gm_box">
-							<table class="table table-bordered app_jojigdo" id="appCheck">
-						    </table>
+				<table class="table table-bordered app_jojigdo" id="appCheck">
+			    </table>
+   		            </div>
 		            <div class="col-lg-6">
 		              <!-- 오른쪽 컨텐츠 내용 -->
 		              <h3>선택된 결재자</h3>
-		                <table>
+		                <table >
 		                  <!-- 선택된 결재자 목록 -->
 		                  <tr>
 		                    <td rowspan="2"><button type="button" id="rightArrowButtonFirst">&rarr;</button></td>
@@ -679,9 +681,9 @@
 		                  </tr>
 		                </table>
 		                <button type="button" class="btn btn-secondary" onclick="refReset()">초기화</button>
-		            </div>
+
 		          </div>
-		        </div>
+
         <div class="modal-footer">
           <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">취소</button>
           <button type="button" class="btn btn-secondary" onclick="addReference()">추가</button>
