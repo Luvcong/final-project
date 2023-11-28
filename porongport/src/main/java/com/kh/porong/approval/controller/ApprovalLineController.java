@@ -11,5 +11,10 @@ public class ApprovalLineController {
 		
 		return "appoval/approvalLine";
 	}
+	
+	@RequestMapping("test")
+	public String test() {
+		return "appoval/testForm";
+	}
 
 }
