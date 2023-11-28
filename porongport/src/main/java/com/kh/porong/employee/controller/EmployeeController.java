@@ -154,7 +154,7 @@ public class EmployeeController {
 			int ranNum = (int)Math.random() * 90000 + 10000;
 			String ext = originName.substring(originName.lastIndexOf("."));
 			String changeName = cTime + ranNum + ext;
-			String savePath = session.getServletContext().getRealPath("/resources/upProfiles");
+			String savePath = session.getServletContext().getRealPath("/resources/upProfiles/");
 			try {
 				upfile.transferTo(new File(savePath + changeName));
 			} catch (IllegalStateException | IOException e) {

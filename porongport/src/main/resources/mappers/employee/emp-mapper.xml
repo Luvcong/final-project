@@ -294,7 +294,7 @@
 		     DEPT_STATUS = 'Y'
 	</select>
 	
-	<insert id="insertProfile" parameterType="com.kh.porong.employee.model.vo.Attachment">
+	<insert id="insertProfile" parameterType="profile">
 		INSERT
 		  INTO
 		      ATTACHMENT
@@ -309,18 +309,30 @@
 		      )
 	</insert>
 	
-	<select id="selectProfile" parameterType="com.kh.porong.employee.model.vo.Attachment" resultType="com.kh.porong.employee.model.vo.Attachment">
+	<select id="selectProfile" parameterType="profile" resultType="profile">
 		SELECT
-		      FILE_NO fileNo
-		      ,ORIGIN_FILENAME originFileName
-		      ,CHANGE_FILENAME changeFileName
-		      ,FILE_PATH filePath
-		      ,UPLOAD_DATE uploadDate
-		      ,REF_EMP_NO refEmpNo
-		  FROM
-		      ATTACHMENT 
+		      FILE_NO
+		      ,ORIGIN_FILENAME
+		      ,CHANGE_FILENAME
+		      ,FILE_PATH
+		      ,UPLOAD_DATE
+		      ,REF_EMP_NO
+		  FROM (
+		        SELECT
+		              FILE_NO
+		              ,ORIGIN_FILENAME
+		              ,CHANGE_FILENAME
+		              ,FILE_PATH
+		              ,UPLOAD_DATE
+		              ,REF_EMP_NO
+		          FROM
+		              ATTACHMENT 
+		         WHERE
+		              REF_EMP_NO = 0
+		         ORDER 
+		            BY UPLOAD_DATE DESC)
 		 WHERE
-		      REF_EMP_NO = #{refEmpNo}
+		      ROWNUM = 1
 	</select>
 	
 </mapper>
