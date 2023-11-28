@@ -110,7 +110,7 @@ html, body {
 	    slotMaxTime: '18:00',
 
 	    dateClick: info=>{
-
+    		
     		var meetStartTime = info.dateStr;
     		var meetEndTime = info.dateStr;
     		var meetStartDay = info.dateStr;
@@ -118,32 +118,33 @@ html, body {
     		
     		var startday = meetStartDay.substr(0,10);
     		var endday = meetEndDay.substr(0,10);
-    		console.log(info);
+    		
     		$('#meetStartDay').val(startday);
     		$('#meetEndDay').val(endday);
     		$('#insertMeetModal').modal();
-    		
+    	
     	},
     	
-	    select : info=>{
-	    	var meetStartTime = info.startStr;
-    		var meetEndTime = info.endStr;
-    		
-    		var result = meetStartTime.substr(11, 18);
-    		var result2 = result.substr(0, 8);
-    		var result3 = meetEndTime.substr(11, 18);
-    		var result4 = result3.substr(0, 8);
-    		
-    		$('#meetStartTime').val(result2);
-    		$('#meetEndTime').val(result4);
-    		
-    		$('#insertMeetModal').modal();
-    		
-	    },
+    	 select : info=>{
+ 	    	var meetStartTime = info.startStr;
+     		var meetEndTime = info.endStr;
+     		
+     		var result = meetStartTime.substr(11, 18);
+     		var result2 = result.substr(0, 8);
+     		var result3 = meetEndTime.substr(11, 18);
+     		var result4 = result3.substr(0, 8);
+     		
+     		$('#meetStartTime').val(result2);
+     		$('#meetEndTime').val(result4);
+     		
+     		$('#insertMeetModal').modal();
+     		
+     		console.log(info);
+ 	    },
 	    
 	    
 	    eventClick: (calEvent, jsEvent, view) => {
-            //console.log(calEvent.event._def.publicId);
+            console.log(calEvent);
     		
             $('#meetNo').val(calEvent.event._def.publicId);
             
