@@ -160,10 +160,15 @@
 			//console.log($(e).children()[0]);
 			//console.log($(e).children()[1]);
 			
-			var empId = $(e).children()[0];
-			var empName = $(e).children()[2];
+			var TdempIdTd = $(e).children()[0];
+			var TdempNameTd = $(e).children()[2];
 		
-	
+			var empIdTd = TdempIdTd.substr(4);
+    		var result2 = result.substr(0, 8);
+    		
+    		console.log(empIdTd);
+			
+			
 	        // 오른쪽 화살표 첫번째 버튼 동작 구현
 	        $('#rightArrowButtonFirst').click(function() {
 	            const memberIdInputFirst = $('.memberIdInputFirst');
