@@ -358,28 +358,6 @@
 	    });
 	</script>
 
-	<script>
-		function addReference(){
-			// RefUsers 클래스를 가진 체크박스를 선택합니다.
-			const checkboxes = $('.refUsers');
-			let refSelectUserName = "";
-			// 체크된 체크박스만 선택합니다.
-			const checkedCheckboxes = checkboxes.filter(':checked');
-		
-			// 체크된 체크박스를 사용하거나 처리할 수 있습니다.
-			checkedCheckboxes.each(function() {
-				refSelected += $(this).val() + ",";
-				refSelectUserName += $(this).data('username') + ",";
-			});
-			$('#refUserList').val(refSelectUserName);
-			$('#refModal').modal('hide');
-		}
-		function refReset(){
-			refSelectUserName = refSelectUserName.slice(0,-1);
-			$('#refUserList').val("");
-		  	$('.refUsers').prop('checked', false);
-		}
-	</script>
 
 	<script>
 		$(document).ready(function(){
@@ -610,12 +588,7 @@
 		    <div class="modal-content" style="width:1000px;">
 		      <div class="modal-header">
 		        <h5 class="modal-title" id="modalTitle2">결제선 지정</h5>
-		        <button
-		          type="button"
-		          class="btn-close"
-		          data-bs-dismiss="modal"
-		          aria-label="Close"
-		        ></button>
+		        <button type="button" class="close" data-dismiss="modal">&times;</button>
 		      </div>
 		      <form action="" method="post">
 		        <div class="modal-body pb-0 card" style="box-shadow: none;">
@@ -652,43 +625,40 @@
 		                <table >
 		                  <!-- 선택된 결재자 목록 -->
 		                  <tr>
-		                    <td rowspan="2"><button type="button" id="rightArrowButtonFirst">&rarr;</button></td>
+		                    <td rowspan="2"><button type="button" id="rightArrowButtonFirst" class="btn btn-sm btn-secondary">&rarr;</button></td>
 		                    <td>첫 번째 결재자</td>
 		                  </tr>
 		                  <tr>
 		                    <td>
-		                      <input type="hidden" value="" name="memberId" class="memberIdInputFirst">
 		                      <input type="text" value="" name="memberName" class="memberNameInputFirst" readonly>
 		                    </td>
 		                  </tr>
 		                  <tr>
-		                    <td rowspan="2"><button type="button" id="rightArrowButtonSecond">&rarr;</button></td>
+		                    <td rowspan="2"><button type="button" class="btn btn-sm btn-secondary" id="rightArrowButtonSecond">&rarr;</button></td>
 		                    <td>두 번째 결재자</td>
 		                  </tr>
 		                  <tr>
 		                    <td>
-		                      <input type="hidden" value="" name="memberId" class="memberIdInputSecond">
 		                      <input type="text" value="" name="memberName" class="memberNameInputSecond" readonly>
 		                    </td>
 		                  </tr>
 		                  <tr>
-		                    <td rowspan="2"><button type="button" id="rightArrowButtonThird">&rarr;</button></td>
+		                    <td rowspan="2"><button type="button" id="rightArrowButtonThird" class="btn btn-sm btn-secondary">&rarr;</button></td>
 		                    <td>세 번째 결재자</td>
 		                  </tr>
 		                  <tr>
 		                    <td>
-		                      <input type="hidden" value="" name="memberId" class="memberIdInputThird">
 		                      <input type="text" value="" name="memberName" class="memberNameInputThird" readonly>
 		                    </td>
 		                  </tr>
 		                </table>
-		                <button type="button" class="btn btn-secondary" onclick="refReset()">초기화</button>
-
+		                
+		                <button type="button" class="btn btn-secondary" onclick="refReset()" style="float:right;">초기화</button>
 		          </div>
 
         <div class="modal-footer">
-          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">취소</button>
-          <button type="button" class="btn btn-secondary" onclick="addReference()">추가</button>
+          <button type="button" id="okbutton" class="btn btn-primary" data-dismiss="modal" onclick="addLine();">추가</button>
+		  <button type="button" class="btn btn-danger" data-dismiss="modal">취소</button>
         </div>
     </div>
   </div>
