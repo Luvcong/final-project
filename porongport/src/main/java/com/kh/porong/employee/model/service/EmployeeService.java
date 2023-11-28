@@ -1,8 +1,8 @@
 package com.kh.porong.employee.model.service;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
+import com.kh.porong.employee.model.vo.Attachment;
 import com.kh.porong.employee.model.vo.Attendance;
 import com.kh.porong.employee.model.vo.Employee;
 
@@ -22,6 +22,11 @@ public interface EmployeeService {
 	// --- 마이페이지 ---
 	// 유저 정보 변경
 	int updateEmp(Employee emp);
+	
+	// 프로필 사진 업로드
+	int insertProfile(Attachment att);
+	
+	// 프로필 사진 재업
 	
 	// 입사자 등록
 	int insertEmp(Employee emp);

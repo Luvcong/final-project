@@ -45,7 +45,7 @@
 	             <form action="login.em" method="post">
 	                 <div class="login_id">
 	                     <span class="icon"><i class="fa-solid fa-user fa-xl"></i></span>
-	                     <input type="text" name="empNo" class="form-control" required />
+	                     <input type="text" name="empNo" class="form-control" required maxlength="7" />
 	                 </div>
 	                 <div class="login_pwd">
 	                     <span class="icon"><i class="fa-solid fa-key fa-xl"></i></span>
@@ -55,9 +55,8 @@
 	                 <button type="submit" id="login_btn">login</button>
 	             </form>
 	         </div>
-	         <a href="findPwd">비밀번호 찾기</a>
+	         <a href="${ pageContext.request.contextPath }/findPwd">비밀번호 찾기</a>
 	     </div>
-	
 	 </div>
 </body>
 </html>

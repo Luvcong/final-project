@@ -42,41 +42,39 @@
 	
 	<div class="pp-content">
 	
-    <h2 style="text-align: center;">공지시항 게시판 작성</h2>
+    <h2 style="text-align: center;">공지시항 작성</h2>
     
-    <form action="" method="post" enctype="multipart/form-data">
+    <form action="insertNotice" method="post" enctype="multipart/form-data">
 	    <table id="tb-notice-form" class="table table-sm">
 	   		<tr>
 	   			<th>제목</th>
 	   			<td><input class="form-control form-control-sm" name="noticeTitle"></td>
 	   			<td >
 	   			<div class="form-check form-switch">
-				  <label><input class="form-check-input" type="checkbox" name="noticeType">중요공지 설정</label>
+				  <label>
+				  <input class="form-check-input" type="checkbox" name="noticeTypeTmp">
+				  <input type="hidden" name="noticeType"/>
+				  중요공지 설정
+				  </label>
 				</div>
 	   			</td>
 	   		</tr>
 	   		<tr>
+	   			<th>첨부파일</th>
+	   			<td><input type="file" name="multiFile" multiple></td>
+	   		</tr>
+	   		<tr>
 	   			<th>내용</th>
 	   			<td>
-	   			<div id="editor">
-	   				<!-- <textarea name="text" id="noticeContent" name="noticeContent"></textarea> -->
+	   			<div>
+	   				<textarea id="editor" name="noticeContent"></textarea>
 	   			</div>
 	   			</td>
-	   		</tr>
-	   		<tr>
-	   			<th rowspan="3">첨부파일</th>
-	   			<td><input type="file" name="originFileName1"></td>
-	   		</tr>
-	   		<tr>
-	   			<td><input type="file" name="originFileName2"></td>
-	   		</tr>
-	   		<tr>
-	   			<td><input type="file" name="originFileName3"></td>
 	   		</tr>
 	   	</table>
 				    	
 		<div id="btnDiv">
-		    <button type="submit" class="btns save">작성하기</button>
+		    <button type="submit" class="btns save" onclick="insertNotice()">작성하기</button>
 		    <button type="button" class="btns back" onclick="location.href='${path}/notice'">목록으로</button>
 		</div>
     </form>
@@ -86,7 +84,9 @@
 
 
 	<script>
-	    ClassicEditor.create(document.getElementById('editor'),
+	
+		let editor;
+ 	    ClassicEditor.create(document.getElementById('editor'),
    		{	
 	    	// 한국어 설정
     		language: "ko",
@@ -95,9 +95,27 @@
                 uploadUrl: 'fileUpload'
             }
 	    })
+        .then( newEditor => {
+        	editor = newEditor;
+   	 	})
 	    .catch((error) => {
 	        console.error( error );
 	    });
+ 	    
+ 	    
+ 	   function insertNotice() {
+ 		   let content = document.getElementById('editor'); 
+ 		   content.value = editor.getData();
+ 		   console.log(content.value);
+ 		   
+ 		  let table = document.getElementById('tb-notice-form');
+ 		  let is_checked = table.querySelector('input[name="noticeTypeTmp"]').checked;
+ 		  
+ 		  let type = table.querySelector('input[name="noticeType"]');
+ 		  type.value = is_checked ? 'Y' : 'N';
+ 		  
+ 		  $(this).submit();
+ 	   }
 	</script>
 	    
 </body>

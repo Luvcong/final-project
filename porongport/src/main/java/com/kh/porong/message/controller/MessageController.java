@@ -1,9 +1,5 @@
 package com.kh.porong.message.controller;
 
-import java.io.File;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.kh.porong.common.controller.FileControllerBase;
 import com.kh.porong.common.model.vo.PageInfo;
 import com.kh.porong.common.template.Pagination;
 import com.kh.porong.employee.model.vo.Employee;
@@ -24,7 +21,7 @@ import com.kh.porong.message.model.service.MessageService;
 import com.kh.porong.message.model.vo.Message;
 
 @Controller
-public class MessageController {
+public class MessageController extends FileControllerBase {
 	
 	@Autowired
 	private MessageService messageService;
@@ -87,7 +84,7 @@ public class MessageController {
 		
 		if(!upfile.getOriginalFilename().equals("")) {
 			m.setOriginFileName(upfile.getOriginalFilename());
-			m.setChangeFileName(saveFile(upfile, session));
+			m.setChangeFileName(saveFile(upfile, session, "message"));
 		}
 		
 		if(messageService.insertMessage(m) > 0){
@@ -100,32 +97,7 @@ public class MessageController {
 	
 	
 	
-	public String saveFile(MultipartFile upfile, HttpSession session) {
 	
-		String originName = upfile.getOriginalFilename();
-		
-		String currentTime = new SimpleDateFormat("yyyyMMddHHmm").format(new Date());
-		
-		// 임의의 난수(5자리 랜덤값)
-		int ranNum = (int)Math.random() * 90000 + 10000;
-		
-		// 확장자
-		String ext = originName.substring(originName.lastIndexOf("."));
-		
-		String changeName = currentTime + ranNum + ext;
-		
-		String savePath = session.getServletContext().getRealPath("/resources/uploadFiles/message/");
-		
-		try {
-			upfile.transferTo(new File(savePath + changeName));
-		} catch (IllegalStateException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-		return "resources/uploadFiles/message/" + changeName;
-	}
 	
 	// ==================================================================================
 	// 메시지함 - 받은 메시지 관련
@@ -154,6 +126,7 @@ public class MessageController {
 		
 		model.addAttribute("list", messageService.receivedMessageList(pi, empNo));
 		model.addAttribute("pi", pi);
+		model.addAttribute("userList", messageService.selectAllEmployee());
 		
 		
 		

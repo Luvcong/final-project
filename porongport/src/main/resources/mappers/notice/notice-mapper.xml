@@ -16,11 +16,21 @@
 		<result column="NOTICE_COUNT" property="noticeCount" />
 		<result column="NOTICE_TYPE" property="noticeType" />
 		<result column="DEPT_NAME" property="deptName" />
-		<result column="NOTICE_ORIGIN_FILENAME" property="originFileName" />
-		<result column="NOTICE_CHANGE_FILENAME" property="changeFileName" />
 		<result column="NOTICE_REPLY_CNT" property="replyCount" />
+		<result column="EMP_NO" property="empNo" />
 		<result column="EMP_NAME" property="empName" />
 		<result column="JOB_NAME" property="jobName" />
+		<result column="NOTICE_ORIGIN_FILENAME" property="originFileName" />
+		<result column="NOTICE_CHANGE_FILENAME" property="changeFileName" />
+	</resultMap>
+	
+	<resultMap id="noticeAttResultSet" type="noticeAttachment">
+		<result column="NOTICE_FILE_NO" property="noticeFileNo" />
+		<result column="NOTICE_ORIGIN_FILENAME" property="originFileName" />
+		<result column="NOTICE_CHANGE_FILENAME" property="changeFileName" />
+		<result column="NOTICE_FILE_PATH" property="filePath" />
+		<result column="NOTICE_UPLOAD_DATE" property="uploadDate" />
+		<result column="NOTICE_NO" property="noticeNo" />
 	</resultMap>
 	
 	<!-- 공지사항 리스트 전체 조회 -->
@@ -69,8 +79,86 @@
   		 		NOTICE_STATUS = 'Y'
 	</select>
 	
+	<!-- 공지사항 작성 -->
+	<insert id="insertNotice" parameterType="notice">
+		INSERT
+		  INTO
+			  	NOTICE
+			  	(
+	            NOTICE_NO,
+	            NOTICE_WRITER,
+	            NOTICE_TITLE,
+	            NOTICE_CONTENT,
+	            CREATE_DATE,
+	            NOTICE_STATUS,
+	            NOTICE_COUNT,
+	            NOTICE_TYPE
+	            )
+	    VALUES
+	    		(
+	            SEQ_NOTICE_NO.NEXTVAL,
+	            #{ empNo },
+	            #{ noticeTitle },
+	            #{ noticeContent },
+	            SYSDATE,
+	            DEFAULT,
+	            DEFAULT,
+	            #{ noticeType }
+	            )
+	</insert>
 	
-
+	<!-- 공지사항 첨부파일 추가 -->
+	<insert id="insertAttachment" parameterType="noticeAttachment">
+		INSERT
+		  INTO
+		  		NOTICE_ATTACHMENT
+	            (
+	            NOTICE_FILE_NO,
+	            NOTICE_ORIGIN_FILENAME,
+	            NOTICE_CHANGE_FILENAME,
+	            NOTICE_FILE_PATH,
+	            NOTICE_UPLOAD_DATE,
+	            NOTICE_NO
+	            )
+	     VALUES
+	     		(
+	            SEQ_FILE_NO.NEXTVAL,
+	            #{ originFileName },
+	            #{ changeFileName },
+	            #{ filePath },
+	            SYSDATE,
+	            SEQ_NOTICE_NO.CURRVAL
+				)
+	</insert>
+	
+	<!-- 공지사항 상세보기 -->
+	<select id="detailNotice" resultMap="noticeResultSet" parameterType="hashmap">
+		SELECT
+				N.NOTICE_NO,
+				N.NOTICE_TITLE,
+				N.CREATE_DATE,
+				E.EMP_NAME,
+				D.DEPT_NAME,
+				J.JOB_NAME,
+				N.NOTICE_CONTENT,
+				AT.NOTICE_ORIGIN_FILENAME,
+		        NVL(L.NOTICE_LIKE_CNT, 0) AS NOTICE_LIKE_CNT
+		  FROM (
+		        SELECT NOTICE_NO, COUNT(NOTICE_NO) AS NOTICE_LIKE_CNT
+		          FROM NOTICE_LIKE
+		         GROUP BY NOTICE_NO) L,
+		        NOTICE N, EMPLOYEE E, DEPARTMENT D, JOB J, NOTICE_ATTACHMENT AT
+		 WHERE
+		 		N.NOTICE_WRITER = E.EMP_NO
+		   AND
+		   		E.DEPT_CODE = D.DEPT_CODE
+		   AND
+		   		E.JOB_CODE = J.JOB_CODE
+		   AND
+		   		N.NOTICE_NO = AT.NOTICE_NO
+		   AND
+		   		N.NOTICE_NO = L.NOTICE_NO(+)
+	</select>
 
 </mapper>
 	

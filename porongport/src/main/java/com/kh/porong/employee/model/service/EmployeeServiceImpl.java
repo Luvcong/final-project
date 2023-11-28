@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.kh.porong.employee.model.dao.EmployeeDao;
+import com.kh.porong.employee.model.vo.Attachment;
 import com.kh.porong.employee.model.vo.Attendance;
 import com.kh.porong.employee.model.vo.Employee;
 
@@ -80,6 +81,11 @@ public class EmployeeServiceImpl implements EmployeeService {
 	@Override
 	public int dcCheck(String checkDc) {
 		return empDao.dcCheck(sqlSession, checkDc);
+	}
+
+	@Override
+	public int insertProfile(Attachment att) {
+		return empDao.insertProfile(sqlSession, att);
 	}
 
 	
