@@ -23,17 +23,18 @@
 		            	<c:choose>
 		            		<c:when test="${ empty sessionScope.profile.fileNo }">
 				                <div class="img_box">
-				                	<img src="resources/images/profile.png"  alt="기본 프로필 사진">
+					                	<img src="resources/images/profile.png" alt="기본 프로필 사진">
+					                <label for="profile">
+					                	<input type="file" id="profile" name="upfile" />
+									</label>
 				                </div>
-				                <label for="profile">이미지 변경</label>
-				                <input type="file" id="profile" name="upfile" />
 		            		</c:when>
 		            		<c:otherwise>
 		            			<div class="img_box">
-			            			<img src="${ profile.changeFileName }"  alt="입사자 사진">
+			            			<img src="resources/upProfiles/${ profile.changeFileName }" alt="입사자 사진">
+					                <label for="profile"></label>
+						                <input type="file" id="profile" name="upfile" />
 		            			</div>
-				                <label for="profile">이미지 변경</label>
-				                <input type="file" id="profile" name="upfile" />
 		            		</c:otherwise>
 		            	</c:choose>
 		            	
@@ -136,9 +137,15 @@
 	            };
 	            
 	        	$(() => {
+	        		// 정보 변경이 감지
 	        		$('#emp_update input').change(() => {
 	        			$('.btn_area>button').attr('disabled', false);
 	        		});
+	        		
+	        		// 프로필 사진 변경
+					$('.img_box>img').on('click', () => {
+						$('.myProfile input[type=file]').click();
+					});
 	        	});
 	        
 	        </script>

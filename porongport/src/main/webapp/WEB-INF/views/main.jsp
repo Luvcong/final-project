@@ -68,7 +68,6 @@
 				text : '${ alertMsg }',
 				icon : 'info'
 			});
-			
 		</script>
 		<c:remove var="alertMsg" />
 	</c:if>	

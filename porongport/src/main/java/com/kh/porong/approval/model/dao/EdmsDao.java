@@ -5,7 +5,9 @@ import java.util.ArrayList;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.kh.porong.approval.model.vo.GeneralVO;
 import com.kh.porong.approval.model.vo.VacationVO;
+import com.kh.porong.calendar.model.vo.ScheduleVO;
 
 @Repository
 public class EdmsDao {
@@ -20,6 +22,10 @@ public class EdmsDao {
 	
 	public ArrayList<VacationVO> selectApprover(SqlSessionTemplate sqlSession, String deptName) {
 		return (ArrayList)sqlSession.selectList("approvalMapper.selectApprover");
+	}
+	
+	public int insertGeneralDocument(SqlSessionTemplate sqlSession, GeneralVO general) {
+		return sqlSession.insert("approvalMapper.insertGeneralDocument", general);
 	}
 
 

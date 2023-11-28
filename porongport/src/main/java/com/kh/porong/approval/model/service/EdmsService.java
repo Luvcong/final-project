@@ -3,6 +3,7 @@ package com.kh.porong.approval.model.service;
 import java.util.ArrayList;
 
 import com.kh.porong.approval.model.vo.EdmsVO;
+import com.kh.porong.approval.model.vo.GeneralVO;
 import com.kh.porong.approval.model.vo.VacationVO;
 import com.kh.porong.employee.model.vo.Employee;
 
@@ -33,6 +34,9 @@ public interface EdmsService {
 	ArrayList<VacationVO> selectOrganiztion();
 	
 	ArrayList<VacationVO> selectApprover(String deptName);
+	
+	int insertGeneralDocument(GeneralVO general);
+	
 	// 지출결의서 등록 
 
 	
