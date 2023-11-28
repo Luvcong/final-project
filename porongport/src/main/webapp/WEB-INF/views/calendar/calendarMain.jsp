@@ -122,8 +122,9 @@
             	},
             	
             	eventClick: (calEvent, jsEvent, view) => {
-                    //console.log(calEvent.event._def.extendedProps. source);
-
+                    console.log(calEvent.event._def.allDay);
+					var allDay = calEvent.event._def.allDay;
+					
                     var schNo = parseInt(calEvent.event.id);
                     
                    	$('#hiddenSchNo').attr("value", schNo);
@@ -140,9 +141,16 @@
             	    
             	    var selectStartDate = calEvent.el.fcSeg.eventRange.instance.range.start;
             	    
-            	    var startDate = selectStartDate.getFullYear()+'-'
-            	    		 		+((selectStartDate.getMonth()+1) < 10 ? "0" + (selectStartDate.getMonth()+1) : (selectStartDate.getMonth()+1))+'-'
-            	    		 		+((selectStartDate.getDate()) < 10 ? "0" + (selectStartDate.getDate()) : (selectStartDate.getDate()));
+            	    if(!allDay){
+	            	    var startDate = selectStartDate.getFullYear()+'-'
+	            	    		 		+((selectStartDate.getMonth()+1) < 10 ? "0" + (selectStartDate.getMonth()+1) : (selectStartDate.getMonth()+1))+'-'
+	            	    		 		+((selectStartDate.getDate()-1) < 10 ? "0" + (selectStartDate.getDate()-1) : (selectStartDate.getDate()-1));
+            	    }
+            	    else{
+            	    	var startDate = selectStartDate.getFullYear()+'-'
+					    		 		+((selectStartDate.getMonth()+1) < 10 ? "0" + (selectStartDate.getMonth()+1) : (selectStartDate.getMonth()+1))+'-'
+					    		 		+((selectStartDate.getDate()) < 10 ? "0" + (selectStartDate.getDate()) : (selectStartDate.getDate()));
+            	    }
             	    
             	    if((selectStartDate.getHours()-9)<0){
             	    	var startTime = (((selectStartDate.getHours()-9)+24) < 10 ? "0" + ((selectStartDate.getHours()-9)+24) : ((selectStartDate.getHours()-9)+24)) +':'
@@ -154,20 +162,19 @@
             	    }
             	    
             	    var selectEndDate = calEvent.el.fcSeg.eventRange.instance.range.end;
-            	    
             	    var endDate = selectEndDate.getFullYear()+'-'
-				    		 		+((selectEndDate.getMonth()+1) < 10 ? "0" + (selectEndDate.getMonth()+1) : (selectEndDate.getMonth()+1))+'-'
-				    		 		+((selectEndDate.getDate()) < 10 ? "0" + (selectEndDate.getDate()) : (selectEndDate.getDate()));
-            	    
-            	    if((selectEndDate.getHours()-9)<0){
-                	    var endTime = (((selectEndDate.getHours()-9)+24) < 10 ? "0" + ((selectEndDate.getHours()-9)+24) : ((selectEndDate.getHours()-9)+24)) +':'
-    	    						  +((selectEndDate.getMinutes()) < 10 ? "0" + (selectEndDate.getMinutes()) : (selectEndDate.getMinutes()));
-                	}
-                	else{
-                	    var endTime = (((selectEndDate.getHours()-9)) < 10 ? "0" + ((selectEndDate.getHours()-9)) : ((selectEndDate.getHours()-9))) +':'
-    	    						  +((selectEndDate.getMinutes()) < 10 ? "0" + (selectEndDate.getMinutes()) : (selectEndDate.getMinutes()));
-                	}
-            	    
+			    		 		+((selectEndDate.getMonth()+1) < 10 ? "0" + (selectEndDate.getMonth()+1) : (selectEndDate.getMonth()+1))+'-'
+			    		 		+((selectEndDate.getDate()-1) < 10 ? "0" + (selectEndDate.getDate()-1) : (selectEndDate.getDate()-1));
+    
+				    if((selectEndDate.getHours()-9)<0){
+					    var endTime = (((selectEndDate.getHours()-9)+24) < 10 ? "0" + ((selectEndDate.getHours()-9)+24) : ((selectEndDate.getHours()-9)+24)) +':'
+									  +((selectEndDate.getMinutes()) < 10 ? "0" + (selectEndDate.getMinutes()) : (selectEndDate.getMinutes()));
+					}
+					else{
+					    var endTime = (((selectEndDate.getHours()-9)) < 10 ? "0" + ((selectEndDate.getHours()-9)) : ((selectEndDate.getHours()-9))) +':'
+									  +((selectEndDate.getMinutes()) < 10 ? "0" + (selectEndDate.getMinutes()) : (selectEndDate.getMinutes()));
+					}
+				    
             	    $("#inputDateStrart").val(startDate);
             	    $("#inputDateEnd").val(endDate);
             	    
