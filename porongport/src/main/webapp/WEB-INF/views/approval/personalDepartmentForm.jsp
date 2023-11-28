@@ -160,14 +160,11 @@
 			//console.log($(e).children()[0]);
 			//console.log($(e).children()[1]);
 			
-			var TdempIdTd = $(e).children()[0];
-			var TdempNameTd = $(e).children()[2];
+			var empId = $(e).children()[0].textContent;
+			var empName = $(e).children()[2].textContent;
 		
-			var empIdTd = TdempIdTd.substr(4);
-    		var result2 = result.substr(0, 8);
-    		
-    		console.log(empIdTd);
-			
+    		console.log(empId);
+			//console.dir(empId);
 			
 	        // 오른쪽 화살표 첫번째 버튼 동작 구현
 	        $('#rightArrowButtonFirst').click(function() {
@@ -440,7 +437,7 @@
 											<div id="03" style="margin-top: 20px;">
 								    			<!-- 제목 입력 -->
 								                <div class="mb-3">
-									                <input type="hidden" name="userId" value="${userId}">
+									                <input type="hidden" name="empNo" value="${loginUser.empNo}">
 									                <input type="text" name="aprvTitle" maxlength="50" class="form-control" placeholder="제목을 입력하세요" required="required"/>
 								                </div>
 								                <!-- 내용 입력 -->
@@ -641,14 +638,14 @@
 		                    </td>
 		                  </tr>
 		                </table>
-		                
-		                <button type="button" class="btn btn-secondary" onclick="refReset()" style="float:right;">초기화</button>
+		                <button type="reset" class="btn btn-secondary" onclick="refReset();" style="float:right;">초기화</button>
 		          </div>
 
         <div class="modal-footer">
-          <button type="button" id="okbutton" class="btn btn-primary" data-dismiss="modal" onclick="addLine();">추가</button>
+          <button type="submit" id="okbutton" class="btn btn-primary" data-dismiss="modal" onclick="addLine();">추가</button>
 		  <button type="button" class="btn btn-danger" data-dismiss="modal">취소</button>
         </div>
+         </form>
     </div>
   </div>
 </div>
