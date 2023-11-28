@@ -22,7 +22,7 @@ public class Employee {
 	private String jobName;
 	private Date createDate;
 	private Date modifyDate;
-	private int fileNo;
+	//private int fileNo;
 	private String empAnnual;
 	private String empCount;
 	private String firstLogin;

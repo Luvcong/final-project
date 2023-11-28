@@ -17,21 +17,19 @@
 	
 	<div class="pp-content">
 	    <div class="outer">
-	
 	        <div id="myPage">
 	            <form action="update.em" method="post" enctype="multipart/form-data" id="emp_update">
 		            <div class="myProfile">
-		            
-		            	<!--  -->
 		            	<c:choose>
-		            		<c:when test="${ empty loginUser.fileNo }">
+		            		<c:when test="${ empty profile.changeFileName }">
 				                <img src="resources/images/profile.png"  alt="기본 프로필 사진">
-				                <label for="profile">프로필 이미지 변경</label>
-				                <input type="file" id="profile" name="fileNo" />
+				                <label for="profile">이미지 변경</label>
+				                <input type="file" id="profile" name="upfile" />
 		            		</c:when>
 		            		<c:otherwise>
-		            			<img src=""  alt="입사자 사진">
-		            			<span>프로필 이미지 변경</span>
+		            			<img src="${ profile.changeName }"  alt="입사자 사진">
+				                <label for="profile">이미지 변경</label>
+				                <input type="file" id="profile" name="upfile" />
 		            		</c:otherwise>
 		            	</c:choose>
 		            	
@@ -84,7 +82,7 @@
 	                </div>
 	
 	                <div class="btn_area">
-	                    <button type="submit" class="btn btn-primary" disabled>확인</button>
+	                    <button type="submit" class="btn btn-primary btn_width" disabled>확인</button>
 	                </div>
 	            </form>
 	        </div>

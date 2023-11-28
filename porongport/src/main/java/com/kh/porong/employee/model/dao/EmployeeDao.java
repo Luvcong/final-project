@@ -64,4 +64,8 @@ public class EmployeeDao {
 		return sqlSession.insert("empMapper.insertProfile", att);
 	}
 
+	public Attachment selectProfile(SqlSessionTemplate sqlSession, Attachment att) {
+		return sqlSession.selectOne("empMapper.selectProfile", att);
+	}
+
 }

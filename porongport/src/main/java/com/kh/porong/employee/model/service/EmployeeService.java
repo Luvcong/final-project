@@ -26,6 +26,9 @@ public interface EmployeeService {
 	// 프로필 사진 업로드
 	int insertProfile(Attachment att);
 	
+	// 프로필 사진 조회
+	Attachment selectProfile(Attachment att);
+	
 	// 프로필 사진 재업
 	
 	// 입사자 등록
