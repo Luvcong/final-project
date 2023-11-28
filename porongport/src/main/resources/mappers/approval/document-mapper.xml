@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	<mapper namespace="documentMapper">
+	<resultMap id="documentResultSet" type="document">
+		<result column="GEN_NO" property="genNo" />
+		<result column="EDMS_CATEGORY" property="edmsCategory" />
+		<result column="GEN_TITLE" property="genTitle" />
+		<result column="GEN_CONTENT" property="genContent" />
+ 	</resultMap>
+ 	
+ 	<insert id="insertGeneralDocument" parameterType="document">
+		INSERT INTO GENERAL(GEN_NO, EDMS_CATEGORY, GEN_TITLE, GEN_CONTENT)
+		VALUES (SEQ_GEN_NO.NEXTVAL, #{genNo}, #{genTitle}, #{genContent}))
+	</insert>
+	
+	</mapper>

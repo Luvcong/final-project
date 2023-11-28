@@ -107,10 +107,7 @@
 		</if>
 	</select>
 	
-	<insert id="insertGeneralDocument" parameterType="approval">
-		INSERT INTO GENERAL(GEN_NO, EDMS_CATEGORY, GEN_TITLE, GEN_CONTENT)
-		VALUES (SEQ_GEN_NO.NEXTVAL, #{genNo}, #{genTitle}, #{genContent}))
-	</insert>
+
 	
 
 </mapper>
