@@ -23,4 +23,8 @@ public class MeetingRoomVO {
 	private String meetEndDay;
 	private String meetEndTime;
 	
+	private String deptName;
+	private String empName;
+	private String jobName;
+	
 }

@@ -79,6 +79,28 @@
         MEET_END = #{meetEnd}
    </select>	
 
-
-
+	<select id="selectListCount" resultType="_int">
+		SELECT COUNT(*)
+		  FROM MEETING_ROOM
+		 WHERE MEET_STATUS = 'Y'
+	</select>
+	
+	<select id="selectList" resultMap="meetingroomResultSet">
+		 SELECT MEET_NO,
+				EMP_NO,
+				MEET_TITLE,
+				MEET_CONTENT,
+				MEET_PNUM,
+				MEET_START,
+				MEET_END,
+				MEET_APPROVAL,
+				DEPT_NAME,
+				EMP_NAME,
+				JOB_NAME
+		   FROM MEETING_ROOM
+		   JOIN EMPLOYEE  USING (EMP_NO)
+		   JOIN DEPARTMENT USING (DEPT_CODE)
+		   JOIN JOB USING(JOB_CODE)
+		  WHERE MEET_STATUS = 'Y'
+	</select>
 </mapper>
