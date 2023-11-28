@@ -92,7 +92,9 @@ html, body {
 					description: data[i].meetContent,
 					start: data[i].meetStartTime,
 					end: data[i].meetEndTime,
-					color : "#8ecae6"
+					color : "#8ecae6",
+					regid: data[i].empName,
+					source: data[i].correctionDate
 		        });
 			}
 			},
@@ -116,10 +118,11 @@ html, body {
     		
     		var startday = meetStartDay.substr(0,10);
     		var endday = meetEndDay.substr(0,10);
-    		
+    		console.log(info);
     		$('#meetStartDay').val(startday);
     		$('#meetEndDay').val(endday);
     		$('#insertMeetModal').modal();
+    		
     	},
     	
 	    select : info=>{

@@ -82,7 +82,9 @@
 						description: data[i].meetContent,
 						start: data[i].meetStart,
 						end: data[i].meetEnd,
-						color : "#8ecae6"
+						color : "#8ecae6",
+						regid: data[i].empName,
+						source: data[i].correctionDate
 			        });
 				}
 				},
@@ -280,6 +282,7 @@
 		                <span id="updateEmp"></span>&nbsp;&nbsp;&nbsp;/
 		                <label for="inputCalendar" class="form-label">&nbsp;&nbsp;마지막 작성일:&nbsp;</label>
 						<span id="updateDate"></span>&nbsp;&nbsp;&nbsp;
+						
 	                 </div>
                 </div>
                 
@@ -292,6 +295,7 @@
 	            	<input type="hidden" id="hiddenSchTitle" name="schTitle" value="">
 	            	<input type="hidden" id="hiddenSchShare" name="schShare" value="">
                     
+                    
                     <script>
                     	function updateEvent(){
                     		$('#modalClickForm').attr('action', 'updateSchedule').submit();
@@ -302,6 +306,10 @@
                     	}
                     </script>
                     <script>
+                    
+		                    
+		                    
+                    
                     	$('select').on('input', function() {
                         	if ($(this).val() !== '') {
                             	$('#updateButton').removeAttr("disabled");
