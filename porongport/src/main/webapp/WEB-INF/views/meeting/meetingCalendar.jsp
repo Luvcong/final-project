@@ -108,11 +108,11 @@ html, body {
 	    slotMaxTime: '18:00',
 
 	    dateClick: info=>{
-    		var meetStartTime = info.dateStr;
-    		var meetEndTime = info.dateStr;
-    		var meetStartDay = info.dataStr;
-    		var meetEndDay = info.dataStr;
-    		
+
+    		var meetStartTime = info.dataStr;
+    		var meetEndTime = info.dataStr;
+    		$('#meetStartTime').val(meetStartTime);
+	
     		var result = meetStartTime.substr(11, 18);
     		var result2 = result.substr(0, 8);
     		console.log(result2);
@@ -120,23 +120,24 @@ html, body {
     		
     		$('#meetStartTime').val(result2);
     		$('#meetEndTime').val(meetEndTime);
-    		$('#meetStartDay').val(meetStartDay);
-    		$('#meetEndDay').val(meetEndDay);
     		
     		$('#insertMeetModal').modal();
+    		
+    		console.log(info);
+    		console.log(meetStartTime);
     	},
     	
 	    select : info=>{
 	    	var meetStartTime = info.startStr;
     		var meetEndTime = info.endStr;
-    		var meetStartDay = info.dataStr;
-    		var meetEndDay = info.dataStr;
+    		
+    		
     		$('#meetStartTime').val(meetStartTime);
     		$('#meetEndTime').val(meetEndTime);
-    		$('#meetStartDay').val(meetStartDay);
-    		$('#meetEndDay').val(meetEndDay);
     		
     		$('#insertMeetModal').modal();
+    		
+    		console.log(info);
 	    },
 	    
 	    
@@ -165,7 +166,7 @@ html, body {
     	    
     	    var selectMeetEndDay = calEvent.el.fcSeg.eventRange.instance.range.end;
     	    
-    	    var meetEndDaye = selectMeetEndDay.getFullYear()+'-'
+    	    var meetEndDay = selectMeetEndDay.getFullYear()+'-'
 	 		+((selectMeetEndDay.getMonth()+1) < 10 ? "0" + (selectMeetEndDay.getMonth()+1) : (selectMeetEndDay.getMonth()+1))+'-'
 	 		+((selectMeetEndDay.getDate()) < 10 ? "0" + (selectMeetEndDay.getDate()) : (selectMeetEndDay.getDate()));
 
@@ -179,9 +180,6 @@ html, body {
 							 +((selectMeetEndDay.getMinutes()) < 10 ? "0" + (selectMeetEndDay.getMinutes()) : (selectMeetEndDay.getMinutes()));
     	    }
     	      	    
-    	    $("#meetStartDay").val(meetStartDay);
-            $("#meetEndDay").val(meetEmdDay);
-    	    
     	    $("#meetStartTime").val(meetStartTime);
     	    $("#meetEndTime").val(meetEndTime);
     	    
@@ -281,10 +279,10 @@ html, body {
 									<tr>
 										<th><i class="fa-solid fa-clock"></i></th>
 										<td colspan="5">
-											<input type="date" name="meetStartDay"	id="meetStartDay" class="mymeeting_input2 mymeeting_width2" value="${fc-dom-1}" />
+											<input type="date" name="meetStartDay"	id="meetStartDay"  class="mymeeting_input2 mymeeting_width2" />
 											<input type="time" name="meetStartTime"	id="meetStartTime" class="mymeeting_input2 mymeeting_width2" required /> ~
-											<input type="date" name="meetEndDay"	id="meetEndDay" class="mymeeting_input2 mymeeting_width2" />
-											<input type="time" name="meetEndTime" id="meetEndTime" class="mymeeting_input2 mymeeting_width2" required />
+											<input type="date" name="meetEndDay"	id="meetEndDay"    class="mymeeting_input2 mymeeting_width2" />
+											<input type="time" name="meetEndTime"   id="meetEndTime"   class="mymeeting_input2 mymeeting_width2" required />
 										</td>
 									</tr>
 									<tr>
@@ -315,16 +313,15 @@ html, body {
 				
 			</div>
 			<!-- insert 모달 -->
-	
-			<script>
-
+		<!--  	 날짜 불러오는건데 다음날가도 오늘로돼서 실패 -->
+			 <script>
    				var now_utc = Date.now() 
    				var timeOff = new Date().getTimezoneOffset()*60000; 
    				var today = new Date(now_utc-timeOff).toISOString().split("T")[0];
    				document.getElementById("meetStartDay").setAttribute("min", today);
    				document.getElementById("meetEndDay").setAttribute("min", today);
 			</script>
-			 
+			
 		</div>
 	</div>
 
