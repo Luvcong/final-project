@@ -134,9 +134,6 @@
 	                <tr>
 	                    <td colspan="2"><p class="ex_txt">위와 같이 휴가를 신청하오니 허락하여 주시기 바랍니다.</p></td>
 	                </tr>
-	                <tr>
-	                    <td colspan="2"><p class="ex_txt">2023-11-17</p></td>
-	                </tr>
 	               </table>
 	       		</div>
 	       </form>

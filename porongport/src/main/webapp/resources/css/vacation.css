@@ -15,7 +15,7 @@
 }
 .blank{height:10px;}
 #vacationForm input{border: 1px solid rgb(206, 204, 204);}
-.vacation-th-size{width:120px;}
+.vacation-th-size{width:200px;}
 #vct_date{width:310px;}
 #vct_day{width:380px;}
 #vct_num{width:810px;}
