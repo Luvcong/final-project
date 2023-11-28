@@ -156,58 +156,31 @@
 	</script>
 
 	<script>
-	    // 문서가 완전히 로드된 후에 스크립트 실행
-	    $(document).ready(function() {
-	        let selectedCheckbox = null; // 선택된 체크박스를 추적하는 변수
-	
-	        // 체크박스 클릭 이벤트
-	        $('.userCheckbox').click(function() {
-	            // 다른 체크박스 선택 해제
-	            $('.userCheckbox').not(this).prop('checked', false);
-	
-	            // 클릭한 체크박스 선택
-	            $(this).prop('checked', true);
-	
-	            selectedCheckbox = this; // 선택된 체크박스 저장
-	        });
-	
 	        // 오른쪽 화살표 첫번째 버튼 동작 구현
 	        $('#rightArrowButtonFirst').click(function() {
-	            if (selectedCheckbox !== null) {
-	                const memberIdInputFirst = $('.memberIdInputFirst');
-	                const memberNameInputFirst = $('.memberNameInputFirst');
-	                const memberId = $(selectedCheckbox).val();
-	                const memberName = $(selectedCheckbox).data('username');
+	            const memberIdInputFirst = $('.memberIdInputFirst');
+	            const memberNameInputFirst = $('.memberNameInputFirst');
 	
-	                memberIdInputFirst.val(memberId);
-	                memberNameInputFirst.val(memberName);
-	            }
+	            memberIdInputFirst.val(memberId);
+	            memberNameInputFirst.val(memberName);
 	        });
 	
 	        // 오른쪽 화살표 두번째 버튼 동작 구현
 	        $('#rightArrowButtonSecond').click(function() {
-	            if (selectedCheckbox !== null) {
 	                const memberIdInputSecond = $('.memberIdInputSecond');
 	                const memberNameInputSecond = $('.memberNameInputSecond');
-	                const memberId = $(selectedCheckbox).val();
-	                const memberName = $(selectedCheckbox).data('username');
 	
 	                memberIdInputSecond.val(memberId);
 	                memberNameInputSecond.val(memberName);
-	            }
 	        });
 	
 	        // 오른쪽 화살표 세번째 버튼 동작 구현
 	        $('#rightArrowButtonThird').click(function() {
-	            if (selectedCheckbox !== null) {
 	                const memberIdInputThird = $('.memberIdInputThird');
 	                const memberNameInputThird = $('.memberNameInputThird');
-	                const memberId = $(selectedCheckbox).val();
-	                const memberName = $(selectedCheckbox).data('username');
 	
 	                memberIdInputThird.val(memberId);
 	                memberNameInputThird.val(memberName);
-	            }
 	        });
 	    });
 	</script>
@@ -630,7 +603,8 @@
 		                  </tr>
 		                  <tr>
 		                    <td>
-		                      <input type="text" value="" name="memberName" class="memberNameInputFirst" readonly>
+		                    	<input type="hidden" value="" name="memberId" class="memberIdInputFirst">
+		                      	<input type="text" value="" name="memberName" class="memberNameInputFirst" readonly>
 		                    </td>
 		                  </tr>
 		                  <tr>
@@ -639,6 +613,7 @@
 		                  </tr>
 		                  <tr>
 		                    <td>
+		                      <input type="hidden" value="" name="memberId" class="memberIdInputSecond">
 		                      <input type="text" value="" name="memberName" class="memberNameInputSecond" readonly>
 		                    </td>
 		                  </tr>
@@ -648,6 +623,7 @@
 		                  </tr>
 		                  <tr>
 		                    <td>
+		                      <input type="hidden" value="" name="memberId" class="memberIdInputThird">
 		                      <input type="text" value="" name="memberName" class="memberNameInputThird" readonly>
 		                    </td>
 		                  </tr>
@@ -672,6 +648,7 @@
 										let value = '';
 										for(i=0; i<data.length; i++){
 											value += '<tr onclick="apSubmit(this);">'
+												 	+ '<td>' + data[i].empNo + '</td>'
 											         + '<td>' + data[i].deptName + '</td>'
 											         + '<td>' + data[i].empName + '</td>'
 										             + '<td>' + data[i].jobName + '</td>'
@@ -684,12 +661,14 @@
 									}
 								})
 							}
+							
 							function apSubmit(e){
-								var index = '첫번째 결제자';
-								var department = $(e).children()[0];
-								var empName = $(e).children()[1];
-								var position = $(e).children()[2];
+								//console.log($(e).children()[0]);
+								//console.log($(e).children()[1]);
+								var empId = $(e).children()[0];
+								var empName = $(e).children()[2];
 								
+								console.log(index);
 								$('#appCheck>tbody>tr').children('td:eq(0)').html(index);
 								$('#appCheck>tbody>tr').children('td:eq(1)').html(department);
 								$('#appCheck>tbody>tr').children('td:eq(2)').html(empName);
