@@ -14,7 +14,7 @@
 	
 	<div class="pp-content">
 	    <div id="empInsertForm">
-	        <form action="insert.emp" method="post">
+	        <form action="insert.em" method="post">
 	
 	            <fieldset>입사자 등록</fieldset>
 	
@@ -42,6 +42,8 @@
 	                    <input type="text" id="jobCode" name="jobCode" required class="form-control" />
 	                </div>
 	
+					<input type="hidden" name="empEmail" value="${loginUser.empEmail}" />					
+					
 	                <div class="btn_area">
 	                    <button type="reset" class="btn btn-light">취소</button>
 	                    <button type="submit" class="btn btn-primary" disabled>확인</button>

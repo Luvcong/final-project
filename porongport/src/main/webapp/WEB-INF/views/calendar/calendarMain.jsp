@@ -100,6 +100,8 @@
             		$('#startDate').val(startDate);
             		$('#endDate').val(endDate);
             		
+            		$("#endDate").attr("min", startDate);
+             	    $("#endTime").attr("min", startTime);
             		//console.log(info);
             		
             		$('#insertEventModal').modal();
@@ -112,6 +114,9 @@
             		var endDate = info.dateStr;
             		$('#startDate').val(startDate);
             		$('#endDate').val(endDate);
+            		
+            		$("#endDate").attr("min", startDate);
+             	    $("#endTime").attr("min", startTime);
             		
             		$('#insertEventModal').modal();
             	},
@@ -168,6 +173,9 @@
             	    
             	    $("#inputTimeStrart").val(startTime);
             	    $("#inputTimeEnd").val(endTime);
+            	    
+            	    $("#inputDateEnd").attr("min", startDate);
+            	    $("#inputTimeEnd").attr("min", startTime);
             	    
             	    $('#eventModal').modal();
                 },
@@ -251,8 +259,8 @@
                         <input type="date" class="inputform" id="inputDateStrart"  name="startDate" value=""> 
                         <input type="time" class="inputform" id="inputTimeStrart"  name="startTime" value=""> 
                          ~ 
-                        <input type="date" class="inputform" id="inputDateEnd"  name="endDate" value="">
-                        <input type="time" class="inputform" id="inputTimeEnd"  name="endTime" value=""><br>
+                        <input type="date" class="inputform" id="inputDateEnd"  name="endDate" value="" min="">
+                        <input type="time" class="inputform" id="inputTimeEnd"  name="endTime" value="" min=""><br>
                         <br>
                         
                         <label for="inputCalendar" class="form-label">일정내용</label>

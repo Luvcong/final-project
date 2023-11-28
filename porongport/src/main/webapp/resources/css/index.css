@@ -93,3 +93,7 @@ span{
 .login_pwd{
     margin-bottom: 30px;
 }
+.right>a:hover{
+	color: #fff;
+	text-decoration: underline;
+}

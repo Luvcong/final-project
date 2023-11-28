@@ -38,19 +38,19 @@ li, ul, ol{list-style: none;}
     width: 600px;
     margin: auto;
 }
-#updateForm{
+.updateForm{
     width: 100%;
     height: 100%;
     padding-top: 10px;
 }
-#updateForm>input{
+.updateForm>input{
     display: block;
     margin-bottom: 15px;
     width: 70%;
     height: 25px;
 }
 
-#updateAddrForm>input{
+.updateAddrForm>input{
     margin-bottom: 10px;
     height: 32px;
 }
@@ -84,8 +84,7 @@ li, ul, ol{list-style: none;}
     text-align: center;
 }
 .btn_area>button{
-    width: 49%;
-    margin: 10px;
+    width: 100%;
 }
 
 /* myPageInsertEmp */

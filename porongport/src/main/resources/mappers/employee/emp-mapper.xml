@@ -274,14 +274,11 @@
 		INSERT
 		  INTO
 		      DEPARTMENT
-		      (
-		      DEPT_CODE
-		      ,DEPT_NAME
-		      )
 		VALUES
 		      (
 		      #{deptCode}
 		      ,#{deptName}
+		      ,DEFAULT
 		      )
 	</insert>
 	
@@ -296,6 +293,21 @@
 		  AND
 		     DEPT_STATUS = 'Y'
 	</select>
+	
+	<insert id="insertProfile" parameterType="com.kh.porong.employee.model.vo.Attachment">
+		INSERT
+		  INTO
+		      ATTACHMENT
+		VALUES
+		      (
+		      SEQ_FILE_NO.NEXTVAL
+		      ,#{originFileName}
+		      ,#{changeFileName}
+		      ,#{filePath}
+		      ,SYSDATE
+		      ,#{refEmpNo}
+		      );
+	</insert>
 	
 	
 </mapper>

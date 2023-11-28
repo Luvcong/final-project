@@ -1,6 +1,10 @@
 package com.kh.porong.employee.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.activation.DataSource;
 import javax.activation.FileDataSource;
@@ -13,15 +17,16 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 import com.kh.porong.employee.model.service.EmployeeServiceImpl;
+import com.kh.porong.employee.model.vo.Attachment;
 import com.kh.porong.employee.model.vo.Attendance;
 import com.kh.porong.employee.model.vo.Employee;
 
@@ -38,7 +43,7 @@ public class EmployeeController {
 	private JavaMailSender sender;
 	
 	// 입사자 등록
-	@PostMapping("insert.emp")
+	@PostMapping("insert.em")
 	public String insertEmp(Employee emp, HttpSession session) throws MessagingException{
 		String encPwd = bcryptPasswordEncoder.encode(emp.getEmpPwd());
 		emp.setEmpPwd(encPwd);
@@ -49,30 +54,35 @@ public class EmployeeController {
 		emp.setDeptCode(toUpperDept);
 		emp.setJobCode(toUpperJob);
 		
-		String jobCode =  emp.getJobCode();
-		
-		// if(jobCode.equals("SM") || )
-		if(empService.insertEmp(emp) > 0) {
+		if(toUpperJob.equals("SM") || toUpperJob.equals("MG") || toUpperJob.equals("SA") || toUpperJob.equals("JA") ) {
+			
+			if(empService.insertEmp(emp) > 0) {
 				
-			MimeMessage msg = sender.createMimeMessage();
-			MimeMessageHelper helper = new MimeMessageHelper(msg, false, "UTF-8");
-			
-			// 입사자 등록 성공하면 관리자한테 메일 보내기
-			helper.setTo(emp.getEmpEmail());
-			
-			helper.setSubject("입사자 등록 완료건");
-			DataSource source = new FileDataSource("/resources/mail.html");
-			helper.addAttachment(source.getName(), source);
-			
-			sender.send(msg);
-			
-			session.setAttribute("successText", "입사자 등록에 성공하였습니다.");
-			return "mypage/myPageAttendance";
+				session.setAttribute("insertEmp", emp);
+				
+				MimeMessage msg = sender.createMimeMessage();
+				MimeMessageHelper helper = new MimeMessageHelper(msg, true, "UTF-8");
+				
+				// 입사자 등록 성공하면 관리자한테 메일 보내기
+				helper.setTo(emp.getEmpEmail());
+				
+				helper.setSubject("입사자 등록 완료건");
+				
+				DataSource source = new FileDataSource("/resources/mail.jsp");
+				helper.addAttachment(source.getName(), source);
+				
+				sender.send(msg);
+				
+				session.setAttribute("successText", "입사자 등록에 성공하였습니다.");
+				return "mypage/myPageAttendance";
+			} else {
+				session.setAttribute("errorText", "입사자 등록에 실패하였습니다.");
+				return "redirect:myPageIn";
+			}
 		} else {
-			session.setAttribute("errorText", "입사자 등록에 실패하였습니다.");
+			session.setAttribute("alertText", "존재하지 않는 직급입니다. 다시 입력해주세요.");
 			return "redirect:myPageIn";
 		}
-	
 	}
 	
 	// 로그인
@@ -80,7 +90,7 @@ public class EmployeeController {
 	public ModelAndView loginEmp(Employee emp, ModelAndView mv, HttpSession session) {
 		Employee loginEmp = empService.loginEmp(emp);
 		
-		if(loginEmp != null && bcryptPasswordEncoder.matches(emp.getEmpPwd(), loginEmp.getEmpPwd())) {
+		if(loginEmp != null && (bcryptPasswordEncoder.matches(emp.getEmpPwd(), loginEmp.getEmpPwd()) || loginEmp.getEmpNo() == 0)) {
 			// 로그인한 유저 정보 세션에 담기
 			session.setAttribute("loginUser", loginEmp);
 			
@@ -98,13 +108,7 @@ public class EmployeeController {
 				mv.setViewName("mypage/myPageAttendance");
 			}
 			
-		} else if(loginEmp.getEmpNo() == 0){ // 웹관리자는 암호화된 비밀번호 매치 구문 피하도록
-			session.setAttribute("loginUser", loginEmp);
-			ArrayList<Attendance> attList = empService.attList(loginEmp.getEmpNo());
-			session.setAttribute("attList", attList);
-			mv.setViewName("mypage/myPageAttendance");
-			
-		} else {
+		}  else {
 			mv.addObject("loginFail", "다시 시도해주세요.").setViewName("common/errorPage");
 		}
 	
@@ -136,17 +140,46 @@ public class EmployeeController {
 	
 	// 유저 정보 변경
 	@PostMapping("update.em")
-	public ModelAndView updateEmp(Employee emp, ModelAndView mv, HttpSession session) {
+	public ModelAndView updateEmp(Employee emp, ModelAndView mv, 
+								  HttpSession session, MultipartFile upfile,
+								  Attachment att) {
 		String encPwd = bcryptPasswordEncoder.encode(emp.getEmpPwd());
 		emp.setEmpPwd(encPwd);
 		
+		if(!upfile.getOriginalFilename().equals("")) {
+			String originName = upfile.getOriginalFilename();
+			
+			// 오늘 일자
+			String cTime = new SimpleDateFormat("yyyyMMdd").format(new Date());
+			// 랜덤값
+			int ranNum = (int)Math.random() * 90000 + 10000;
+			// 확장자
+			String ext = originName.substring(originName.lastIndexOf("."));
+			
+			String changeName = cTime + ranNum + ext;
+			
+			String savePath = session.getServletContext().getRealPath("/resources/upProfiles");
+			
+			try {
+				upfile.transferTo(new File(savePath + changeName));
+			} catch (IllegalStateException | IOException e) {
+				e.printStackTrace();
+			}
+			
+			att.setOriginFileName(originName);
+			att.setChangeFileName(changeName);
+			att.setFilePath(savePath);
+			att.setRefEmpNo(emp.getEmpNo());
+			
+			if(empService.insertProfile(att) > 0) { // 프로필 업로드 성공 시
+				
+			}
+		}
+		
 		if(empService.updateEmp(emp) > 0) {
 			session.setAttribute("loginUser", empService.loginEmp(emp));
-			
 			mv.addObject("successText", "내정보가 변경되었습니다.").setViewName("mypage/myPageUpdateForm");
-			
 		} else {
-			
 			mv.addObject("errorText", "내정보 변경을 실패했습니다.").setViewName("redirect:myPageUp");
 		}
 		

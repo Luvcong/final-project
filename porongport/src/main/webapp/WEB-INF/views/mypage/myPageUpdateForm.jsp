@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -18,16 +19,29 @@
 	    <div class="outer">
 	
 	        <div id="myPage">
-	            <div class="myProfile">
-	                <img src="resources/images/profile.png"  alt="입사자 사진">
-	                <div class="info">
-	                    <h3>${ loginUser.empName }</h3><span>${ loginUser.jobName }</span>
-	                    <h5>${ loginUser.deptName }</h5>
-	                </div>
-	            </div>
+	            <form action="update.em" method="post" enctype="multipart/form-data" id="emp_update">
+		            <div class="myProfile">
+		            
+		            	<!--  -->
+		            	<c:choose>
+		            		<c:when test="${ empty loginUser.fileNo }">
+				                <img src="resources/images/profile.png"  alt="기본 프로필 사진">
+				                <label for="profile">프로필 이미지 변경</label>
+				                <input type="file" id="profile" name="fileNo" />
+		            		</c:when>
+		            		<c:otherwise>
+		            			<img src=""  alt="입사자 사진">
+		            			<span>프로필 이미지 변경</span>
+		            		</c:otherwise>
+		            	</c:choose>
+		            	
+		                <div class="info">
+		                    <h3>${ loginUser.empName }</h3><span>${ loginUser.jobName }</span>
+		                    <h5>${ loginUser.deptName }</h5>
+		                </div>
+		            </div>
 	
-	            <form action="update.em" method="post">
-	                <div id="updateForm">
+	                <div class="updateForm">
 	                    <div class="form-group">
 	                        <label for="empName">이름</label>
 	                        <input type="text" id="empName" name="empName" readonly class="form-control" value="${ loginUser.empName }"/>
@@ -70,7 +84,7 @@
 	                </div>
 	
 	                <div class="btn_area">
-	                    <button type="submit" class="btn btn-primary" style="width: 100%">확인</button>
+	                    <button type="submit" class="btn btn-primary" disabled>확인</button>
 	                </div>
 	            </form>
 	        </div>
@@ -78,10 +92,6 @@
 	            function findAddr() {
 	                new daum.Postcode({
 	                    oncomplete: function(data) {
-	                        // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
-	
-	                        // 각 주소의 노출 규칙에 따라 주소를 조합한다.
-	                        // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
 	                        var addr = ''; // 주소 변수
 	                        var extraAddr = ''; // 참고항목 변수
 	
@@ -123,32 +133,12 @@
 	                }).open();
 	            };
 	            
-	            /* 아무것도 입력하지 않았을 때에 대한 유효성 검사
-	            $(() => {
-	            	$('button:submit').on('click', e => {
-	            		const $empPwd = $('#empPwd');
-	            		const $empPhone = $('#empPhone');
-	            		const $empEmail = $('#empEmail');
-	            		
-	            		if($empPwd && $empPhone && $empEmail){
-	            			Swal.fire({
-	            				title : '오류',
-	            				text : '입력된 정보가 없습니다.',
-	            				icon : 'info'
-	            			});
-	            			console.log('인풋 벨류값이 없음');
-	            			console.log($('#empPwd').val());
-	            			console.log($('#empPhone').val());
-	            			console.log($('#firstLogin').val());
-	            			return false;
-            			}
-	            		else{
-	            			return true;
-	            		}
-	            	})
-	            })
-	            */
-	            
+	        	$(() => {
+	        		$('#emp_update input').change(() => {
+	        			$('.btn_area>button').attr('disabled', false);
+	        		});
+	        	});
+	        
 	        </script>
 	
 	    </div>
