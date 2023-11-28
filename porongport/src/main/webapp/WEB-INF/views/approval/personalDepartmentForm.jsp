@@ -156,13 +156,21 @@
 	</script>
 
 	<script>
+		function apSubmit(e){
+			//console.log($(e).children()[0]);
+			//console.log($(e).children()[1]);
+			
+			var empId = $(e).children()[0];
+			var empName = $(e).children()[2];
+		
+	
 	        // 오른쪽 화살표 첫번째 버튼 동작 구현
 	        $('#rightArrowButtonFirst').click(function() {
 	            const memberIdInputFirst = $('.memberIdInputFirst');
 	            const memberNameInputFirst = $('.memberNameInputFirst');
 	
-	            memberIdInputFirst.val(memberId);
-	            memberNameInputFirst.val(memberName);
+	            memberIdInputFirst.val(empId);
+	            memberNameInputFirst.val(empName);
 	        });
 	
 	        // 오른쪽 화살표 두번째 버튼 동작 구현
@@ -170,8 +178,8 @@
 	                const memberIdInputSecond = $('.memberIdInputSecond');
 	                const memberNameInputSecond = $('.memberNameInputSecond');
 	
-	                memberIdInputSecond.val(memberId);
-	                memberNameInputSecond.val(memberName);
+	                memberIdInputSecond.val(empId);
+	                memberNameInputSecond.val(empName);
 	        });
 	
 	        // 오른쪽 화살표 세번째 버튼 동작 구현
@@ -179,10 +187,10 @@
 	                const memberIdInputThird = $('.memberIdInputThird');
 	                const memberNameInputThird = $('.memberNameInputThird');
 	
-	                memberIdInputThird.val(memberId);
-	                memberNameInputThird.val(memberName);
+	                memberIdInputThird.val(empId);
+	                memberNameInputThird.val(empName);
 	        });
-	    });
+		}	
 	</script>
 
 	<script>
@@ -662,18 +670,6 @@
 								})
 							}
 							
-							function apSubmit(e){
-								//console.log($(e).children()[0]);
-								//console.log($(e).children()[1]);
-								var empId = $(e).children()[0];
-								var empName = $(e).children()[2];
-								
-								console.log(index);
-								$('#appCheck>tbody>tr').children('td:eq(0)').html(index);
-								$('#appCheck>tbody>tr').children('td:eq(1)').html(department);
-								$('#appCheck>tbody>tr').children('td:eq(2)').html(empName);
-								$('#appCheck>tbody>tr').children('td:eq(3)').html(position);
-							}	
 						</script>
 				</form>
 			</div>

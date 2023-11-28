@@ -112,7 +112,13 @@ html, body {
     		var meetEndTime = info.dateStr;
     		var meetStartDay = info.dataStr;
     		var meetEndDay = info.dataStr;
-    		$('#meetStartTime').val(meetStartTime);
+    		
+    		var result = meetStartTime.substr(11, 18);
+    		var result2 = result.substr(0, 8);
+    		console.log(result2);
+    		
+    		
+    		$('#meetStartTime').val(result2);
     		$('#meetEndTime').val(meetEndTime);
     		$('#meetStartDay').val(meetStartDay);
     		$('#meetEndDay').val(meetEndDay);
