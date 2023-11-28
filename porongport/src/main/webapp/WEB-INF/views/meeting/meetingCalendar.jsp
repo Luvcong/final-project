@@ -198,18 +198,18 @@ html, body {
         },
         
         customButtons: {
-    		scheduleButton: { 
-                text: '회의실예약', 
+    		meetingroomButton: { 
+                text: '내일정', 
                 click: function(event) { 
-                	location.href="/porong/reservation";
+                	location.href="/porong/calendar";
                 } 
     		}
     	},
     	
-    	  headerToolbar: {
+    	  headerToolbar: {	
     	      left: 'prev,next',
     	      center: 'title',
-    	      right: 'today'
+    	      right: 'meetingroomButton today'
     	    },
     	    initialView: 'resourceTimelineDay',
     	    aspectRatio: 1.5,
