@@ -1,4 +1,6 @@
 .reservationTableSize{
 	width:1100px;
 	margin:auto;
-	}
+}
+.tdborder{border:none;}
+.pagination{align:center; margin:auto;}

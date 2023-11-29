@@ -26,8 +26,8 @@
 		<thead>
 			<tr>
 				<th>No.</th>
-				<th>일자</th>
-				<th>시간</th>
+				<th>시작</th>
+				<th>종료</th>
 				<th>부서</th>
 				<th>성명/직급</th>
 				<th>인원수</th>
@@ -38,19 +38,20 @@
 			<c:forEach items="${list}" var="m">
                	<tr>
                		<td class="mno">${m.meetNo}</td>
-               		<td>${m.meetStart}/${m.meetEnd}</td>
-               		<td>${m.meetStartTime}~${m.meetStartTime}</td>
+               		<td>${m.meetStart}</td>
+               		<td>${m.meetEnd}</td>
                		<td>${m.deptName}</td>
                		<td>${m.empName}/${m.jobName}</td>
                		<td>${m.meetPnum}</td>
                		<td>${m.meetApproval}</td>
-               		<td><button class="btn btn-sm btn-secondary">-</button></td>
+               		<td class="tdborder" style="border:none;"><button class="btn btn-danger">-</button></td>
                	</tr>
 			</c:forEach>
 		</tbody>
 		</table>
-	</div>
-	<div class="reservation-footer-paging">
+		
+		
+		<div class="reservation-footer-paging">
 		<script>
             	$(function(){
                 	$('#reservationTable>tbody>tr').click(function(){
@@ -80,11 +81,11 @@
                     		<li class="page-item"><a class="page-link" href="reservationStatus?cPage=${pi.currentPage+11}">Next</a></li>
                     	</c:otherwise>
                     </c:choose>
-                    
                 </ul>
             </div>
-	</div>
+		</div>
 	
+	</div>
 	
 	</div>
 	
