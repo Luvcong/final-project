@@ -109,45 +109,33 @@ html, body {
 	    slotMinTime: '09:00',
 	    slotMaxTime: '18:00',
 
-	    dateClick: info=>{
-    		
-    		var meetStartTime = info.dateStr;
-    		var meetEndTime = info.dateStr;
-    		
-    		$('#insertMeetModal').modal();
-
-    	},
-    	
     	 select : info=>{
  	    	var meetStartTime = info.startStr;
      		var meetEndTime = info.endStr;
      		
-     		var meetStartDay = info.startdayStr;
-    		var meetEndDay = info.enddayStr;
-    		
-    		
-    		var startday = meetStartDay.substr(0,10);
-    		var endday = meetEndDay.substr(0,10);
-    		
      		var result = meetStartTime.substr(11, 18);
      		var result2 = result.substr(0, 8);
      		var result3 = meetEndTime.substr(11, 18);
      		var result4 = result3.substr(0, 8);
      		
-     		$('#meetStartDay').val(startday);
-    		$('#meetEndDay').val(endday);
-    		
+     		
+     		var meetStartDay = info.startStr;
+     		var meetEndDay = info.endStr;
+     		
+     		var startday = meetStartDay.substr(0,10);
+     		var endday = meetEndDay.substr(0,10);
+     		
      		$('#meetStartTime').val(result2);
      		$('#meetEndTime').val(result4);
+     		
+     		$('#meetStartDay').val(startday);
+    		$('#meetEndDay').val(endday);
      		
      		$('#insertMeetModal').modal();
      		
  	    },
 	    
-	    
 	    eventClick: (calEvent, jsEvent, view) => {
-            
-	    	
     		
             $('#meetNo').val(calEvent.event._def.publicId);
             
