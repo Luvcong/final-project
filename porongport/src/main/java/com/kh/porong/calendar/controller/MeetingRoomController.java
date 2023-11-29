@@ -69,11 +69,13 @@ public class MeetingRoomController {
 	public String reservationList(@RequestParam(value="cPage", defaultValue="1") int currentPage, Model model) {
 		
 		PageInfo pi = Pagination.getPageInfo(meetingRoomService.selectListCount(), currentPage, 5, 5);
+		System.out.println(meetingRoomService.selectListCount());
+		
 		model.addAttribute("list", meetingRoomService.selectList(pi));
-		//System.out.println(meetingRoomService.selectList(pi));
+		System.out.println(meetingRoomService.selectList(pi));
 		
 		model.addAttribute("pi", pi);
-		return "meeting/reservationApprove";
+		return "meeting/reservationStatus";
 	}
 	
 }

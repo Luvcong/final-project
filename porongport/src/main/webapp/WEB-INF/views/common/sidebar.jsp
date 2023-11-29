@@ -117,25 +117,16 @@
 				   <div class="sub-item" data-url='main2'>메인메뉴2</div>
 				   <div class="sub-item" data-url='main3'>메인메뉴3</div>
 				</div>
-				<c:choose>
-					<c:when test="${ loginUser.empAdmin eq 'A' }">
-						<div class="sub-menu d-none" data-group='myPageAtt'>
-							<div class="sub-item sub-title" data-url='myPageAtt'>마이페이지</div>
-					        <div class="sub-item" data-url='myPageUp'>내정보 관리</div>
-						    <div class="sub-item" data-url='myPageAtt'>근태 관리</div>
-						    <div class="sub-item" data-url='myPageIn'>입사자 등록</div>
-				       		<div class="sub-item" data-url='mypage3'>연차 관리</div>
+						<div class="sub-menu d-none" data-group='weather'>
+							<div class="sub-item sub-title" data-url='weather'>HOME</div>
+					        <div class="sub-item" data-url='https://kh-academy.co.kr/main/main.kh'>KH 정보교육원</div>
 						</div>
-					</c:when>
-					<c:otherwise>
 						<div class="sub-menu d-none" data-group='myPageAtt'>
 							<div class="sub-item sub-title" data-url='myPageAtt'>마이페이지</div>
 					        <div class="sub-item" data-url='myPageUp'>내정보 관리</div>
 						    <div class="sub-item" data-url='myPageAtt'>근태 관리</div>
 				       		<div class="sub-item" data-url='mypage3'>연차 관리</div>
 						</div>
-					</c:otherwise>
-				</c:choose>
 				 <div class="sub-menu d-none" data-group='approval'>
 					<div class="sub-item sub-title" data-url='approval'>전자결재</div>
 		         	<div class="sub-item" data-url='document1'>기안문 작성</div>

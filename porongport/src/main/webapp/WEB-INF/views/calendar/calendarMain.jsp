@@ -77,7 +77,7 @@
 				success:data=>{
 					
 				//console.log(data[0].meetTitle);
-				for(i=0;  i<data.length; i++){
+				for(i=0; i<data.length; i++){
 					calendar.addEvent({
 						title: data[i].meetTitle,
 						description: data[i].meetContent,
@@ -97,7 +97,7 @@
 			var calendarEl = document.getElementById('calendar');
             var calendar = new FullCalendar.Calendar(calendarEl, {
             	
-            	select: function(info) {
+            	select: info => {
             		var startDate = info.startStr;
             		var endDate = info.endStr;
             		$('#startDate').val(startDate);
@@ -105,7 +105,7 @@
             		
             		$("#endDate").attr("min", startDate);
              	    $("#endTime").attr("min", startTime);
-            		//console.log(info);
+            		console.log(info);
             		
             		$('#insertEventModal').modal();
             		
@@ -125,7 +125,7 @@
             	},
             	
             	eventClick: (calEvent, jsEvent, view) => {
-                    console.log(calEvent);
+                    //console.log(calEvent);
 					var allDay = calEvent.event._def.allDay;
 					
                     var schNo = parseInt(calEvent.event.id);
