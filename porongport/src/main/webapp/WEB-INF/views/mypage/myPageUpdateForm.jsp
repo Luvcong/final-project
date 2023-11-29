@@ -148,17 +148,25 @@
 						$('.myProfile input[type=file]').click();
 					});
 	        		
-					function readURL(input) {
-						  if (input.files && input.files[0]) {
-						    var reader = new FileReader();
-						    reader.onload = function(e) {
-						      document.getElementById('preview').src = e.target.result;
-						    };
-						    reader.readAsDataURL(input.files[0]);
-						  } else {
-						    document.getElementById('preview').src = "";
-						  }
-						}
+	        		// 프로필 프리뷰
+					$("#profile").change(e => {
+						const file = e.target.files;
+						
+						console.log(file);
+
+						/*
+						var img = new Image();
+						console.log(img);
+						var ImageTempUrl = window.URL.createObjectURL(file[0]);
+						console.log(ImageTempUrl);
+						img.src = ImageTempUrl;
+						*/
+						addListeners(reader, fileTag);
+				        reader.readAsDataURL(selectedFile);
+				
+
+						$("#preview").attr('src', img);
+					});
 	        	});
 	        
 	        </script>
