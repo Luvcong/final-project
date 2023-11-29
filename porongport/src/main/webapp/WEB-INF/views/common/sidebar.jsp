@@ -120,21 +120,30 @@
             -->
             <div class="pp-sub-sidebar">
 				<div class="sub-menu d-none" data-group='main'>						<!-- 여기 아이콘 영역의 data-group 매핑값과  -->
-				   <div class="sub-item sub-title" data-url=''>서브타이틀</div> <!-- 여기 서브타이틀의 data-url의 매핑값이 동일해야함 -->
-			       <div class="sub-item" data-url='main'>메인메뉴1</div>			
-				   <div class="sub-item" data-url='main2'>메인메뉴2</div>
+				   <div class="sub-item sub-title" data-url='main'>HOME</div> <!-- 여기 서브타이틀의 data-url의 매핑값이 동일해야함 -->
+			       <div class="sub-item" data-url='https://kh-academy.co.kr/main/main.kh?null'>KH정보교육원</div>			
+				   <div class="sub-item" data-url='weather'>날씨</div>
 				   <div class="sub-item" data-url='main3'>메인메뉴3</div>
 				</div>
-						<div class="sub-menu d-none" data-group='weather'>
-							<div class="sub-item sub-title" data-url='weather'>HOME</div>
-					        <div class="sub-item" data-url='https://kh-academy.co.kr/main/main.kh'>KH 정보교육원</div>
+						<c:choose>
+					<c:when test="${ loginUser.empAdmin eq 'A' }">
+						<div class="sub-menu d-none" data-group='myPageAtt'>
+							<div class="sub-item sub-title" data-url='myPageAtt'>마이페이지</div>
+					        <div class="sub-item" data-url='myPageUp'>내정보 관리</div>
+						    <div class="sub-item" data-url='myPageAtt'>근태 관리</div>
+						    <div class="sub-item" data-url='myPageIn'>입사자 등록</div>
+				       		<div class="sub-item" data-url='mypage3'>연차 관리</div>
 						</div>
+					</c:when>
+					<c:otherwise>
 						<div class="sub-menu d-none" data-group='myPageAtt'>
 							<div class="sub-item sub-title" data-url='myPageAtt'>마이페이지</div>
 					        <div class="sub-item" data-url='myPageUp'>내정보 관리</div>
 						    <div class="sub-item" data-url='myPageAtt'>근태 관리</div>
 				       		<div class="sub-item" data-url='mypage3'>연차 관리</div>
 						</div>
+					</c:otherwise>
+				</c:choose>
 				 <div class="sub-menu d-none" data-group='approval'>
 					<div class="sub-item sub-title" data-url='approval'>전자결재</div>
 		         	<div class="sub-item" data-url='document1'>기안문 작성</div>
