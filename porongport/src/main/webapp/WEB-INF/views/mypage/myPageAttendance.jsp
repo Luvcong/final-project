@@ -29,7 +29,7 @@
 		            		</c:when>
 		            		<c:otherwise>
 			            		<div class="img_box">
-			            			<img src="${profile.filePath}${ profile.changeFileName }"  alt="입사자 사진">
+			            			<img src="resources/upProfiles/${ profile.changeFileName }"  alt="입사자 사진">
 			            		</div>
 		            		</c:otherwise>
 		            	</c:choose>
@@ -107,8 +107,9 @@
   		var today = now.getFullYear() + '-' + (now.getMonth() + 1) + '-' + now.getDate();
 	 		
  		window.onload = () => {
+			 			
 	  		document.querySelector('#sysdate').innerText = window.today;
-	  		
+ 			// 문서 실행 시 근태기록 조회
 	  		$.ajax({
 	  			url : 'selectAtt.em',
 	  			data : {
@@ -137,6 +138,7 @@
 	  		
  		};
          		
+ 		// 출근기록 insert
 		function insertAtt(){
 			$.ajax({
 				url : 'insert.at',
@@ -157,6 +159,7 @@
 			})
 		};
 		
+		// 퇴근기록 update
 		function updateAtt(){
 			$.ajax({
 				url : 'update.at',

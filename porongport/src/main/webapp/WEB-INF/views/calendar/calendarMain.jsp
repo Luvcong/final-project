@@ -256,9 +256,9 @@
             	
                 <div class="modal-header">
                     <h5 class="modal-title" id="eventModalLabel">일정제목</h5>
-                    <button type="button" class="close" data-bs-dismiss="modal">
-                    	<a href="calendar" class="calendar-a-color">&times;</a>
-                    </button>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						       <span aria-hidden="true">&times;</span>
+					</button>
                 </div>
                 
                 <div class="modal-body">
@@ -367,9 +367,9 @@
                 <div class="modal-header">
                     <h5 class="modal-title" id="eventModalLabel">일정추가</h5>
                     
-                    <button type="button" class="close" data-bs-dismiss="modal">
-                    	<a href="calendar" class="calendar-a-color">&times;</a>
-                    </button>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						       <span aria-hidden="true">&times;</span>
+					</button>
                 </div>
                 
                 <div class="modal-body">

@@ -59,8 +59,8 @@ public class EmployeeController {
 			
 			if(empService.insertEmp(emp) > 0) {
 				
+				/*
 				session.setAttribute("insertEmp", emp);
-				
 				MimeMessage msg = sender.createMimeMessage();
 				MimeMessageHelper helper = new MimeMessageHelper(msg, true, "UTF-8");
 				
@@ -73,8 +73,20 @@ public class EmployeeController {
 				helper.addAttachment(source.getName(), source);
 				
 				sender.send(msg);
+				*/
 				
-				session.setAttribute("successText", "입사자 등록에 성공하였습니다.");
+				MimeMessage msg = sender.createMimeMessage();
+				MimeMessageHelper helper = new MimeMessageHelper(msg, false, "UTF-8");
+				helper.setTo(emp.getEmpEmail());
+				helper.setSubject("[포롱포트]입사자 등록 완료 메일");
+				helper.setText("<b style='font-size:25px;'>" + emp.getEmpName() + "</b>님의"
+							+ "<br/>입사자 등록건이 완료되었습니다." 
+							+ "<br/>로그인 후 비밀번호 및 이메일 변경을 공지해주세요."
+							+ " >> <a href='http://localhost:8003/porong'>로그인 페이지</a>", true);
+					
+				sender.send(msg);
+				
+				session.setAttribute("successText", "입사자 등록에 성공하였습니다. 메일함을 확인해주세요");
 				return "mypage/myPageAttendance";
 			} else {
 				session.setAttribute("errorText", "입사자 등록에 실패하였습니다.");
@@ -153,6 +165,7 @@ public class EmployeeController {
 			String originName = upfile.getOriginalFilename();
 			String cTime = new SimpleDateFormat("yyyyMMdd").format(new Date());
 			int ranNum = (int)(Math.random() * 90000) + 10000;
+			
 			String ext = originName.substring(originName.lastIndexOf("."));
 			String changeName = cTime + ranNum + ext;
 			String savePath = session.getServletContext().getRealPath("/resources/upProfiles/");
@@ -206,15 +219,14 @@ public class EmployeeController {
 		if(empService.findPwd(emp) > 0) {
 			
 			MimeMessage msg = sender.createMimeMessage();
-			
 			MimeMessageHelper helper = new MimeMessageHelper(msg, false, "UTF-8");
 			helper.setTo(emp.getEmpEmail());
 			helper.setSubject("[포롱포트]임시 비밀번호 발급 메일");
-			helper.setText("<b style='font-size: 30px;'>" + emp.getEmpName() + "</b>님의"
-					+ "<br/>비밀번호 찾기를 통한 임시 비밀번호입니다."
-					+ "<br/>임시비밀번호 : <b>" + tempPwd +"</b>" 
-					+ "<br/>로그인 후 비밀번호 변경을 해주세요."
-					+ " >> <a href='http://localhost:8003/" + request.getContextPath() + "'>로그인 페이지</a>", true);
+			helper.setText("<b style='font-size:25px;>" + emp.getEmpName() + "</b>님의"
+							+ "<br/>비밀번호 찾기를 통한 임시 비밀번호입니다."
+							+ "<br/>임시비밀번호 : <b style='font-size:25px;>" + tempPwd +"</b>" 
+							+ "<br/>로그인 후 비밀번호 변경을 해주세요."
+							+ " >> <a href='http://localhost:8003/" + request.getContextPath() + "'>로그인 페이지</a>", true);
 			
 			sender.send(msg);
 			

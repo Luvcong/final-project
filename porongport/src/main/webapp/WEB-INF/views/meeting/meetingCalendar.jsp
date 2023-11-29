@@ -109,22 +109,6 @@ html, body {
 	    slotMinTime: '09:00',
 	    slotMaxTime: '18:00',
 
-	    dateClick: info=>{
-    		
-    		var meetStartTime = info.dateStr;
-    		var meetEndTime = info.dateStr;
-    		var meetStartDay = info.dateStr;
-    		var meetEndDay = info.dateStr;
-    		
-    		var startday = meetStartDay.substr(0,10);
-    		var endday = meetEndDay.substr(0,10);
-    		
-    		$('#meetStartDay').val(startday);
-    		$('#meetEndDay').val(endday);
-    		$('#insertMeetModal').modal();
-    	
-    	},
-    	
     	 select : info=>{
  	    	var meetStartTime = info.startStr;
      		var meetEndTime = info.endStr;
@@ -134,17 +118,24 @@ html, body {
      		var result3 = meetEndTime.substr(11, 18);
      		var result4 = result3.substr(0, 8);
      		
+     		
+     		var meetStartDay = info.startStr;
+     		var meetEndDay = info.endStr;
+     		
+     		var startday = meetStartDay.substr(0,10);
+     		var endday = meetEndDay.substr(0,10);
+     		
      		$('#meetStartTime').val(result2);
      		$('#meetEndTime').val(result4);
+     		
+     		$('#meetStartDay').val(startday);
+    		$('#meetEndDay').val(endday);
      		
      		$('#insertMeetModal').modal();
      		
  	    },
 	    
-	    
 	    eventClick: (calEvent, jsEvent, view) => {
-            
-	    	
     		
             $('#meetNo').val(calEvent.event._def.publicId);
             
@@ -189,7 +180,7 @@ html, body {
     	    $('#eventModal').modal();
         },
     	
-        height: '230px',
+        height: '160px',
 
         eventDidMount: function(info) {
             var tooltip = new Tooltip(info.el, {
@@ -225,9 +216,7 @@ html, body {
     	      
     	    ],
     	    resources: [
-    	      { id: 'a', title: '회의실 A'},
-    	      { id: 'b', title: '회의실 B'},
-    	      { id: 'c', title: '회의실 C'}
+    	      { id: 'a', title: '회의실'}
     	    ]
     	  });
     	  calendar.render();
@@ -249,9 +238,9 @@ html, body {
 					<div class="modal-header">
 						<h5 class="modal-title" id="meetModalLabel">회의실 예약신청</h5>
 
-						<button type="button" class="close" data-bs-dismiss="meet">
-							<a href="reservation" class="calendar-a-color">&times;</a>
-						</button>
+						       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						       <span aria-hidden="true">&times;</span>
+						       </button>
 					</div>
 
 					<div class="modal-body">
