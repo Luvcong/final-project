@@ -29,7 +29,7 @@
 	<beans:bean class="com.kh.porong.common.WebSocketServer" id="socketServer" />
 	<websocket:handlers>
 		<!-- 클라이언트가 접속 주소를 ws://localhost:8003/porong -->
-		<websocket:mapping path="/*" handler="socketServer" />
+		<websocket:mapping path="/" handler="socketServer" />
 	</websocket:handlers>
 	
 	<!-- 인터셉트 -->
