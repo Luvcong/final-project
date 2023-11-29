@@ -1,6 +1,7 @@
 package com.kh.porong.notice.model.service;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
@@ -56,6 +57,8 @@ public class NoticeServiceImpl implements NoticeService {
 	// 공지사항 작성
 	@Override
 	public int insertNotice(Notice n) {
+		
+		
 		return noticeDao.insertNotice(sqlSession, n);
 	}	// insertNotice
 	
@@ -63,6 +66,8 @@ public class NoticeServiceImpl implements NoticeService {
 	// 공지사항 작성 - 첨부파일
 	@Override
 	public int insertAttachment(NoticeAttachment at) {
+		
+		
 		return noticeDao.insertAttachment(sqlSession, at);
 	}	// insertAttachment
 	
@@ -75,7 +80,7 @@ public class NoticeServiceImpl implements NoticeService {
 	
 	// 공지사항 상세보기
 	@Override
-	public ArrayList<Notice> detailNotice(Map<String, Object> map) {
+	public List<Notice> detailNotice(Map<String, Object> map) {
 		return noticeDao.detailNotice(sqlSession, map);
 	}	// detailNotice
 
@@ -109,6 +114,12 @@ public class NoticeServiceImpl implements NoticeService {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	// 공지사항 게시글 좋아요 여부 체크
+	@Override
+	public int checkLikeNotice(Map<String, Object> map) {
+		return noticeDao.checkLikeNotice(sqlSession, map);
+	}	// noticeLikeCheck
 
 
 }	// end class

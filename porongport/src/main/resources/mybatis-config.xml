@@ -17,6 +17,7 @@
 		<typeAlias type="com.kh.porong.notice.model.vo.Notice" alias="notice" />
 		<typeAlias type="com.kh.porong.notice.model.vo.NoticeAttachment" alias="noticeAttachment" />
 		<typeAlias type="com.kh.porong.approval.model.vo.GeneralVO" alias="general" />
+		<typeAlias type="com.kh.porong.notice.model.vo.NoticeLike" alias="noticeLike" />
 	</typeAliases>
 	
 	<mappers>
