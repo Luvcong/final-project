@@ -253,8 +253,8 @@
 		UPDATE
 		      EMPLOYEE
 		<set>
-		      EMP_PWD = #{empPwd}
-		      ,EMP_PHONE = #{empPhone}
+		      EMP_PWD = #{empPwd},
+		      EMP_PHONE = #{empPhone}
 		      ,EMP_EMAIL = #{empEmail}
 		      ,EMP_ADDRESSCODE = #{empAddressCode}
 		      ,EMP_ADDRESS = #{empAddress}
@@ -294,6 +294,7 @@
 		     DEPT_STATUS = 'Y'
 	</select>
 	
+	<!-- 프로필 업로드 -->
 	<insert id="insertProfile" parameterType="profile">
 		INSERT
 		  INTO
@@ -308,6 +309,19 @@
 		      ,#{refEmpNo}
 		      )
 	</insert>
+	
+	<!-- 프로필 재업로드 -->
+	<update id="updateProfile" parameterType="profile">
+		UPDATE
+		      ATTACHMENT
+		   SET
+		      ORIGIN_FILENAME = #{originFileName}
+		      ,CHANGE_FILENAME = #{changeFileName}
+		      ,FILE_PATH = #{filePath}
+		      ,UPLOAD_DATE = SYSDATE
+		 WHERE
+		      REF_EMP_NO = #{refEmpNo};
+	</update>
 	
 	<select id="selectProfile" parameterType="profile" resultType="profile">
 		SELECT
