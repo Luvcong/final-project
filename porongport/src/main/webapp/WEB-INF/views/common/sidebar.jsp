@@ -69,7 +69,7 @@
         <!-- .data-group : 아이콘 영역 클릭시 이동하려는 jsp의 매핑값 작성 -->
         <div class="pp-main">
             <div class="pp-sidebar">
-                <div class="item" data-group=''>
+                <div class="item" data-group='main'>
                     <div class="icon"><i class="fa-solid fa-house"></i></div>
                     <div class="menu-name">Home</div>
                 </div>
@@ -85,7 +85,7 @@
                     <div class="icon"><i class="fa-solid fa-envelope"></i></div>
                     <div class="menu-name">쪽지함</div>
                 </div>
-                <div class="item" data-group='notice'>
+                <div class="item" data-group='noticeList'>
                     <div class="icon"><i class="fa-solid fa-pen-to-square"></i></div>
                     <div class="menu-name">게시판</div>
                 </div>
@@ -112,7 +112,7 @@
             	 ******************************************
             -->
             <div class="pp-sub-sidebar">
-				<div class="sub-menu d-none" data-group=''>						<!-- 여기 아이콘 영역의 data-group 매핑값과  -->
+				<div class="sub-menu d-none" data-group='main'>						<!-- 여기 아이콘 영역의 data-group 매핑값과  -->
 				   <div class="sub-item sub-title" data-url=''>서브타이틀</div> <!-- 여기 서브타이틀의 data-url의 매핑값이 동일해야함 -->
 			       <div class="sub-item" data-url='main'>메인메뉴1</div>			
 				   <div class="sub-item" data-url='main2'>메인메뉴2</div>
@@ -155,9 +155,9 @@
 			        <div class="sub-item sub-item-menu" data-url='sendStorageMessage'>보낸 메시지 보관함</div>
 			        <div class="sub-item" data-url='deleteMessageBox'>휴지통</div>
 				</div>
-				<div class="sub-menu d-none" data-group='notice'>
-					<div class="sub-item sub-title" data-url='board'>게시판</div>
-			        <div class="sub-item" data-url='notice'>공지사항 게시판</div>
+				<div class="sub-menu d-none" data-group='noticeList'>
+					<div class="sub-item sub-title" data-url='notice'>게시판</div>
+			        <div class="sub-item" data-url='noticeList'>공지사항 게시판</div>
 			        <div class="sub-item" data-url='board'>자유 게시판</div>
 				</div>
 				<form action="jojigdo.em">
