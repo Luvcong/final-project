@@ -15,8 +15,10 @@
 	
 	<div class="pp-content">
 	
-		<div>
+		<div class="weather-center weather-top">
 			<h3>오늘의 날씨</h1>
+			<!-- API: https://openweathermap.org/current -->
+			
 		</div>
 		
 		<script>
