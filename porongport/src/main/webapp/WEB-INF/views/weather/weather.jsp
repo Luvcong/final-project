@@ -5,11 +5,12 @@
 <head>
 <meta charset="UTF-8">
 <title>오늘의 날씨</title>
-<!-- jQuery -->
+	<!-- jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
 <body>
 	<h1>오늘의 날씨</h1>
+	
 	<script>
 		$.ajax({
 			url: 'weather',
