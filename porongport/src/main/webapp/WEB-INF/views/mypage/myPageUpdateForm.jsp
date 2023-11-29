@@ -33,11 +33,8 @@
 		            			<div class="img_box">
 			            			<img src="resources/upProfiles/${ profile.changeFileName }" alt="입사자 사진" id="preview">
 					                <label for="profile"></label>
-<<<<<<< Updated upstream
-						                <input type="file" id="profile" name="reUpfile" />
-=======
+
 					                <input type="file" id="profile" name="reUpfile" />
->>>>>>> Stashed changes
 		            			</div>
 		            		</c:otherwise>
 		            	</c:choose>

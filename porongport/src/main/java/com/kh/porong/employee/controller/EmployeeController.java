@@ -140,64 +140,58 @@ public class EmployeeController {
 	@PostMapping("update.em")
 	public ModelAndView updateEmp(Employee emp, ModelAndView mv, Attachment profile,
 								  HttpSession session, MultipartFile upfile, MultipartFile reUpfile) {
-		System.out.println(upfile);
 		// 프로필 업로드(insert)
-		if(!upfile.getOriginalFilename().equals("")) {
-			
-			profile.setOriginFileName(upfile.getOriginalFilename());
-			profile.setChangeFileName(saveFile(upfile, session));
-			profile.setFilePath(session.getServletContext().getRealPath("/resources/upProfiles/"));
-			profile.setRefEmpNo(emp.getEmpNo());
-			
-			if(empService.insertProfile(profile) > 0){
-				session.setAttribute("profile", empService.selectProfile(profile.getRefEmpNo()));
-				if(emp != null) {
-					 return updateEmp(emp, mv, session);
-				} 
-			}
-			System.out.println(profile);
-		// 프로필 재업로드 시(update)
-		} else if(!reUpfile.getOriginalFilename().equals("")) { 
-			
-			new File(session.getServletContext().getRealPath(profile.getChangeFileName())).delete();
-			
-			profile.setOriginFileName(upfile.getOriginalFilename());
-			profile.setChangeFileName(saveFile(upfile, session));
-			profile.setFilePath(session.getServletContext().getRealPath("/resources/upProfiles/"));
-			profile.setRefEmpNo(emp.getEmpNo());
-			
-			if(empService.updateProfile(profile) > 0) {
-				session.setAttribute("profile", empService.selectProfile(profile.getRefEmpNo()));
-				if(emp != null) {
-					return updateEmp(emp, mv, session);
+		if(upfile != null) {
+			if(!upfile.getOriginalFilename().equals("")) {
+
+				profile.setOriginFileName(upfile.getOriginalFilename());
+				profile.setChangeFileName(saveFile(upfile, session));
+				profile.setFilePath(session.getServletContext().getRealPath("/resources/upProfiles/"));
+				profile.setRefEmpNo(emp.getEmpNo());
+				
+				if(empService.insertProfile(profile) > 0){
+					session.setAttribute("profile", empService.selectProfile(profile.getRefEmpNo()));
+					if(emp != null) {
+						updateEmp(emp, mv, session);
+					} 
 				}
 			}
-			
+		// 프로필 재업(update)
+		} else if(reUpfile != null){
+			 if(!reUpfile.getOriginalFilename().equals("")) { 
+				
+				profile.setOriginFileName(reUpfile.getOriginalFilename());
+				profile.setChangeFileName(saveFile(reUpfile, session));
+				profile.setFilePath(session.getServletContext().getRealPath("/resources/upProfiles/"));
+				profile.setRefEmpNo(emp.getEmpNo());
+				
+				if(empService.updateProfile(profile) > 0) {
+					session.setAttribute("profile", empService.selectProfile(profile.getRefEmpNo()));
+					if(emp != null) {
+						updateEmp(emp, mv, session);
+					}
+				}
+			}
 		} else {
-			return updateEmp(emp, mv, session);
+			updateEmp(emp, mv, session);
 		}
-
-		return mv;
+		return updateEmp(emp, mv, session);
 	}
 	
 	
 	// 사용자 정보 수정 메서드
 	public ModelAndView updateEmp(Employee emp, ModelAndView mv, HttpSession session) {
-		System.out.println("맨 처음" + emp);
 		// 비밀번호 변경시 암호화
 		if(!emp.getEmpPwd().equals("")) {
 			String encPwd = bcrypt.encode(emp.getEmpPwd());
 			emp.setEmpPwd(encPwd);
-			System.out.println("암호화한" + emp);
 		}
-		
-		System.out.println("암호화문 밖으로 나온" +emp);
 		
 		if(empService.updateEmp(emp) > 0) {
 			session.setAttribute("loginUser", empService.loginEmp(emp));
 			mv.addObject("successText", "내정보가 변경되었습니다.").setViewName("mypage/myPageUpdateForm");
 		} else {
-			mv.addObject("errorText", "내정보 변경을 실패했습니다.").setViewName("redirect:myPageUp");
+			mv.addObject("errorText", "내정보 변경을 실패했습니다.").setViewName("mypage/myPageUpdateForm");
 		}
 		return mv;
 	}

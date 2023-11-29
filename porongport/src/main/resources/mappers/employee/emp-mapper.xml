@@ -253,7 +253,9 @@
 		UPDATE
 		      EMPLOYEE
 		<set>
+			<if test="!empPwd.equals('')">
 		      EMP_PWD = #{empPwd},
+			</if>
 		      EMP_PHONE = #{empPhone}
 		      ,EMP_EMAIL = #{empEmail}
 		      ,EMP_ADDRESSCODE = #{empAddressCode}
@@ -320,7 +322,7 @@
 		      ,FILE_PATH = #{filePath}
 		      ,UPLOAD_DATE = SYSDATE
 		 WHERE
-		      REF_EMP_NO = #{refEmpNo};
+		      REF_EMP_NO = #{refEmpNo}
 	</update>
 	
 	<select id="selectProfile" parameterType="profile" resultType="profile">
