@@ -180,7 +180,7 @@ html, body {
     	    $('#eventModal').modal();
         },
     	
-        height: '230px',
+        height: '160px',
 
         eventDidMount: function(info) {
             var tooltip = new Tooltip(info.el, {
@@ -216,9 +216,7 @@ html, body {
     	      
     	    ],
     	    resources: [
-    	      { id: 'a', title: '회의실 A'},
-    	      { id: 'b', title: '회의실 B'},
-    	      { id: 'c', title: '회의실 C'}
+    	      { id: 'a', title: '회의실'}
     	    ]
     	  });
     	  calendar.render();
