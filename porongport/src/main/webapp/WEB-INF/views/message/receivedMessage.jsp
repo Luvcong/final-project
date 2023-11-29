@@ -6,7 +6,6 @@
 <head>
 <meta charset="UTF-8">
 <title>[포롱포트] 메시지함</title>
-    <!-- 메인화면 css-->
     <link rel="stylesheet" href="resources/css/message.css">
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
@@ -29,7 +28,6 @@
 		
 		<div class='toolbar'>
 			<div class="messageBtn">
-				<button class="btn btn-sm btn-primary" onclick="messageForm()">메시지 작성</button>
 				<button class="btn btn-sm btn-outline-primary" onclick="storageMessage()">보관</button>
 				<button class="btn btn-sm btn-outline-primary"  onclick="deleteMessage()">삭제</button>
 				<button id="readYN" class="btn btn-sm btn-outline-primary" onclick="readMessage()">읽음</button>
@@ -43,6 +41,7 @@
 							<select class="select btn btn-sm btn-outline-primary dropdown-toggle" name="condition">
 								<option value="userName">이름</option>
 								<option value="jobName">직급</option>
+								<option value="deptName">부서</option>
 								<option value="messageContent">내용</option>
 							</select>
 	        			</td>
@@ -87,6 +86,7 @@
 						<th></th>
 						<th>번호</th>
 						<th>발신자</th>
+						<th>부서</th>
 						<th>내용</th>
 						<th>받은 시간</th>
 						<th>읽음 여부</th>
@@ -101,7 +101,7 @@
 	           	</c:when>
 	           	<c:otherwise>
 	           		<c:forEach var="message" items="${ list }">
-	           			<tr >
+	           			<tr>
 		                    <td><input type="checkbox" onclick="checkOnce()" value=${ message.messageNo }></td>
 		                    <c:choose>
 		                    	<c:when test="${ message.bookmarkYN eq 'N' }">
@@ -113,6 +113,7 @@
 		                    </c:choose>
 		                    <td>${ message.messageRank }</td>
 							<td>${ message.empName } [${ message.jobName }]</td>
+							<td>${ message.deptName }</td>
 							<td class="td-content" onclick="detailMessage()">${ message.messageContent }</td>
 							<td>${ message.createDate }</td>
 							<c:choose>
@@ -131,7 +132,7 @@
 				</table>
 			</div>	<!-- tableBody  -->
 			
-			<!-- 메시지보내기  modal창 -->
+	 		<!-- 메시지보내기  modal창 -->
 			<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 			<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 		 	<div class="modal" id="messageForm">
@@ -149,12 +150,11 @@
 			                	<tr>
 			                		<th>To</th>
 			                		<td>
-										<select class="select-user select2-container form-control form-control-sm" name="receiveUser" multiple="multiple" style="width: 100%; font-size: 5pt;" >
+										<select class="select-user select2-container form-control form-control-sm" name="receiveUser" multiple="multiple" style="width: 100%;" >
 											<c:forEach var="userList" items="${ userList }">
 												<option value="${ userList.empNo }">${ userList.empName } [${ userList.jobName } / ${ userList.deptName }]</option>
 											</c:forEach>
 										</select>			                		
-			                		
 			                		</td>
 			                		
 			                		<!-- <td><input class="form-control form-control-sm" type="text" name="receiveUser" placeholder="받는 사람"/></td> -->
@@ -186,7 +186,7 @@
 			                </div>
 			                <!-- Modal footer -->
 			                <div class="modal-footer">
-			             		<button type="submit" class="btn btn-sm btn-primary">답변</button>
+			             		<button type="submit" class="btn btn-sm btn-primary">전송</button>
 			                    <button type="reset" class="btn btn-sm btn-secondary" data-dismiss="modal">취소</button>
 			                </div>
 			            </div>
@@ -246,6 +246,7 @@
 		</div>	<!-- pp-content-message  -->
 	</div>	<!-- pp-content  -->
 	
+	
 	<c:if test="${ not empty condition }">
 		<script>
 		$(() => {
@@ -265,7 +266,7 @@
 			console.log(trs);
 			
 			for(let tr of trs){
-				if(tr.children[6].children[0].classList.contains('fa-envelope-open')){
+				if(tr.children[7].children[0].classList.contains('fa-envelope-open')){
 					tr.style.color = 'darkgray';
 					tr.style.fontWeight = 'normal';
 				}
@@ -324,7 +325,7 @@
 					continue;
 				
 				let tr   = input.parentElement.parentElement;
-				let icon = tr.children[6].children[0];
+				let icon = tr.children[7].children[0];
 				// thead의 input도 같이 오기 때문에...
 				if(icon == null)
 					continue;
@@ -374,7 +375,7 @@
 		}	// readMessage
 		
 		
-		
+ 		
 		// ------------------------------------------------------------------
 		// 메시지 작성 modal창 실행
 		// ------------------------------------------------------------------
@@ -382,12 +383,13 @@
 			$('#messageForm').modal('show');
 		}	// messageForm
 		
-		
+		 
 		// ------------------------------------------------------------------
 		// 체크박스 선택 / 해제 기능
 		// ------------------------------------------------------------------
 		// 전체 체크박스
 		function checkAll(){
+			
 			
 			let table = document.getElementById('tb-received');
 			let inputs = table.querySelectorAll('tr input');
@@ -401,6 +403,7 @@
 		
 		// 체크박스
 		function checkOnce(){
+			
 			let table = document.getElementById('tb-received');
 			let hd_input = table.querySelector('th').querySelector('input');
 			let inputs = table.querySelector('tbody').querySelectorAll('tr input');
@@ -422,22 +425,6 @@
 		// 메시지 상세보기
 		// ------------------------------------------------------------------
  		function detailMessage(){
-			// console.log(event.currentTarget);
-			console.log('나야?')
-			
-			//let target = event.currentTarget;
-			//let target_msg = target.querySelector('.td-fa-envelope');
-			//let read_YN = target_msg.classList.contains('fa-envelope');	// 만약 편지가 닫혀있다면 true
-			
-/* 			if(read_YN){	// 편지가 닫혀있다면
-				read_YN.classList.remove('fa-envelope');	// 닫힌 편지 클래스 삭제하고,
-				read_YN.classList.add('fa-envelope-open');	// 열린 편지 클래스 추가
-			}
-			 */
-			
-			// console.log(target);
-			// console.log(target_msg);
-			// console.log(read_YN);
 			
 			let content = event.currentTarget; //target.children[4];
 			let input = content.parentElement.querySelector('td input');

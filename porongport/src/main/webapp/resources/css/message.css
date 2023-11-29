@@ -68,9 +68,12 @@
 	color: #DC3545;
 }
 #messageTextarea{
-	height: 300px;
 	overflow: scroll;
+	resize: none;
+	background-color: white;
+	height: 400px;
 }
+
 .writeCount{
 	float:right;
 	padding-right:25px;
@@ -113,11 +116,7 @@
     overflow: hidden;
     border: 0;
 }
-#messageTextarea{
-	resize: none;
-	background-color: white;
-	height: 400px;
-}
+
 #profile-message{
 	border-radius: 50%;
 	width: 50px;

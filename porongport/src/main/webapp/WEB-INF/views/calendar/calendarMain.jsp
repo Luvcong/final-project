@@ -105,7 +105,6 @@
             		
             		$("#endDate").attr("min", startDate);
              	    $("#endTime").attr("min", startTime);
-            		console.log(info);
             		
             		$('#insertEventModal').modal();
             		
