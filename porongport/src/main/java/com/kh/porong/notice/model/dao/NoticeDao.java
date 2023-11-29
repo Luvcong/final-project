@@ -86,9 +86,33 @@ public class NoticeDao {
 	 * @author JH
 	 * @Date : 2023. 11. 29
 	 */
-	public int checkLikeNotice(SqlSessionTemplate sqlSession, Map<String, Object> map) {
-		return sqlSession.selectOne("noticeMapper.checkLikeNotice", map);
+	public int checkNoticeLike(SqlSessionTemplate sqlSession, Map<String, Object> map) {
+		return sqlSession.selectOne("noticeMapper.checkNoticeLike", map);
 	}	// noticeLikeCheck
+	
+	/**
+	 * 공지사항 좋아요 취소(삭제)
+	 * @param sqlSession
+	 * @param map
+	 * @return
+	 * @author JH
+	 * @Date : 2023. 11. 30
+	 */
+	public int deleteNoticeLike(SqlSessionTemplate sqlSession, Map<String, Object> map) {
+		return sqlSession.delete("noticeMapper.deleteNoticeLike", map);
+	}	// deleteNoticeLike
+	
+	/**
+	 * 공지사항 좋아요 추가
+	 * @param sqlSession
+	 * @param map
+	 * @return
+	 * @author JH
+	 * @Date : 2023. 11. 30
+	 */
+	public int insertNoticeLike(SqlSessionTemplate sqlSession, Map<String, Object> map) {
+		return sqlSession.insert("noticeMapper.insertNoticeLike", map);
+	}	// insertNoticeLike
 
 	
 	

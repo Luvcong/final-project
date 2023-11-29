@@ -36,16 +36,16 @@
 				<c:if test="${ list.empNo eq loginUser.empNo }">
 					<button class="btn btn-sm btn-danger">삭제</button>
 				</c:if>
-			<div class="likeCount">
+			<div class="noticeLike">
 				<c:choose>
 					<c:when test="${ likeList eq 1 }">	<!-- notice_like 테이블에 empNo가 있는지? 있으면 채워진 하트 ; 클릭시 좋아요 delete -->
-						<i class="fa-solid fa-heart fa-2xl" style="color: #e71313;" onclick="likeChck()" data-no=${ list.noticeNo }></i>
+						<i class="fa-solid fa-heart fa-2xl" style="color: #e71313;" onclick="likeCheck()" data-no=${ list.noticeNo }></i>
 					</c:when>
 					<c:otherwise>	<!-- 없으면 빈 하트 : 클릭시 좋아요 insert -->
-						<i class="fa-regular fa-heart fa-2xl" style="color: #e71313;" onclick="likeChck()" data-no=${ list.noticeNo }></i>
+						<i class="fa-regular fa-heart fa-2xl" style="color: #e71313;" onclick="likeCheck()" data-no=${ list.noticeNo }></i>
 					</c:otherwise>
 				</c:choose>
-						${ list.noticeLikeCount }	<!-- 해당 게시글의 좋아요 전체 개수 -->
+						<span id="likeCount">${ list.noticeLikeCount }</span>	<!-- 해당 게시글의 좋아요 전체 개수 -->
 			</div>
       	</div>	<!-- toolbar  -->
       	
@@ -117,53 +117,44 @@
 			  location.href = document.referrer;
 	}	// historyBack
 	
-	function likeChck(){
+	function likeCheck(){
 		
 		let target = event.currentTarget;
 		let get_like = target.classList.contains('fa-solid');	// 해당 class가 포함되어 있으면 true (좋아요 한 경우)
-		let message_no = target.getAttribute('data-no');
+		let notice_no = target.getAttribute('data-no');
 		console.log(target);
-		console.log(message_no);
-		console.log(like_y);	
+		console.log(notice_no);
+		console.log(get_like);	
 		
-/* 		
+		let like_count = document.getElementById('likeCount');
+		let total = parseInt(like_count.textContent);
+		
 	 	$.ajax({
-			url : 'likeChck',
+			url : 'likeCheck',
 			type : 'get',
 			data : { 
-					message_no : message_no,
+					notice_no : notice_no,
 			 		get_like : get_like					// token이 true로 넘어오면 읽음 / false인 경우 안읽음
 			},
 			success : function(result){
-				if(!result) {
-					console.log('작업 실패');
-					return;
+				
+				if(result){
+					target.classList.remove('fa-regular');
+					target.classList.add('fa-solid');
+					total++;
+					like_count.textContent = total; 
+				} else {
+					target.classList.remove('fa-solid');
+					target.classList.add('fa-regular');
+					total--;
+					like_count.textContent = total;
 				}
 				
-				for (let icon of icon_list) {
-					if(!token) {
-						icon.classList.remove('fa-envelope-open');
-						icon.classList.add('fa-envelope');
-						
-						let tr = icon.parentElement.parentElement;
-						tr.style.color = '';
-						tr.style.fontWeight = '';		
-					} else {
-						icon.classList.add('fa-envelope-open');
-						icon.classList.remove('fa-envelope');
-						
-						let tr = icon.parentElement.parentElement;
-						tr.style.color = 'darkgray';
-						tr.style.fontWeight = 'normal';
-					}
-				}
-
-				read_yn_btn.textContent = token ? '안읽음' : '읽음';
 			},	// success
 			error : function(result){
 				console.log('통신오류! 실패');
 			},	// error
-		});	// ajax */
+		});	// ajax
 	}	// likeCount
 	
 	

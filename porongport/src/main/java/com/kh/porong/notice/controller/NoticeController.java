@@ -103,13 +103,12 @@ public class NoticeController extends FileControllerBase {
 			NoticeAttachment attach = new NoticeAttachment();	// 첨부파일 객체 생성
 			Path fullPath = Paths.get(saveFile(file, request.getSession(), "notice/"));	// 파일의 수정파일명 풀경로 구하기
 			
-			System.out.println("getParent : " + fullPath.getParent());
-			System.out.println("getFileName : " + fullPath.getFileName());
+			// System.out.println("getParent : " + fullPath.getParent());
+			// System.out.println("getFileName : " + fullPath.getFileName());
 			
 			attach.setOriginFileName(file.getOriginalFilename());		// 원본파일명 전달
 			attach.setChangeFileName(fullPath.getFileName().toString());	// 수정파일명 전달
 			attach.setFilePath(fullPath.getParent().toString());			// 파일경로 전달
-			attach.setNoticeNo(n.getNoticeNo());
 			
 			noticeService.insertAttachment(attach);							// 첨부파일 추가	
 				
@@ -140,7 +139,7 @@ public class NoticeController extends FileControllerBase {
 		map.put("noticeNo", nno);
 		
 		
-		if(noticeService.checkLikeNotice(map) > 0) {
+		if(noticeService.checkNoticeLike(map) > 0) {
 			System.out.println("좋아요했당");
 		} else {
 			System.out.println("좋아요 안했당");
@@ -163,9 +162,9 @@ public class NoticeController extends FileControllerBase {
 		System.out.println("attachList:" + attachList);
 		
 		model.addAttribute("list", list.get(0));
-		 model.addAttribute("attachList", attachList);
+		model.addAttribute("attachList", attachList);
 		//model.addAttribute("list", noticeService.detailNotice(map));
-		model.addAttribute("likeList", noticeService.checkLikeNotice(map));
+		model.addAttribute("likeList", noticeService.checkNoticeLike(map));
 		
 		return "notice/detailNotice";
 	}	// detailNotice

@@ -181,7 +181,7 @@
 	</select>
 	
 	<!-- 공지사항 좋아요 여부 체크 -->
-	<select id="checkLikeNotice" resultType="_int">
+	<select id="checkNoticeLike" resultType="_int">
    		SELECT
    				COUNT(*)
    		  FROM
@@ -191,6 +191,38 @@
    		   AND
    		   		EMP_NO = #{ empNo }	
 	</select>
-
+	
+	<!-- 공지사항 좋아요 취소(삭제) -->
+	<delete id="deleteNoticeLike" parameterType="hashmap">
+		DELETE
+				NOTICE_LIKE
+		 WHERE 
+		 		NOTICE_NO = #{ noticeNo }
+		   AND
+		   		EMP_NO = #{ empNo }
+	</delete>
+	
+	<!-- 공지사항 좋아요 추가 -->
+	<insert id="insertNoticeLike" parameterType="hashmap">
+		INSERT
+		  INTO
+				NOTICE_LIKE
+				(
+				NOTICE_LIKE_NO,
+				NOTICE_NO,
+				EMP_NO,
+				NOTICE_LIKE_DATE	<!-- 날짜컬럼 삭제해도 될 듯? -->
+				)
+				VALUES
+				(
+				SEQ_NOTICE_LIKE.NEXTVAL,
+				#{ noticeNo },
+				#{ empNo },
+				SYSDATE
+				)	
+	</insert>
+	
+	
+	
 </mapper>
 	

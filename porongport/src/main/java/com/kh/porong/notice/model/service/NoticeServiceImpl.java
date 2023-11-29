@@ -8,6 +8,7 @@ import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.kh.porong.common.model.vo.PageInfo;
 import com.kh.porong.notice.model.dao.NoticeDao;
@@ -16,6 +17,7 @@ import com.kh.porong.notice.model.vo.NoticeAttachment;
 import com.kh.porong.reply.vo.Reply;
 
 @Service
+@EnableTransactionManagement
 public class NoticeServiceImpl implements NoticeService {
 	
 	@Autowired
@@ -117,9 +119,22 @@ public class NoticeServiceImpl implements NoticeService {
 	
 	// 공지사항 게시글 좋아요 여부 체크
 	@Override
-	public int checkLikeNotice(Map<String, Object> map) {
-		return noticeDao.checkLikeNotice(sqlSession, map);
+	public int checkNoticeLike(Map<String, Object> map) {
+		return noticeDao.checkNoticeLike(sqlSession, map);
 	}	// noticeLikeCheck
+
+	
+	// 공지사항 게시글 좋아요 취소(삭제)
+	@Override
+	public int deleteNoticeLike(Map<String, Object> map) {
+		return noticeDao.deleteNoticeLike(sqlSession, map);
+	}	// deleteNoticeLike
+	
+	// 공지사항 게시글 좋아요 추가
+	@Override
+	public int insertNoticeLike(Map<String, Object> map) {
+		return noticeDao.insertNoticeLike(sqlSession, map);
+	}	// insertNoticeLike
 
 
 }	// end class
