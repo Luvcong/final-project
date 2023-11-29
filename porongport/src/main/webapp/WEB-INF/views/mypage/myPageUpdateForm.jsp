@@ -33,7 +33,7 @@
 		            			<div class="img_box">
 			            			<img src="resources/upProfiles/${ profile.changeFileName }" alt="입사자 사진">
 					                <label for="profile"></label>
-						                <input type="file" id="profile" name="upfile" />
+						                <input type="file" id="profile" name="reUpfile" />
 		            			</div>
 		            		</c:otherwise>
 		            	</c:choose>
