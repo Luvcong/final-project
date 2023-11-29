@@ -16,6 +16,9 @@
 		<result column="MEET_STATUS"  		property="meetStatus"/>
 		<result column="MEET_APPROVAL"  	property="meetApproval"/>
 		
+		<result column="DEPT_NAME"  	property="deptName"/>
+		<result column="EMP_NAME"  	property="empName"/>
+		<result column="JOB_NAME"  	property="jobName"/>
 	</resultMap>
 
 

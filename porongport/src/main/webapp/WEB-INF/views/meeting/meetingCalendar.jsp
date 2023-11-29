@@ -56,7 +56,6 @@ html, body {
 						start: mySchedule[i].schStart,
 						end: mySchedule[i].schEnd,
 						color : "#f1c232"
-						
 			        });
 				}
 				

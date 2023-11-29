@@ -56,6 +56,7 @@ public class MessageController extends FileControllerBase {
 		}
 		
 		model.addAttribute("list", m);
+		model.addAttribute("userList", messageService.selectAllEmployee());
 		
 		// System.out.println("messageDetailmessgeNo : " + mno);
 		return "message/detailMessage";
@@ -84,7 +85,7 @@ public class MessageController extends FileControllerBase {
 		
 		if(!upfile.getOriginalFilename().equals("")) {
 			m.setOriginFileName(upfile.getOriginalFilename());
-			m.setChangeFileName(saveFile(upfile, session, "message"));
+			m.setChangeFileName(saveFile(upfile, session, "message/"));
 		}
 		
 		if(messageService.insertMessage(m) > 0){
@@ -155,7 +156,7 @@ public class MessageController extends FileControllerBase {
 	 * 2) 받은 메시지 검색 및 개수 조회
 	 * @param currentPage : 현재 페이지
 	 * @param loginUser : 현재 로그인한 회원의 정보
-	 * @param condition : 검색분류 (이름/직급/내용)
+	 * @param condition : 검색분류 (이름/직급/부서/내용)
 	 * @param keyword : 사용자가 입력한 검색하고자 하는 키워드 값 (input value)
 	 * @param model
 	 * @return 사용자가 검색한 키워드와 일치하는 조건의 리스트 및 개수 반환
@@ -173,6 +174,8 @@ public class MessageController extends FileControllerBase {
 		map.put("condition", condition);
 		map.put("keyword", keyword);
 		map.put("empNo", loginUser.getEmpNo());
+		
+		System.out.println(map);
 		
 		PageInfo pi = Pagination.getPageInfo(messageService.searchReceivedCount(map), currentPage, 10, 10);
 		
@@ -220,7 +223,7 @@ public class MessageController extends FileControllerBase {
 	 * 2) 받은 메시지 보관함 검색 리스트 및 개수 조회
 	 * @param currentPage : 현재 페이지
 	 * @param loginUser : 현재 로그인한 회원의 정보
-	 * @param condition : 검색분류 (이름/직급/내용)
+	 * @param condition : 검색분류 (이름/직급/부서/내용)
 	 * @param keyword : 사용자가 입력한 검색하고자 하는 키워드 값 (input value)
 	 * @param model
 	 * @return 사용자가 검색한 키워드와 일치하는 조건의 리스트 및 개수 반환
@@ -289,7 +292,7 @@ public class MessageController extends FileControllerBase {
 	 * 2) 보낸 메시지 검색 조회 및 개수 반환
 	 * @param currentPage : 현재 페이지
 	 * @param loginUser : 현재 로그인한 회원의 정보
-	 * @param condition : 검색분류 (이름/직급/내용)
+	 * @param condition : 검색분류 (이름/직급/부서/내용)
 	 * @param keyword : 사용자가 입력한 검색하고자 하는 키워드 값 (input value)
 	 * @param model
 	 * @return 사용자가 검색한 키워드와 일치하는 조건의 리스트 및 개수 반환
@@ -354,7 +357,7 @@ public class MessageController extends FileControllerBase {
 		 * 2) 보낸 메시지 보관함 검색 리스트 및 개수 조회
 		 * @param currentPage : 현재 페이지
 		 * @param loginUser : 현재 로그인한 회원의 정보
-		 * @param condition : 검색분류 (이름/직급/내용)
+		 * @param condition : 검색분류 (이름/직급/부서/내용)
 		 * @param keyword : 사용자가 입력한 검색하고자 하는 키워드 값 (input value)
 		 * @param model
 		 * @return 사용자가 검색한 키워드와 일치하는 조건의 리스트 및 개수 반환
@@ -422,7 +425,7 @@ public class MessageController extends FileControllerBase {
 	 * 2) 휴지통 메시지 검색 리스트 및 개수 조회
 	 * @param currentPage : 현재 페이지
 	 * @param loginUser : 현재 로그인한 회원의 정보
-	 * @param condition : 검색분류 (이름/직급/내용)
+	 * @param condition : 검색분류 (이름/직급/부서/내용)
 	 * @param keyword : 사용자가 입력한 검색하고자 하는 키워드 값 (input value)
 	 * @param model
 	 * @return 사용자가 검색한 키워드와 일치하는 조건의 리스트 및 개수 반환
