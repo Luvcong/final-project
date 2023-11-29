@@ -78,30 +78,27 @@ html, body {
 			}
   	})
   	
-  	$.ajax({
-			url: 'meetingRoom',
-			data: { 
-				empNo: ${loginUser.empNo},
-				deptCode : '${loginUser.deptCode}'
-			},
-			success:data=>{
-			//console.log(data[0].meetTitle);
-			for(i=0;  i<data.length; i++){
-				calendar.addEvent({
-					title: data[i].meetTitle,
-					description: data[i].meetContent,
-					start: data[i].meetStartTime,
-					end: data[i].meetEndTime,
-					color : "#8ecae6",
-					regid: data[i].empName,
-					source: data[i].correctionDate
-		        });
-			}
-			},
-			error:()=>{
-				console.log('실패');
-			}
-		})
+		  $.ajax({
+				url: 'meetingRoom',
+				success:data=>{
+					
+				//console.log(data[0].meetTitle);
+				for(i=0;  i<data.length; i++){
+					calendar.addEvent({
+						title: data[i].meetTitle,
+						description: data[i].meetContent,
+						start: data[i].meetStart,
+						end: data[i].meetEnd,
+						color : "#8ecae6",
+						regid: data[i].empName,
+						source: data[i].correctionDate
+			        });
+				}
+				},
+				error:()=>{
+					console.log('실패');
+				}
+    		})
 		
 	  
 	  var calendar = new FullCalendar.Calendar(calendarEl, {
@@ -117,8 +114,8 @@ html, body {
      		var result2 = result.substr(0, 8);
      		var result3 = meetEndTime.substr(11, 18);
      		var result4 = result3.substr(0, 8);
-     		
-     		
+     		console.log(result2);
+     		console.log(result4);
      		var meetStartDay = info.startStr;
      		var meetEndDay = info.endStr;
      		
@@ -300,7 +297,7 @@ html, body {
 					</div>
 					<!-- modal-body -->
 					</form>
-
+					
 				
 			</div>
 			<!-- insert 모달 -->
@@ -311,6 +308,15 @@ html, body {
    				var today = new Date(now_utc-timeOff).toISOString().split("T")[0];
    				document.getElementById("meetStartDay").setAttribute("min", today);
    				document.getElementById("meetEndDay").setAttribute("min", today);
+   				-- 일별 시간 체크하는부분 색 주는거?
+   				<script>
+					$('#calendar').fullCalendar({
+						   dayClick: function (date, jsEvent, view) {
+						        $(".fc-state-highlight").removeClass("fc-state-highlight");
+						        $(jsEvent.target).addClass("fc-state-highlight");
+						   }
+						});
+					</script>
 			</script>-->
 			
 		</div>
