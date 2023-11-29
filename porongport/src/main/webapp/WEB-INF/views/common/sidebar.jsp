@@ -48,7 +48,14 @@
             <!-- 프로필이미지 & 직급명 & 로그아웃 영역 -->
             <div class="setting">       
                 <div class="profile" onclick="myPage();">
-                	<img src="resources\images\profile.png" alt="포롱포트 로고 이미지" />
+                	<c:choose>
+                		<c:when test="${ empty profile.fileNo }">
+                			<img src="resources/images/profile.png" alt="포롱포트 로고 이미지" />	
+                		</c:when>
+                		<c:otherwise>
+		                	<img src="resources/upProfiles/${ profile.changeFileName }" alt="입사자 사진" />
+                		</c:otherwise>
+                	</c:choose>
                     <span>${ sessionScope.loginUser.empName }</span>
                 </div>
                 <div class="icon" onclick="logout();"><i class="fa-solid fa-right-from-bracket"></i></div>

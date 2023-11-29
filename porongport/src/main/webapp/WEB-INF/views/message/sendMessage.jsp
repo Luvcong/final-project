@@ -31,7 +31,7 @@
 			<div class="messageBtn">
 				<button class="btn btn-sm btn-outline-primary" onclick="storageMessage()">보관</button>
 				<button class="btn btn-sm btn-outline-primary"  onclick="deleteMessage()">삭제</button>
-				<button class="btn btn-sm btn-outline-primary">읽음설정</button>
+				<button id="readYN" class="btn btn-sm btn-outline-primary" onclick="readMessage()">읽음</button>
 			</div>
 			
 	        <div class="searchTable">
@@ -42,6 +42,7 @@
 							<select class="select btn btn-sm btn-outline-primary dropdown-toggle" name="condition">
 								<option value="userName">이름</option>
 								<option value="jobName">직급</option>
+								<option value="deptName">부서</option>
 								<option value="messageContent">내용</option>
 							</select>
 	        			</td>
@@ -86,6 +87,7 @@
 						<th></th>
 						<th>번호</th>
 						<th>수신자</th>
+						<th>부서</th>
 						<th>내용</th>
 						<th>받은 시간</th>
 						<th>읽음 여부</th>
@@ -112,7 +114,8 @@
 		                    </c:choose>
 		                    <td>${ message.messageRank }</td>
 							<td>${ message.empName } [${ message.jobName }]</td>
-							<td>${ message.messageContent }</td>
+							<td>${ message.deptName }</td>
+							<td class="td-content" onclick="detailMessage()">${ message.messageContent }</td>
 							<td>${ message.createDate }</td>
 							<c:choose>
 								<c:when test="${ message.readYN eq 'N' }">
@@ -186,6 +189,114 @@
 	
 	<script>
 		// ------------------------------------------------------------------
+		// 메시지 읽은 경우 tr 색상 변경
+		// ------------------------------------------------------------------
+		$(function(){
+			let table = document.getElementById('tb-send');
+			let trs = table.querySelectorAll('tbody tr');
+			console.log(trs);
+			
+			for(let tr of trs){
+				if(tr.children[6].children[0].classList.contains('fa-envelope-open')){
+					tr.style.color = 'darkgray';
+					tr.style.fontWeight = 'normal';
+				}
+			}
+		})
+		
+		// ------------------------------------------------------------------
+		// 메시지 읽음설정 버튼 클릭
+		// ------------------------------------------------------------------
+		function toggleReadBtn(inputs) {
+			// 읽음 / 안읽음 상태 변경
+			let read_yn_btn = document.getElementById('readYN');
+			
+			// 하나라도 안읽은게 있으면 true
+			// 그렇지 않으면 false
+			let token = true;
+			for(let input of inputs){
+				if(input.checked == false)
+					continue;
+				
+				let tr   = input.parentElement.parentElement;
+				let icon = tr.children[6].children[0];
+				// thead의 input도 같이 오기 때문에...
+				if(icon == null)
+					continue;
+				
+				token = icon.classList.contains('fa-envelope');
+				if(token)
+					break;
+			}
+			
+			read_yn_btn.innerHTML = token ? '읽음' : '안읽음';		// 클래스명에 fa-envelope가 포함되어 있는게 1개라도 있으면
+		}
+		
+		function readMessage(){
+			let table = document.getElementById('tb-send');
+			let inputs = table.querySelectorAll('tr input');
+			
+			let message_no_list = [];
+			let icon_list = [];
+			
+			let read_yn_btn = document.getElementById('readYN');
+			let token = read_yn_btn.textContent == '읽음';
+			
+			for(let input of inputs) {
+				if(input.checked == false)
+					continue;
+				
+				let tr   = input.parentElement.parentElement;
+				let icon = tr.children[6].children[0];
+				// thead의 input도 같이 오기 때문에...
+				if(icon == null)
+					continue;
+				
+				icon_list.push(icon);
+				message_no_list.push(parseInt(input.value));
+				
+			}
+			
+			$.ajax({
+ 				url : 'readMessage',
+				type : 'get',
+				data : { 
+							messageNoList : message_no_list,
+					 		readYN : token					// token이 true로 넘어오면 읽음 / false인 경우 안읽음
+						},
+				success : function(result){
+					if(!result) {
+						console.log('작업 실패');
+						return;
+					}
+					
+					for (let icon of icon_list) {
+						if(!token) {
+							icon.classList.remove('fa-envelope-open');
+							icon.classList.add('fa-envelope');
+							
+							let tr = icon.parentElement.parentElement;
+							tr.style.color = '';
+							tr.style.fontWeight = '';		
+						} else {
+							icon.classList.add('fa-envelope-open');
+							icon.classList.remove('fa-envelope');
+							
+							let tr = icon.parentElement.parentElement;
+							tr.style.color = 'darkgray';
+							tr.style.fontWeight = 'normal';
+						}
+					}
+
+					read_yn_btn.textContent = token ? '안읽음' : '읽음';
+				},	// success
+				error : function(result){
+					console.log('통신오류! 실패');
+				},	// error
+			});	// ajax
+		}	// readMessage
+	
+		// ------------------------------------------------------------------
 		// 체크박스 선택 / 해제 기능
 		// ------------------------------------------------------------------
 		// 전체 체크박스
@@ -214,7 +325,23 @@
 			}
 			hd_input.checked = is_all_checked;
 		}	// checkOnce
+		
+		// ------------------------------------------------------------------
+		// 메시지 상세보기
+		// ------------------------------------------------------------------
+ 		function detailMessage(){
 			
+			let content = event.currentTarget; //target.children[4];
+			let input = content.parentElement.querySelector('td input');
+			let message_no = input.value;
+			console.log(input);
+			console.log(input.value);
+			
+			//content.addEventListener('click', function(){
+			location.href = 'detailMessage?mno=' + message_no;
+			//})
+			
+		}	// detailMessage
 		
 		// ------------------------------------------------------------------
 		// 메시지 삭제 ajax

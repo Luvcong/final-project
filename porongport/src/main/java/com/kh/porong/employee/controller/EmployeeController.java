@@ -6,8 +6,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-import javax.activation.DataSource;
-import javax.activation.FileDataSource;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
@@ -31,17 +29,15 @@ import com.kh.porong.employee.model.vo.Attachment;
 import com.kh.porong.employee.model.vo.Attendance;
 import com.kh.porong.employee.model.vo.Employee;
 
+import lombok.RequiredArgsConstructor;
+
 @Controller
+@RequiredArgsConstructor
 public class EmployeeController {
 	
-	@Autowired
-	private EmployeeServiceImpl empService;
-	
-	@Autowired
-	private BCryptPasswordEncoder bcrypt;
-	
-	@Autowired
-	private JavaMailSender sender;
+	private final EmployeeServiceImpl empService;
+	private final BCryptPasswordEncoder bcrypt;
+	private final JavaMailSender sender;
 	
 	// 입사자 등록
 	@PostMapping("insert.em")
@@ -58,23 +54,7 @@ public class EmployeeController {
 		if(toUpperJob.equals("SM") || toUpperJob.equals("MG") || toUpperJob.equals("SA") || toUpperJob.equals("JA") ) {
 			
 			if(empService.insertEmp(emp) > 0) {
-				
-				/*
-				session.setAttribute("insertEmp", emp);
-				MimeMessage msg = sender.createMimeMessage();
-				MimeMessageHelper helper = new MimeMessageHelper(msg, true, "UTF-8");
-				
-				// 입사자 등록 성공하면 관리자한테 메일 보내기
-				helper.setTo(emp.getEmpEmail());
-				
-				helper.setSubject("입사자 등록 완료건");
-				
-				DataSource source = new FileDataSource("/resources/mail.jsp");
-				helper.addAttachment(source.getName(), source);
-				
-				sender.send(msg);
-				*/
-				
+
 				MimeMessage msg = sender.createMimeMessage();
 				MimeMessageHelper helper = new MimeMessageHelper(msg, false, "UTF-8");
 				helper.setTo(emp.getEmpEmail());
@@ -103,7 +83,7 @@ public class EmployeeController {
 	public ModelAndView loginEmp(Employee emp, ModelAndView mv, HttpSession session) {
 		Employee loginEmp = empService.loginEmp(emp);
 		
-		if(loginEmp != null && (bcrypt.matches(emp.getEmpPwd(), loginEmp.getEmpPwd()) || loginEmp.getEmpNo() == 0)) {
+		if(loginEmp != null && (bcrypt.matches(emp.getEmpPwd(), loginEmp.getEmpPwd()) || loginEmp.getDeptCode().equals("WEB"))) {
 			// 로그인한 유저 정보 세션에 담기
 			session.setAttribute("loginUser", loginEmp);
 
@@ -152,46 +132,89 @@ public class EmployeeController {
 		return mv;
 	}
 	
+	/**
+	 * @param upfile : 처음으로 프로필 사진 변경시(insert)
+	 * @param reUpfile : 프로필 사진 재업로드 변경(update)
+	 */
 	// 유저 정보 변경
 	@PostMapping("update.em")
-	public ModelAndView updateEmp(Employee emp, ModelAndView mv, 
-								  HttpSession session, MultipartFile upfile,
-								  Attachment att) {
+	public ModelAndView updateEmp(Employee emp, ModelAndView mv, Attachment profile,
+								  HttpSession session, MultipartFile upfile, MultipartFile reUpfile) {
+		// 프로필 업로드(insert)
+		if(upfile != null) {
+			if(!upfile.getOriginalFilename().equals("")) {
 
-		String encPwd = bcrypt.encode(emp.getEmpPwd());
-		emp.setEmpPwd(encPwd);
-		
-		if(!upfile.getOriginalFilename().equals("")) {
-			String originName = upfile.getOriginalFilename();
-			String cTime = new SimpleDateFormat("yyyyMMdd").format(new Date());
-			int ranNum = (int)(Math.random() * 90000) + 10000;
-			
-			String ext = originName.substring(originName.lastIndexOf("."));
-			String changeName = cTime + ranNum + ext;
-			String savePath = session.getServletContext().getRealPath("/resources/upProfiles/");
-			try {
-				upfile.transferTo(new File(savePath + changeName));
-			} catch (IllegalStateException | IOException e) {
-				e.printStackTrace();
+				profile.setOriginFileName(upfile.getOriginalFilename());
+				profile.setChangeFileName(saveFile(upfile, session));
+				profile.setFilePath(session.getServletContext().getRealPath("/resources/upProfiles/"));
+				profile.setRefEmpNo(emp.getEmpNo());
+				
+				if(empService.insertProfile(profile) > 0){
+					session.setAttribute("profile", empService.selectProfile(profile.getRefEmpNo()));
+					if(emp != null) {
+						updateEmp(emp, mv, session);
+					} 
+				}
 			}
-			
-			att.setOriginFileName(originName);
-			att.setChangeFileName(changeName);
-			att.setFilePath(savePath);
-			att.setRefEmpNo(emp.getEmpNo());
-			
-			empService.insertProfile(att);
+		// 프로필 재업(update)
+		} else if(reUpfile != null){
+			 if(!reUpfile.getOriginalFilename().equals("")) { 
+				 
+				 new File(session.getServletContext().getRealPath(profile.getChangeFileName())).delete();
+				
+				profile.setOriginFileName(reUpfile.getOriginalFilename());
+				profile.setChangeFileName(saveFile(reUpfile, session));
+				profile.setRefEmpNo(emp.getEmpNo());
+				
+				if(empService.updateProfile(profile) > 0) {
+					session.setAttribute("profile", empService.selectProfile(profile.getRefEmpNo()));
+					if(emp != null) {
+						updateEmp(emp, mv, session);
+					}
+				}
+			}
+		} else {
+			updateEmp(emp, mv, session);
+		}
+		return updateEmp(emp, mv, session);
+
+	}
+	
+	
+	// 사용자 정보 수정 메서드
+	public ModelAndView updateEmp(Employee emp, ModelAndView mv, HttpSession session) {
+		// 비밀번호 변경시 암호화
+		if(!emp.getEmpPwd().equals("")) {
+			String encPwd = bcrypt.encode(emp.getEmpPwd());
+			emp.setEmpPwd(encPwd);
 		}
 		
 		if(empService.updateEmp(emp) > 0) {
-			session.setAttribute("profile", empService.selectProfile(att.getRefEmpNo()));
 			session.setAttribute("loginUser", empService.loginEmp(emp));
 			mv.addObject("successText", "내정보가 변경되었습니다.").setViewName("mypage/myPageUpdateForm");
 		} else {
-			mv.addObject("errorText", "내정보 변경을 실패했습니다.").setViewName("redirect:myPageUp");
+			mv.addObject("errorText", "내정보 변경을 실패했습니다.").setViewName("mypage/myPageUpdateForm");
+		}
+		return mv;
+	}
+	
+	// 프로필 변경 시, 파일변경 메서드
+	public String saveFile(MultipartFile upfile, HttpSession session) { 
+		String originName = upfile.getOriginalFilename();
+		String cTime = new SimpleDateFormat("yyyyMMdd").format(new Date());
+		int ranNum = (int)(Math.random() * 90000) + 10000;
+		String ext = originName.substring(originName.lastIndexOf("."));
+		String changeName = cTime + ranNum + ext;
+		String savePath = session.getServletContext().getRealPath("/resources/upProfiles/");
+		try {
+			upfile.transferTo(new File(savePath + changeName));
+		} catch (IllegalStateException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 		
-		return mv;
+		return changeName;
 	}
 	
 	// 부서추가
@@ -232,6 +255,8 @@ public class EmployeeController {
 			
 			mv.addObject("alertMsg", "메일함을 확인해주세요.").setViewName("main");
 			
+		} else {
+			mv.addObject("alertMsg", "이름과 아이디를 다시 확인해주세요.").setViewName("main");
 		}
 		return mv;
 		

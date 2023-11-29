@@ -60,8 +60,8 @@ public class EmployeeDao {
 		return sqlSession.selectOne("empMapper.dcCheck", checkDc);
 	}
 
-	public int insertProfile(SqlSessionTemplate sqlSession, Attachment att) {
-		return sqlSession.insert("empMapper.insertProfile", att);
+	public int insertProfile(SqlSessionTemplate sqlSession, Attachment profile) {
+		return sqlSession.insert("empMapper.insertProfile", profile);
 	}
 
 	public Attachment selectProfile(SqlSessionTemplate sqlSession, int refEmpNo) {
@@ -70,6 +70,10 @@ public class EmployeeDao {
 
 	public int findPwd(SqlSessionTemplate sqlSession, Employee emp) {
 		return sqlSession.update("empMapper.findPwd", emp);
+	}
+
+	public int updateProfile(SqlSessionTemplate sqlSession, Attachment profile) {
+		return sqlSession.update("empMapper.updateProfile", profile);
 	}
 
 }

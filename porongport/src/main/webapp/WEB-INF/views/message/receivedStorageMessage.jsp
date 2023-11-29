@@ -42,6 +42,7 @@
 							<select class="select btn btn-sm btn-outline-primary dropdown-toggle" name="condition">
 								<option value="userName">이름</option>
 								<option value="jobName">직급</option>
+								<option value="deptName">부서</option>
 								<option value="messageContent">내용</option>
 							</select>
 	        			</td>
@@ -86,6 +87,7 @@
 						<th></th>
 						<th>번호</th>
 						<th>발신자</th>
+						<th>부서</th>
 						<th>내용</th>
 						<th>받은 시간</th>
 						<th>읽음 여부</th>
@@ -112,6 +114,7 @@
 		                    </c:choose>
 		                    <td>${ message.messageRank }</td>
 							<td>${ message.empName } [${ message.jobName }]</td>
+							<td>${ message.deptName }</td>
 							<td>${ message.messageContent }</td>
 							<td>${ message.createDate }</td>
 							<c:choose>
