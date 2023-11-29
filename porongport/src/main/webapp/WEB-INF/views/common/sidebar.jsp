@@ -122,7 +122,7 @@
 				<div class="sub-menu d-none" data-group='main'>						<!-- 여기 아이콘 영역의 data-group 매핑값과  -->
 				   <div class="sub-item sub-title" data-url='main'>HOME</div> <!-- 여기 서브타이틀의 data-url의 매핑값이 동일해야함 -->
 			       <div class="sub-item" data-url='https://kh-academy.co.kr/main/main.kh?null'>KH정보교육원</div>			
-				   <div class="sub-item" data-url='weather'>날씨</div>
+				   <div class="sub-item" data-url='weatherForm'>날씨</div>
 				   <div class="sub-item" data-url='main3'>메인메뉴3</div>
 				</div>
 						<c:choose>

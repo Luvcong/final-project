@@ -15,6 +15,11 @@ public class WeatherController {
 
 	public static final String SERVICEKEY = "e7bb6f29056cea75514ebd200f58625b";
 	
+	@RequestMapping("weatherForm")
+	public String weatherForm() {
+		return "weather/weather";
+	}
+	
 	@ResponseBody
 	@RequestMapping(value="weather", produces="application/json; charset=UTF-8")
 	public String weather() throws IOException {
@@ -23,7 +28,6 @@ public class WeatherController {
 		url += "&lon=126.9778";//서울 위도
 		url += "&lang=kr";
 		url += "&units=metric";//섭씨온도로 바꿈
-		url += "&mode=json";
 		url += "&appid="+SERVICEKEY;
 		
 		URL requestUrl = new URL(url);
