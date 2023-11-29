@@ -129,6 +129,10 @@
 	  	   		AND
 	  	   			J.JOB_NAME
 	  	 	</when>
+	  	 	<when test="condition == 'deptName'">
+				AND
+					D.DEPT_NAME
+	  	 	</when>
 	  	 	<otherwise>
 	  	   		AND
 	  	 			M.MESSAGE_CONTENT
@@ -158,6 +162,10 @@
 	  	 	<when test="condition == 'jobName'">
 		  	   AND
 		  	   		J.JOB_NAME
+	  	 	</when>
+	  	 	<when test="condition == 'deptName'">
+				AND
+					D.DEPT_NAME
 	  	 	</when>
 	  	 	<otherwise>
 		  	   AND
@@ -215,6 +223,10 @@
 	  	   		AND
 	  	   			J.JOB_NAME
 	  	 	</when>
+	  	 	<when test="condition == 'deptName'">
+				AND
+					D.DEPT_NAME
+	  	 	</when>
 	  	 	<otherwise>
 	  	   		AND
 	  	 			M.MESSAGE_CONTENT
@@ -244,6 +256,10 @@
 	  	 	<when test="condition == 'jobName'">
 		  	   AND
 		  	   		J.JOB_NAME
+	  	 	</when>
+	  	 	<when test="condition == 'deptName'">
+				AND
+					D.DEPT_NAME
 	  	 	</when>
 	  	 	<otherwise>
 		  	   AND
@@ -290,6 +306,10 @@
 		  	   AND
 		  	   		J.JOB_NAME
 	  	 	</when>
+	  	 	<when test="condition == 'deptName'">
+				AND
+					D.DEPT_NAME
+	  	 	</when>
 	  	 	<otherwise>
 		  	   AND
 		  	 		M.MESSAGE_CONTENT
@@ -331,6 +351,10 @@
 	  	 	<when test="condition == 'jobName'">
 		  	   AND
 		  	   		J.JOB_NAME
+	  	 	</when>
+	  	 	<when test="condition == 'deptName'">
+				AND
+					D.DEPT_NAME
 	  	 	</when>
 	  	 	<otherwise>
 		  	   AND
@@ -387,6 +411,10 @@
 	  	   		AND
 	  	   			J.JOB_NAME
 	  	 	</when>
+	  	 	<when test="condition == 'deptName'">
+				AND
+					D.DEPT_NAME
+	  	 	</when>
 	  	 	<otherwise>
 	  	   		AND
 	  	 			M.MESSAGE_CONTENT
@@ -416,6 +444,10 @@
 	  	 	<when test="condition == 'jobName'">
 		  	   AND
 		  	   		J.JOB_NAME
+	  	 	</when>
+	  	 	<when test="condition == 'deptName'">
+				AND
+					D.DEPT_NAME
 	  	 	</when>
 	  	 	<otherwise>
 		  	   AND
@@ -503,6 +535,10 @@
 		  	   AND
 		  	   		J.JOB_NAME
 	  	 	</when>
+	  	 	<when test="condition == 'deptName'">
+				AND
+					D.DEPT_NAME
+	  	 	</when>
 	  	 	<otherwise>
 		  	   AND
 		  	 		M.MESSAGE_CONTENT
@@ -529,6 +565,10 @@
 	  	 	<when test="condition == 'jobName'">
 		  	   AND
 		  	   		J.JOB_NAME
+	  	 	</when>
+	  	 	<when test="condition == 'deptName'">
+				AND
+					D.DEPT_NAME
 	  	 	</when>
 	  	 	<otherwise>
 		  	   AND
