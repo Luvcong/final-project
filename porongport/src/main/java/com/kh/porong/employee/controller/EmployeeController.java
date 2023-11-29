@@ -159,10 +159,11 @@ public class EmployeeController {
 		// 프로필 재업(update)
 		} else if(reUpfile != null){
 			 if(!reUpfile.getOriginalFilename().equals("")) { 
+				 
+				 new File(session.getServletContext().getRealPath(profile.getChangeFileName())).delete();
 				
 				profile.setOriginFileName(reUpfile.getOriginalFilename());
 				profile.setChangeFileName(saveFile(reUpfile, session));
-				profile.setFilePath(session.getServletContext().getRealPath("/resources/upProfiles/"));
 				profile.setRefEmpNo(emp.getEmpNo());
 				
 				if(empService.updateProfile(profile) > 0) {
@@ -176,6 +177,7 @@ public class EmployeeController {
 			updateEmp(emp, mv, session);
 		}
 		return updateEmp(emp, mv, session);
+
 	}
 	
 	

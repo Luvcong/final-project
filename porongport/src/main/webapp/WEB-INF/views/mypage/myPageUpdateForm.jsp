@@ -26,15 +26,15 @@
 				                <div class="img_box">
 					                <img src="resources/images/profile.png" alt="기본 프로필 사진" id="preview">
 					                <label for="profile"></label>
-				                	<input type="file" id="profile" name="upfile" />
+				                	<input type="file" id="profile" name="upfile" accept="image/*" />
 				                </div>
 		            		</c:when>
 		            		<c:otherwise>
 		            			<div class="img_box">
 			            			<img src="resources/upProfiles/${ profile.changeFileName }" alt="입사자 사진" id="preview">
 					                <label for="profile"></label>
-
-					                <input type="file" id="profile" name="reUpfile" />
+					                <input type="file" id="profile" name="reUpfile" accept="image/*" />
+					                <input type="hidden" name="changeFileName" value="${ profile.changeFileName }" />
 		            			</div>
 		            		</c:otherwise>
 		            	</c:choose>
