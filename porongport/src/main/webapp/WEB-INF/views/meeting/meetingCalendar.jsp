@@ -113,14 +113,7 @@ html, body {
     		
     		var meetStartTime = info.dateStr;
     		var meetEndTime = info.dateStr;
-    		var meetStartDay = info.dateStr;
-    		var meetEndDay = info.dateStr;
     		
-    		var startday = meetStartDay.substr(0,10);
-    		var endday = meetEndDay.substr(0,10);
-    		
-    		$('#meetStartDay').val(startday);
-    		$('#meetEndDay').val(endday);
     		$('#insertMeetModal').modal();
 
     	},
@@ -129,11 +122,21 @@ html, body {
  	    	var meetStartTime = info.startStr;
      		var meetEndTime = info.endStr;
      		
+     		var meetStartDay = info.startdayStr;
+    		var meetEndDay = info.enddayStr;
+    		
+    		
+    		var startday = meetStartDay.substr(0,10);
+    		var endday = meetEndDay.substr(0,10);
+    		
      		var result = meetStartTime.substr(11, 18);
      		var result2 = result.substr(0, 8);
      		var result3 = meetEndTime.substr(11, 18);
      		var result4 = result3.substr(0, 8);
      		
+     		$('#meetStartDay').val(startday);
+    		$('#meetEndDay').val(endday);
+    		
      		$('#meetStartTime').val(result2);
      		$('#meetEndTime').val(result4);
      		
