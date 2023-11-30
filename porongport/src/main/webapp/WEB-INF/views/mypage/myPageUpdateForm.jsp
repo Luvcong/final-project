@@ -149,23 +149,16 @@
 					});
 	        		
 	        		// 프로필 프리뷰
-					$("#profile").change(e => {
+					$("#profile").on('change', e => {
 						const file = e.target.files;
 						
-						console.log(file);
+						let reader = new FileReader();
+				        reader.readAsDataURL(file[0]);
 
-						/*
-						var img = new Image();
-						console.log(img);
-						var ImageTempUrl = window.URL.createObjectURL(file[0]);
-						console.log(ImageTempUrl);
-						img.src = ImageTempUrl;
-						*/
-						addListeners(reader, fileTag);
-				        reader.readAsDataURL(selectedFile);
-				
+				        reader.onload = () => {
+				        	$("#preview").attr('src', reader.result);
+				        };
 
-						$("#preview").attr('src', img);
 					});
 	        	});
 	        
