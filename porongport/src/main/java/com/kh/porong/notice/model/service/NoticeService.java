@@ -1,6 +1,7 @@
 package com.kh.porong.notice.model.service;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import com.kh.porong.common.model.vo.PageInfo;
@@ -32,13 +33,23 @@ public interface NoticeService {
 	int deleteNotice(int noticeNo);
 	
 	// 공지사항 게시글 상세보기
-	ArrayList<Notice> detailNotice(Map<String, Object> map);
+	List<Notice> detailNotice(Map<String, Object> map);
 	
 	// 공지사항 게시글 조회 수 증가
 	int increaseCount(int noticeNo);
 	
+	// 공지사항 게시글 좋아요 여부 체크
+	int checkNoticeLike(Map<String, Object> map);
+	
 	// 공지사항 게시글 좋아요 수 증가
 	int likeCount(int noticeNo);
+	
+	// 공지사항 게시글 좋아요 취소
+	int deleteNoticeLike(Map<String, Object> map);
+	
+	// 공지사항 게시글 좋아요 추가
+	int insertNoticeLike(Map<String, Object> map);
+	
 	
 	// 공지사항 게시글 수정
 	int updateNotice(int noticeNo);

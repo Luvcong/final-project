@@ -339,7 +339,7 @@
                            <!-- 구분선 -->
                            <hr class="m-0">
                                <div class="card-body">
-                                   <form id="approvalForm" method="post" enctype="multipart/form-data" action=""insertDocument"">
+                                   <form id="approvalForm" method="post" enctype="multipart/form-data" action="insertGeneralDocument">
                                       <!-- 문서 상단 -->
                                       <div class="row" style="margin-bottom: 5px;">
                                          <!-- 기안자 정보 -->

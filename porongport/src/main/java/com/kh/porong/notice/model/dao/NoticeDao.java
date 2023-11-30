@@ -1,6 +1,7 @@
 package com.kh.porong.notice.model.dao;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
@@ -72,9 +73,46 @@ public class NoticeDao {
 	 * @author JH
 	 * @Date : 2023. 11. 27
 	 */
-	public ArrayList<Notice> detailNotice(SqlSessionTemplate sqlSession, Map<String, Object> map) {
-		return sqlSession.selectOne("noticeMapper.detailNotice", map);
+	public List<Notice> detailNotice(SqlSessionTemplate sqlSession, Map<String, Object> map) {
+		return sqlSession.selectList("noticeMapper.detailNotice", map);
 	}	// detailNotice
+	
+	
+	/**
+	 * 공지사항 좋아요 여부 체크
+	 * @param sqlSession
+	 * @param map
+	 * @return 로그인한 사용자가 해당 게시글 번호에 좋아요를 했는지에 대한 체크 여부 (1: 좋아요O / 0: 좋아요X)
+	 * @author JH
+	 * @Date : 2023. 11. 29
+	 */
+	public int checkNoticeLike(SqlSessionTemplate sqlSession, Map<String, Object> map) {
+		return sqlSession.selectOne("noticeMapper.checkNoticeLike", map);
+	}	// noticeLikeCheck
+	
+	/**
+	 * 공지사항 좋아요 취소(삭제)
+	 * @param sqlSession
+	 * @param map
+	 * @return
+	 * @author JH
+	 * @Date : 2023. 11. 30
+	 */
+	public int deleteNoticeLike(SqlSessionTemplate sqlSession, Map<String, Object> map) {
+		return sqlSession.delete("noticeMapper.deleteNoticeLike", map);
+	}	// deleteNoticeLike
+	
+	/**
+	 * 공지사항 좋아요 추가
+	 * @param sqlSession
+	 * @param map
+	 * @return
+	 * @author JH
+	 * @Date : 2023. 11. 30
+	 */
+	public int insertNoticeLike(SqlSessionTemplate sqlSession, Map<String, Object> map) {
+		return sqlSession.insert("noticeMapper.insertNoticeLike", map);
+	}	// insertNoticeLike
 
 	
 	

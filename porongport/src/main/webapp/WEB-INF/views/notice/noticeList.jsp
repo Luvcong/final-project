@@ -29,7 +29,7 @@
 		<div class='toolbar'>
 			<div class="noticeBtn">
 				<c:if test="${ loginUser.empAdmin eq 'A' }">
-					<button class="btn btn-sm btn-primary" onclick="noticeWrite()">공지사항 작성</button>
+					<button class="btn btn-sm btn-primary" onclick="noticeWriteForm()">공지사항 작성</button>
 				</c:if>
 			</div>
 			
@@ -41,6 +41,7 @@
 							<select class="select btn btn-sm btn-outline-primary dropdown-toggle" name="condition">
 								<option value="userName">이름</option>
 								<option value="jobName">직급</option>
+								<option value="deptName">부서</option>
 								<option value="messageContent">내용</option>
 							</select>
 	        			</td>
@@ -81,11 +82,11 @@
 				<table id='tb-notice' class="table table-sm table-hover shadow rounded-3">
 				<thead>
 					<tr class="tb-title-tr">
-						<th><input type="checkbox" onclick="checkAll()"></th>
+						<th><input class="checkbox" type="checkbox" onclick="checkAll()"></th>
 						<th>No</th>
-						<th>제목</th>
 						<th>작성자</th>
 						<th>부서</th>
+						<th>제목</th>
 						<th>작성일자</th>
 						<th>첨부파일</th>
 						<th>댓글</th>
@@ -102,22 +103,22 @@
 	           	<c:otherwise>
 	           		<c:forEach var="notice" items="${ list }">
 	           			<tr onclick="detailNotice()">
-		                    <td><input type="checkbox" onclick="checkOnce()" value=${ notice.noticeNo }></td>
+		                    <td><input class="checkbox" type="checkbox" onclick="checkOnce()" value=${ notice.noticeNo }></td>
 		                    <c:choose>
 		                    	<c:when test="${ notice.noticeType eq 'Y' }">
-			                    	<td><i class="fa-solid fa-triangle-exclamation" style="color: #d4d4d4;" data-no=${ notice.noticeNo }></i></td>
+			                    	<td><i class="fa-solid fa-triangle-exclamation" style="color: #E35F21;" data-no=${ notice.noticeNo }></i></td>
 		                    	</c:when>
 		                    	<c:otherwise>
 				                    <td>${ notice.noticeNo }</td>
 		                    	</c:otherwise>
 		                    </c:choose>
-		                    <td>${ notice.noticeTitle }</td>
 							<td>${ notice.empName } [${ notice.jobName }]</td>
-							<td class="td-content">${ notice.deptName }</td>
+							<td>${ notice.deptName }</td>
+		                    <td>${ notice.noticeTitle }</td>
 							<td>${ notice.createDate }</td>
 							<c:choose>
-								<c:when test="${ not empty notice.originFileName }">
-									<td><i class="fa-solid fa-paperclip"></i></td> <!-- 첨부파일 확인 필요 -->
+								<c:when test="${ notice.attCount > 0 }">
+									<td><i class="fa-solid fa-paperclip"></i></td>
 								</c:when>
 								<c:otherwise>
 									<td>-</td>
@@ -140,7 +141,7 @@
 	                    	<li class="page-item disabled"><a class="page-link" href="#">&laquo;</a></li>
                 		</c:when>
                 		<c:when test="${ empty condition }">
-	                    	<li class="page-item"><a class="page-link" href="notice?page=${ pi.currentPage-1 }">&laquo;</a></li>
+	                    	<li class="page-item"><a class="page-link" href="noticeList?page=${ pi.currentPage-1 }">&laquo;</a></li>
                 		</c:when>
                 		<c:otherwise>
                 			<li class="page-item"><a class="page-link" href="searchNotice?page=${ pi.currentPage-1 }&condition=${ condition }&keyword=${ keyword }">&laquo;</a></li>
@@ -153,7 +154,7 @@
 		                    	<li class="page-item disabled"><a class="page-link" href="#">${ p }</a></li>
 	                    	</c:when>
 	                    	<c:when test="${ empty condition }">
-	                    		<li class="page-item"><a class="page-link" href="notice?page=${ p }">${ p }</a></li>
+	                    		<li class="page-item"><a class="page-link" href="noticeList?page=${ p }">${ p }</a></li>
 	                    	</c:when>
 	                    	<c:otherwise>
 	                    		<li class="page-item"><a class="page-link" href="searchNotice?page=${ p }&condition=${ condition }&keyword=${ keyword }">${ p }</a></li>
@@ -166,7 +167,7 @@
                     		<li class="page-item disabled"><a class="page-link" href="#">&raquo;</a></li>
                     	</c:when>
                     	<c:when test="${ empty condition }">
-                    		<li class="page-item"><a class="page-link" href="notice?page=${ pi.currentPage+1 }">&raquo;</a></li>
+                    		<li class="page-item"><a class="page-link" href="noticeList?page=${ pi.currentPage+1 }">&raquo;</a></li>
                     	</c:when>
                     	<c:otherwise>
 		                    <li class="page-item" ><a class="page-link" href="searchNotice?page=${ pi.currentPage+1 }&condition=${ condition }&keyword=${ keyword }">&raquo;</a></li>
@@ -196,7 +197,6 @@
 		// ------------------------------------------------------------------
 		// 전체 체크박스
 		function checkAll(){
-			
 			let table = document.getElementById('tb-notice');
 			let inputs = document.querySelectorAll('tr input');
 			
@@ -207,6 +207,8 @@
 		
 		// 체크박스
 		function checkOnce(){
+			event.stopPropagation();
+			
 			let table = document.getElementById('tb-notice');
 			let hd_input = table.querySelector('th').querySelector('input');
 			let inputs = table.querySelector('tbody').querySelectorAll('tr input');
@@ -225,22 +227,41 @@
 		// 공지사항 글 작성하기
 		// ------------------------------------------------------------------
 		
-		function noticeWrite(){
-			console.log(event.currentTarget);
-			let target = event.currentTarget;
+		function noticeWriteForm(){
 			
 			// target.addEventListener('click', function(){
-				location.href = 'noticeWrite';
+				location.href = 'noticeWriteForm';
 			// })
 		}
 		
-		function noticeWrite_ck(){
-			location.href = 'noticeWrite_ck';
-		}
-		
-	
+ 		function detailNotice(){
+			
+			let target = event.currentTarget;
+			let input = target.querySelector('td input');
+			let notice_no = input.value;
+			console.log(input);
+			console.log(input.value);
+			
+			location.href = 'detailNotice?nno=' + notice_no;
+ 		}
 	</script>
 	
+			
+ 	<c:choose>
+ 		<c:when test="${ not empty sessionScope.successMsg }">
+ 			<script>
+	 			Swal.fire('성공', '${ successMsg }', 'success');
+ 			</script>
+ 		</c:when>
+ 		<c:when test="${ not empty sessionScope.failMsg }">
+ 			<script>
+ 			Swal.fire('실패', '${ failMsg }', 'error');
+ 			</script>
+ 		</c:when>
+ 	</c:choose>
+ 	
+ 	<c:remove var="successMsg" />
+ 	<c:remove var="failMsg" />
 
 </body>
 </html>

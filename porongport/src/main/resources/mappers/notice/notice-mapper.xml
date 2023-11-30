@@ -22,6 +22,9 @@
 		<result column="JOB_NAME" property="jobName" />
 		<result column="NOTICE_ORIGIN_FILENAME" property="originFileName" />
 		<result column="NOTICE_CHANGE_FILENAME" property="changeFileName" />
+		<result column="NOTICE_LIKE_CNT" property="noticeLikeCount" />
+		<result column="NOTICE_FILE_PATH" property="filePath" />
+		<result column="NOTICE_ATT_CNT" property="attCount" />
 	</resultMap>
 	
 	<resultMap id="noticeAttResultSet" type="noticeAttachment">
@@ -33,24 +36,34 @@
 		<result column="NOTICE_NO" property="noticeNo" />
 	</resultMap>
 	
+	<resultMap id="noticeLikeResultSet" type="noticeLike">
+		<result column="NOTICE_LIKE_NO" property="noticeLikeNo" />
+		<result column="NOTICE_NO" property="noticeNo" />
+		<result column="EMP_NO" property="empNo" />
+		<result column="NOTICE_LIKE" property="noticeLike" />
+	</resultMap>
+	
 	<!-- 공지사항 리스트 전체 조회 -->
 	<select id="noticeList" resultMap="noticeResultSet" parameterType="notice">
 		SELECT
-				N.NOTICE_TYPE,
+				DISTINCT N.NOTICE_TYPE,
 				N.NOTICE_NO,
 				N.NOTICE_TITLE,
 				E.EMP_NAME,
 				J.JOB_NAME,
 				D.DEPT_NAME,
 				N.CREATE_DATE,
-				AT.NOTICE_ORIGIN_FILENAME,
-				N.NOTICE_COUNT, 
-	      		NVL(RR.NOTICE_REPLY_CNT, 0) AS NOTICE_REPLY_CNT
+				NVL(NN.NOTICE_ATT_CNT, 0) AS NOTICE_ATT_CNT,
+				N.NOTICE_COUNT, NVL(RR.NOTICE_REPLY_CNT, 0) AS NOTICE_REPLY_CNT
 	  	 FROM
 	  			(
-	      		SELECT NOTICE_NO, COUNT(NOTICE_NO) AS NOTICE_REPLY_CNT
+	      		SELECT NOTICE_NO, COUNT(*) AS NOTICE_REPLY_CNT
 	        	  FROM REPLY
 	       		 GROUP BY NOTICE_NO) RR,
+                (
+                SELECT NOTICE_NO, COUNT(*) AS NOTICE_ATT_CNT
+                  FROM NOTICE_ATTACHMENT
+                 GROUP BY NOTICE_NO) NN,
 	       		NOTICE N, EMPLOYEE E, JOB J, DEPARTMENT D, NOTICE_ATTACHMENT AT
 		 WHERE
 		 		N.NOTICE_WRITER = E.EMP_NO
@@ -64,6 +77,8 @@
 		   		N.NOTICE_NO = AT.NOTICE_NO(+)
 		   AND
 		   		N.NOTICE_NO = RR.NOTICE_NO(+)
+           AND
+           		N.NOTICE_NO = NN.NOTICE_NO(+)
 		 ORDER
 		    BY
 		    	N.NOTICE_NO DESC
@@ -138,10 +153,13 @@
 				N.NOTICE_TITLE,
 				N.CREATE_DATE,
 				E.EMP_NAME,
+				E.EMP_NO,
 				D.DEPT_NAME,
 				J.JOB_NAME,
 				N.NOTICE_CONTENT,
 				AT.NOTICE_ORIGIN_FILENAME,
+				AT.NOTICE_CHANGE_FILENAME,
+				AT.NOTICE_FILE_PATH,
 		        NVL(L.NOTICE_LIKE_CNT, 0) AS NOTICE_LIKE_CNT
 		  FROM (
 		        SELECT NOTICE_NO, COUNT(NOTICE_NO) AS NOTICE_LIKE_CNT
@@ -155,10 +173,56 @@
 		   AND
 		   		E.JOB_CODE = J.JOB_CODE
 		   AND
-		   		N.NOTICE_NO = AT.NOTICE_NO
+		   		N.NOTICE_NO = AT.NOTICE_NO(+)
 		   AND
 		   		N.NOTICE_NO = L.NOTICE_NO(+)
+		   AND
+		   		N.NOTICE_NO = #{ noticeNo }
 	</select>
-
+	
+	<!-- 공지사항 좋아요 여부 체크 -->
+	<select id="checkNoticeLike" resultType="_int">
+   		SELECT
+   				COUNT(*)
+   		  FROM
+   		  		NOTICE_LIKE
+   		 WHERE
+   		 		NOTICE_NO = #{ noticeNo }
+   		   AND
+   		   		EMP_NO = #{ empNo }	
+	</select>
+	
+	<!-- 공지사항 좋아요 취소(삭제) -->
+	<delete id="deleteNoticeLike" parameterType="hashmap">
+		DELETE
+				NOTICE_LIKE
+		 WHERE 
+		 		NOTICE_NO = #{ noticeNo }
+		   AND
+		   		EMP_NO = #{ empNo }
+	</delete>
+	
+	<!-- 공지사항 좋아요 추가 -->
+	<insert id="insertNoticeLike" parameterType="hashmap">
+		INSERT
+		  INTO
+				NOTICE_LIKE
+				(
+				NOTICE_LIKE_NO,
+				NOTICE_NO,
+				EMP_NO,
+				NOTICE_LIKE_DATE	<!-- 날짜컬럼 삭제해도 될 듯? -->
+				)
+				VALUES
+				(
+				SEQ_NOTICE_LIKE.NEXTVAL,
+				#{ noticeNo },
+				#{ empNo },
+				SYSDATE
+				)	
+	</insert>
+	
+	
+	
 </mapper>
 	
