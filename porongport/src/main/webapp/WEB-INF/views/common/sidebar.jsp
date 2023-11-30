@@ -205,22 +205,29 @@
 
 <!-- 사이드바 관련 스크립트 -->
 <script>
-	window.onload = () => {
+	$(function(){
 		
-		console.log('문서 다읽음');
-			// 로그인 시, 웹소켓 연결
-			const uri = 'ws://localhost:8003/porong';
-			var socket = new WebSocket(uri);
+		// 로그인 시, 웹소켓 연결
+		const uri = 'ws://localhost:8003/porong/side';
+		var socket = new WebSocket(uri);
+		
+		socket.onopen = e => {
+			console.log('소켓 열림');
+			console.log(e);
 			
-			console.log(socket);
-			
-			socket.onopen = () => {
-				console.log('소켓 열림');
-			};
-			socket.onclose = () => {
-				console.log('소켓 닫힘');
-			};
-	};
+			if(e.data === 'Y'){
+				Swal.fire({
+				  title: '비밀번호 변경',
+				  text: '변경일 30일이 지났습니다.',
+				  icon: 'warning'
+				});
+			} 
+		};
+		
+		socket.onclose = () => {
+			console.log('소켓 닫힘');
+		};
+	});
 
 	// pp-content(자식요소)를 pp-main안으로 이동
 	$(function(){

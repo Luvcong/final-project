@@ -160,7 +160,7 @@ public class EmployeeController {
 		} else if(reUpfile != null){
 			 if(!reUpfile.getOriginalFilename().equals("")) { 
 				 
-				 new File(session.getServletContext().getRealPath("/resources/upProfiles/" + profile.getChangeFileName())).delete();
+				new File(session.getServletContext().getRealPath("/resources/upProfiles/" + profile.getChangeFileName())).delete();
 				
 				profile.setOriginFileName(reUpfile.getOriginalFilename());
 				profile.setChangeFileName(saveFile(reUpfile, session));

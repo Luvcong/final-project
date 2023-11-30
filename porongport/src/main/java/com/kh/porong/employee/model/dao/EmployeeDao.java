@@ -1,6 +1,7 @@
 package com.kh.porong.employee.model.dao;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
@@ -74,6 +75,10 @@ public class EmployeeDao {
 
 	public int updateProfile(SqlSessionTemplate sqlSession, Attachment profile) {
 		return sqlSession.update("empMapper.updateProfile", profile);
+	}
+
+	public int pwdAlert(SqlSessionTemplate sqlSession, Map<String, Object> empNo) {
+		return sqlSession.selectOne("empMapper.pwdAlert", empNo);
 	}
 
 }

@@ -350,4 +350,18 @@
 		      ROWNUM = 1
 	</select>
 	
+	<!-- 마지막 비밀번호 변경일 조회 -->
+	<select id="pwdAlert" parameterType="_int" resultType="_int">
+	    SELECT
+		      COUNT(*)
+		  FROM
+		      EMPLOYEE
+		 WHERE
+		      EMP_NO = #{empNo}
+		   AND
+		      EMP_STATUS = 'Y'
+		   AND
+		      (SYSDATE - MODIFY_DATE) > 1 <!-- 정보 변경일 20일 넘으면 -->
+	</select>
+	
 </mapper>
