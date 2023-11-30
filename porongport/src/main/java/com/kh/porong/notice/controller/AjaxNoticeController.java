@@ -155,14 +155,14 @@ public class AjaxNoticeController {
 		map.put("getLike", getLike ? "Y" : "N");
 		// Y인경우 좋아요 상태 - delete 수행
 		// N인경우 좋아요x 상태 - insert 수행
-		System.out.println("map.get(\"getLike\") : " + map.get("getLike"));
+		// System.out.println("map.get(\"getLike\") : " + map.get("getLike"));
 		
 		if(map.get("getLike").equals("Y")) {
 			noticeService.deleteNoticeLike(map);
 		} else {
 			noticeService.insertNoticeLike(map);
 		}
-		System.out.println("!getLike : " + !getLike);	// 좋아요 한 경우 false값 전달
+		// System.out.println("!getLike : " + !getLike);	// 좋아요 한 경우 false값 전달
 		
 		return !getLike;
 	}	// likeCheck

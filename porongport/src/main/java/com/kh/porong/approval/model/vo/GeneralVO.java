@@ -11,7 +11,7 @@ import lombok.ToString;
 public class GeneralVO {
 	
 	private int genNo;
-	private int edmsCategory;
+	private String edmsCategory;
 	private String genTitle;
 	private String genContent;
 

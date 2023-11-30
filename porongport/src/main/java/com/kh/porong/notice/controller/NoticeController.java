@@ -92,6 +92,7 @@ public class NoticeController extends FileControllerBase {
 			return "redirect:noticeList";
 		}
 		
+		// null 체크 - 첨부파일이 없는 경우 아래 코드 진행x
 		if(multiFileList == null)
 			return "redirect:noticeList";
 			
@@ -138,19 +139,26 @@ public class NoticeController extends FileControllerBase {
 		map.put("empNo", empNo);
 		map.put("noticeNo", nno);
 		
+//		if(noticeService.checkNoticeLike(map) > 0) {
+//			System.out.println("좋아요했당");
+//		} else {
+//			System.out.println("좋아요 안했당");
+//		}
 		
-		if(noticeService.checkNoticeLike(map) > 0) {
-			System.out.println("좋아요했당");
-		} else {
-			System.out.println("좋아요 안했당");
+		// 조회수 증가가 성공할 때만 detail 보여주기
+		if(noticeService.increaseCount(nno) == 0){
+			model.addAttribute("failMsg", "다시 시도해주세요");
+			return "notice/detailNotice";
 		}
 		
 		List<Notice> list = noticeService.detailNotice(map);
 		List<NoticeAttachment> attachList = new ArrayList<NoticeAttachment>();
-		System.out.println("list.get(0) : " + list.get(0));
+		
+		// System.out.println("list.get(0) : " + list.get(0));
+		
+		NoticeAttachment at = new NoticeAttachment();
 		
 		for(Notice notice : list) {
-			NoticeAttachment at = new NoticeAttachment();
 			at.setNoticeNo(notice.getNoticeNo());
 			at.setOriginFileName(notice.getOriginFileName());
 			at.setChangeFileName(notice.getChangeFileName());
@@ -159,11 +167,10 @@ public class NoticeController extends FileControllerBase {
 			attachList.add(at);
 		}
 		
-		System.out.println("attachList:" + attachList);
+		// System.out.println("attachList:" + attachList);
 		
 		model.addAttribute("list", list.get(0));
 		model.addAttribute("attachList", attachList);
-		//model.addAttribute("list", noticeService.detailNotice(map));
 		model.addAttribute("likeList", noticeService.checkNoticeLike(map));
 		
 		return "notice/detailNotice";
