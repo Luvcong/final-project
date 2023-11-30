@@ -24,5 +24,8 @@ public class Notice {
 	private int replyCount;
 	private String originFileName;
 	private String changeFileName;
+	private int noticeLikeCount;
+	private int attCount;
+	private String filePath;
 	
 }	// end class

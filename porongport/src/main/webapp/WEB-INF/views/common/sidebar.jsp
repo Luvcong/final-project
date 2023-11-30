@@ -209,7 +209,7 @@
 		
 		console.log('문서 다읽음');
 			// 로그인 시, 웹소켓 연결
-			const uri = 'ws://localhost:8003/porong/';
+			const uri = 'ws://localhost:8003/porong';
 			var socket = new WebSocket(uri);
 			
 			console.log(socket);

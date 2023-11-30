@@ -11,6 +11,9 @@
 		<result column="VCT_END" property="vctEnd" />
 		<result column="VCT_REASON" property="vctReason" />
 		<result column="EMP_NO" property="empNo" />
+		<result column="GEN_NO" property="genNo" />
+		<result column="GEN_TITLE" property="genTitle" />
+		<result column="GEN_CONTENT" property="genContent" />
  	</resultMap>
  	
  
@@ -107,7 +110,10 @@
 		</if>
 	</select>
 	
-
+	<insert id="insertGeneralDocument" parameterType="general">
+		INSERT INTO GENERAL(GEN_NO, EDMS_CATEGORY, GEN_TITLE, GEN_CONTENT)
+		VALUES (SEQ_GEN_NO.NEXTVAL, #{edmsCategory}, #{genTitle}, #{genContent})
+	</insert>
 	
 
 </mapper>
