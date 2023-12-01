@@ -106,6 +106,7 @@
 								$btn.attr('disabled', true);
 							}
     						else{
+    							$('#dcCheck_box').show().css('color', 'green').text('사용가능한 부서코드');
     							$btn.removeAttr('disabled');
     						}
     					},
