@@ -224,7 +224,7 @@ html, body {
 	<div class="pp-content">
 		<div id='calendar'></div>
 		<div class="modal fade" id="insertMeetModal" tabindex="-1"
-			aria-labelledby="eventModalLabel" aria-hidden="true">
+			aria-labelledby="eventModalLabel" aria-hidden="true" name="insertMeetModal">
 			<div class="modal-dialog">
 
 				<div class="modal-content calendar-modal-width"
