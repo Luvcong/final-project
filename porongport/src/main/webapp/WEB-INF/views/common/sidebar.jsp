@@ -207,7 +207,7 @@
 <script>
 
 	// 로그인 시, 웹소켓 연결
-	const uri = 'ws://localhost:8003/porong/side';
+	const uri = 'ws://localhost:8002/porong/side';
 	var socket = new WebSocket(uri);
 	
 	socket.onopen = e => {
@@ -215,14 +215,16 @@
 	};
 	
 	socket.onmessage = e => {
-		Swal.fire({
-		  title: '비밀번호를 변경해주세요.',
-		  text: '변경일 30일이 지났습니다.',
-		  icon: 'warning'
-		});
+		if(e.data === 'Y'){
+			Swal.fire({
+			  title: '비밀번호를 변경해주세요.',
+			  text: '변경일 30일이 지났습니다.',
+			  icon: 'warning'
+			});
 			
-		socket.close();
-		//location.href = '${path}/myPageUp'
+			socket.close();
+			//location.href = '${path}/myPageUp'
+		}
 			
 	};
 	
