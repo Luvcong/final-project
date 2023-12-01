@@ -71,15 +71,16 @@
 		MEET_APPROVAL = 'Y'
 	</select>
 
-<select id="timeCheck" parameterType="string" >
-   SELECT
-   		COUNT(*)
-   FROM
-   		MEETING_ROOM
-   WHERE
-	   	MEET_START = #{meetStart}
-    AND
-        MEET_END = #{meetEnd}
+
+	<select id="timeCheck" parameterType="string" >
+   	SELECT
+   			COUNT(*)
+   	FROM
+   			MEETING_ROOM
+   	WHERE
+	   		MEET_START = #{meetStart}
+    	AND
+	        MEET_END = #{meetEnd}
    </select>	
 
 	<select id="selectListCount" resultType="_int">
@@ -105,5 +106,29 @@
 		   JOIN DEPARTMENT USING (DEPT_CODE)
 		   JOIN JOB USING(JOB_CODE)
 		  WHERE MEET_STATUS = 'Y'
+	</select>	
+	
+	 <select id="dbtimeCheck" parameterType="string" resultType="_int">
+	
+	 
+	 	SELECT 
+	 		COUNT(*)
+		FROM 
+			MEETING_ROOM
+		WHERE (#{meetStart} <![CDATA[>]]>= MEET_START AND #{meetStart} <![CDATA[<]]>= MEET_END)
+		AND   (#{meetEnd} <![CDATA[>]]>= MEET_START AND #{meetEnd} <![CDATA[<]]>= MEET_END)
+
+		OR    (#{meetStart} <![CDATA[<]]>= MEET_START AND #{meetStart} <![CDATA[<]]>= MEET_END)
+		AND   (#{meetEnd} <![CDATA[>]]>  MEET_START AND #{meetEnd} <![CDATA[<]]>= MEET_END)
+		
+		OR    (#{meetStart} <![CDATA[>]]>= MEET_START AND #{meetStart} <![CDATA[<]]>  MEET_END)
+		AND   (#{meetEnd} <![CDATA[>]]>= MEET_START AND #{meetEnd} <![CDATA[>]]>= MEET_END)
+
+		OR    (#{meetStart} <![CDATA[<]]>= MEET_START AND #{meetStart} <![CDATA[<]]>= MEET_END)
+		AND   (#{meetEnd} <![CDATA[>]]>= MEET_START AND #{meetEnd} <![CDATA[>]]>= MEET_END)
+		
+	 	
 	</select>
+	
+	
 </mapper>
