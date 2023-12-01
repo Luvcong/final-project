@@ -56,22 +56,6 @@
 				</form>	<!-- searchForm  -->
 			</div>	<!-- searchTable  -->
       	</div>	<!-- toolbar  -->
-      	
-<%--  		<form action="" method="post" id="postForm">
-			<input type="hidden" name="messageNo" value="${ message.messagedNo }">
-		</form>
-		
-		<script>
-				function postFormSubmit(num){
-					if(num == 0){
-						// 보관하기 클릭시
-						$('#postForm').attr('action', 'storageMessage').submit();
-					} else {
-						// 삭제하기 클릭시
-						$('#postForm').attr('action', 'deleteMessageBox').submit();
-					}
-				}
-			</script> --%>
 		
 		<div class="pp-content-notice">
 			<div class="selectCount">

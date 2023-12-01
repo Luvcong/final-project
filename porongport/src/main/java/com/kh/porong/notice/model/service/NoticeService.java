@@ -44,10 +44,10 @@ public interface NoticeService {
 	// ==================================================================================
 	
 	// 1) 공지사항 게시글 상세보기
-	List<Notice> detailNotice(Map<String, Object> map);
+	List<Notice> detailNotice(Map<String, Integer> map);
 	
 	// 2) 공지사항 게시글 좋아요 여부 체크
-	int checkNoticeLike(Map<String, Object> map);
+	int checkNoticeLike(Map<String, Integer> map);
 	
 	// 3) 공지사항 게시글 좋아요 취소
 	int deleteNoticeLike(Map<String, Object> map);
@@ -62,10 +62,10 @@ public interface NoticeService {
 	int updateNotice(int noticeNo);
 	
 	// 7) 공지사항 게시글 삭제
-	int deleteNotice(Map<String, Object> map);
+	int deleteNotice(Map<String, Integer> map);
 	
 	// 8) 공지사항 게시글 첨부파일 삭제
-	int deleteNoticeAttach(Map<String, Object> map);
+	int deleteNoticeAttach(Map<String, Integer> map);
 	
 	// 공지사항 게시글 댓글 리스트 조회
 	ArrayList<Reply> selectReplyList(int noticeNo);

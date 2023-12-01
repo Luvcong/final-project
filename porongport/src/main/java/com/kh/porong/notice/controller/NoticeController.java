@@ -139,7 +139,7 @@ public class NoticeController extends FileControllerBase {
 		
 		// System.out.println("nno : " + nno);
 		int empNo = loginUser.getEmpNo();
-		Map<String, Object> map = new HashMap<String, Object>();
+		Map<String, Integer> map = new HashMap<String, Integer>();
 		map.put("empNo", empNo);
 		map.put("noticeNo", nno);
 		
@@ -171,7 +171,7 @@ public class NoticeController extends FileControllerBase {
 			attachList.add(at);
 		}
 		
-		System.out.println("attachList:" + attachList);
+		// System.out.println("attachList:" + attachList);
 		
 		model.addAttribute("list", list.get(0));
 		model.addAttribute("attachList", attachList);
@@ -199,7 +199,7 @@ public class NoticeController extends FileControllerBase {
 		
 		int empNo = loginUser.getEmpNo();
 		
-		Map<String, Object> map = new HashMap<String, Object>();
+		Map<String, Integer> map = new HashMap<String, Integer>();
 		map.put("empNo", empNo);
 		map.put("noticeNo", nno);
 
@@ -235,10 +235,44 @@ public class NoticeController extends FileControllerBase {
 		return "redirect:noticeList";
 	}	// deleteNotice
 	
-//	@PostMapping("updateNotice")
-//	public String updateNotice(Notice n) {
-//		return "redirect:detailNotice?nno=" + n.getNoticeNo();
-//	}	// updateNotice
+	
+	/** 
+	 * 공지사항 게시글 수정 양식
+	 * @return
+	 * @author JH
+	 * @Date : 2023. 12. 1
+	 */
+	@PostMapping("updateNoticeForm")
+	public String updateNotice(int nno,
+							   @SessionAttribute(name="loginUser", required=false) Employee loginUser,
+							   Model model) {
+		
+		int empNo = loginUser.getEmpNo();
+		
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		map.put("empNo", empNo);
+		map.put("noticeNo", nno);
+		
+		List<Notice> list = noticeService.detailNotice(map);
+		List<NoticeAttachment> attachList = new ArrayList<NoticeAttachment>();
+		
+		for(Notice notice : list) {
+			NoticeAttachment at = new NoticeAttachment();
+			at.setNoticeNo(notice.getNoticeNo());
+			at.setOriginFileName(notice.getOriginFileName());
+			at.setChangeFileName(notice.getChangeFileName());
+			at.setFilePath(notice.getFilePath());
+			
+			attachList.add(at);
+		}
+		
+		model.addAttribute("list", list.get(0));
+		model.addAttribute("attachList", attachList);
+		System.out.println(list.get(0));
+		System.out.println(attachList);
+		
+		return "notice/updateNoticeForm";
+	}	// updateNotice
 	
 	
 

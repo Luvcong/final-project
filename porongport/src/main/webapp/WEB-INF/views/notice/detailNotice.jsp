@@ -175,7 +175,7 @@
 	// ------------------------------------------------------------------
 	function postFormSubmit(num){
 		if(num == 0){	// 수정하기 클릭시
-			$('#postForm').attr('action', 'updateNotice').submit();
+			$('#postForm').attr('action', 'updateNoticeForm').submit();
 		} else {		// 삭제하기 클릭시
 			$('#postForm').attr('action', 'deleteNotice').submit();
 		}

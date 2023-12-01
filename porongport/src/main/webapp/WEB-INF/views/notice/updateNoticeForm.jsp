@@ -6,7 +6,7 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<title>[포롱포트] 공지사항 작성</title>
+<title>[포롱포트] 공지사항 수정</title>
 
 <style>
 	.ck-editor__editable { height: 400px; }
@@ -21,8 +21,6 @@
 	#tb-notice-form th{ text-align: center;}
 </style>
 
-<!-- 메인화면 css-->
-<link rel="stylesheet" href="resources/css/main.css">
 <link rel="stylesheet" href="resources/css/notice.css">
 <!-- ckeditor5 -->
 <script src="https://cdn.ckeditor.com/ckeditor5/31.1.0/classic/ckeditor.js"></script>
@@ -45,17 +43,17 @@
 	
 	<div class="pp-content">
 	
-    <h2 style="text-align: center;">공지사항 작성</h2>
+    <h2 style="text-align: center;">공지사항 수정</h2>
     
     <form action="insertNotice" method="post" enctype="multipart/form-data">
 	    <table id="tb-notice-form" class="table table-sm">
 	   		<tr>
 	   			<th>제목</th>
-	   			<td><input class="form-control form-control-sm" name="noticeTitle" required></td>
+	   			<td><input class="form-control form-control-sm" name="noticeTitle" required value="${ list.noticeTitle }"></td>
 	   			<td >
 	   			<div class="form-check form-switch">
 				  <label>
-				  <input class="form-check-input" type="checkbox" name="noticeTypeTmp">
+				  <input class="form-check-input" type="checkbox" name="noticeTypeTmp" checked="${ list.noticeType }">
 				  <input type="hidden" name="noticeType"/>
 				  중요공지 설정
 				  </label>
@@ -67,18 +65,35 @@
 	   			<td><input type="file" name="multiFile" multiple></td>
 	   		</tr>
 	   		<tr>
+	   			<th>기존파일</th>
+	   			<td>
+					<c:forEach var="at" items="${ attachList }">
+	   				<c:choose>
+	   					<c:when test="${ empty at.originFileName }">
+	   						<input class="form-control form-control-sm detail-input" readonly placeholder="기존 첨부파일이 존재하지 않습니다.">
+	      				</c:when>
+	      				<c:otherwise>
+			      			<a class="form-control form-control-sm detail-input upload-name" 
+			      			   href="${ at.filePath }/${ at.changeFileName }" download="${ at.originFileName }">
+			      			   <i class="fa-regular fa-floppy-disk"></i> ${ at.originFileName }</a>
+	      				</c:otherwise>
+	      			</c:choose>
+   				</c:forEach>
+	   			</td>
+	   		</tr>
+	   		<tr>
 	   			<th>내용</th>
 	   			<td>
-	   			<div>
-	   				<textarea id="editor" name="noticeContent" required></textarea>
-	   			</div>
+		   			<div>
+		   				<textarea id="editor" name="noticeContent" required>${ list.noticeContent }</textarea>
+		   			</div>
 	   			</td>
 	   		</tr>
 	   	</table>
 				    	
 		<div id="btnDiv">
-		    <button type="submit" class="btns save" onclick="insertNotice()">작성하기</button>
-		    <button type="button" class="btns back" onclick="location.href='${path}/notice'">목록으로</button>
+		    <button type="submit" class="btns save" onclick="updatetNotice()">수정하기</button>
+		    <button type="button" class="btns back" onclick="location.href='${path}/noticeList'">목록으로</button>
 		</div>
     </form>
 
@@ -104,21 +119,6 @@
 	    .catch((error) => {
 	        console.error( error );
 	    });
- 	    
- 	    
- 	   function insertNotice() {
- 		   let content = document.getElementById('editor'); 
- 		   content.value = editor.getData();
- 		   console.log(content.value);
- 		   
- 		  let table = document.getElementById('tb-notice-form');
- 		  let is_checked = table.querySelector('input[name="noticeTypeTmp"]').checked;
- 		  
- 		  let type = table.querySelector('input[name="noticeType"]');
- 		  type.value = is_checked ? 'Y' : 'N';
- 		  
- 		  $(this).submit();
- 	   }
  	   
 	</script>
 	    
