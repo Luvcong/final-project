@@ -30,4 +30,8 @@ public class MeetingRoomDao {
 	public ArrayList<MeetingRoomVO> selectList(SqlSessionTemplate sqlSession, RowBounds rowBounds) {
 		return (ArrayList)sqlSession.selectList("meetingRoomMapper.selectList", null, rowBounds);
 	}
+
+	public int dbtimeCheck(SqlSessionTemplate sqlSession, String checkId) {
+		return sqlSession.selectOne("meetingRoomMapper.dbtimeCheck",checkId);
+	}
 }

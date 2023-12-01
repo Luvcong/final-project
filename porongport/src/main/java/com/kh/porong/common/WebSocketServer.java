@@ -24,10 +24,8 @@ public class WebSocketServer extends TextWebSocketHandler{
 		
 		// System.out.println(empService.pwdAlert(session.getAttributes()));
 		
-		// 비밀번호 변경 날짜 지남 -> 알람
 		if(empService.pwdAlert(session.getAttributes()) > 0) {
 			session.sendMessage(new TextMessage("Y"));
-			System.out.println("skskkd");
 		} 
 	}
 
@@ -38,7 +36,7 @@ public class WebSocketServer extends TextWebSocketHandler{
 
 	@Override
 	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
-		
+		session.close();
 	}
 
 }

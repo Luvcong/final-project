@@ -147,7 +147,7 @@
             	    if(!allDay){
 	            	    var startDate = selectStartDate.getFullYear()+'-'
 	            	    		 		+((selectStartDate.getMonth()+1) < 10 ? "0" + (selectStartDate.getMonth()+1) : (selectStartDate.getMonth()+1))+'-'
-	            	    		 		+((selectStartDate.getDate()-1) < 10 ? "0" + (selectStartDate.getDate()-1) : (selectStartDate.getDate()-1));
+	            	    		 		+((selectStartDate.getDate()) < 10 ? "0" + (selectStartDate.getDate()) : (selectStartDate.getDate()));
             	    }
             	    else{
             	    	var startDate = selectStartDate.getFullYear()+'-'
@@ -166,7 +166,7 @@
             	    
             	    var endDate = selectEndDate.getFullYear()+'-'
 			    		 		+((selectEndDate.getMonth()+1) < 10 ? "0" + (selectEndDate.getMonth()+1) : (selectEndDate.getMonth()+1))+'-'
-			    		 		+((selectEndDate.getDate()-1) < 10 ? "0" + (selectEndDate.getDate()-1) : (selectEndDate.getDate()-1));
+			    		 		+((selectEndDate.getDate()) < 10 ? "0" + (selectEndDate.getDate()) : (selectEndDate.getDate()));
     
 				    if((selectEndDate.getHours()-9)<0){
 					    var endTime = (((selectEndDate.getHours()-9)+24) < 10 ? "0" + ((selectEndDate.getHours()-9)+24) : ((selectEndDate.getHours()-9)+24)) +':'
