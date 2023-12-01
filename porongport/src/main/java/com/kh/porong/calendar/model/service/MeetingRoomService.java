@@ -44,9 +44,11 @@ public interface MeetingRoomService {
 
 	// 예약 신청중복체크
 	ArrayList<MeetingRoomVO> timeCheck(String checkTime, String checkTimes);
-
+	int dbtimeCheck(String checkId);
+	
 	int selectListCount();
 
 	ArrayList<MeetingRoomVO> selectList(PageInfo pi);
+
 	
 }

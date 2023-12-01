@@ -1,6 +1,7 @@
 package com.kh.porong.employee.model.service;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Service;
@@ -99,6 +100,11 @@ public class EmployeeServiceImpl implements EmployeeService {
 	@Override
 	public int findPwd(Employee emp) {
 		return empDao.findPwd(sqlSession, emp);
+	}
+
+	@Override
+	public int pwdAlert(Map<String, Object> empNo) {
+		return empDao.pwdAlert(sqlSession, empNo);
 	}
 
 

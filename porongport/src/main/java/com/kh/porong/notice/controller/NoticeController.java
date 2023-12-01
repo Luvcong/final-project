@@ -1,5 +1,6 @@
 package com.kh.porong.notice.controller;
 
+import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -8,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -102,16 +104,18 @@ public class NoticeController extends FileControllerBase {
 				continue;
 			
 			NoticeAttachment attach = new NoticeAttachment();	// 첨부파일 객체 생성
+			
 			Path fullPath = Paths.get(saveFile(file, request.getSession(), "notice/"));	// 파일의 수정파일명 풀경로 구하기
 			
 			// System.out.println("getParent : " + fullPath.getParent());
 			// System.out.println("getFileName : " + fullPath.getFileName());
 			
-			attach.setOriginFileName(file.getOriginalFilename());		// 원본파일명 전달
+			attach.setOriginFileName(file.getOriginalFilename());			// 원본파일명 전달
 			attach.setChangeFileName(fullPath.getFileName().toString());	// 수정파일명 전달
 			attach.setFilePath(fullPath.getParent().toString());			// 파일경로 전달
 			
-			noticeService.insertAttachment(attach);							// 첨부파일 추가	
+			System.out.println(attach);
+			noticeService.insertAttachment(attach);							// 첨부파일 추가
 				
 			request.getSession().setAttribute("successMsg", "공지사항 작성에 성공했습니다!");
 		}
@@ -135,7 +139,7 @@ public class NoticeController extends FileControllerBase {
 		
 		// System.out.println("nno : " + nno);
 		int empNo = loginUser.getEmpNo();
-		Map<String, Object> map = new HashMap<String, Object>();
+		Map<String, Integer> map = new HashMap<String, Integer>();
 		map.put("empNo", empNo);
 		map.put("noticeNo", nno);
 		
@@ -156,9 +160,9 @@ public class NoticeController extends FileControllerBase {
 		
 		// System.out.println("list.get(0) : " + list.get(0));
 		
-		NoticeAttachment at = new NoticeAttachment();
 		
 		for(Notice notice : list) {
+			NoticeAttachment at = new NoticeAttachment();
 			at.setNoticeNo(notice.getNoticeNo());
 			at.setOriginFileName(notice.getOriginFileName());
 			at.setChangeFileName(notice.getChangeFileName());
@@ -177,6 +181,98 @@ public class NoticeController extends FileControllerBase {
 	}	// detailNotice
 	
 	
+	/**
+	 * 공지사항 게시글 삭제
+	 * @param nno : 삭제하려는 공지사항 번호 (noticeNo)
+	 * @param changeFileName : 삭제 공지사항 번호에 첨부되어 있는 첨부파일명
+	 * @param session
+	 * @param loginUser : 현재 로그인한 회원의 정보
+	 * @return 공지사항 게시글 삭제 여부 반환
+	 * @author JH
+	 * @Date : 2023. 11. 30
+	 */
+	@PostMapping("deleteNotice")
+	public String deleteNotice(int nno, String changeFileName[],
+							   // MultipartFile[] multiFileList,
+							   HttpSession session,
+							   @SessionAttribute(name="loginUser", required=false) Employee loginUser) {
+		
+		int empNo = loginUser.getEmpNo();
+		
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		map.put("empNo", empNo);
+		map.put("noticeNo", nno);
+
+		// 공지사항 삭제 성공시에만 첨부파일 삭제 > 첨부파일명이 공백이 아닌 경우 첨부파일 삭제 진행
+		if(noticeService.deleteNotice(map) == 0) {
+			session.setAttribute("failMsg", "공지사항 삭제 실패! 다시 시도해주세요");
+			return "notice/noticeList";
+		}
+		
+		// null 체크 - 첨부파일이 없는 경우 게시글 삭제만 진행하고 첨부파일 삭제 진행은 x
+		if(changeFileName == null)
+			return "redirect:noticeList";
+			
+		// changeFileName은 서버에 저장된 데이터 삭제하기 위해 필요! DB까지 들고 갈 필요 없음
+		// 첨부파일 돌면서 > 원본파일명 확인 공백 아닌 경우 첨부파일 삭제 진행
+		for(String file : changeFileName) {
+			
+			// 첨부파일 공백인경우 continue 
+			if(file.equals(""))
+				continue;
+			
+			// 첨부파일명이 공백이 아닌 경우 아래 코드 수행
+			// System.out.println("changeFileName : " + file);
+//			System.out.println("삭제경로확인1 : " + new File(session.getServletContext().getRealPath(filePath + "/" + file)));
+//			new File(session.getServletContext().getRealPath(filePath + "/" + file)).delete();
+			// System.out.println("삭제경로확인1 : " + new File(session.getServletContext().getRealPath(file)));
+			new File(session.getServletContext().getRealPath(file)).delete();
+		}
+			
+		noticeService.deleteNoticeAttach(map);
+		
+		session.setAttribute("successMsg", "공지사항 삭제 성공!");
+		return "redirect:noticeList";
+	}	// deleteNotice
+	
+	
+	/** 
+	 * 공지사항 게시글 수정 양식
+	 * @return
+	 * @author JH
+	 * @Date : 2023. 12. 1
+	 */
+	@PostMapping("updateNoticeForm")
+	public String updateNotice(int nno,
+							   @SessionAttribute(name="loginUser", required=false) Employee loginUser,
+							   Model model) {
+		
+		int empNo = loginUser.getEmpNo();
+		
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		map.put("empNo", empNo);
+		map.put("noticeNo", nno);
+		
+		List<Notice> list = noticeService.detailNotice(map);
+		List<NoticeAttachment> attachList = new ArrayList<NoticeAttachment>();
+		
+		for(Notice notice : list) {
+			NoticeAttachment at = new NoticeAttachment();
+			at.setNoticeNo(notice.getNoticeNo());
+			at.setOriginFileName(notice.getOriginFileName());
+			at.setChangeFileName(notice.getChangeFileName());
+			at.setFilePath(notice.getFilePath());
+			
+			attachList.add(at);
+		}
+		
+		model.addAttribute("list", list.get(0));
+		model.addAttribute("attachList", attachList);
+		System.out.println(list.get(0));
+		System.out.println(attachList);
+		
+		return "notice/updateNoticeForm";
+	}	// updateNotice
 	
 	
 

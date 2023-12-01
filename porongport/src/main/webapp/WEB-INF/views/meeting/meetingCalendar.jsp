@@ -99,7 +99,6 @@ html, body {
 				}
     		})
 		
-	  
 	  var calendar = new FullCalendar.Calendar(calendarEl, {
 	    selectable: true,
 	    slotMinTime: '09:00',
@@ -225,7 +224,7 @@ html, body {
 	<div class="pp-content">
 		<div id='calendar'></div>
 		<div class="modal fade" id="insertMeetModal" tabindex="-1"
-			aria-labelledby="eventModalLabel" aria-hidden="true">
+			aria-labelledby="eventModalLabel" aria-hidden="true" name="insertMeetModal">
 			<div class="modal-dialog">
 
 				<div class="modal-content calendar-modal-width"
@@ -233,6 +232,7 @@ html, body {
 
 					<div class="modal-header">
 						<h5 class="modal-title" id="meetModalLabel">회의실 예약신청</h5>
+						<div id="checkResult" style="font-size:2em; display:none;"></div>
 
 						       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						       <span aria-hidden="true">&times;</span>
@@ -260,63 +260,93 @@ html, body {
 										<td><input type="text" name="deptName" id="deptName"
 											readonly value="${loginUser.deptName}"
 											class="mymeeting_input mymeeting_width time_block" /></td>
-										<input type="hidden" name="deptCode" value="${loginUser.deptCode}">
+										<input type="hidden" name="deptCode"
+											value="${loginUser.deptCode}">
 									</tr>
 
 									<tr>
 										<th><i class="fa-solid fa-clock"></i></th>
 										<td colspan="5">
-											<input type="date" name="meetStartDay"	id="meetStartDay"  class="mymeeting_input2 mymeeting_width2" readonly />
-											<input type="time" name="meetStartTime"	id="meetStartTime" class="mymeeting_input2 mymeeting_width2" required readonly/> ~
-											<input type="date" name="meetEndDay"	id="meetEndDay"    class="mymeeting_input2 mymeeting_width2" readonly/>
-											<input type="time" name="meetEndTime"   id="meetEndTime"   class="mymeeting_input2 mymeeting_width2" required readonly/>
+											<div id="times" name="times">
+												<input type="date" name="meetStartDay" id="meetStartDay"
+													class="mymeeting_input2 mymeeting_width2" readonly /> <input
+													type="time" name="meetStartTime" id="meetStartTime"
+													class="mymeeting_input2 mymeeting_width2" required readonly />
+												~ <input type="date" name="meetEndDay" id="meetEndDay"
+													class="mymeeting_input2 mymeeting_width2" readonly /> <input
+													type="time" name="meetEndTime" id="meetEndTime"
+													class="mymeeting_input2 mymeeting_width2" required readonly />
+											</div>
 										</td>
 									</tr>
 									<tr>
 										<th><i class="fa-solid fa-user-group"></i></th>
 										<td colspan="3"><input type="number" class="meetingform"
-											id="meetPnum" name="meetPnum" style="width: 50px;"
-											min=1 style="width: 250px;" required>명</td>
+											id="meetPnum" name="meetPnum" style="width: 50px;" min=1
+											style="width: 250px;" required>명</td>
 									</tr>
 									<tr>
 										<th><i class="fa-solid fa-file"></i></th>
-										<td colspan="3">
-										<textarea type="text" name="meetContent" id="meetContent" class="mymeeting_input meetingTextarea" placeholder="회의 설명 추가"></textarea>
-										</td>
+										<td colspan="3"><textarea type="text" name="meetContent"
+												id="meetContent" class="mymeeting_input meetingTextarea"
+												placeholder="회의 설명 추가"></textarea></td>
 									</tr>
-									
-								</table>
-						</div>
-						</div>
-						<div class="modal-footer">
-							<button type="submit" class="btn btn-sm btn-secondary btn-rigth">예약신청</button>
-						</div>
-						<!-- modal footer -->
 
+								</table>
+								
+								<script>
+						    	$(function(){
+						    		const $meetStartDay = $('#meetStartDay').val();
+						    		const $meetStartTime = $('#meetStartTime').val();
+						    		const $meetStart = $meetStartDay+'T'+$meetStartTime;
+						    		console.log($meetStart);
+						    		const $checkResult = $('#checkResult');
+						    		const $enrollFormSubmit = $('#insertMeeting :submit');
+						    		
+						    		
+						    		$timeInput.mouseup(function(){
+						    			if($timeInput.val().length >=0){
+						    				$.ajax({
+						    					url : 'dbtimeCheck',
+						    					data : {checkId : $timeInput.val()},
+						    					success : function(result){
+						    						console.log(result.substr(0));
+						    						console.log(result);
+						    						
+						    						if(result.substr(0)==='N'){
+						    							$checkResult.show().css('color','crimson').text('중복된 예약이 존재합니다');
+						    							$enrollFormSubmit.attr('disabled', true);
+						    						}else {
+						    							$checkResult.show().css('color','lightgreen').text('예약이 가능 합니다');
+						    							$enrollFormSubmit.removeAttr('disabled');
+						    						}
+						    					},
+						    					error : function(){
+						    						console.log('예약중복체크용 ajax실패')
+						    					}
+						    				});
+						    			}
+						    			else{
+						    				$checkResult.hide();
+						    				$enrollFormSubmit.attr('disabled',true);
+						    			}
+						    		})
+						    		
+						    	})
+								</script>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="submit" class="btn btn-sm btn-secondary btn-rigth">예약신청</button>
+					</div>
+					<!-- modal footer -->
 					</div>
 					<!-- modal-body -->
 					</form>
 					
 				
 			</div>
-			<!-- insert 모달 -->
-		<!--  	 날짜 불러오는건데 다음날가도 오늘로돼서 실패 
-			 <script>
-   				var now_utc = Date.now() 
-   				var timeOff = new Date().getTimezoneOffset()*60000; 
-   				var today = new Date(now_utc-timeOff).toISOString().split("T")[0];
-   				document.getElementById("meetStartDay").setAttribute("min", today);
-   				document.getElementById("meetEndDay").setAttribute("min", today);
-   				-- 일별 시간 체크하는부분 색 주는거?
-   				<script>
-					$('#calendar').fullCalendar({
-						   dayClick: function (date, jsEvent, view) {
-						        $(".fc-state-highlight").removeClass("fc-state-highlight");
-						        $(jsEvent.target).addClass("fc-state-highlight");
-						   }
-						});
-					</script>
-			</script>-->
+			
 			
 		</div>
 	</div>

@@ -85,7 +85,7 @@ public class NoticeDao {
 	 * @author JH
 	 * @Date : 2023. 11. 27
 	 */
-	public List<Notice> detailNotice(SqlSessionTemplate sqlSession, Map<String, Object> map) {
+	public List<Notice> detailNotice(SqlSessionTemplate sqlSession, Map<String, Integer> map) {
 		return sqlSession.selectList("noticeMapper.detailNotice", map);
 	}	// detailNotice
 	
@@ -97,7 +97,7 @@ public class NoticeDao {
 	 * @author JH
 	 * @Date : 2023. 11. 29
 	 */
-	public int checkNoticeLike(SqlSessionTemplate sqlSession, Map<String, Object> map) {
+	public int checkNoticeLike(SqlSessionTemplate sqlSession, Map<String, Integer> map) {
 		return sqlSession.selectOne("noticeMapper.checkNoticeLike", map);
 	}	// noticeLikeCheck
 	
@@ -136,6 +136,31 @@ public class NoticeDao {
 	public int increaseCount(SqlSessionTemplate sqlSession, int noticeNo) {
 		return sqlSession.update("noticeMapper.increaseCount", noticeNo);
 	}	// increaseCount
+	
+	/**
+	 * 7) 공지사항 게시글 삭제
+	 * @param sqlSession
+	 * @param map - empNo(로그인한 사용자의 사원번호), noticeNo(공지사항 번호), changeFileName(첨부되어 있는 파일명)
+	 * @return 공지사항 번호에 해당하는 글 삭제 성공 여부 반환
+	 * @author JH
+	 * @Date : 2023. 11. 30
+	 */
+	public int deleteNotice(SqlSessionTemplate sqlSession, Map<String, Integer> map) {
+		return sqlSession.update("noticeMapper.deleteNotice", map);
+	}	// deleteNotice
+	
+	/**
+	 * 8) 공지사항 게시글 첨부파일 삭제
+	 * @param sqlSession
+	 * @param map - empNo(로그인한 사용자의 사원번호), noticeNo(공지사항 번호), changeFileName(첨부되어 있는 파일명)
+	 * @return 공지사항 번호에 해당하는 글의 첨부파일 삭제 성공 여부 반환
+	 * @author JH
+	 * @Date : 2023. 11. 30
+	 */
+	public int deleteNoticeAttach(SqlSessionTemplate sqlSession, Map<String, Integer> map) {
+		return sqlSession.delete("noticeMapper.deleteNoticeAttach", map);
+	}	// deleteNoticeAttach
+
 
 	
 	

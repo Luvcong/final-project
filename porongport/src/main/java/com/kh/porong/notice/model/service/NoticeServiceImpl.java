@@ -85,13 +85,13 @@ public class NoticeServiceImpl implements NoticeService {
 		
 	// 1) 공지사항 게시글 상세보기
 	@Override
-	public List<Notice> detailNotice(Map<String, Object> map) {
+	public List<Notice> detailNotice(Map<String, Integer> map) {
 		return noticeDao.detailNotice(sqlSession, map);
 	}	// detailNotice
 
 	// 2) 공지사항 게시글 좋아요 여부 체크
 	@Override
-	public int checkNoticeLike(Map<String, Object> map) {
+	public int checkNoticeLike(Map<String, Integer> map) {
 		return noticeDao.checkNoticeLike(sqlSession, map);
 	}	// noticeLikeCheck
 
@@ -120,11 +120,17 @@ public class NoticeServiceImpl implements NoticeService {
 		return 0;
 	}
 
-	// 공지사항 게시글 삭제
+	// 7) 공지사항 게시글 삭제
 	@Override
-	public int deleteNotice(int noticeNo) {
-		return 0;
+	public int deleteNotice(Map<String, Integer> map) {
+		return noticeDao.deleteNotice(sqlSession, map);
 	}	// deleteNotice
+	
+	// 8) 공지사항 게시글 첨부파일 삭제
+	@Override
+	public int deleteNoticeAttach(Map<String, Integer> map) {
+		return noticeDao.deleteNoticeAttach(sqlSession, map);
+	}	// deleteNoticeAttach
 
 	// 공지사항 게시글 댓글 리스트 조회
 	@Override
@@ -139,5 +145,7 @@ public class NoticeServiceImpl implements NoticeService {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+
 	
 }	// end class

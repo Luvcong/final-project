@@ -1,6 +1,7 @@
 package com.kh.porong.employee.model.service;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import com.kh.porong.employee.model.vo.Attachment;
 import com.kh.porong.employee.model.vo.Attendance;
@@ -61,5 +62,7 @@ public interface EmployeeService {
 	// 부서코드 중복체크
 	int dcCheck(String checkDc);
 
+	// --- 비밀번호 변경 알림(웹소켓) ---
+	int pwdAlert(Map<String, Object> empNo);
 
 }

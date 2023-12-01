@@ -26,10 +26,12 @@
 	<context:component-scan base-package="com.kh.porong" />
 	
 	<!-- 웹 소켓 -->
-	<beans:bean class="com.kh.porong.common.WebSocketServer" id="socketServer" />
+	<beans:bean id="socketServer" class="com.kh.porong.common.WebSocketServer" />
 	<websocket:handlers>
-		<!-- 클라이언트가 접속 주소를 ws://localhost:8003/porong -->
-		<websocket:mapping path="/" handler="socketServer" />
+		<websocket:mapping path="/side" handler="socketServer" />
+		<websocket:handshake-interceptors>
+			<beans:bean class="com.kh.porong.common.interceptor.WebSocketInterceptor" />
+		</websocket:handshake-interceptors>
 	</websocket:handlers>
 	
 	<!-- 인터셉트 -->

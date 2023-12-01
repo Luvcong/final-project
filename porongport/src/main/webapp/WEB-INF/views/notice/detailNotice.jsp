@@ -34,7 +34,8 @@
 		<div class='toolbar'>
 				<i class="fa-regular fa-circle-left fa-2xl" id="backIcon" onclick="historyBack()"></i>
 				<c:if test="${ list.empNo eq loginUser.empNo }">
-					<button class="btn btn-sm btn-danger">삭제</button>
+					<button class="btn btn-sm btn-danger" onclick="postFormSubmit(0)">수정</button>
+					<button class="btn btn-sm btn-danger" onclick="postFormSubmit(1)">삭제</button>
 				</c:if>
 			<div class="noticeLike">
 				<c:choose>
@@ -48,6 +49,13 @@
 						<span id="likeCount">${ list.noticeLikeCount }</span>	<!-- 해당 게시글의 좋아요 전체 개수 -->
 			</div>
       	</div>	<!-- toolbar  -->
+      	
+		<form action="" method="post" id="postForm">		
+				<input type="hidden" name="nno" value="${ list.noticeNo }">
+			<c:forEach var="at" items="${ attachList }">
+				<input type="hidden" name="changeFileName" value="${ at.filePath }/${ at.changeFileName }">
+			</c:forEach>
+		</form>
       	
       	<div class="detailContent">
   			<div class="notice-profile">
@@ -117,6 +125,10 @@
 			  location.href = document.referrer;
 	}	// historyBack
 	
+	
+	// ------------------------------------------------------------------
+	// 공지사항 게시글 좋아요 체크 여부 ajax
+	// ------------------------------------------------------------------
 	function likeCheck(){
 		
 		let target = event.currentTarget;
@@ -157,6 +169,17 @@
 		});	// ajax
 	}	// likeCount
 	
+	
+	// ------------------------------------------------------------------
+	// 공지사항 게시글 수정 & 삭제
+	// ------------------------------------------------------------------
+	function postFormSubmit(num){
+		if(num == 0){	// 수정하기 클릭시
+			$('#postForm').attr('action', 'updateNoticeForm').submit();
+		} else {		// 삭제하기 클릭시
+			$('#postForm').attr('action', 'deleteNotice').submit();
+		}
+	}	// postFormSubmit
 	
 	
 	</script>

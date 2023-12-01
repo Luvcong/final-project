@@ -59,10 +59,10 @@ public class EmployeeController {
 				MimeMessageHelper helper = new MimeMessageHelper(msg, false, "UTF-8");
 				helper.setTo(emp.getEmpEmail());
 				helper.setSubject("[포롱포트]입사자 등록 완료 메일");
-				helper.setText("<b style='font-size:25px;'>" + emp.getEmpName() + "</b>님의"
+				helper.setText("<b style='font-size:20px;'>" + emp.getEmpName() + "</b>님의"
 							+ "<br/>입사자 등록건이 완료되었습니다." 
 							+ "<br/>로그인 후 비밀번호 및 이메일 변경을 공지해주세요."
-							+ " >> <a href='http://localhost:8003/porong'>로그인 페이지</a>", true);
+							+ " >> <a href='http://localhost:8002/porong'>로그인 페이지</a>", true);
 					
 				sender.send(msg);
 				
@@ -160,7 +160,7 @@ public class EmployeeController {
 		} else if(reUpfile != null){
 			 if(!reUpfile.getOriginalFilename().equals("")) { 
 				 
-				 new File(session.getServletContext().getRealPath("/resources/upProfiles/" + profile.getChangeFileName())).delete();
+				new File(session.getServletContext().getRealPath("/resources/upProfiles/" + profile.getChangeFileName())).delete();
 				
 				profile.setOriginFileName(reUpfile.getOriginalFilename());
 				profile.setChangeFileName(saveFile(reUpfile, session));
@@ -247,9 +247,9 @@ public class EmployeeController {
 			helper.setSubject("[포롱포트]임시 비밀번호 발급 메일");
 			helper.setText("<b style='font-size:25px;>" + emp.getEmpName() + "</b>님의"
 							+ "<br/>비밀번호 찾기를 통한 임시 비밀번호입니다."
-							+ "<br/>임시비밀번호 : <b style='font-size:25px;>" + tempPwd +"</b>" 
+							+ "<br/>임시비밀번호 : <b style='font-size:20px;>" + tempPwd +"</b>" 
 							+ "<br/>로그인 후 비밀번호 변경을 해주세요."
-							+ " >> <a href='http://localhost:8003/" + request.getContextPath() + "'>로그인 페이지</a>", true);
+							+ " >> <a href='http://localhost:8002/" + request.getContextPath() + "'>로그인 페이지</a>", true);
 			
 			sender.send(msg);
 			
