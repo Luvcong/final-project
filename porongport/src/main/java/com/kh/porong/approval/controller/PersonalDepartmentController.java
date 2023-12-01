@@ -40,6 +40,15 @@ public class PersonalDepartmentController {
 		
 		if (edmsService.insertEdms(ed) > 0) {
 			
+			if(edmsService.insertGeneralDocument(ge) > 0) {
+				
+				edmsService.insertFirstEdmsLine(el);
+				edmsService.insertSecondEdmsLine(el);
+				edmsService.insertThirdEdmsLine(el);
+				
+				System.out.println(el);
+				
+			}
 			
 			
 			 session.setAttribute("alertMsg", "서류작성성공");

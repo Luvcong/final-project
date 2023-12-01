@@ -136,22 +136,22 @@
 	
 	<insert id="insertGeneralDocument" parameterType="general">
 		INSERT INTO GENERAL(GEN_NO, EDMS_CATEGORY, GEN_TITLE, GEN_CONTENT)
-		VALUES (SEQ_GEN_NO.NEXTVAL, #{edmsCategory}, #{genTitle}, #{genContent})
+		VALUES (SEQ_GEN_NO.NEXTVAL, #{edmsCategory}, #{edmsTitle}, #{genContent})
 	</insert>
 	
 	<insert id="insertFirstEdmsLine" parameterType="edmsLine">
-		INSERT INTO EDMS_LINE(EDMS_NO, EMP_NO, APPROVAL_DATE, ACCEPTANCE_DATE, PAYMENT_STATUS, DEMS_ROWNUM)
-		VALUES (SEQ_EDMS_NO.NEXTVAL, #{empNo}, #{approvalDate}, #{acceptanceDate}, #{paymentStatus}, #{demsRownum})
+		INSERT INTO EDMS_LINE(EDMS_NO, EMP_NO, APPROVAL_DATE, ACCEPTANCE_DATE, PAYMENT_STATUS, EDMS_ROWNUM)
+		VALUES (SEQ_EDMS_NO.NEXTVAL, #{empNo}, #{approvalDate}, #{acceptanceDate}, #{paymentStatus}, #{edmsRownum})
 	</insert>
 	
 	<insert id="insertSecondEdmsLine" parameterType="edmsLine">
-		INSERT INTO EDMS_LINE(EDMS_NO, EMP_NO, APPROVAL_DATE, ACCEPTANCE_DATE, PAYMENT_STATUS, DEMS_ROWNUM)
-		VALUES (SEQ_EDMS_NO.NEXTVAL, #{empNo}, #{approvalDate}, #{acceptanceDate}, #{paymentStatus}, #{demsRownum})
+		INSERT INTO EDMS_LINE(EDMS_NO, EMP_NO, APPROVAL_DATE, ACCEPTANCE_DATE, PAYMENT_STATUS, EDMS_ROWNUM)
+		VALUES (SEQ_EDMS_NO.NEXTVAL, #{empNo}, #{approvalDate}, #{acceptanceDate}, #{paymentStatus}, #{edmsRownum})
 	</insert>
 	
 	<insert id="insertThirdEdmsLine" parameterType="edmsLine">
-		INSERT INTO EDMS_LINE(EDMS_NO, EMP_NO, APPROVAL_DATE, ACCEPTANCE_DATE, PAYMENT_STATUS, DEMS_ROWNUM)
-		VALUES (SEQ_EDMS_NO.CURRVAL, #{empNo}, #{approvalDate}, #{acceptanceDate}, #{paymentStatus}, #{demsRownum})
+		INSERT INTO EDMS_LINE(EDMS_NO, EMP_NO, APPROVAL_DATE, ACCEPTANCE_DATE, PAYMENT_STATUS, EDMS_ROWNUM)
+		VALUES (SEQ_EDMS_NO.CURRVAL, #{empNo}, #{approvalDate}, #{acceptanceDate}, #{paymentStatus}, #{edmsRownum})
 	</insert>
 	
 	
