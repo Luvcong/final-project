@@ -339,7 +339,7 @@
                            <!-- 구분선 -->
                            <hr class="m-0">
                                <div class="card-body">
-                                   <form id="approvalForm" method="post" enctype="multipart/form-data" action="insertGeneralDocument">
+                                   <form id="approvalForm" method="post" enctype="multipart/form-data" action="insertEdms">
                                       <!-- 문서 상단 -->
                                       <div class="row" style="margin-bottom: 5px;">
                                          <!-- 기안자 정보 -->
@@ -391,9 +391,9 @@
                                                <div class="col-sm-11">
                                                   <!-- 선택된 결재자 정보를 표시할 HTML 요소 -->
                                              <div id="selectedApprovers">
-                                                 <p>첫 번째 결재자: <span id="firstApproverName"></span> <input type="hidden" id="firstApproverNo" name="empNo" value=""></span></p>
-                                                 <p>두 번째 결재자: <span id="secondApproverName"></span> <input type="hidden" id="secondApproverNo" name="empNo" value=""></p>
-                                                 <p>세 번째 결재자: <span id="thirdApproverName"></span> <input type="hidden" id="thirdApproverNo" name="empNo" value=""></p>
+                                                 <p>첫 번째 결재자: <span id="firstApproverName"></span> <input type="hidden" id="firstApproverNo" name="empNo1" value=""></p>
+                                                 <p>두 번째 결재자: <span id="secondApproverName"></span> <input type="hidden" id="secondApproverNo" name="empNo2" value=""></p>
+                                                 <p>세 번째 결재자: <span id="thirdApproverName"></span> <input type="hidden" id="thirdApproverNo" name="empNo3" value=""></p>
                                              </div>
                                                 </div>
                                             </div>
@@ -405,7 +405,7 @@
                                      <!-- 제목 입력 -->
                                         <div class="mb-3">
                                            <input type="hidden" name="empNo" value="${loginUser.empNo}">
-                                           <input type="text" name="genTitle" maxlength="50" class="form-control" placeholder="제목을 입력하세요" required="required"/>
+                                           <input type="text" name="edmsTitle" maxlength="50" class="form-control" placeholder="제목을 입력하세요" required="required"/>
                                         </div>
                                         <!-- 내용 입력 -->
                                     <div class="mb-1">

@@ -1,10 +1,13 @@
 package com.kh.porong.approval.model.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.kh.porong.approval.model.vo.EdmsLineVO;
+import com.kh.porong.approval.model.vo.EdmsVO;
 import com.kh.porong.approval.model.vo.GeneralVO;
 import com.kh.porong.approval.model.vo.VacationVO;
 import com.kh.porong.calendar.model.vo.ScheduleVO;
@@ -24,9 +27,25 @@ public class EdmsDao {
 		return (ArrayList)sqlSession.selectList("approvalMapper.selectApprover");
 	}
 	
+	public int insertEdms(SqlSessionTemplate sqlSession, EdmsVO ed) {
+		return sqlSession.insert("approvalMapper.insertEdms", ed);
+	}
+	
 	public int insertGeneralDocument(SqlSessionTemplate sqlSession, GeneralVO general) {
 		return sqlSession.insert("approvalMapper.insertGeneralDocument", general);
 	}
-
+	
+	public int insertFirstEdmsLine(SqlSessionTemplate sqlSession, EdmsLineVO el) {
+		return sqlSession.insert("approvalMapper.insertFirstEdmsLine", el);
+	}
+	
+	public int insertSecondEdmsLine(SqlSessionTemplate sqlSession, EdmsLineVO el) {
+		return sqlSession.insert("approvalMapper.insertSecondEdmsLine", el);
+	}
+	
+	public int insertThirdEdmsLine(SqlSessionTemplate sqlSession, EdmsLineVO el) {
+		return sqlSession.insert("approvalMapper.insertThirdEdmsLine", el);
+	}
+	
 
 }

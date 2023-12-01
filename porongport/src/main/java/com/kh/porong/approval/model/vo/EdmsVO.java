@@ -12,10 +12,9 @@ public class EdmsVO {
 	
 	private int edmsNo;
 	private int empNo;
-	private String edmsReception;
 	private String edmsTitle;
 	private Date edmsDate;
-	private int edmsCategory;
+	private String edmsCategory;
 	private String edmsReason;
 
 }

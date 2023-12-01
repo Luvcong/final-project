@@ -1,7 +1,9 @@
 package com.kh.porong.approval.model.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
+import com.kh.porong.approval.model.vo.EdmsLineVO;
 import com.kh.porong.approval.model.vo.EdmsVO;
 import com.kh.porong.approval.model.vo.GeneralVO;
 import com.kh.porong.approval.model.vo.VacationVO;
@@ -19,12 +21,6 @@ public interface EdmsService {
 	// 휴가신청서 상세보기
 	EdmsVO selectEdmsDetail(EdmsVO edms);
 	
-	// 지출결의서 상세보기
-	
-	// 인사발령서 상세보기
-	
-	// 출장보고서 상세보기
-	
 	// --------결재서류 등록----------
 	// 휴가신청서 등록
 	int insertVacation(VacationVO vacation);
@@ -35,19 +31,15 @@ public interface EdmsService {
 	
 	ArrayList<VacationVO> selectApprover(String deptName);
 	
+	int insertEdms(EdmsVO ed);
+	
 	int insertGeneralDocument(GeneralVO general);
-	
-	// 지출결의서 등록 
 
+	int insertFirstEdmsLine(EdmsLineVO el);
+	int insertSecondEdmsLine(EdmsLineVO el);
+	int insertThirdEdmsLine(EdmsLineVO el);
 	
-	// 인사발령서 등록
 	
-	// 출장보고서 등록
-	
-	
-	// ---------결재상태------------
-	// 결재승인
-	
-	// 결재반려
+
 
 }
