@@ -61,8 +61,11 @@ public interface NoticeService {
 	// 공지사항 게시글 수정
 	int updateNotice(int noticeNo);
 	
-	// 공지사항 게시글 삭제
-	int deleteNotice(int noticeNo);
+	// 7) 공지사항 게시글 삭제
+	int deleteNotice(Map<String, Object> map);
+	
+	// 8) 공지사항 게시글 첨부파일 삭제
+	int deleteNoticeAttach(Map<String, Object> map);
 	
 	// 공지사항 게시글 댓글 리스트 조회
 	ArrayList<Reply> selectReplyList(int noticeNo);

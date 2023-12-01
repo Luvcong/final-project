@@ -35,6 +35,11 @@ public class MeetingRoomServiceImpl implements MeetingRoomService {
 	}
 	
 	@Override
+	public int dbtimeCheck(String checkId) {
+		return MeetingRoomDao.dbtimeCheck(sqlSession, checkId);
+	}
+	
+	@Override
 	public MeetingRoomVO selectDetailMeetingRoom(MeetingRoomVO room) {
 		return null;
 	}
@@ -91,6 +96,7 @@ public class MeetingRoomServiceImpl implements MeetingRoomService {
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
 		return MeetingRoomDao.selectList(sqlSession, rowBounds);
 	}
+
 
 	
 

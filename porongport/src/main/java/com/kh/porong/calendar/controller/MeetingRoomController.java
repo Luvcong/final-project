@@ -78,4 +78,12 @@ public class MeetingRoomController {
 		return "meeting/reservationStatus";
 	}
 	
+	@ResponseBody
+	@RequestMapping("dbtimeCheck")
+	public String dbtimeCheck(String checkId) {
+
+		 return meetingRoomService.dbtimeCheck(checkId) > 0 ? "N" : "Y";
+	}
+
+	
 }
