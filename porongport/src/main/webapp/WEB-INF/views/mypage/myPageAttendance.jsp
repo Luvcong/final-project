@@ -97,6 +97,7 @@
                 		</c:if>
 	                </tbody>
 	            </table>
+	            
 	        </div>
 	    </div>
 	</div>
@@ -104,7 +105,7 @@
 	  	let now = new Date();
 	  	var mi = now.getMinutes().toString().padStart(2, '0');
  		var cTime = now.getHours() + ':' + mi;
-  		var today = now.getFullYear() + '-' + (now.getMonth() + 1) + '-' + now.getDate();
+  		var today = now.getFullYear() + '-' + (now.getMonth() + 1) + '-' + now.getDate().toString().padStart(2, '0');
 	 		
  		window.onload = () => {
 			 			

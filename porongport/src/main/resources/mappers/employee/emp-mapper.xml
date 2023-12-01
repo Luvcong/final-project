@@ -100,7 +100,7 @@
 		       )
 	</insert>
 	
-	<!-- 근태 리스트 -->
+	<!-- 근태 리스트 조회 -->
 	<select id="attList" parameterType="_int" resultMap="attResultSet">
 		SELECT
 		      WORK_DATE
@@ -115,6 +115,7 @@
 	</select>
 	
 	<!-- 입사자 등록 -->
+	<!-- 입사자 등록시, 직급이 차장이면 관리자급 부여 -->
 	<insert id="insertEmp" parameterType="emp">
 		<choose>
 			<when test="jobCode == 'SM'">
@@ -163,7 +164,7 @@
 
 	</insert>
 	
-	<!-- 오늘 근태 기록 쿼리 -->
+	<!-- 오늘 근태 기록 조회 쿼리 -->
 	<select id="selectAtt" parameterType="att" resultMap="attResultSet">
 		SELECT 
 		      WORK_DATE
@@ -203,7 +204,7 @@
 		      EMP_STATUS = 'Y'
 	</select>
 	
-	<!-- 비밀번호 찾기 -->
+	<!-- 비밀번호 찾기, 메일발송한 임시비밀번호로 업데이트 -->
 	<update id="findPwd" parameterType="emp">
 		UPDATE
 		      EMPLOYEE
@@ -324,6 +325,7 @@
 		      REF_EMP_NO = #{refEmpNo}
 	</update>
 	
+	<!-- 프로필 조회 -->
 	<select id="selectProfile" parameterType="profile" resultType="profile">
 		SELECT
 		      FILE_NO fileNo
@@ -361,7 +363,7 @@
 		   AND
 		      EMP_STATUS = 'Y'
 		   AND
-		      (SYSDATE - MODIFY_DATE) > 1 <!-- 정보 변경일 20일 넘으면 -->
+		      (SYSDATE - MODIFY_DATE) > 1 
 	</select>
 	
 </mapper>
