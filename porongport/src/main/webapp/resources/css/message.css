@@ -68,7 +68,7 @@
 	color: #DC3545;
 }
 #messageTextarea{
-	overflow: scroll;
+	overflow: auto;
 	resize: none;
 	background-color: white;
 	height: 400px;

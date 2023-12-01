@@ -48,7 +48,14 @@
             <!-- 프로필이미지 & 직급명 & 로그아웃 영역 -->
             <div class="setting">       
                 <div class="profile" onclick="myPage();">
-                	<img src="resources\images\profile.png" alt="포롱포트 로고 이미지" />
+                	<c:choose>
+                		<c:when test="${ empty profile.fileNo }">
+                			<img src="resources/images/profile.png" alt="포롱포트 로고 이미지" />	
+                		</c:when>
+                		<c:otherwise>
+		                	<img src="resources/upProfiles/${ profile.changeFileName }" alt="입사자 사진" />
+                		</c:otherwise>
+                	</c:choose>
                     <span>${ sessionScope.loginUser.empName }</span>
                 </div>
                 <div class="icon" onclick="logout();"><i class="fa-solid fa-right-from-bracket"></i></div>
@@ -113,21 +120,30 @@
             -->
             <div class="pp-sub-sidebar">
 				<div class="sub-menu d-none" data-group='main'>						<!-- 여기 아이콘 영역의 data-group 매핑값과  -->
-				   <div class="sub-item sub-title" data-url=''>서브타이틀</div> <!-- 여기 서브타이틀의 data-url의 매핑값이 동일해야함 -->
-			       <div class="sub-item" data-url='main'>메인메뉴1</div>			
-				   <div class="sub-item" data-url='main2'>메인메뉴2</div>
+				   <div class="sub-item sub-title" data-url='main'>HOME</div> <!-- 여기 서브타이틀의 data-url의 매핑값이 동일해야함 -->
+			       <div class="sub-item" data-url='https://kh-academy.co.kr/main/main.kh?null'>KH정보교육원</div>			
+				   <div class="sub-item" data-url='weatherForm'>오늘의 날씨</div>
 				   <div class="sub-item" data-url='main3'>메인메뉴3</div>
 				</div>
-						<div class="sub-menu d-none" data-group='weather'>
-							<div class="sub-item sub-title" data-url='weather'>HOME</div>
-					        <div class="sub-item" data-url='https://kh-academy.co.kr/main/main.kh'>KH 정보교육원</div>
+						<c:choose>
+					<c:when test="${ loginUser.empAdmin eq 'A' }">
+						<div class="sub-menu d-none" data-group='myPageAtt'>
+							<div class="sub-item sub-title" data-url='myPageAtt'>마이페이지</div>
+					        <div class="sub-item" data-url='myPageUp'>내정보 관리</div>
+						    <div class="sub-item" data-url='myPageAtt'>근태 관리</div>
+						    <div class="sub-item" data-url='myPageIn'>입사자 등록</div>
+				       		<div class="sub-item" data-url='mypage3'>연차 관리</div>
 						</div>
+					</c:when>
+					<c:otherwise>
 						<div class="sub-menu d-none" data-group='myPageAtt'>
 							<div class="sub-item sub-title" data-url='myPageAtt'>마이페이지</div>
 					        <div class="sub-item" data-url='myPageUp'>내정보 관리</div>
 						    <div class="sub-item" data-url='myPageAtt'>근태 관리</div>
 				       		<div class="sub-item" data-url='mypage3'>연차 관리</div>
 						</div>
+					</c:otherwise>
+				</c:choose>
 				 <div class="sub-menu d-none" data-group='approval'>
 					<div class="sub-item sub-title" data-url='approval'>전자결재</div>
 		         	<div class="sub-item" data-url='document1'>기안문 작성</div>
@@ -189,22 +205,29 @@
 
 <!-- 사이드바 관련 스크립트 -->
 <script>
-	window.onload = () => {
+	$(function(){
 		
-		console.log('문서 다읽음');
-			// 로그인 시, 웹소켓 연결
-			const uri = 'ws://localhost:8003/porong/';
-			var socket = new WebSocket(uri);
+		// 로그인 시, 웹소켓 연결
+		const uri = 'ws://localhost:8003/porong/side';
+		var socket = new WebSocket(uri);
+		
+		socket.onopen = e => {
+			console.log('소켓 열림');
+			console.log(e);
 			
-			console.log(socket);
-			
-			socket.onopen = () => {
-				console.log('소켓 열림');
-			};
-			socket.onclose = () => {
-				console.log('소켓 닫힘');
-			};
-	};
+			if(e.data === 'Y'){
+				Swal.fire({
+				  title: '비밀번호 변경',
+				  text: '변경일 30일이 지났습니다.',
+				  icon: 'warning'
+				});
+			} 
+		};
+		
+		socket.onclose = () => {
+			console.log('소켓 닫힘');
+		};
+	});
 
 	// pp-content(자식요소)를 pp-main안으로 이동
 	$(function(){

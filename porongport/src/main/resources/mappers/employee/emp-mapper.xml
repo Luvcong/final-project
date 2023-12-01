@@ -253,8 +253,10 @@
 		UPDATE
 		      EMPLOYEE
 		<set>
-		      EMP_PWD = #{empPwd}
-		      ,EMP_PHONE = #{empPhone}
+			<if test="!empPwd.equals('')">
+		      EMP_PWD = #{empPwd},
+			</if>
+		      EMP_PHONE = #{empPhone}
 		      ,EMP_EMAIL = #{empEmail}
 		      ,EMP_ADDRESSCODE = #{empAddressCode}
 		      ,EMP_ADDRESS = #{empAddress}
@@ -294,6 +296,7 @@
 		     DEPT_STATUS = 'Y'
 	</select>
 	
+	<!-- 프로필 업로드 -->
 	<insert id="insertProfile" parameterType="profile">
 		INSERT
 		  INTO
@@ -308,6 +311,18 @@
 		      ,#{refEmpNo}
 		      )
 	</insert>
+	
+	<!-- 프로필 재업로드 -->
+	<update id="updateProfile" parameterType="profile">
+		UPDATE
+		      ATTACHMENT
+		   SET
+		      ORIGIN_FILENAME = #{originFileName}
+		      ,CHANGE_FILENAME = #{changeFileName}
+		      ,UPLOAD_DATE = SYSDATE
+		 WHERE
+		      REF_EMP_NO = #{refEmpNo}
+	</update>
 	
 	<select id="selectProfile" parameterType="profile" resultType="profile">
 		SELECT
@@ -333,6 +348,20 @@
 		            BY UPLOAD_DATE DESC)
 		 WHERE
 		      ROWNUM = 1
+	</select>
+	
+	<!-- 마지막 비밀번호 변경일 조회 -->
+	<select id="pwdAlert" parameterType="_int" resultType="_int">
+	    SELECT
+		      COUNT(*)
+		  FROM
+		      EMPLOYEE
+		 WHERE
+		      EMP_NO = #{empNo}
+		   AND
+		      EMP_STATUS = 'Y'
+		   AND
+		      (SYSDATE - MODIFY_DATE) > 1 <!-- 정보 변경일 20일 넘으면 -->
 	</select>
 	
 </mapper>

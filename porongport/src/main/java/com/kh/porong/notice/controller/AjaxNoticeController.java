@@ -8,22 +8,33 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-	
+
 import org.json.simple.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.support.DefaultMultipartHttpServletRequest;
+
+import com.kh.porong.employee.model.vo.Employee;
+import com.kh.porong.notice.model.service.NoticeService;
 
 
 @Controller
 public class AjaxNoticeController {
+	
+	@Autowired
+	private NoticeService noticeService;
 	
 	
 	/**
@@ -118,5 +129,47 @@ public class AjaxNoticeController {
 			}
 		}
 	}	// uploadFile
+	
+	
+	
+	/**
+	 * 좋아요 설정 및 취소 처리
+	 * getLike : true인경우 좋아요 Delete 수행
+	 * getLike : false인경우 좋아요 insert 수행
+	 * @param messageNo
+	 * @param getLike
+	 * @return 공지사항 게시글 좋아요 여부
+	 * @author JH
+	 * @Date : 2023. 11. 29
+	 */
+	@ResponseBody
+	@GetMapping("likeCheck")
+	public boolean likeCheck(@RequestParam(value="notice_no") int noticeNo,
+							 @RequestParam(value="get_like") boolean getLike,
+							 @SessionAttribute(name="loginUser", required=false) Employee loginUser) {
+		
+		int empNo = loginUser.getEmpNo();
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("empNo", empNo);
+		map.put("noticeNo", noticeNo);
+		map.put("getLike", getLike ? "Y" : "N");
+		// Y인경우 좋아요 상태 - delete 수행
+		// N인경우 좋아요x 상태 - insert 수행
+		// System.out.println("map.get(\"getLike\") : " + map.get("getLike"));
+		
+		if(map.get("getLike").equals("Y")) {
+			noticeService.deleteNoticeLike(map);
+		} else {
+			noticeService.insertNoticeLike(map);
+		}
+		// System.out.println("!getLike : " + !getLike);	// 좋아요 한 경우 false값 전달
+		
+		return !getLike;
+	}	// likeCheck
+	
+	
+	
+	
+	
 	
 	}	// end class

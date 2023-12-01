@@ -19,21 +19,22 @@
 	    <div class="outer">
 	        <div id="myPage">
 	            <form action="update.em" method="post" enctype="multipart/form-data" id="emp_update">
+	            
 		            <div class="myProfile">
 		            	<c:choose>
-		            		<c:when test="${ empty sessionScope.profile.fileNo }">
+		            		<c:when test="${ empty profile.fileNo }">
 				                <div class="img_box">
-					                	<img src="resources/images/profile.png" alt="기본 프로필 사진">
-					                <label for="profile">
-					                	<input type="file" id="profile" name="upfile" />
-									</label>
+					                <img src="resources/images/profile.png" alt="기본 프로필 사진" id="preview">
+					                <label for="profile"></label>
+				                	<input type="file" id="profile" name="upfile" accept="image/*" />
 				                </div>
 		            		</c:when>
 		            		<c:otherwise>
 		            			<div class="img_box">
-			            			<img src="resources/upProfiles/${ profile.changeFileName }" alt="입사자 사진">
+			            			<img src="resources/upProfiles/${ profile.changeFileName }" alt="입사자 사진" id="preview">
 					                <label for="profile"></label>
-						                <input type="file" id="profile" name="upfile" />
+					                <input type="file" id="profile" name="reUpfile" accept="image/*" />
+					                <input type="hidden" name="changeFileName" value="${ profile.changeFileName }" />
 		            			</div>
 		            		</c:otherwise>
 		            	</c:choose>
@@ -54,11 +55,11 @@
 	                        <input type="text" id="empNo" name="empNo" readonly class="form-control" value="${ loginUser.empNo }"/>
 	                    </div>
 	                    <div class="form-group">
-	                        <label for="empPwd">* 비밀번호</label>
+	                        <label for="empPwd">비밀번호</label>
 	                        <input type="password" id="empPwd" name="empPwd" class="form-control" />
 	                    </div>
 	                    <div class="form-group">
-	                        <label>* 비밀번호 확인</label>
+	                        <label>비밀번호 확인</label>
 	                        <input type="password" class="form-control" />
 	                    </div>
 	                    <div class="form-group">
@@ -145,6 +146,19 @@
 	        		// 프로필 사진 변경
 					$('.img_box>img').on('click', () => {
 						$('.myProfile input[type=file]').click();
+					});
+	        		
+	        		// 프로필 프리뷰
+					$("#profile").on('change', e => {
+						const file = e.target.files;
+						
+						let reader = new FileReader();
+				        reader.readAsDataURL(file[0]);
+
+				        reader.onload = () => {
+				        	$("#preview").attr('src', reader.result);
+				        };
+
 					});
 	        	});
 	        

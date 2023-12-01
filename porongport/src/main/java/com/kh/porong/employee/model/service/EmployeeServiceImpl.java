@@ -1,10 +1,9 @@
 package com.kh.porong.employee.model.service;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
@@ -13,15 +12,15 @@ import com.kh.porong.employee.model.vo.Attachment;
 import com.kh.porong.employee.model.vo.Attendance;
 import com.kh.porong.employee.model.vo.Employee;
 
-@EnableTransactionManagement
+import lombok.RequiredArgsConstructor;
+
 @Service
+@EnableTransactionManagement
+@RequiredArgsConstructor
 public class EmployeeServiceImpl implements EmployeeService {
 	
-	@Autowired
-	private EmployeeDao empDao;
-
-	@Autowired
-	private SqlSessionTemplate sqlSession;
+	private final EmployeeDao empDao;
+	private final SqlSessionTemplate sqlSession;
 	
 	@Override
 	public Employee loginEmp(Employee emp) {
@@ -84,8 +83,13 @@ public class EmployeeServiceImpl implements EmployeeService {
 	}
 
 	@Override
-	public int insertProfile(Attachment att) {
-		return empDao.insertProfile(sqlSession, att);
+	public int insertProfile(Attachment profile) {
+		return empDao.insertProfile(sqlSession, profile);
+	}
+
+	@Override
+	public int updateProfile(Attachment profile) {
+		return empDao.updateProfile(sqlSession, profile);
 	}
 
 	@Override
@@ -97,6 +101,12 @@ public class EmployeeServiceImpl implements EmployeeService {
 	public int findPwd(Employee emp) {
 		return empDao.findPwd(sqlSession, emp);
 	}
+
+	@Override
+	public int pwdAlert(Map<String, Object> empNo) {
+		return empDao.pwdAlert(sqlSession, empNo);
+	}
+
 
 	
 

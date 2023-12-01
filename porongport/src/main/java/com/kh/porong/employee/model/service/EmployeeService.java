@@ -1,6 +1,7 @@
 package com.kh.porong.employee.model.service;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import com.kh.porong.employee.model.vo.Attachment;
 import com.kh.porong.employee.model.vo.Attendance;
@@ -25,12 +26,13 @@ public interface EmployeeService {
 	int updateEmp(Employee emp);
 	
 	// 프로필 사진 업로드
-	int insertProfile(Attachment att);
+	int insertProfile(Attachment profile);
+
+	// 프로필 사진 재업
+	int updateProfile(Attachment profile);
 	
 	// 프로필 사진 조회
 	Attachment selectProfile(int refEmpNo);
-	
-	// 프로필 사진 재업
 	
 	// 입사자 등록
 	int insertEmp(Employee emp);
@@ -60,5 +62,7 @@ public interface EmployeeService {
 	// 부서코드 중복체크
 	int dcCheck(String checkDc);
 
+	// --- 비밀번호 변경 알림(웹소켓) ---
+	int pwdAlert(Map<String, Object> empNo);
 
 }

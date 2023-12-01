@@ -339,7 +339,7 @@
                            <!-- 구분선 -->
                            <hr class="m-0">
                                <div class="card-body">
-                                   <form id="approvalForm" method="post" enctype="multipart/form-data" action=""insertDocument"">
+                                   <form id="approvalForm" method="post" enctype="multipart/form-data" action="insertGeneralDocument">
                                       <!-- 문서 상단 -->
                                       <div class="row" style="margin-bottom: 5px;">
                                          <!-- 기안자 정보 -->
@@ -363,7 +363,7 @@
                                                   <tr>
                                                      <th>문서종류</th>
                                                      <td>
-                                                     <select id="docCatCd" name="docCatCd" class="form-select">
+                                                     <select id="docCatCd" name="edmsCategory" class="form-select">
                                                          <option value="03">일반 문서</option>
                                                          <option value="01">휴가신청서</option>
                                                      </select>
@@ -405,12 +405,12 @@
                                      <!-- 제목 입력 -->
                                         <div class="mb-3">
                                            <input type="hidden" name="empNo" value="${loginUser.empNo}">
-                                           <input type="text" name="aprvTitle" maxlength="50" class="form-control" placeholder="제목을 입력하세요" required="required"/>
+                                           <input type="text" name="genTitle" maxlength="50" class="form-control" placeholder="제목을 입력하세요" required="required"/>
                                         </div>
                                         <!-- 내용 입력 -->
                                     <div class="mb-1">
                                        <!-- 네이버 에디터 -->
-                                       <textarea name="aprvContents"
+                                       <textarea name="genContent"
                                                class="form-control"
                                                id="editor"
                                                placeholder="내용을 입력하세요"

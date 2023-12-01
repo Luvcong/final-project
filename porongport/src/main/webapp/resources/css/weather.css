@@ -1,0 +1,22 @@
+.weather-center{
+	margin:auto;
+}
+.weather-text-center{
+	text-align:center;
+}
+.weather-top{
+	padding-top:100px;
+}
+.table-color{
+	padding-top: 40px;
+	border-radius: 10px;
+	padding-bottom: 40px;
+	background-color: rgb(236, 235, 235);
+}
+.weather-text-left{
+	text-align: left;
+}
+.table-width{
+	width: 500px;
+	height: 260px;
+}

@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -26,17 +27,16 @@ public class PersonalDepartmentController {
 		return "approval/personalDepartmentForm";
 	}
 	
-	@ResponseBody
-	@GetMapping("insertGeneralDocument")
+	@RequestMapping("insertGeneralDocument")
 	public String insertGeneralDocument(GeneralVO ge, HttpSession session) {
 		
-		String generalTitle = ge.getGenTitle();
-		String generalContent = ge.getGenContent();
+		System.out.println(ge);
 		
 		if (edmsService.insertGeneralDocument(ge) > 0) { 
+			 session.setAttribute("alertMsg", "서류작성성공");
 	         return "redirect:department";
 	      } else { 
-	    	  session.setAttribute("alertMsg", "결재실패");
+	    	  session.setAttribute("alertMsg", "서류작성실패");
 	         return "redirect:department";
 	      }
 	   }

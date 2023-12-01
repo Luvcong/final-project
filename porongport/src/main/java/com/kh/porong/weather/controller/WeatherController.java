@@ -15,14 +15,19 @@ public class WeatherController {
 
 	public static final String SERVICEKEY = "e7bb6f29056cea75514ebd200f58625b";
 	
+	@RequestMapping("weatherForm")
+	public String weatherForm() {
+		return "weather/weather";
+	}
+	
 	@ResponseBody
 	@RequestMapping(value="weather", produces="application/json; charset=UTF-8")
-	public String busanfood(int pageNo) throws IOException {
+	public String weather() throws IOException {
 		String url = "https://api.openweathermap.org/data/2.5/weather";
-		url += "?lat=126.9778";//서울
-		url += "&lon=37.5683";//서울
+		url += "?lat=37.5683";//서울 경도
+		url += "&lon=126.9778";//서울 위도
 		url += "&lang=kr";
-		url += "&units=metric";
+		url += "&units=metric";//섭씨온도로 바꿈
 		url += "&appid="+SERVICEKEY;
 		
 		URL requestUrl = new URL(url);

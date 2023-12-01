@@ -1,12 +1,15 @@
 package com.kh.porong.notice.controller;
 
+import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -39,7 +42,7 @@ public class NoticeController extends FileControllerBase {
 	 * @author JH
 	 * @Date : 2023. 11. 24
 	 */
-	@RequestMapping("notice")
+	@RequestMapping("noticeList")
 	public String noticeList(@RequestParam(value="page", defaultValue="1") int currentPage, Model model) {
 		
 		int listCount = noticeService.noticeListCount();
@@ -76,51 +79,166 @@ public class NoticeController extends FileControllerBase {
 	 */
 	@PostMapping("insertNotice")
 	public String insertNotice(@SessionAttribute(name= "loginUser", required= false) Employee loginUser,
-								@RequestParam("multiFile") List<MultipartFile> multiFileList,
-								Notice n, HttpServletRequest request) {
+							   @RequestParam("multiFile") MultipartFile[] multiFileList,
+							   Notice n,
+							   HttpServletRequest request) {
 		
 		// System.out.println("multiFileList : " + multiFileList);
 		// System.out.println("fileContent : " + n);
 		int empNo = loginUser.getEmpNo();
 		n.setEmpNo(empNo);
 		
-		if(noticeService.insertNotice(n) > 0){
-			request.getSession().setAttribute("successMsg", "공지사항 작성에 성공했습니다!");
-			for(MultipartFile mulFile : multiFileList) {
-				NoticeAttachment attach = new NoticeAttachment();
-				Path fullPath = Paths.get(saveFile(mulFile, request.getSession(), "notice"));
-				
-				attach.setOriginFileName(mulFile.getOriginalFilename());
-				attach.setChangeFileName(fullPath.getFileName().toString());
-				attach.setFilePath(fullPath.getParent().toString());
-				attach.setNoticeNo(n.getNoticeNo());
-				
-				noticeService.insertAttachment(attach);
-			}
-		} else {
+		// 공지사항 작성에 성공한 경우에만 첨부파일 작성 코드 수행
+		if((noticeService.insertNotice(n) == 0)) {
 			request.getSession().setAttribute("failMsg", "공지사항 작성에 실패했습니다");
+			return "redirect:noticeList";
 		}
-		return "notice/noticeList";
-		// return "notice/detailNotice?nno=" + notice_no;
-	}
+		
+		// null 체크 - 첨부파일이 없는 경우 아래 코드 진행x
+		if(multiFileList == null)
+			return "redirect:noticeList";
+			
+		// 첨부파일 돌면서 > 원본파일명 확인 > 공백이 아닌 경우 > 첨부파일 insert
+		for(MultipartFile file : multiFileList) {
+			if(file.getOriginalFilename().equals(""))
+				continue;
+			
+			NoticeAttachment attach = new NoticeAttachment();	// 첨부파일 객체 생성
+			
+			Path fullPath = Paths.get(saveFile(file, request.getSession(), "notice/"));	// 파일의 수정파일명 풀경로 구하기
+			
+			// System.out.println("getParent : " + fullPath.getParent());
+			// System.out.println("getFileName : " + fullPath.getFileName());
+			
+			attach.setOriginFileName(file.getOriginalFilename());			// 원본파일명 전달
+			attach.setChangeFileName(fullPath.getFileName().toString());	// 수정파일명 전달
+			attach.setFilePath(fullPath.getParent().toString());			// 파일경로 전달
+			
+			System.out.println(attach);
+			noticeService.insertAttachment(attach);							// 첨부파일 추가
+				
+			request.getSession().setAttribute("successMsg", "공지사항 작성에 성공했습니다!");
+		}
+		return "redirect:noticeList";
+	}	// insertNotice
 	
 	
-	
+	/**
+	 * 공지사항 게시글 상세보기
+	 * @param nno : 상세보기 하려는 공지사항 게시글 번호
+	 * @param loginUser : 로그인한 사용자의 정보
+	 * @param model
+	 * @return 게시글 번호에 해당하는 게시글 정보 반환
+	 * @author JH
+	 * @Date : 2023. 11. 30
+	 */
+	@GetMapping("detailNotice")
 	public String detailNotice(int nno,
 							  @SessionAttribute(name="loginUser", required=false) Employee loginUser,
 							  Model model) {
 		
+		// System.out.println("nno : " + nno);
 		int empNo = loginUser.getEmpNo();
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("empNo", empNo);
 		map.put("noticeNo", nno);
 		
-		model.addAttribute("list", noticeService.detailNotice(map));
+//		if(noticeService.checkNoticeLike(map) > 0) {
+//			System.out.println("좋아요했당");
+//		} else {
+//			System.out.println("좋아요 안했당");
+//		}
+		
+		// 조회수 증가가 성공할 때만 detail 보여주기
+		if(noticeService.increaseCount(nno) == 0){
+			model.addAttribute("failMsg", "다시 시도해주세요");
+			return "notice/detailNotice";
+		}
+		
+		List<Notice> list = noticeService.detailNotice(map);
+		List<NoticeAttachment> attachList = new ArrayList<NoticeAttachment>();
+		
+		// System.out.println("list.get(0) : " + list.get(0));
+		
+		
+		for(Notice notice : list) {
+			NoticeAttachment at = new NoticeAttachment();
+			at.setNoticeNo(notice.getNoticeNo());
+			at.setOriginFileName(notice.getOriginFileName());
+			at.setChangeFileName(notice.getChangeFileName());
+			at.setFilePath(notice.getFilePath());
+			
+			attachList.add(at);
+		}
+		
+		System.out.println("attachList:" + attachList);
+		
+		model.addAttribute("list", list.get(0));
+		model.addAttribute("attachList", attachList);
+		model.addAttribute("likeList", noticeService.checkNoticeLike(map));
 		
 		return "notice/detailNotice";
 	}	// detailNotice
 	
 	
+	/**
+	 * 공지사항 게시글 삭제
+	 * @param nno : 삭제하려는 공지사항 번호 (noticeNo)
+	 * @param changeFileName : 삭제 공지사항 번호에 첨부되어 있는 첨부파일명
+	 * @param session
+	 * @param loginUser : 현재 로그인한 회원의 정보
+	 * @return 공지사항 게시글 삭제 여부 반환
+	 * @author JH
+	 * @Date : 2023. 11. 30
+	 */
+	@PostMapping("deleteNotice")
+	public String deleteNotice(int nno, String changeFileName[],
+							   // MultipartFile[] multiFileList,
+							   HttpSession session,
+							   @SessionAttribute(name="loginUser", required=false) Employee loginUser) {
+		
+		int empNo = loginUser.getEmpNo();
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("empNo", empNo);
+		map.put("noticeNo", nno);
+
+		// 공지사항 삭제 성공시에만 첨부파일 삭제 > 첨부파일명이 공백이 아닌 경우 첨부파일 삭제 진행
+		if(noticeService.deleteNotice(map) == 0) {
+			session.setAttribute("failMsg", "공지사항 삭제 실패! 다시 시도해주세요");
+			return "notice/noticeList";
+		}
+		
+		// null 체크 - 첨부파일이 없는 경우 게시글 삭제만 진행하고 첨부파일 삭제 진행은 x
+		if(changeFileName == null)
+			return "redirect:noticeList";
+			
+		// changeFileName은 서버에 저장된 데이터 삭제하기 위해 필요! DB까지 들고 갈 필요 없음
+		// 첨부파일 돌면서 > 원본파일명 확인 공백 아닌 경우 첨부파일 삭제 진행
+		for(String file : changeFileName) {
+			
+			// 첨부파일 공백인경우 continue 
+			if(file.equals(""))
+				continue;
+			
+			// 첨부파일명이 공백이 아닌 경우 아래 코드 수행
+			// System.out.println("changeFileName : " + file);
+//			System.out.println("삭제경로확인1 : " + new File(session.getServletContext().getRealPath(filePath + "/" + file)));
+//			new File(session.getServletContext().getRealPath(filePath + "/" + file)).delete();
+			// System.out.println("삭제경로확인1 : " + new File(session.getServletContext().getRealPath(file)));
+			new File(session.getServletContext().getRealPath(file)).delete();
+		}
+			
+		noticeService.deleteNoticeAttach(map);
+		
+		session.setAttribute("successMsg", "공지사항 삭제 성공!");
+		return "redirect:noticeList";
+	}	// deleteNotice
+	
+//	@PostMapping("updateNotice")
+//	public String updateNotice(Notice n) {
+//		return "redirect:detailNotice?nno=" + n.getNoticeNo();
+//	}	// updateNotice
 	
 	
 

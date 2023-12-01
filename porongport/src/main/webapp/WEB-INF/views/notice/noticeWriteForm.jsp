@@ -8,7 +8,7 @@
 
 <style>
 	.ck-editor__editable { height: 400px; }
-	.ck-content { font-size: 13px; }
+	.ck-content { font-size: 14px; }
 	.ck-editor__editable p {margin: 0}
 	
 	<!-- 버튼 -->
@@ -21,6 +21,7 @@
 
 <!-- 메인화면 css-->
 <link rel="stylesheet" href="resources/css/main.css">
+<link rel="stylesheet" href="resources/css/notice.css">
 <!-- ckeditor5 -->
 <script src="https://cdn.ckeditor.com/ckeditor5/31.1.0/classic/ckeditor.js"></script>
 <script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/translations/ko.js"></script>
@@ -48,7 +49,7 @@
 	    <table id="tb-notice-form" class="table table-sm">
 	   		<tr>
 	   			<th>제목</th>
-	   			<td><input class="form-control form-control-sm" name="noticeTitle"></td>
+	   			<td><input class="form-control form-control-sm" name="noticeTitle" required></td>
 	   			<td >
 	   			<div class="form-check form-switch">
 				  <label>
@@ -67,7 +68,7 @@
 	   			<th>내용</th>
 	   			<td>
 	   			<div>
-	   				<textarea id="editor" name="noticeContent"></textarea>
+	   				<textarea id="editor" name="noticeContent" required></textarea>
 	   			</div>
 	   			</td>
 	   		</tr>
@@ -116,6 +117,7 @@
  		  
  		  $(this).submit();
  	   }
+ 	   
 	</script>
 	    
 </body>
