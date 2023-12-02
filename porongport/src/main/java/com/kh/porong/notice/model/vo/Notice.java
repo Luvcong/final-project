@@ -12,7 +12,7 @@ public class Notice {
 	private String noticeTitle;
 	private String noticeContent;
 	private String createDate;
-//	private String modifyDate;		// 현재 DB컬럼에 없음 추가해야함
+	private String modifyDate;		// 현재 DB컬럼에 없음 추가해야함
 	private String noticeStatus;
 	private int noticeCount;
 	private String noticeType;

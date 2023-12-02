@@ -27,7 +27,7 @@ public class NoticeDao {
 	 * @author JH
 	 * @Date : 2023. 11. 24
 	 */
-	public ArrayList<Notice> noticeList(SqlSessionTemplate sqlSession, RowBounds rowBounds) {
+	public List<Notice> noticeList(SqlSessionTemplate sqlSession, RowBounds rowBounds) {
 		return (ArrayList)sqlSession.selectList("noticeMapper.noticeList", null, rowBounds);
 	}	// noticeList
 	
@@ -68,8 +68,8 @@ public class NoticeDao {
 	 * @author JH
 	 * @Date : 2023. 11. 27
 	 */
-	public int insertAttachment(SqlSessionTemplate sqlSession, NoticeAttachment at) {
-		return sqlSession.insert("noticeMapper.insertAttachment", at);
+	public int insertAttachment(SqlSessionTemplate sqlSession, NoticeAttachment attach) {
+		return sqlSession.insert("noticeMapper.insertAttachment", attach);
 	}	// insertAttachment
 	
 	
@@ -90,7 +90,19 @@ public class NoticeDao {
 	}	// detailNotice
 	
 	/**
-	 * 2) 공지사항 좋아요 여부 체크
+	 * 2) 공지사항 게시글 첨부파일 상세조회
+	 * @param sqlSession
+	 * @param noticeNo - 공지사항 번호
+	 * @return 공지사항 번호에 해당하는 첨부파일 정보 반환
+	 * @author JH
+	 * @Date : 2023. 12. 1
+	 */
+	public List<NoticeAttachment> selectAttachment(SqlSessionTemplate sqlSession, int noticeNo) {
+		return sqlSession.selectList("noticeMapper.selectAttachment", noticeNo);
+	}	// selectAttachment
+
+	/**
+	 * 3) 공지사항 좋아요 여부 체크
 	 * @param sqlSession
 	 * @param map - empNo(로그인한 사용자의 사원번호), noticeNo(공지사항 번호)
 	 * @return 로그인한 사용자가 해당 게시글 번호에 좋아요를 했는지에 대한 체크 여부 (1: 좋아요O / 0: 좋아요X)
@@ -102,7 +114,7 @@ public class NoticeDao {
 	}	// noticeLikeCheck
 	
 	/**
-	 * 3) 공지사항 좋아요 취소(삭제)
+	 * 4) 공지사항 좋아요 취소(삭제)
 	 * @param sqlSession
 	 * @param map - empNo(로그인한 사용자의 사원번호), noticeNo(공지사항 번호), getLike(좋아요 유무 - Y : 좋아요 상태 / N : 좋아요 미상태)
 	 * @return 좋아요 취소 성공 여부 반환
@@ -114,7 +126,7 @@ public class NoticeDao {
 	}	// deleteNoticeLike
 	
 	/**
-	 * 4) 공지사항 좋아요 추가
+	 * 5) 공지사항 좋아요 추가
 	 * @param sqlSession
 	 * @param map - empNo(로그인한 사용자의 사원번호), noticeNo(공지사항 번호), getLike(좋아요 유무 - Y : 좋아요 상태 / N : 좋아요 미상태)
 	 * @return 좋아요 추가 성공 여부 반환
@@ -126,7 +138,7 @@ public class NoticeDao {
 	}	// insertNoticeLike
 	
 	/**
-	 * 5) 공지사항 조회수 증가
+	 * 6) 공지사항 조회수 증가
 	 * @param sqlSession
 	 * @param noticeNo - 조회 수 증가하는 공지사항 게시글 번호
 	 * @return 조회수 증가 성공 여부 반환
@@ -138,7 +150,31 @@ public class NoticeDao {
 	}	// increaseCount
 	
 	/**
-	 * 7) 공지사항 게시글 삭제
+	 * 7) 공지사항 게시글 수정
+	 * @param sqlSession
+	 * @param n - 공지사항 VO 객체
+	 * @return
+	 * @author JH
+	 * @Date : 2023. 12. 1
+	 */
+	public int updateNotice(SqlSessionTemplate sqlSession, Notice n) {
+		return sqlSession.update("noticeMapper.updateNotice", n);
+	}	// updateNotice
+	
+	/**
+	 * 8) 공지사항 게시글 첨부파일 수정
+	 * @param sqlSession
+	 * @param attach - 첨부파일 VO 객체
+	 * @return
+	 * @author JH
+	 * @Date : 2023. 12. 1
+	 */
+	public int updateAttachment(SqlSessionTemplate sqlSession, NoticeAttachment attach) {
+		return sqlSession.update("noticeMapper.updateAttachment", attach);
+	}	// updateAttachment
+	
+	/**
+	 * 9) 공지사항 게시글 삭제
 	 * @param sqlSession
 	 * @param map - empNo(로그인한 사용자의 사원번호), noticeNo(공지사항 번호), changeFileName(첨부되어 있는 파일명)
 	 * @return 공지사항 번호에 해당하는 글 삭제 성공 여부 반환
@@ -150,7 +186,7 @@ public class NoticeDao {
 	}	// deleteNotice
 	
 	/**
-	 * 8) 공지사항 게시글 첨부파일 삭제
+	 * 10) 공지사항 게시글 첨부파일 삭제
 	 * @param sqlSession
 	 * @param map - empNo(로그인한 사용자의 사원번호), noticeNo(공지사항 번호), changeFileName(첨부되어 있는 파일명)
 	 * @return 공지사항 번호에 해당하는 글의 첨부파일 삭제 성공 여부 반환
@@ -160,6 +196,7 @@ public class NoticeDao {
 	public int deleteNoticeAttach(SqlSessionTemplate sqlSession, Map<String, Integer> map) {
 		return sqlSession.delete("noticeMapper.deleteNoticeAttach", map);
 	}	// deleteNoticeAttach
+
 
 
 	

@@ -46,7 +46,7 @@
 						<i class="fa-regular fa-heart fa-2xl" style="color: #e71313;" onclick="likeCheck()" data-no=${ list.noticeNo }></i>
 					</c:otherwise>
 				</c:choose>
-						<span id="likeCount">${ list.noticeLikeCount }</span>	<!-- 해당 게시글의 좋아요 전체 개수 -->
+				<span id="likeCount">${ list.noticeLikeCount }</span>	<!-- 해당 게시글의 좋아요 전체 개수 -->
 			</div>
       	</div>	<!-- toolbar  -->
       	
@@ -65,7 +65,7 @@
 				${ list.empName } ${ list.jobName } / ${ list.deptName }
    			</div>
    			<div class="notice-profile-date">
-				${ list.createDate }
+				작성일 : ${ list.createDate } / <c:if test="${ not empty list.modifyDate }">수정일 : ${ list.modifyDate }</c:if>
    			</div>
    			<hr>
    			<div class="notice-content">
@@ -178,10 +178,26 @@
 			$('#postForm').attr('action', 'updateNoticeForm').submit();
 		} else {		// 삭제하기 클릭시
 			$('#postForm').attr('action', 'deleteNotice').submit();
-		}
+	  }
 	}	// postFormSubmit
 	
 	
 	</script>
+	
+ 	<c:choose>
+ 		<c:when test="${ not empty successMsg }">
+ 			<script>
+	 			Swal.fire('성공', '${ successMsg }', 'success');
+ 			</script>
+ 		</c:when>
+ 		<c:when test="${ not empty failMsg }">
+ 			<script>
+ 			Swal.fire('실패', '${ failMsg }', 'error');
+ 			</script>
+ 		</c:when>
+ 	</c:choose>
+ 	
+ 	<c:remove var="successMsg" />
+ 	<c:remove var="failMsg" />
 </body>
 </html>

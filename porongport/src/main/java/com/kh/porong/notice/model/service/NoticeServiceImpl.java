@@ -32,7 +32,7 @@ public class NoticeServiceImpl implements NoticeService {
 	
 	// 1) 공지사항 전체 리스트 조회
 	@Override
-	public ArrayList<Notice> noticeList(PageInfo pi) {
+	public List<Notice> noticeList(PageInfo pi) {
 		
 		int offset = (pi.getCurrentPage() -1) * pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
@@ -48,7 +48,7 @@ public class NoticeServiceImpl implements NoticeService {
 	
 	// 공지사항 게시글 검색 리스트 조회
 	@Override
-	public ArrayList<Notice> searchNoticeList(Map<String, Object> map, PageInfo pi) {
+	public List<Notice> searchNoticeList(Map<String, Object> map, PageInfo pi) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -88,45 +88,56 @@ public class NoticeServiceImpl implements NoticeService {
 	public List<Notice> detailNotice(Map<String, Integer> map) {
 		return noticeDao.detailNotice(sqlSession, map);
 	}	// detailNotice
+	
+	// 2) 공지사항 게시글 첨부파일 상세조회
+	@Override
+	public List<NoticeAttachment> selectAttachment(int noticeNo) {
+		return noticeDao.selectAttachment(sqlSession, noticeNo);
+	}	// selectAttachment
 
-	// 2) 공지사항 게시글 좋아요 여부 체크
+	// 3) 공지사항 게시글 좋아요 여부 체크
 	@Override
 	public int checkNoticeLike(Map<String, Integer> map) {
 		return noticeDao.checkNoticeLike(sqlSession, map);
 	}	// noticeLikeCheck
 
-	// 3) 공지사항 게시글 좋아요 취소(삭제)
+	// 4) 공지사항 게시글 좋아요 취소(삭제)
 	@Override
 	public int deleteNoticeLike(Map<String, Object> map) {
 		return noticeDao.deleteNoticeLike(sqlSession, map);
 	}	// deleteNoticeLike
 	
-	// 4) 공지사항 게시글 좋아요 추가
+	// 5) 공지사항 게시글 좋아요 추가
 	@Override
 	public int insertNoticeLike(Map<String, Object> map) {
 		return noticeDao.insertNoticeLike(sqlSession, map);
 	}	// insertNoticeLike
 	
-	// 5) 공지사항 게시글 조회 수 증가
+	// 6) 공지사항 게시글 조회 수 증가
 	@Override
 	public int increaseCount(int noticeNo) {
 		return noticeDao.increaseCount(sqlSession, noticeNo);
 	}	// increaseCount
 
-	// 공지사항 게시글 수정
+	// 7) 공지사항 게시글 수정
 	@Override
-	public int updateNotice(int noticeNo) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+	public int updateNotice(Notice n) {
+		return noticeDao.updateNotice(sqlSession, n);
+	}	// updateNotice
+	
+	// 8) 공지사항 게시글 첨부파일 수정
+	@Override
+	public int updateAttachment(NoticeAttachment attach) {
+		return noticeDao.updateAttachment(sqlSession, attach);
+	}	// updateAttachment
 
-	// 7) 공지사항 게시글 삭제
+	// 9) 공지사항 게시글 삭제
 	@Override
 	public int deleteNotice(Map<String, Integer> map) {
 		return noticeDao.deleteNotice(sqlSession, map);
 	}	// deleteNotice
 	
-	// 8) 공지사항 게시글 첨부파일 삭제
+	// 10) 공지사항 게시글 첨부파일 삭제
 	@Override
 	public int deleteNoticeAttach(Map<String, Integer> map) {
 		return noticeDao.deleteNoticeAttach(sqlSession, map);
@@ -134,17 +145,19 @@ public class NoticeServiceImpl implements NoticeService {
 
 	// 공지사항 게시글 댓글 리스트 조회
 	@Override
-	public ArrayList<Reply> selectReplyList(int noticeNo) {
+	public List<Reply> selectReplyList(int noticeNo) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 	
 	// 공지사항 게시글 댓글 작성
 	@Override
-	public ArrayList<Reply> insertReply(Reply r) {
+	public List<Reply> insertReply(Reply r) {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+
 
 
 	

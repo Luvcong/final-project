@@ -11,6 +11,5 @@ public class NoticeAttachment {
 	private String originFileName;
 	private String changeFileName;
 	private String filePath;
-	private String uploadDate;
 	private int noticeNo;
 }	// end class

@@ -10,6 +10,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.ws.rs.container.Suspended;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -156,20 +157,20 @@ public class NoticeController extends FileControllerBase {
 		}
 		
 		List<Notice> list = noticeService.detailNotice(map);
-		List<NoticeAttachment> attachList = new ArrayList<NoticeAttachment>();
+		List<NoticeAttachment> attachList = noticeService.selectAttachment(nno);
+		// List<NoticeAttachment> attachList = new ArrayList<NoticeAttachment>();
 		
 		// System.out.println("list.get(0) : " + list.get(0));
 		
-		
-		for(Notice notice : list) {
-			NoticeAttachment at = new NoticeAttachment();
-			at.setNoticeNo(notice.getNoticeNo());
-			at.setOriginFileName(notice.getOriginFileName());
-			at.setChangeFileName(notice.getChangeFileName());
-			at.setFilePath(notice.getFilePath());
-			
-			attachList.add(at);
-		}
+//		for(Notice notice : list) {
+//			NoticeAttachment at = new NoticeAttachment();
+//			at.setNoticeNo(notice.getNoticeNo());
+//			at.setOriginFileName(notice.getOriginFileName());
+//			at.setChangeFileName(notice.getChangeFileName());
+//			at.setFilePath(notice.getFilePath());
+//			
+//			attachList.add(at);
+//		}
 		
 		// System.out.println("attachList:" + attachList);
 		
@@ -254,25 +255,109 @@ public class NoticeController extends FileControllerBase {
 		map.put("noticeNo", nno);
 		
 		List<Notice> list = noticeService.detailNotice(map);
-		List<NoticeAttachment> attachList = new ArrayList<NoticeAttachment>();
+		List<NoticeAttachment> attachList = noticeService.selectAttachment(nno);
 		
-		for(Notice notice : list) {
-			NoticeAttachment at = new NoticeAttachment();
-			at.setNoticeNo(notice.getNoticeNo());
-			at.setOriginFileName(notice.getOriginFileName());
-			at.setChangeFileName(notice.getChangeFileName());
-			at.setFilePath(notice.getFilePath());
-			
-			attachList.add(at);
-		}
+//		for(Notice notice : list) {
+//			NoticeAttachment at = new NoticeAttachment();
+//			at.setNoticeNo(notice.getNoticeNo());
+//			at.setOriginFileName(notice.getOriginFileName());
+//			at.setChangeFileName(notice.getChangeFileName());
+//			at.setFilePath(notice.getFilePath());
+//			
+//			attachList.add(at);
+//		}
 		
 		model.addAttribute("list", list.get(0));
 		model.addAttribute("attachList", attachList);
-		System.out.println(list.get(0));
-		System.out.println(attachList);
+		// System.out.println(list.get(0));
+		// System.out.println(attachList);
 		
 		return "notice/updateNoticeForm";
 	}	// updateNotice
+	
+	
+	
+	/**
+	 * 공지사항 게시글 수정
+	 * @param n : 공지사항 게시글 정보가 담겨있는 Notice VO 객체
+	 * @param changeFileName : 수정 공지사항 번호에 첨부되어 있는 첨부파일명
+	 * @param multiFileList : 수정시 새롭게 첨부한 파일 리스트
+	 * @param loginUser : 현재 로그인한 사용자의 정보
+	 * @param session
+	 * @return 공지사항 게시글 수정 성공 여부 및 수정 내용 반환
+	 * @author JH
+	 * @Date : 2023. 12. 1
+	 */
+	@PostMapping("updateNotice")
+	public String updateNotice(Notice n,
+							   String changeFileName[],
+			 				   @RequestParam("reUpMultiFile") MultipartFile[] multiFileList,
+							   @SessionAttribute(name="loginUser", required=false) Employee loginUser,
+							   HttpServletRequest request) {
+		
+		n.setNoticeWriter(loginUser.getEmpNo());
+		System.out.println("Notice : " + n);
+		
+		// 공지사항 수정에 성공한 경우에만 첨부파일 작성 코드 수행
+		if((noticeService.updateNotice(n) == 0)) {
+			request.getSession().setAttribute("failMsg", "공지사항 수정에 실패했습니다");
+			return "redirect:detailNotice?nno=" + n.getNoticeNo();
+		}
+		
+		// null 체크 - 첨부파일이 없는 경우 게시글 수정만 진행하고 첨부파일 수정 진행은 x
+		if(multiFileList == null) {
+			request.getSession().setAttribute("successMsg", "공지사항 작성에 성공했습니다!");
+			return "redirect:detailNotice?nno=" + n.getNoticeNo();
+		}
+			
+		// 첨부파일 돌면서 > 새로운 파일명 확인 > 공백이 아닌 경우 > 첨부파일 insert + resources에 저장된 기존 파일 삭제
+		for(MultipartFile newFile : multiFileList) {
+			if(newFile.getOriginalFilename().equals("/"))	// 파일 첨부 안하는 경우 / 로 넘어옴
+				continue;
+			
+			// 1) 기존 첨부파일 삭제
+			for(String file : changeFileName) {
+				// 첨부파일 공백인경우 continue 
+				if(file.equals("/"))
+					continue;
+				// 공백이 아닌 경우 경로에서 찾아서 삭제
+				new File(request.getSession().getServletContext().getRealPath(file)).delete();
+			}
+			
+			
+			// 1) 파일이 기존에 있던 말던 현재 파일 삭제 기능이 없기 때문에
+			// multiFileList에 파일이 있는 경우 무조건 isnert 처리 진행
+			Path fullPath = Paths.get(saveFile(newFile, request.getSession(), "notice/"));	// 파일의 수정파일명 풀경로 구하기
+			// List<NoticeAttachment> attachList = noticeService.selectAttachment(n.getNoticeNo());
+			
+			// -- 추가사항 : 시퀀스번호 / 원본파일명 / 수정파일명 / 파일경로 / 공지사항번호
+			NoticeAttachment attach = new NoticeAttachment();
+			attach.setOriginFileName(newFile.getOriginalFilename());
+			attach.setChangeFileName(fullPath.getFileName().toString());
+			attach.setFilePath(fullPath.getParent().toString());
+			attach.setNoticeNo(n.getNoticeNo());
+			
+			System.out.println("수정getParent : " + fullPath.getParent());
+			System.out.println("수정getFileName : " + fullPath.getFileName());
+			System.out.println("attach객체 나오나? : " + attach);
+			
+			// 추가정보를 담은 attach 객체 넘기면서 파일 insert
+			// noticeService.insertAttachment(attach);
+			
+			if(noticeService.insertAttachment(attach) > 0){
+				System.out.println("파일첨부 성공!");
+			} else {
+				System.out.println("파일첨부 실패..");
+			}
+			
+		}
+				
+			request.getSession().setAttribute("successMsg", "공지사항 작성에 성공했습니다!");
+			return "redirect:detailNotice?nno=" + n.getNoticeNo();
+	}	// updateNotice
+	
+	
+	
 	
 	
 

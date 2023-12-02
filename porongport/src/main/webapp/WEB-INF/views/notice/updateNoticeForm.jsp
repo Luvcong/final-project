@@ -45,7 +45,9 @@
 	
     <h2 style="text-align: center;">공지사항 수정</h2>
     
-    <form action="insertNotice" method="post" enctype="multipart/form-data">
+    <form action="updateNotice" method="post" enctype="multipart/form-data">
+	    <input type="hidden" name="changeFileName" value="${ at.filePath }/${ at.changeFileName }">
+	    <input type="hidden" name="noticeNo" value="${ list.noticeNo }">
 	    <table id="tb-notice-form" class="table table-sm">
 	   		<tr>
 	   			<th>제목</th>
@@ -62,7 +64,7 @@
 	   		</tr>
 	   		<tr>
 	   			<th>첨부파일</th>
-	   			<td><input type="file" name="multiFile" multiple></td>
+	   			<td><input type="file" name="reUpMultiFile" multiple></td>
 	   		</tr>
 	   		<tr>
 	   			<th>기존파일</th>
@@ -76,6 +78,7 @@
 			      			<a class="form-control form-control-sm detail-input upload-name" 
 			      			   href="${ at.filePath }/${ at.changeFileName }" download="${ at.originFileName }">
 			      			   <i class="fa-regular fa-floppy-disk"></i> ${ at.originFileName }</a>
+			      			   <a href="#" >삭제</a>
 	      				</c:otherwise>
 	      			</c:choose>
    				</c:forEach>
@@ -92,7 +95,7 @@
 	   	</table>
 				    	
 		<div id="btnDiv">
-		    <button type="submit" class="btns save" onclick="updatetNotice()">수정하기</button>
+		    <button type="submit" class="btns save" onclick="updateNotice()">수정하기</button>
 		    <button type="button" class="btns back" onclick="location.href='${path}/noticeList'">목록으로</button>
 		</div>
     </form>
@@ -119,6 +122,26 @@
 	    .catch((error) => {
 	        console.error( error );
 	    });
+ 	    
+ 	    
+ 		// ------------------------------------------------------------------
+ 		// 공지사항 게시글 수정
+ 		// ------------------------------------------------------------------
+ 		function updateNotice(){
+			let content = document.getElementById('editor'); 
+			content.value = editor.getData();
+ 		   
+			let table = document.getElementById('tb-notice-form');
+			let is_checked = table.querySelector('input[name="noticeTypeTmp"]').checked;
+			console.log(is_checked);
+			
+			let type = table.querySelector('input[name="noticeType"]');
+			console.log(type);
+			type.value = is_checked ? 'Y' : 'N';
+ 		   
+ 		   $(this).submit();
+ 			
+ 		}	// updateNotice
  	   
 	</script>
 	    
