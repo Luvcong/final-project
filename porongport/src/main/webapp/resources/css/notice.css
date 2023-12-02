@@ -1,13 +1,81 @@
 @charset "UTF-8";
+.toolbar {
+	display: flex;
+	justify-content: space-between;
+}
+
+.table td {
+	padding: 6px 0!important;
+}
+
+.ck-content {
+	min-height: 400px;
+}
+
+
+
+.fa-circle-minus{
+	color: #e71313;
+	cursor: pointer;
+}
+.notice-profile {
+	width:100%;
+	display:flex;
+	justify-content:space-between;
+	padding-bottom: 12px;
+	margin: 12px 0;
+	border-bottom: 1px solid gray;
+}
+
+.notice-profile > div {
+	display: flex;
+}
+
+.notice-profile .profile-img {
+	width: 50px;
+	height: 50px;
+}
+
+.notice-profile .profile-info {
+	width: 500px;
+    margin-left: 8px;
+}
+
+.notice-profile .profile-info p {
+	margin-top: 0;
+	margin-bottom:0;
+}
+
+.notice-profile .notice-like i{
+	color:#e71313;
+	line-height:48px;
+}
+
+.notice-file {
+	margin: 12px 0;
+}
+.notice-file span {
+	display: block;
+	margin-bottom:4px;
+}
+
+.notice-file a {
+	border: none;
+	display: block;
+	padding-left: 4px;
+}
+
+.upload-name {
+	margin-left: 4px ;
+}
+/* =================================================== */
+
+
+
 .pp-content .h-title {
 	margin-bottom: 16px;
     font-size: 16pt;
     font-weight: bold;
-}
-.pp-content .toolbar {
-	display: flex;
-	justify-content: space-between;
-	margin-bottom: 16px;
 }
 
 .pp-content .pp-content-notice {

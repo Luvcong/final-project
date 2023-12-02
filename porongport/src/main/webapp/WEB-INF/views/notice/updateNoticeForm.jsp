@@ -42,8 +42,11 @@
 	
 	
 	<div class="pp-content">
-	
-    <h2 style="text-align: center;">공지사항 수정</h2>
+		<div class="header">
+			<div class="h-title">
+				공지사항 수정
+			</div>
+		</div>	<!-- header  -->
     
     <form action="updateNotice" method="post" enctype="multipart/form-data">
 	    <input type="hidden" name="changeFileName" value="${ at.filePath }/${ at.changeFileName }">
@@ -53,7 +56,7 @@
 	   			<th>제목</th>
 	   			<td><input class="form-control form-control-sm" name="noticeTitle" required value="${ list.noticeTitle }"></td>
 	   			<td >
-	   			<div class="form-check form-switch">
+	   			<div class="form-check form-switch" style="float:right;">
 				  <label>
 				  <input class="form-check-input" type="checkbox" name="noticeTypeTmp" checked="${ list.noticeType }">
 				  <input type="hidden" name="noticeType"/>
@@ -75,10 +78,14 @@
 	   						<input class="form-control form-control-sm detail-input" readonly placeholder="기존 첨부파일이 존재하지 않습니다.">
 	      				</c:when>
 	      				<c:otherwise>
-			      			<a class="form-control form-control-sm detail-input upload-name" 
+	      				<div>
+	      					<i class="fa-solid fa-circle-minus"></i>
+			      		    <a class="detail-input upload-name" 
 			      			   href="${ at.filePath }/${ at.changeFileName }" download="${ at.originFileName }">
-			      			   <i class="fa-regular fa-floppy-disk"></i> ${ at.originFileName }</a>
-			      			   <a href="#" >삭제</a>
+			      				<i class="fa-regular fa-floppy-disk"></i> ${ at.originFileName }
+		      			    </a>
+	      				</div>
+		      			   
 	      				</c:otherwise>
 	      			</c:choose>
    				</c:forEach>

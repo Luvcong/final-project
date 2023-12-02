@@ -32,22 +32,17 @@
 		</div>	<!-- header  -->
 		
 		<div class='toolbar'>
+		    <div>
 				<i class="fa-regular fa-circle-left fa-2xl" id="backIcon" onclick="historyBack()"></i>
-				<c:if test="${ list.empNo eq loginUser.empNo }">
+		    </div>
+		    <div>
+		    	<c:if test="${ list.empNo eq loginUser.empNo }">
 					<button class="btn btn-sm btn-danger" onclick="postFormSubmit(0)">수정</button>
 					<button class="btn btn-sm btn-danger" onclick="postFormSubmit(1)">삭제</button>
 				</c:if>
-			<div class="noticeLike">
-				<c:choose>
-					<c:when test="${ likeList eq 1 }">	<!-- notice_like 테이블에 empNo가 있는지? 있으면 채워진 하트 ; 클릭시 좋아요 delete -->
-						<i class="fa-solid fa-heart fa-2xl" style="color: #e71313;" onclick="likeCheck()" data-no=${ list.noticeNo }></i>
-					</c:when>
-					<c:otherwise>	<!-- 없으면 빈 하트 : 클릭시 좋아요 insert -->
-						<i class="fa-regular fa-heart fa-2xl" style="color: #e71313;" onclick="likeCheck()" data-no=${ list.noticeNo }></i>
-					</c:otherwise>
-				</c:choose>
-				<span id="likeCount">${ list.noticeLikeCount }</span>	<!-- 해당 게시글의 좋아요 전체 개수 -->
-			</div>
+		    </div>
+				
+
       	</div>	<!-- toolbar  -->
       	
 		<form action="" method="post" id="postForm">		
@@ -58,60 +53,60 @@
 		</form>
       	
       	<div class="detailContent">
-  			<div class="notice-profile">
-				<img id="profile-notice" src="resources/images/20231106.png"  alt="프로필사진">
-   			</div>
-   			<div class="notice-profile-info">
-				${ list.empName } ${ list.jobName } / ${ list.deptName }
-   			</div>
-   			<div class="notice-profile-date">
-				작성일 : ${ list.createDate } / <c:if test="${ not empty list.modifyDate }">수정일 : ${ list.modifyDate }</c:if>
-   			</div>
-   			<hr>
+      	<div class="notice-profile">
+      		<div>
+      		    <div class="profile-img">
+					<img id="profile-notice" src="resources/images/20231106.png"  alt="프로필사진">
+	   			</div>
+	   			<div class="profile-info">
+	   				<p>${ list.empName } ${ list.jobName } / ${ list.deptName }</p>
+	   				<p>작성일 : ${ list.createDate } / <c:if test="${ not empty list.modifyDate }">수정일 : ${ list.modifyDate }</c:if></p>
+	   			</div>
+      		</div>
+			<div>
+				<div class="notice-like">
+					<c:choose>
+						<c:when test="${ likeList eq 1 }">	<!-- notice_like 테이블에 empNo가 있는지? 있으면 채워진 하트 ; 클릭시 좋아요 delete -->
+							<i class="fa-solid fa-heart fa-2xl" onclick="likeCheck()" data-no=${ list.noticeNo }></i>
+						</c:when>
+						<c:otherwise>	<!-- 없으면 빈 하트 : 클릭시 좋아요 insert -->
+							<i class="fa-regular fa-heart fa-2xl"  onclick="likeCheck()" data-no=${ list.noticeNo }></i>
+						</c:otherwise>
+					</c:choose>
+					<span id="likeCount">${ list.noticeLikeCount }</span>	<!-- 해당 게시글의 좋아요 전체 개수 -->
+				</div>
+			</div>
+
+      	</div>
+      	
    			<div class="notice-content">
    				<div id=readEditor class="form-control form-control-sm form-control-notice">${ list.noticeContent }</div>
    			</div>
    			<div class="notice-file">
-   				<span>첨부파일</span>
+   				<span>첨부파일 ${at.originFileName }</span>
+   				<c:if test="${ empty attachList }">
+   					<input class="form-control form-control-sm detail-input" readonly placeholder="첨부파일이 존재하지 않습니다.">
+   				</c:if>
    				<c:forEach var="at" items="${ attachList }">
-	   				<c:choose>
-	   					<c:when test="${ empty at.originFileName }">
-	   						<input class="form-control form-control-sm detail-input" readonly placeholder="첨부파일이 존재하지 않습니다.">
-	      				</c:when>
-	      				<c:otherwise>
-			      			<a class="form-control form-control-sm detail-input upload-name" 
-			      			   href="${ at.filePath }/${ at.changeFileName }" download="${ at.originFileName }">
-			      			   <i class="fa-regular fa-floppy-disk"></i> ${ at.originFileName }</a>
-	      				</c:otherwise>
-	      			</c:choose>
+	      			<a class="detail-input upload-name" 
+	      			   href="${ at.filePath }/${ at.changeFileName }" download="${ at.originFileName }">
+	      			   <i class="fa-regular fa-floppy-disk"></i> ${ at.originFileName }</a>
    				</c:forEach>
    			</div>
       	</div>
       	
       	<table id="replyArea" class="table" align="center">
 	        <thead>
-	        	<c:choose>
-	        		<c:when test="${ empty sessionScope.loginUser }">
-	              <tr>
-	                  <th colspan="2">
-	                      <textarea class="form-control" readonly cols="55" rows="2" style="resize:none; width:100%;">로그인 후 이용 가능합니다</textarea>
-	                  </th>
-	                  <th style="vertical-align:middle"><button class="btn btn-sm btn-secondary">등록하기</button></th>
-	              </tr>
-	        		</c:when>
-	        		<c:otherwise>
-	              <tr>
-	                  <th colspan="2">
-	                      <textarea class="form-control" id="replyContent" cols="55" rows="2" style="resize:none; width:100%;"></textarea>
-	                  </th>
-	                  <th style="vertical-align:middle"><button class="btn btn-sm btn-secondary" onclick="addReply()">등록하기</button></th>
-	              </tr>
-	              
-	              <tr>
-	                  <td colspan="3">댓글(<span id="rcount">0</span>)</td>
-	              </tr>
-	        		</c:otherwise>
-	        	</c:choose>
+	            <tr>
+	                <th colspan="4" style="padding-left:0;">
+	                    <textarea class="form-control" id="replyContent" cols="55" rows="2" style="resize:none; width:100%;"></textarea>
+	                </th>
+	                <th style="vertical-align:middle"><button class="btn btn-sm btn-secondary" onclick="addReply()">등록하기</button></th>
+	            </tr>
+	            
+	            <tr>
+	                <th colspan="5">댓글(<span id="rcount">0</span>)</th>
+	            </tr>
 	        </thead>
 			<tbody>
 			
@@ -156,8 +151,13 @@
 		
 	})
 	
-	function historyBack(){
-			  location.href = document.referrer;
+	function historyBack() {
+		let back_url = document.refeeror;
+		if(back_url == undefined)
+			back_url = 'noticeList';
+		
+		location.href = back_url;
+			  
 	}	// historyBack
 	
 	
@@ -269,11 +269,11 @@
 				let value = '';
 				for(let list of replyList){
 					value += '<tr>' 
-						   + '<td style="width:10px">' + '<img id="profile-notice" src="resources/images/20231106.png"  alt="프로필사진">' + '</td>'
-						   + '<td>' + list.empList[0].empName + list.empList[0].jobName + ' / ' + list.empList[0].deptName + '</td>'
+						   + '<td style="width:75px;">' + '<img id="profile-notice" src="resources/images/20231106.png"  alt="프로필사진">' + '</td>'
+						   + '<td style="width:250px;">' + list.empList[0].empName + list.empList[0].jobName + ' / ' + list.empList[0].deptName + '</td>'
 						   + '<td>' + list.replyContent + '</td>'
-						   + '<td>' + list.replyDate + '</td>'
-						   + '<td>' + '<i class="fa-regular fa-rectangle-xmark"></i>' + '</td>'
+						   + '<td style="width:170px;">' + list.replyDate + '</td>'
+						   + '<td style="width:100px;">' + '<i class="fa-regular fa-rectangle-xmark"></i>' + '</td>'
 						   + '</tr>'
 				}
 				$('#replyArea tbody').html(value);
