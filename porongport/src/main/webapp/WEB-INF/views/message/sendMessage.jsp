@@ -23,7 +23,7 @@
 	<div class="pp-content">
 		<div class="header">
 			<div class="h-title">
-				보낸 메시지
+				보낸 메시지 <i class="fa-solid fa-comment-dots"></i>
 			</div>
 		</div>	<!-- header  -->
 		

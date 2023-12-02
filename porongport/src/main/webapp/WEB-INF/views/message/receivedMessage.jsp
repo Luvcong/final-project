@@ -22,7 +22,7 @@
 	<div class="pp-content">
 		<div class="header">
 			<div class="h-title">
-				받은 메시지
+				받은 메시지 <i class="fa-regular fa-comment-dots"></i>
 			</div>
 		</div>	<!-- header  -->
 		
@@ -96,7 +96,7 @@
 				<c:choose>
 	           	<c:when test="${ empty list }">
 	   	            <tr>
-		            	<td colspan="7">받은 메시지가 없습니다.</td>
+		            	<td colspan="8">받은 메시지가 없습니다.</td>
 	                </tr>
 	           	</c:when>
 	           	<c:otherwise>
@@ -192,7 +192,7 @@
 			            </div>
 			        </div>
 			</form>
-		  </div>
+		  </div> 
 		  
 		  <script>
 		  $("#file").on('change',function(){

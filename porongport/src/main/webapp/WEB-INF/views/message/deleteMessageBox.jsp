@@ -25,14 +25,14 @@
 	<div class="pp-content">
 		<div class="header">
 			<div class="h-title">
-				휴지통
+				휴지통 <i class="fa-regular fa-trash-can"></i>
 			</div>
 		</div>	<!-- header  -->
 		
 		<div class='toolbar'>
 			<div class="messageBtn">
-				<button id="moveBtn" class="btn btn-sm btn-outline-danger" onclick="moveMessageBox()">복구</button>
-				<button class="btn btn-sm btn-outline-danger"  onclick="deletePermanentlyMessage()">영구삭제</button>
+				<button id="moveBtn" class="btn btn-sm btn-outline-primary" onclick="moveMessageBox()">복구</button>
+				<button class="btn btn-sm btn-outline-primary"  onclick="deletePermanentlyMessage()">영구삭제</button>
 			</div>
 			
         <div class="searchTable">
@@ -40,9 +40,10 @@
 	      	<table>
 	      		<tr>
 		            <td>
-	     			    <select class="select btn btn-sm btn-outline-danger dropdown-toggle" name="condition">
+	     			    <select class="select btn btn-sm btn-outline-primary dropdown-toggle" name="condition">
 							<option value="userName">이름</option>
 							<option value="jobName">직급</option>
+							<option value="deptName">부서</option>
 							<option value="messageContent">내용</option>
 						</select>
 	     			</td>
@@ -50,7 +51,7 @@
 	      				<input class="form-control form-control-sm" name="keyword" type="text" placeholder="검색어를 입력하세요" size="30" value="${ keyword }">
 	   				</td>
 					<td>
-	      				<button type="submit" class="btn btn-sm btn-outline-danger" >검색</button>
+	      				<button type="submit" class="btn btn-sm btn-outline-primary" >검색</button>
 	   				</td>
 	      		</tr>
 	      	</table>
@@ -76,17 +77,19 @@
 		
 		<div class="pp-content-message">
 			<div class="selectCount">
-				삭제 메시지 수 <span class="count delCount" id="messageListCount" style="color: #DC3545;">${ pi.listCount }</span>개
+				삭제 메시지 수 <span class="count delCount" id="messageListCount">${ pi.listCount }</span>개
 			</div>
 		
 			<div class="tableBody">
 				<table id='tb-delete' class="table table-sm table-hover shadow rounded-3">
 				<thead>
-					<tr class="tb-delte-title-tr">
+					<tr class="tb-title-tr">
 						<th><input type="checkbox" onclick="checkAll()"></th>
 						<th></th>
 						<th>번호</th>
+						<th>분류</th>
 						<th>발신자</th>
+						<th>부서</th>
 						<th>내용</th>
 						<th>삭제 시간</th>
 						<th>영구삭제 시간</th>
@@ -112,7 +115,9 @@
 		                    	</c:otherwise>
 		                    </c:choose>
 		                    <td>${ message.messageRank }</td>
+		                    <td class='${message.messageType eq "수신" ? "recv" : "send"}'>${ message.messageType }</td>
 							<td>${ message.empName } [${ message.jobName }]</td>
+							<td>${ message.deptName }</td>
 							<td>${ message.messageContent }</td>
 							<td>${ message.deleteDate }</td>
 							<td  id="effectiveDate">${ message.effectiveDate }<span>일 남음</span></td>

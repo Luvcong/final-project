@@ -22,7 +22,7 @@
 	<div class="pp-content">
 		<div class="header">
 			<div class="h-title">
-				공지사항 게시판
+				공지사항 게시판 <i class="fa-regular fa-newspaper"></i>
 			</div>
 		</div>	<!-- header  -->
 		
@@ -232,12 +232,12 @@
 	
 			
  	<c:choose>
- 		<c:when test="${ not empty sessionScope.successMsg }">
+ 		<c:when test="${ not empty successMsg }">
  			<script>
 	 			Swal.fire('성공', '${ successMsg }', 'success');
  			</script>
  		</c:when>
- 		<c:when test="${ not empty sessionScope.failMsg }">
+ 		<c:when test="${ not empty failMsg }">
  			<script>
  			Swal.fire('실패', '${ failMsg }', 'error');
  			</script>

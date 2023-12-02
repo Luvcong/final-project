@@ -23,7 +23,7 @@
 	<div class="pp-content">
 		<div class="header">
 			<div class="h-title">
-				보낸 메시지 보관함
+				보낸 메시지 보관함 <i class="fa-solid fa-comments"></i>
 			</div>
 		</div>	<!-- header  -->
 		
