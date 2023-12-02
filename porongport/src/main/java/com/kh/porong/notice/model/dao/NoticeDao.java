@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.kh.porong.common.model.vo.PageInfo;
 import com.kh.porong.notice.model.vo.Notice;
 import com.kh.porong.notice.model.vo.NoticeAttachment;
+import com.kh.porong.reply.model.vo.Reply;
 
 @Repository
 public class NoticeDao {
@@ -196,6 +197,31 @@ public class NoticeDao {
 	public int deleteNoticeAttach(SqlSessionTemplate sqlSession, Map<String, Integer> map) {
 		return sqlSession.delete("noticeMapper.deleteNoticeAttach", map);
 	}	// deleteNoticeAttach
+	
+	/**
+	 * 공지사항 게시글 댓글 조회
+	 * @param sqlSession
+	 * @param noticeNo
+	 * @return
+	 * @author JH
+	 * @Date : 2023. 12. 2
+	 */
+	public List<Reply> selectReplyList(SqlSessionTemplate sqlSession, int noticeNo) {
+		return sqlSession.selectList("noticeMapper.selectReplyList", noticeNo);
+	}	// selectReplyList
+	
+	/**
+	 * 공지사항 게시글 댓글 작성
+	 * @param sqlSession
+	 * @param r
+	 * @return
+	 * @author JH
+	 * @Date : 2023. 12. 2
+	 */
+	public int insertReply(SqlSessionTemplate sqlSession, Reply r) {
+		return sqlSession.insert("noticeMapper.insertReply", r);
+	}	// insertReply
+
 
 
 

@@ -7,7 +7,7 @@ import java.util.Map;
 import com.kh.porong.common.model.vo.PageInfo;
 import com.kh.porong.notice.model.vo.Notice;
 import com.kh.porong.notice.model.vo.NoticeAttachment;
-import com.kh.porong.reply.vo.Reply;
+import com.kh.porong.reply.model.vo.Reply;
 
 public interface NoticeService {
 	
@@ -77,7 +77,7 @@ public interface NoticeService {
 	List<Reply> selectReplyList(int noticeNo);
 	
 	// 공지사항 게시글 댓글 작성
-	List<Reply> insertReply(Reply r);
+	int insertReply(Reply r);
 
 	
 }	// end class

@@ -344,11 +344,7 @@ public class NoticeController extends FileControllerBase {
 			// 추가정보를 담은 attach 객체 넘기면서 파일 insert
 			// noticeService.insertAttachment(attach);
 			
-			if(noticeService.insertAttachment(attach) > 0){
-				System.out.println("파일첨부 성공!");
-			} else {
-				System.out.println("파일첨부 실패..");
-			}
+			noticeService.insertAttachment(attach);
 			
 		}
 				

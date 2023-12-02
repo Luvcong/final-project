@@ -87,10 +87,45 @@
    				</c:forEach>
    			</div>
       	</div>
+      	
+      	<table id="replyArea" class="table" align="center">
+	        <thead>
+	        	<c:choose>
+	        		<c:when test="${ empty sessionScope.loginUser }">
+	              <tr>
+	                  <th colspan="2">
+	                      <textarea class="form-control" readonly cols="55" rows="2" style="resize:none; width:100%;">로그인 후 이용 가능합니다</textarea>
+	                  </th>
+	                  <th style="vertical-align:middle"><button class="btn btn-sm btn-secondary">등록하기</button></th>
+	              </tr>
+	        		</c:when>
+	        		<c:otherwise>
+	              <tr>
+	                  <th colspan="2">
+	                      <textarea class="form-control" id="replyContent" cols="55" rows="2" style="resize:none; width:100%;"></textarea>
+	                  </th>
+	                  <th style="vertical-align:middle"><button class="btn btn-sm btn-secondary" onclick="addReply()">등록하기</button></th>
+	              </tr>
+	              
+	              <tr>
+	                  <td colspan="3">댓글(<span id="rcount">0</span>)</td>
+	              </tr>
+	        		</c:otherwise>
+	        	</c:choose>
+	        </thead>
+			<tbody>
+			
+			</tbody>
+		</table>		
 		
 	</div>	<!-- pp-content  -->
 	
+	
+	
 	<script>
+	$(function(){
+		selectReplyList();
+	})
 	
 	let editor;
 	
@@ -181,6 +216,74 @@
 	  }
 	}	// postFormSubmit
 	
+	
+	// ------------------------------------------------------------------
+	// 공지사항 댓글 작성
+	// ------------------------------------------------------------------
+	function addReply(){
+		
+		if($('#replyContent').val().trim() != ''){
+			
+			$.ajax({
+				url : 'addReply',
+				type : 'post',
+				data : { 
+						noticeNo : ${ list.noticeNo },
+						replyContent : $('#replyContent').val(),
+						replyWriter : '${ sessionScope.loginUser.empNo }'
+					},
+				success : function(result){	// result => {
+					
+					if(result === 'success'){
+						$('#replyContent').val('');
+						selectReplyList();
+					} 
+				},	// success
+				error : function(result){
+					console.log('통신오류! 실패');
+				},	// error
+			});	// ajax
+		}
+		else {
+			Swal.fire('실패', '댓글을 작성해주세요!', 'warning');
+/* 			Swal.fire({
+				text : '댓글을 작성해주세요',
+				icon : 'warning'
+			}) */
+		}
+	
+	}	// addReply
+	
+	
+	// ------------------------------------------------------------------
+	// 공지사항 댓글 조회
+	// ------------------------------------------------------------------
+	function selectReplyList(){
+		$.ajax({
+			url : 'noticeReplyList',
+			type : 'post',
+			data : { noticeNo : ${ list.noticeNo } },
+			success : replyList => {
+				console.log(replyList);
+				
+				let value = '';
+				for(let list of replyList){
+					value += '<tr>' 
+						   + '<td style="width:10px">' + '<img id="profile-notice" src="resources/images/20231106.png"  alt="프로필사진">' + '</td>'
+						   + '<td>' + list.empList[0].empName + list.empList[0].jobName + ' / ' + list.empList[0].deptName + '</td>'
+						   + '<td>' + list.replyContent + '</td>'
+						   + '<td>' + list.replyDate + '</td>'
+						   + '<td>' + '<i class="fa-regular fa-rectangle-xmark"></i>' + '</td>'
+						   + '</tr>'
+				}
+				$('#replyArea tbody').html(value);
+				$('#rcount').text(replyList.length);
+			},	// success
+			error : () => {
+				console.log('AJAX 댓글 목록조회 실패!');
+			}	// error
+		});	// 	// ajax
+	}	// selectReplyList
 	
 	</script>
 	

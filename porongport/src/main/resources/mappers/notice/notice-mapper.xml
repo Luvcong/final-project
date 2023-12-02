@@ -39,6 +39,34 @@
 		<result column="NOTICE_LIKE" property="noticeLike" />
 	</resultMap>
 	
+	<resultMap id="replyResultSet" type="reply">
+		<result column="REPLY_NO" property="replyNo" />
+		<result column="NOTICE_NO" property="noticeNo" />
+		<result column="BOARD_NO" property="boardNo" />
+		<result column="REPLY_WRITER" property="replyWriter" />
+		<result column="REPLY_CONTENT" property="replyContent" />
+		<result column="REPLY_DATE" property="replyDate" />
+		<result column="REPLY_STATUS" property="replyStatus" />
+	</resultMap>
+	
+	<resultMap id="replyAndEmp" type="reply">
+		<result column="REPLY_NO" property="replyNo" />
+		<result column="NOTICE_NO" property="noticeNo" />
+		<result column="BOARD_NO" property="boardNo" />
+		<result column="REPLY_WRITER" property="replyWriter" />
+		<result column="REPLY_CONTENT" property="replyContent" />
+		<result column="REPLY_DATE" property="replyDate" />
+		<result column="REPLY_STATUS" property="replyStatus" />
+		<collection property="empList" resultMap="empMap"></collection>
+	</resultMap>
+	
+	<resultMap id="empMap" type="emp">
+		<result column="EMP_NO" property="empNo" />
+		<result column="EMP_NAME" property="empName" />
+		<result column="DEPT_NAME" property="deptName" />
+		<result column="JOB_NAME" property="jobName" />
+	</resultMap>
+	
 	<!-- ********************************************************* -->
 	<!-- 1) 공지사항 리스트 전체 조회 -->
 	<select id="noticeList" resultMap="noticeResultSet" parameterType="notice">
@@ -226,7 +254,7 @@
 				NOTICE_LIKE_NO,
 				NOTICE_NO,
 				EMP_NO,
-				NOTICE_LIKE_DATE	<!-- 날짜컬럼 삭제해도 될 듯? -->
+				NOTICE_LIKE_DATE
 				)
 				VALUES
 				(
@@ -296,6 +324,60 @@
 		 		NOTICE_NO = #{ noticeNo }
 	</delete>
 	
+	<!-- 공지사항 게시글 댓글 작성 -->
+	<insert id="insertReply" parameterType="reply">
+		INSERT
+		  INTO
+		  		REPLY
+		  		(
+		        REPLY_NO,
+		        NOTICE_NO,
+		        BOARD_NO,
+		        REPLY_WRITER,
+		        REPLY_CONTENT,
+		        REPLY_DATE,
+		        REPLY_STATUS
+		        )
+		VALUES
+				(
+		        SEQ_REPLY_NO.NEXTVAL,
+		        #{ noticeNo },
+		        NULL,
+		        #{ replyWriter },
+		        #{ replyContent },
+		        SYSDATE,
+		        DEFAULT
+		        )
+	</insert>
+	
+	<!-- 공지사항 게시글 댓글 조회 -->
+	<select id="selectReplyList" resultMap="replyAndEmp">
+		SELECT
+				REPLY_NO,
+				NOTICE_NO,
+				BOARD_NO,
+                EMP_NAME,
+                JOB_NAME,
+                DEPT_NAME,
+				REPLY_WRITER,
+				REPLY_CONTENT,
+				REPLY_DATE,
+				REPLY_STATUS
+	  	  FROM
+	  	  		REPLY R, EMPLOYEE E, DEPARTMENT D, JOB J
+	 	 WHERE 
+	 	 		NOTICE_NO = #{ noticeNo }
+           AND
+                R.REPLY_WRITER = E.EMP_NO
+           AND
+                E.JOB_CODE = J.JOB_CODE
+           AND
+                E.DEPT_CODE = D.DEPT_CODE
+
+	 	 ORDER
+	 	    BY
+	 	    	REPLY_NO DESC
+	</select>
 	
 
 	

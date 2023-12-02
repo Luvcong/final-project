@@ -20,6 +20,7 @@
 		<typeAlias type="com.kh.porong.approval.model.vo.EdmsVO" alias="edms" />
 		<typeAlias type="com.kh.porong.approval.model.vo.EdmsLineVO" alias="edmsLine" />
 		<typeAlias type="com.kh.porong.notice.model.vo.NoticeLike" alias="noticeLike" />
+		<typeAlias type="com.kh.porong.reply.model.vo.Reply" alias="reply" />
 	</typeAliases>
 	
 	<mappers>

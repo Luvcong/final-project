@@ -1,6 +1,5 @@
 package com.kh.porong.notice.model.service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -14,7 +13,7 @@ import com.kh.porong.common.model.vo.PageInfo;
 import com.kh.porong.notice.model.dao.NoticeDao;
 import com.kh.porong.notice.model.vo.Notice;
 import com.kh.porong.notice.model.vo.NoticeAttachment;
-import com.kh.porong.reply.vo.Reply;
+import com.kh.porong.reply.model.vo.Reply;
 
 @Service
 @EnableTransactionManagement
@@ -146,16 +145,14 @@ public class NoticeServiceImpl implements NoticeService {
 	// 공지사항 게시글 댓글 리스트 조회
 	@Override
 	public List<Reply> selectReplyList(int noticeNo) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+		return noticeDao.selectReplyList(sqlSession, noticeNo);
+	}	// selectReplyList
 	
 	// 공지사항 게시글 댓글 작성
 	@Override
-	public List<Reply> insertReply(Reply r) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	public int insertReply(Reply r) {
+		return noticeDao.insertReply(sqlSession, r);
+	}	// insertReply
 
 
 

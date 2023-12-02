@@ -26,8 +26,10 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.support.DefaultMultipartHttpServletRequest;
 
+import com.google.gson.Gson;
 import com.kh.porong.employee.model.vo.Employee;
 import com.kh.porong.notice.model.service.NoticeService;
+import com.kh.porong.reply.model.vo.Reply;
 
 
 @Controller
@@ -131,7 +133,6 @@ public class AjaxNoticeController {
 	}	// uploadFile
 	
 	
-	
 	/**
 	 * 좋아요 설정 및 취소 처리
 	 * getLike : true인경우 좋아요 Delete 수행
@@ -168,7 +169,32 @@ public class AjaxNoticeController {
 	}	// likeCheck
 	
 	
+	/**
+	 * 공지사항 게시글 댓글 조회
+	 * @param noticeNo
+	 * @return
+	 * @author JH
+	 * @Date : 2023. 12. 2
+	 */
+	@ResponseBody
+	@PostMapping(value="noticeReplyList", produces="application/json; charset=UTF-8")
+	public String ajaxSelectReplyList(int noticeNo) {
+		return new Gson().toJson(noticeService.selectReplyList(noticeNo));
+	}	// ajaxSelectReplyList
 	
+	
+	/**
+	 * 공지사항 게시글 댓글 작성
+	 * @param r
+	 * @return
+	 * @author JH
+	 * @Date : 2023. 12. 2
+	 */
+	@ResponseBody
+	@PostMapping("addReply")
+	public String ajaxInsertReply(Reply r) {
+		return noticeService.insertReply(r) > 0 ? "success" : "fail";
+	}	// ajaxInsertReply
 	
 	
 	

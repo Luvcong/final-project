@@ -104,6 +104,12 @@
                     <div class="icon"><i class="fa-solid fa-calendar-days"></i></div>
                     <div class="menu-name">캘린더</div>
                 </div>
+				<c:if test="${loginUser.empAdmin eq 'A' and loginUser.deptCode eq 'WEB'}">
+	                <div class="item" data-group='statistics'>
+	                   	<div class="icon"><i class="fa-solid fa-chart-line"></i></div>
+	                    <div class="menu-name">통계</div>
+                    </div>
+				</c:if>
             </div>  <!-- pp-sidebar -->
 
 
@@ -151,7 +157,7 @@
 			        <div class="sub-item" data-url='document3'>전체문서함</div>
 				</div>
 				<div class="sub-menu d-none" data-group='receivedMessage'>
-					<div class="sub-item sub-title" data-url='receivedMessage'>메시지함</div>
+					<div class="sub-item sub-title" data-url='receivedMessage'><i class="fa-solid fa-envelope"></i> 메시지함</div>
 					<div class="sub-item not-hover" onclick='messageForm()'>
 						<button class='btn btn-sm btn-primary msg-write'>메시지 작성</button>
 					</div>
@@ -163,7 +169,7 @@
 			        <div class="sub-item" data-url='deleteMessageBox'>휴지통</div>
 				</div>
 				<div class="sub-menu d-none" data-group='noticeList'>
-					<div class="sub-item sub-title" data-url='notice'>게시판</div>
+					<div class="sub-item sub-title" data-url='notice'><i class="fa-solid fa-pen-to-square"></i> 게시판</div>
 			        <div class="sub-item" data-url='noticeList'>공지사항 게시판</div>
 			        <div class="sub-item" data-url='board'>자유 게시판</div>
 				</div>
@@ -194,6 +200,12 @@
 					<c:if test="${loginUser.empAdmin eq 'A' and loginUser.deptCode eq 'PD'}"></c:if>
                 	<div class="sub-item" data-url='adminMeetingRoom'>회의실 일정 관리</div>
 				</div>
+				<div class="sub-menu d-none" data-group='statistics'>
+					<div class="sub-item sub-title" data-url='statistics'>통계 관리</div>
+			        <div class="sub-item" data-url='AttendanceStatistics'>근태 통계</div>
+			        <div class="sub-item" data-url='vacayStatistics'>연차 통계</div>
+				<div>
+				
             </div>  <!-- pp-sub-sidebar -->
             
             <!-- <div class="pp-content"></div> -->
