@@ -1,5 +1,23 @@
 @charset "UTF-8";
 
+input[readonly] {
+	background-color: white!important;
+	border:none;
+}
+
+.detailContent .table th {
+	vertical-align: middle;
+}
+
+
+.tr-sender td {
+	display: flex;
+}
+
+.tr-sender input {
+	margin: 8px 0 0 8px;
+}
+
 .select2-container, .text-sm {
 	font-size: 14px;
 }
@@ -28,7 +46,7 @@
     margin-bottom: 12px;
 }
 
-.pp-content .pp-content-message .selectCount .count {
+.pp-content .pp-content-message .selectCount .message-count {
 	color: #6C79E0;
 }
 

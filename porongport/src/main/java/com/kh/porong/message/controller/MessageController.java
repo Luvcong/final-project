@@ -130,24 +130,6 @@ public class MessageController extends FileControllerBase {
 		model.addAttribute("userList", messageService.selectAllEmployee());
 		
 		
-		
-		/*
-		 * if(keyword != null) { Map<String, String> map = new HashMap<String,
-		 * String>(); map.put("condition", condition);
-		 * 
-		 * map.put("keyword", keyword);
-		 * 
-		 * PageInfo keywordPage =
-		 * Pagination.getPageInfo(messageService.searchReceivedListCount(map),
-		 * currentPage, boardLimit, pageLimit);
-		 * 
-		 * model.addAttribute("list", messageService.searchReceivedMessage(map,
-		 * keywordPage)); model.addAttribute("pi", keywordPage);
-		 * model.addAttribute("condition", condition); model.addAttribute("keyword",
-		 * keyword); }
-		 */
-		 
-		
 		return "message/receivedMessage";
 	}	// messageReceived
 	
@@ -214,6 +196,7 @@ public class MessageController extends FileControllerBase {
 		
 		model.addAttribute("list", messageService.receivedStorageList(pi, empNo));
 		model.addAttribute("pi", pi);
+		model.addAttribute("userList", messageService.selectAllEmployee());
 		
 		return "message/receivedStorageMessage";
 	}	// receivedStorageMessage
@@ -283,6 +266,7 @@ public class MessageController extends FileControllerBase {
 		
 		model.addAttribute("list", messageService.sendMessageList(pi, empNo));
 		model.addAttribute("pi", pi);
+		model.addAttribute("userList", messageService.selectAllEmployee());
 		
 		return "message/sendMessage";
 	}	// sendMessage
@@ -348,6 +332,7 @@ public class MessageController extends FileControllerBase {
 			
 			model.addAttribute("list", messageService.sendStorageList(pi, empNo));
 			model.addAttribute("pi", pi);
+			model.addAttribute("userList", messageService.selectAllEmployee());
 			
 			return "message/sendStorageMessage";
 		}	// sendStorageMessage
@@ -416,6 +401,7 @@ public class MessageController extends FileControllerBase {
 		
 		model.addAttribute("list", messageService.deleteMessageBoxList(pi, empNo));
 		model.addAttribute("pi", pi);
+		model.addAttribute("userList", messageService.selectAllEmployee());
 		
 		return "message/deleteMessageBox";
 	}	// deleteMessageBox
