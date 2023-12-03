@@ -223,10 +223,10 @@ public class NoticeDao {
 	}	// deleteNoticeAttach
 	
 	/**
-	 * 공지사항 게시글 댓글 조회
+	 * 11) 공지사항 게시글 댓글 리스트 조회
 	 * @param sqlSession
-	 * @param noticeNo
-	 * @return
+	 * @param noticeNo : 공지사항 게시글 번호
+	 * @return 공지사항 게시글 번호에 해당하는 댓글 리스트 반환
 	 * @author JH
 	 * @Date : 2023. 12. 2
 	 */
@@ -235,16 +235,28 @@ public class NoticeDao {
 	}	// selectReplyList
 	
 	/**
-	 * 공지사항 게시글 댓글 작성
+	 * 12) 공지사항 게시글 댓글 작성
 	 * @param sqlSession
-	 * @param r
-	 * @return
+	 * @param r : reply VO 객체
+	 * @return 공지사항 댓글 성공 여부 반환
 	 * @author JH
 	 * @Date : 2023. 12. 2
 	 */
 	public int insertReply(SqlSessionTemplate sqlSession, Reply r) {
 		return sqlSession.insert("noticeMapper.insertReply", r);
 	}	// insertReply
+	
+	/**
+	 * 13) 공지사항 게시글 댓글 삭제
+	 * @param sqlSession
+	 * @param replyNo : 삭제하려는 댓글 SEQ번호
+	 * @return 공지사항 댓글 삭제 성공 여부 반환
+	 * @author JH
+	 * @Date : 2023. 12. 3
+	 */
+	public int deleteReply(SqlSessionTemplate sqlSession, int replyNo) {
+		return sqlSession.update("noticeMapper.deleteReply", replyNo);
+	}	// deleteReply
 
 
 

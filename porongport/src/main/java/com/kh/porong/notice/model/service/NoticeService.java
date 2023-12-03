@@ -73,11 +73,14 @@ public interface NoticeService {
 	// 10) 공지사항 게시글 첨부파일 삭제
 	int deleteNoticeAttach(Map<String, Integer> map);
 	
-	// 공지사항 게시글 댓글 리스트 조회
+	// 11) 공지사항 게시글 댓글 리스트 조회
 	List<Reply> selectReplyList(int noticeNo);
 	
-	// 공지사항 게시글 댓글 작성
+	// 12) 공지사항 게시글 댓글 작성
 	int insertReply(Reply r);
+	
+	// 13) 공지사항 게시글 댓글 삭제
+	int deleteReply(int replyNo);
 
 	
 }	// end class

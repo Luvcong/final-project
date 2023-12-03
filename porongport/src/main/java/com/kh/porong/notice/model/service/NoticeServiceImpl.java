@@ -155,6 +155,12 @@ public class NoticeServiceImpl implements NoticeService {
 	public int insertReply(Reply r) {
 		return noticeDao.insertReply(sqlSession, r);
 	}	// insertReply
+	
+	// 공지사항 게시글 댓글 삭제
+	@Override
+	public int deleteReply(int replyNo) {
+		return noticeDao.deleteReply(sqlSession, replyNo);
+	}	// deleteReply
 
 
 

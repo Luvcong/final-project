@@ -171,8 +171,8 @@ public class AjaxNoticeController {
 	
 	/**
 	 * 공지사항 게시글 댓글 조회
-	 * @param noticeNo
-	 * @return
+	 * @param noticeNo : 공지사항 게시글 번호
+	 * @return 공지사항 게시글 번호에 해당하는 댓글 리스트 반환
 	 * @author JH
 	 * @Date : 2023. 12. 2
 	 */
@@ -185,8 +185,8 @@ public class AjaxNoticeController {
 	
 	/**
 	 * 공지사항 게시글 댓글 작성
-	 * @param r
-	 * @return
+	 * @param r : reply VO 객체
+	 * @return 공지사항 댓글 성공 여부 반환
 	 * @author JH
 	 * @Date : 2023. 12. 2
 	 */
@@ -195,6 +195,20 @@ public class AjaxNoticeController {
 	public String ajaxInsertReply(Reply r) {
 		return noticeService.insertReply(r) > 0 ? "success" : "fail";
 	}	// ajaxInsertReply
+	
+	
+	/**
+	 * 공지사항 게시글 댓글 삭제
+	 * @param replyNo : 삭제하려는 댓글 SEQ번호
+	 * @return 공지사항 댓글 삭제 성공 여부 반환
+	 * @author JH
+	 * @Date : 2023. 12. 3
+	 */
+	@ResponseBody
+	@PostMapping("deleteReply")
+	public String deleteReply(int replyNo) {
+		return noticeService.deleteReply(replyNo) > 0 ? "success" : "fail";
+	}	// deleteReply
 	
 	
 	

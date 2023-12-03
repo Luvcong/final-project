@@ -464,13 +464,22 @@
                 E.JOB_CODE = J.JOB_CODE
            AND
                 E.DEPT_CODE = D.DEPT_CODE
-
+           AND
+           		R.REPLY_STATUS = 'Y'
 	 	 ORDER
 	 	    BY
 	 	    	REPLY_NO DESC
 	</select>
 	
-
+	<!-- 공지사항 댓글 삭제 -->
+	<update id="deleteReply" parameterType="_int">
+		UPDATE
+				REPLY
+		   SET
+		   		REPLY_STATUS = 'N'
+		 WHERE 
+		 		REPLY_NO = #{ replyNo } 
+	</update>
 	
 	
 	

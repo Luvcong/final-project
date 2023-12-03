@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>[포롱포트] 공지사항</title>
-    <!-- 메인화면 css-->
+
     <link rel="stylesheet" href="resources/css/notice.css">
     
     <!-- ckeditor5 -->
@@ -79,20 +79,20 @@
 
       	</div>
       	
-   			<div class="notice-content">
-   				<div id=readEditor class="form-control form-control-sm form-control-notice">${ list.noticeContent }</div>
-   			</div>
-   			<div class="notice-file">
-   				<span>첨부파일 ${at.originFileName }</span>
-   				<c:if test="${ empty attachList }">
-   					<input class="form-control form-control-sm detail-input" readonly placeholder="첨부파일이 존재하지 않습니다.">
-   				</c:if>
-   				<c:forEach var="at" items="${ attachList }">
-	      			<a class="detail-input upload-name" 
-	      			   href="${ at.filePath }/${ at.changeFileName }" download="${ at.originFileName }">
-	      			   <i class="fa-regular fa-floppy-disk"></i> ${ at.originFileName }</a>
-   				</c:forEach>
-   			</div>
+		<div class="notice-content">
+			<div id=readEditor class="form-control form-control-sm form-control-notice">${ list.noticeContent }</div>
+		</div>
+		<div class="notice-file">
+			<span>첨부파일 ${at.originFileName }</span>
+			<c:if test="${ empty attachList }">
+				<input class="form-control form-control-sm detail-input" readonly placeholder="첨부파일이 존재하지 않습니다.">
+			</c:if>
+			<c:forEach var="at" items="${ attachList }">
+   			<a class="detail-input upload-name" 
+   			   href="${ at.filePath }/${ at.changeFileName }" download="${ at.originFileName }">
+   			   <i class="fa-regular fa-floppy-disk"></i> ${ at.originFileName }</a>
+			</c:forEach>
+		</div>
       	</div>
       	
       	<table id="replyArea" class="table" align="center">
@@ -101,7 +101,7 @@
 	                <th colspan="4" style="padding-left:0;">
 	                    <textarea class="form-control" id="replyContent" cols="55" rows="2" style="resize:none; width:100%;"></textarea>
 	                </th>
-	                <th style="vertical-align:middle"><button class="btn btn-sm btn-secondary" onclick="addReply()">등록하기</button></th>
+	                <th style="vertical-align:middle; width:100px;"><button class="btn btn-sm btn-secondary" onclick="addReply()">등록하기</button></th>
 	            </tr>
 	            
 	            <tr>
@@ -218,7 +218,7 @@
 	
 	
 	// ------------------------------------------------------------------
-	// 공지사항 댓글 작성
+	// 공지사항 댓글 작성 ajax
 	// ------------------------------------------------------------------
 	function addReply(){
 		
@@ -256,7 +256,7 @@
 	
 	
 	// ------------------------------------------------------------------
-	// 공지사항 댓글 조회
+	// 공지사항 댓글 조회 ajax
 	// ------------------------------------------------------------------
 	function selectReplyList(){
 		$.ajax({
@@ -267,14 +267,16 @@
 				console.log(replyList);
 				
 				let value = '';
-				for(let list of replyList){
+				for(let list of replyList) {
 					value += '<tr>' 
 						   + '<td style="width:75px;">' + '<img id="profile-notice" src="resources/images/20231106.png"  alt="프로필사진">' + '</td>'
 						   + '<td style="width:250px;">' + list.empList[0].empName + list.empList[0].jobName + ' / ' + list.empList[0].deptName + '</td>'
 						   + '<td>' + list.replyContent + '</td>'
-						   + '<td style="width:170px;">' + list.replyDate + '</td>'
-						   + '<td style="width:100px;">' + '<i class="fa-regular fa-rectangle-xmark"></i>' + '</td>'
-						   + '</tr>'
+						   + '<td style="width:170px;">' + list.replyDate + '</td>';
+						   if(list.replyWriter == ${loginUser.empNo} ){
+				   value += '<td onclick="deleteReply(' + list.replyNo +')">' + '<i class="fa-solid fa-square-minus" style="color: #e71313;"></i>' + '</td>'
+						   }
+						   + '</tr>';
 				}
 				$('#replyArea tbody').html(value);
 				$('#rcount').text(replyList.length);
@@ -285,6 +287,45 @@
 		});	// 	// ajax
 	}	// selectReplyList
 	
+	// ------------------------------------------------------------------
+	// 공지사항 댓글 삭제 ajax
+	// ------------------------------------------------------------------
+ 	function deleteReply(replyNo){
+ 		let tr = event.currentTarget.parentElement;
+ 		
+ 		Swal.fire({
+			title: "댓글을 삭제하시겠습니까?",
+			text : "※ 삭제된 댓글은 복원이 불가합니다.",
+			icon: 'warning',
+			showCancelButton: true,
+			confirmButtonColor: "#DD6B55",
+			confirmButtonText: "삭제",
+			cancelButtonText: "취소"
+			}).then((result) => {
+			if (!result.isConfirmed) {
+				  return;
+				}
+ 		
+			$.ajax({
+				url : 'deleteReply',
+				type : 'post',
+				data : { 
+						 replyNo : replyNo
+						},
+				success : result => {
+					tr.remove();
+					
+					
+					//$('#replyArea tbody').html(value);
+					let countElement = document.getElementById('rcount');
+					countElement.textContent = parseInt(countElement.textContent) - 1;
+				},	// success
+				error : () => {
+					console.log('AJAX 댓글 목록조회 실패!');
+				}	// error
+			});	// 	// ajax
+			});		// confrim	
+		}	// deleteReply
 	</script>
 	
  	<c:choose>
