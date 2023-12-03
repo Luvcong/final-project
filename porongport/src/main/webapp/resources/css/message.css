@@ -21,9 +21,12 @@ input[readonly] {
 .select2-container, .text-sm {
 	font-size: 14px;
 }
+
+/* =================================================== */
+/* 헤더 관련 */
 .pp-content .h-title {
 	margin-bottom: 16px;
-    font-size: 16pt;
+    font-size: 20pt;
     font-weight: bold;
 }
 
@@ -33,26 +36,26 @@ input[readonly] {
 	margin-bottom: 16px;
 }
 
-.pp-content .pp-content-message {
-	text-align: center;
-}
-
-.pp-content .pp-content-message .td-content, .fa-star{
-	cursor: pointer;
-}
 .pp-content .selectCount {
 	float: right;
 	color: #4A4A4A;
     margin-bottom: 12px;
+   	font-size: 14px;
 }
 
 .pp-content .pp-content-message .selectCount .message-count {
 	color: #6C79E0;
 }
 
-.pp-content .pp-content-message .tableBody{
+/* 테이블 관련 */
+.pp-content .pp-content-message .tb-message{
+	text-align: center;
+	font-weight: 550;
 	font-size: 14px;
-	font-weight: bold;
+}
+
+.pp-content .pp-content-message .td-content, .fa-star{
+	cursor: pointer;
 }
 
 .pp-content .pp-content-message .tableBody .tb-title-tr{
@@ -66,9 +69,6 @@ input[readonly] {
 
 #storeBtn{
 	background-color: #6C79E0;
-}
-.selectCount{
-	font-size: 14px;
 }
 
 .td-fa-envelope.fa-envelope {
@@ -85,6 +85,7 @@ input[readonly] {
 #effectiveDate, .send{
 	color: #DC3545;
 }
+
 #messageTextarea{
 	overflow: auto;
 	resize: none;
@@ -92,20 +93,28 @@ input[readonly] {
 	height: 400px;
 }
 
+.recv {
+    color: dodgerblue;
+}
+
+/* 메시지 작성 관련 */
 .writeCount{
 	float:right;
 	padding-right:25px;
 	font-size:12px;
 	margin-top:15px;
 }
+
 .modal-header{
 	height: 50px;
     background-color: #6C79E0;
     color: white;
 }
+
 .modal-header .modal-title{
     color: white;
 }
+
 .filebox .upload-name {
     display: inline-block;
     padding: 0 10px;
@@ -113,6 +122,7 @@ input[readonly] {
     border: 1px solid #ced4da;
     width: 87%;
 }
+
 .filebox label {
 	display: inline-block;
     padding: 6px 10px;
@@ -126,6 +136,7 @@ input[readonly] {
     height: 32px;
     width: 72px;
 }
+
 .filebox input[type="file"] {
     position: absolute;
     width: 0;
@@ -135,14 +146,17 @@ input[readonly] {
     border: 0;
 }
 
+/* 상세보기 관련 */
 #profile-message{
 	border-radius: 50%;
 	width: 50px;
 }
+
 .detailContent th{
 	text-align: center;
 	background-color: white;
 }
+
 .detailContent .detail-input{
 	background-color: white;
 }
@@ -160,7 +174,4 @@ input[readonly] {
 
 .msg-write:hover {
 	cursor: pointer;
-}
-.recv {
-    color: dodgerblue;
 }

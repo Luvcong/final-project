@@ -8,19 +8,6 @@
 <meta charset="UTF-8">
 <title>[포롱포트] 공지사항 수정</title>
 
-<style>
-	.ck-editor__editable { height: 400px; }
-	.ck-content { font-size: 14px; }
-	.ck-editor__editable p {margin: 0}
-	
-	<!-- 버튼 -->
-	#btnDiv { text-align: center; margin-top: 20px; }
-	.btns { display: inline-block; padding: 0 10px; height: 28px; line-height: 26px; text-align: center; vertical-align: middle; border-radius: 3px; border: 1px solid transparent; font-weight: 500; }
-	.btns.save { background: #139dc8; color: #fff; cursor: pointer; }
-	.btns.back { background: #fff; border: 1px solid #199bc4; color: #199bc4; }
-	#tb-notice-form th{ text-align: center;}
-</style>
-
 <link rel="stylesheet" href="resources/css/notice.css">
 <!-- ckeditor5 -->
 <script src="https://cdn.ckeditor.com/ckeditor5/31.1.0/classic/ckeditor.js"></script>
@@ -46,7 +33,7 @@
 			<div class="h-title">
 				공지사항 수정
 			</div>
-		</div>	<!-- header  -->
+	</div>	<!-- header  -->
     
     <form action="updateNotice" method="post" enctype="multipart/form-data">
 	    <input type="hidden" name="changeFileName" value="${ at.filePath }/${ at.changeFileName }">
@@ -56,7 +43,7 @@
 	   			<th>제목</th>
 	   			<td><input class="form-control form-control-sm" name="noticeTitle" required value="${ list.noticeTitle }"></td>
 	   			<td >
-	   			<div class="form-check form-switch" style="float:right;">
+	   			<div class="form-check form-switch notice-check">
 				  <label>
 				  <input class="form-check-input" type="checkbox" name="noticeTypeTmp" checked="${ list.noticeType }">
 				  <input type="hidden" name="noticeType"/>
@@ -102,8 +89,8 @@
 	   	</table>
 				    	
 		<div id="btnDiv">
-		    <button type="submit" class="btns save" onclick="updateNotice()">수정하기</button>
-		    <button type="button" class="btns back" onclick="location.href='${path}/noticeList'">목록으로</button>
+		    <button type="submit" class="btn btn-sm btn-primary" onclick="updateNotice()">수정하기</button>
+		    <button type="button" class="btn btn-sm btn-outline-primary" onclick="location.href='${path}/noticeList'">목록으로</button>
 		</div>
     </form>
 

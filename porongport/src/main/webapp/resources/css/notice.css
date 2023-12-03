@@ -1,22 +1,85 @@
 @charset "UTF-8";
-.toolbar {
-	display: flex;
-	justify-content: space-between;
+
+/* 헤더 관련 */
+.pp-content .h-title {
+	margin-bottom: 16px;
+    font-size: 20pt;
+    font-weight: bold;
 }
 
-.table td {
+.pp-content .toolbar {
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 16px;
+}
+
+.pp-content .selectCount {
+	float: right;
+	color: #4A4A4A;
+    margin-bottom: 12px;
+}
+
+.pp-content .pp-content-notice .selectCount .notice-count {
+	color: #6C79E0;
+}
+
+/* 테이블 관련 */
+.pp-content .pp-content-notice #tb-notice {
+	text-align: center;
+	font-size: 14px;
+}
+
+.pp-content .pp-content-notice .tableBody .tb-title-tr{
+    background-color: #6C79E0;
+    color: white;
+}
+
+.pp-content .pp-content-notice .tb-notice tbody, .fa-star, .fa-heart, .checkbox{
+	cursor: pointer;
+}
+
+.pp-content .pp-content-notice .table td {
 	padding: 6px 0!important;
 }
 
-.ck-content {
-	min-height: 400px;
+#pagingArea{
+	margin-top: 100px;
+}
+	
+/* 상세보기 관련 */
+#editor, #readEditor{
+	resize: none;
+	background-color: white;
+	height: 400px;
+	overflow: auto;
 }
 
+.ck-editor__editable {
+	height: 400px; 
+}
+.ck-content {
+	font-size: 14px;
+	min-height: 400px;
+}
+	
+}
+.ck-editor__editable p {
+	margin: 0
+}
 
+#profile-notice{
+	border-radius: 50%;
+	width: 50px;
+}
 
-.fa-circle-minus{
-	color: #e71313;
-	cursor: pointer;
+.notice-check{
+	float: right;
+}
+
+.n-write-date{
+	color: #a4a4a4;
+    font-size: 14px;
+    margin-left: 3px;
 }
 .notice-profile {
 	width:100%;
@@ -50,6 +113,14 @@
 	color:#e71313;
 	line-height:48px;
 }
+.upload-name{
+	font-size: 14px;
+}
+/* 글작성 관련 */
+.fa-circle-minus{
+	color: #e71313;
+	cursor: pointer;
+}
 
 .notice-file {
 	margin: 12px 0;
@@ -67,91 +138,4 @@
 
 .upload-name {
 	margin-left: 4px ;
-}
-/* =================================================== */
-
-
-
-.pp-content .h-title {
-	margin-bottom: 16px;
-    font-size: 16pt;
-    font-weight: bold;
-}
-
-.pp-content .pp-content-notice {
-	text-align: center;
-}
-
-.pp-content .pp-content-notice .tb-notice tbody, .fa-star, .fa-heart, .checkbox{
-	cursor: pointer;
-}
-.pp-content .selectCount {
-	float: right;
-	color: #4A4A4A;
-    margin-bottom: 12px;
-}
-
-.pp-content .pp-content-notice .selectCount .count {
-	color: #6C79E0;
-}
-
-.pp-content .pp-content-notice .tableBody{
-	font-size: 14px;
-	font-weight: bold;
-}
-
-.pp-content .pp-content-notice .tableBody .tb-title-tr{
-    background-color: #6C79E0;
-    color: white;
-}
-
-.pp-content .pp-content-notice .tableBody .tb-delte-title-tr{
-    background-color: #DC3545;
-    color: white;
-}
-
-#editor, #readEditor{
-	resize: none;
-	background-color: white;
-	height: 400px;
-	overflow: auto;
-}
-
-
-#pagingArea{
-	margin-top: 100px;
-}
-
-#profile-notice{
-	border-radius: 50%;
-	width: 50px;
-}
-
-.filebox .upload-name {
-    display: inline-block;
-    padding: 0 10px;
-    vertical-align: middle;
-    border: 1px solid #ced4da;
-    width: 87%;
-}
-.filebox label {
-	display: inline-block;
-    padding: 6px 10px;
-    color: #fff;
-    vertical-align: middle;
-    background-color: #999999;
-    cursor: pointer;
-    font-size: 13px;
-    border-radius: 4px;
-    margin: 0px;
-    height: 32px;
-    width: 72px;
-}
-.filebox input[type="file"] {
-    position: absolute;
-    width: 0;
-    height: 0;
-    padding: 0;
-    overflow: hidden;
-    border: 0;
 }
