@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.kh.porong.common.controller.FileControllerBase;
+import com.kh.porong.common.controller.IFileHandler;
 import com.kh.porong.common.model.vo.PageInfo;
 import com.kh.porong.common.template.Pagination;
 import com.kh.porong.employee.model.vo.Employee;
@@ -21,7 +21,7 @@ import com.kh.porong.message.model.service.MessageService;
 import com.kh.porong.message.model.vo.Message;
 
 @Controller
-public class MessageController extends FileControllerBase {
+public class MessageController implements IFileHandler {
 	
 	@Autowired
 	private MessageService messageService;

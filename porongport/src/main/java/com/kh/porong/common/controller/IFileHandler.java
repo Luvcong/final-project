@@ -11,9 +11,9 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.web.multipart.MultipartFile;
 
-public abstract class FileControllerBase {
+public interface IFileHandler {
 	
-	public String saveFile(MultipartFile upfile, HttpSession session, String path) {
+	public default String saveFile(MultipartFile upfile, HttpSession session, String path) {
 		
 		// System.out.println(path);
 //		if(upfile.getOriginalFilename().length() == 0) {
