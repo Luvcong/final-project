@@ -59,7 +59,7 @@
 		
 		<div class="pp-content-notice">
 			<div class="selectCount">
-			공지사항 게시글 수 <span class="count" id="noticeListCount">${ pi.listCount }</span>개
+			공지사항 게시글 수 <span class="notice-count" id="noticeListCount">${ pi.listCount }</span>개
 			</div>
 		
 			<div class="tableBody">
@@ -96,8 +96,8 @@
 				                    <td>${ notice.noticeNo }</td>
 		                    	</c:otherwise>
 		                    </c:choose>
-							<td>${ notice.empName } [${ notice.jobName }]</td>
-							<td>${ notice.deptName }</td>
+							<td>${ notice.empList[0].empName } [${ notice.empList[0].jobName }]</td>
+							<td>${ notice.empList[0].deptName }</td>
 		                    <td>${ notice.noticeTitle }</td>
 							<td>${ notice.createDate }</td>
 							<c:choose>
@@ -128,7 +128,7 @@
 	                    	<li class="page-item"><a class="page-link" href="noticeList?page=${ pi.currentPage-1 }">&laquo;</a></li>
                 		</c:when>
                 		<c:otherwise>
-                			<li class="page-item"><a class="page-link" href="searchNotice?page=${ pi.currentPage-1 }&condition=${ condition }&keyword=${ keyword }">&laquo;</a></li>
+                			<li class="page-item"><a class="page-link" href="searchNoticeList?page=${ pi.currentPage-1 }&condition=${ condition }&keyword=${ keyword }">&laquo;</a></li>
           				</c:otherwise>
                 	</c:choose>
                 	
@@ -141,7 +141,7 @@
 	                    		<li class="page-item"><a class="page-link" href="noticeList?page=${ p }">${ p }</a></li>
 	                    	</c:when>
 	                    	<c:otherwise>
-	                    		<li class="page-item"><a class="page-link" href="searchNotice?page=${ p }&condition=${ condition }&keyword=${ keyword }">${ p }</a></li>
+	                    		<li class="page-item"><a class="page-link" href="searchNoticeList?page=${ p }&condition=${ condition }&keyword=${ keyword }">${ p }</a></li>
 	                    	</c:otherwise>
                     	</c:choose>
                     </c:forEach>
@@ -154,7 +154,7 @@
                     		<li class="page-item"><a class="page-link" href="noticeList?page=${ pi.currentPage+1 }">&raquo;</a></li>
                     	</c:when>
                     	<c:otherwise>
-		                    <li class="page-item" ><a class="page-link" href="searchNotice?page=${ pi.currentPage+1 }&condition=${ condition }&keyword=${ keyword }">&raquo;</a></li>
+		                    <li class="page-item" ><a class="page-link" href="searchNoticeList?page=${ pi.currentPage+1 }&condition=${ condition }&keyword=${ keyword }">&raquo;</a></li>
                     	</c:otherwise>
                     </c:choose>
                 </ul>
@@ -229,7 +229,7 @@
 			location.href = 'detailNotice?nno=' + notice_no;
  		}
 	</script>
-	
+
 			
  	<c:choose>
  		<c:when test="${ not empty successMsg }">

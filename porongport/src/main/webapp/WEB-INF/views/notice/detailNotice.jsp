@@ -36,7 +36,7 @@
 				<i class="fa-regular fa-circle-left fa-2xl" id="backIcon" onclick="historyBack()"></i>
 		    </div>
 		    <div>
-		    	<c:if test="${ list.empNo eq loginUser.empNo }">
+		    	<c:if test="${ list.noticeWriter eq loginUser.empNo }">
 					<button class="btn btn-sm btn-danger" onclick="postFormSubmit(0)">수정</button>
 					<button class="btn btn-sm btn-danger" onclick="postFormSubmit(1)">삭제</button>
 				</c:if>
@@ -59,8 +59,8 @@
 					<img id="profile-notice" src="resources/images/20231106.png"  alt="프로필사진">
 	   			</div>
 	   			<div class="profile-info">
-	   				<p>${ list.empName } ${ list.jobName } / ${ list.deptName }</p>
-	   				<p>작성일 : ${ list.createDate } / <c:if test="${ not empty list.modifyDate }">수정일 : ${ list.modifyDate }</c:if></p>
+	   				<p>${ list.empList[0].empName } ${ list.empList[0].jobName } / ${ list.empList[0].deptName }</p>
+	   				<p class="n-write-date">작성일 : ${ list.createDate }<c:if test="${ not empty list.modifyDate }"> / 수정일 : ${ list.modifyDate }</c:if></p>
 	   			</div>
       		</div>
 			<div>
