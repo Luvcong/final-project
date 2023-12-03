@@ -157,7 +157,7 @@ public class MessageController extends FileControllerBase {
 		map.put("keyword", keyword);
 		map.put("empNo", loginUser.getEmpNo());
 		
-		System.out.println(map);
+		// System.out.println(map);
 		
 		PageInfo pi = Pagination.getPageInfo(messageService.searchReceivedCount(map), currentPage, 10, 10);
 		

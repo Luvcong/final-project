@@ -45,19 +45,21 @@ public class NoticeServiceImpl implements NoticeService {
 		return noticeDao.noticeListCount(sqlSession);
 	}	// noticeListCount
 	
-	// 공지사항 게시글 검색 리스트 조회
+	// 3) 공지사항 게시글 검색 리스트 조회
 	@Override
 	public List<Notice> searchNoticeList(Map<String, Object> map, PageInfo pi) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+		
+		int offset = (pi.getCurrentPage() -1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		
+		return noticeDao.searchNoticeList(sqlSession, map, rowBounds);
+	}	// searchNoticeList
 
-	// 공지사항 게시글 검색 개수 조회
+	// 4) 공지사항 게시글 검색 개수 조회
 	@Override
 	public int searchNoticeCount(Map<String, Object> map) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+		return noticeDao.searchNoticeCount(sqlSession, map);
+	}	// searchNoticeCount
 	
 	
 	// ==================================================================================

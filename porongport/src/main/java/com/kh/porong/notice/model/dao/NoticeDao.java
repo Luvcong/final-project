@@ -43,6 +43,30 @@ public class NoticeDao {
 		return sqlSession.selectOne("noticeMapper.noticeListCount");
 	}	// noticeListCount
 	
+	/**
+	 * 3) 공지사항 게시글 검색 리스트 조회
+	 * @param sqlSession
+	 * @param map - condition(사용자가 선택한 검색 옵션), keyword(사용자가 검색한 키워드명), empNo(현재 로그인한 사용자의 사원번호)
+	 * @param rowBounds
+	 * @return 사용자가 검색한 키워드와 일치하는 조건의 리스트 반환
+	 * @author JH
+	 * @Date : 2023. 12. 3
+	 */
+	public List<Notice> searchNoticeList(SqlSessionTemplate sqlSession, Map<String, Object> map, RowBounds rowBounds) {
+		return sqlSession.selectList("noticeMapper.searchNoticeList", map, rowBounds);
+	}	// searchNoticeList
+	
+	/**
+	 * 4) 공지사항 게시글 검색 개수 조회
+	 * @param sqlSession
+	 * @param map - condition(사용자가 선택한 검색 옵션), keyword(사용자가 검색한 키워드명), empNo(현재 로그인한 사용자의 사원번호)
+	 * @return 사용자가 검색한 키워드와 일치하는 개수 반환
+	 * @author JH
+	 * @Date : 2023. 12. 3
+	 */
+	public int searchNoticeCount(SqlSessionTemplate sqlSession, Map<String, Object> map) {
+		return sqlSession.selectOne("noticeMapper.searchNoticeCount", map);
+	}	// searchNoticeCount
 	
 	// ==================================================================================
 	// 공지사항 게시판 - 작성 페이지 관련
@@ -221,6 +245,7 @@ public class NoticeDao {
 	public int insertReply(SqlSessionTemplate sqlSession, Reply r) {
 		return sqlSession.insert("noticeMapper.insertReply", r);
 	}	// insertReply
+
 
 
 

@@ -61,6 +61,38 @@ public class NoticeController extends FileControllerBase {
 	
 	
 	/**
+	 * 공지사항 게시글 검색 리스트 및 검색 개수 조회
+	 * @param currentPage : 현재 페이지
+	 * @param loginUser : 현재 로그인한 회원의 정보
+	 * @param condition : 검색분류 (이름/직급/부서/내용)
+	 * @param keyword : 사용자가 입력한 검색하고자 하는 키워드 값 (input value)
+	 * @param model
+	 * @return 사용자가 검색한 키워드와 일치하는 조건의 리스트 및 개수 반환
+	 * @author JH
+	 * @Date : 2023. 12. 2
+	 */
+	@RequestMapping("searchNoticeList")
+	public String searchNoticeList(@RequestParam(value="page", defaultValue="1") int currentPage,
+										String condition,
+										String keyword,
+										@SessionAttribute(name = "loginUser", required = false) Employee loginUser,
+										Model model) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("condition", condition);
+		map.put("keyword", keyword);
+		map.put("noticeWriter", loginUser.getEmpNo());
+		
+		PageInfo pi = Pagination.getPageInfo(noticeService.searchNoticeCount(map), currentPage, 10, 10);
+		model.addAttribute("list", noticeService.searchNoticeList(map, pi));
+		model.addAttribute("pi", pi);
+		model.addAttribute("condition", condition);
+		model.addAttribute("keyword", keyword);
+		
+		return "notice/noticeList";
+	}	// searchNoticeList
+	
+	
+	/**
 	 * 공지사항 작성 양식
 	 * @return
 	 * @author JH
@@ -87,7 +119,7 @@ public class NoticeController extends FileControllerBase {
 		// System.out.println("multiFileList : " + multiFileList);
 		// System.out.println("fileContent : " + n);
 		int empNo = loginUser.getEmpNo();
-		n.setEmpNo(empNo);
+		n.setNoticeWriter(empNo);
 		
 		// 공지사항 작성에 성공한 경우에만 첨부파일 작성 코드 수행
 		if((noticeService.insertNotice(n) == 0)) {
@@ -118,8 +150,9 @@ public class NoticeController extends FileControllerBase {
 			System.out.println(attach);
 			noticeService.insertAttachment(attach);							// 첨부파일 추가
 				
-			request.getSession().setAttribute("successMsg", "공지사항 작성에 성공했습니다!");
 		}
+
+		request.getSession().setAttribute("successMsg", "공지사항 작성에 성공했습니다!");
 		return "redirect:noticeList";
 	}	// insertNotice
 	
@@ -141,7 +174,7 @@ public class NoticeController extends FileControllerBase {
 		// System.out.println("nno : " + nno);
 		int empNo = loginUser.getEmpNo();
 		Map<String, Integer> map = new HashMap<String, Integer>();
-		map.put("empNo", empNo);
+		map.put("noticeWriter", empNo);
 		map.put("noticeNo", nno);
 		
 //		if(noticeService.checkNoticeLike(map) > 0) {
@@ -201,7 +234,7 @@ public class NoticeController extends FileControllerBase {
 		int empNo = loginUser.getEmpNo();
 		
 		Map<String, Integer> map = new HashMap<String, Integer>();
-		map.put("empNo", empNo);
+		map.put("noticeWriter", empNo);
 		map.put("noticeNo", nno);
 
 		// 공지사항 삭제 성공시에만 첨부파일 삭제 > 첨부파일명이 공백이 아닌 경우 첨부파일 삭제 진행
@@ -251,7 +284,7 @@ public class NoticeController extends FileControllerBase {
 		int empNo = loginUser.getEmpNo();
 		
 		Map<String, Integer> map = new HashMap<String, Integer>();
-		map.put("empNo", empNo);
+		map.put("noticeWriter", empNo);
 		map.put("noticeNo", nno);
 		
 		List<Notice> list = noticeService.detailNotice(map);
@@ -305,14 +338,14 @@ public class NoticeController extends FileControllerBase {
 		}
 		
 		// null 체크 - 첨부파일이 없는 경우 게시글 수정만 진행하고 첨부파일 수정 진행은 x
-		if(multiFileList == null) {
+		if(multiFileList.length == 1 && multiFileList[0].getSize() == 0) {
 			request.getSession().setAttribute("successMsg", "공지사항 작성에 성공했습니다!");
 			return "redirect:detailNotice?nno=" + n.getNoticeNo();
 		}
 			
 		// 첨부파일 돌면서 > 새로운 파일명 확인 > 공백이 아닌 경우 > 첨부파일 insert + resources에 저장된 기존 파일 삭제
 		for(MultipartFile newFile : multiFileList) {
-			if(newFile.getOriginalFilename().equals("/"))	// 파일 첨부 안하는 경우 / 로 넘어옴
+			if(newFile.getOriginalFilename().equals(""))	// 파일 첨부 안하는 경우 / 로 넘어옴
 				continue;
 			
 			// 1) 기존 첨부파일 삭제
@@ -324,7 +357,7 @@ public class NoticeController extends FileControllerBase {
 				new File(request.getSession().getServletContext().getRealPath(file)).delete();
 			}
 			
-			
+			java.util.Arrays.toString(multiFileList[0].getOriginalFilename().toCharArray());
 			// 1) 파일이 기존에 있던 말던 현재 파일 삭제 기능이 없기 때문에
 			// multiFileList에 파일이 있는 경우 무조건 isnert 처리 진행
 			Path fullPath = Paths.get(saveFile(newFile, request.getSession(), "notice/"));	// 파일의 수정파일명 풀경로 구하기
