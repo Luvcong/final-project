@@ -144,19 +144,19 @@ public class NoticeServiceImpl implements NoticeService {
 		return noticeDao.deleteNoticeAttach(sqlSession, map);
 	}	// deleteNoticeAttach
 
-	// 공지사항 게시글 댓글 리스트 조회
+	// 11) 공지사항 게시글 댓글 리스트 조회
 	@Override
 	public List<Reply> selectReplyList(int noticeNo) {
 		return noticeDao.selectReplyList(sqlSession, noticeNo);
 	}	// selectReplyList
 	
-	// 공지사항 게시글 댓글 작성
+	// 12) 공지사항 게시글 댓글 작성
 	@Override
 	public int insertReply(Reply r) {
 		return noticeDao.insertReply(sqlSession, r);
 	}	// insertReply
 	
-	// 공지사항 게시글 댓글 삭제
+	// 13) 공지사항 게시글 댓글 삭제
 	@Override
 	public int deleteReply(int replyNo) {
 		return noticeDao.deleteReply(sqlSession, replyNo);

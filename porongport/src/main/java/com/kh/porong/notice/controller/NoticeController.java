@@ -29,6 +29,7 @@ import com.kh.porong.employee.model.vo.Employee;
 import com.kh.porong.notice.model.service.NoticeService;
 import com.kh.porong.notice.model.vo.Notice;
 import com.kh.porong.notice.model.vo.NoticeAttachment;
+import com.kh.porong.notice.model.vo.NoticeLike;
 
 @Controller
 public class NoticeController implements IFileHandler {
@@ -176,6 +177,7 @@ public class NoticeController implements IFileHandler {
 		Map<String, Integer> map = new HashMap<String, Integer>();
 		map.put("noticeWriter", empNo);
 		map.put("noticeNo", nno);
+		map.put("empNo", empNo);
 		
 //		if(noticeService.checkNoticeLike(map) > 0) {
 //			System.out.println("좋아요했당");
@@ -206,6 +208,8 @@ public class NoticeController implements IFileHandler {
 //		}
 		
 		// System.out.println("attachList:" + attachList);
+		// int likeList = noticeService.checkNoticeLike(map);
+		// System.out.println(likeList);
 		
 		model.addAttribute("list", list.get(0));
 		model.addAttribute("attachList", attachList);

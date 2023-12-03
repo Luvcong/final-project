@@ -66,7 +66,7 @@
 			<div>
 				<div class="notice-like">
 					<c:choose>
-						<c:when test="${ likeList eq 1 }">	<!-- notice_like 테이블에 empNo가 있는지? 있으면 채워진 하트 ; 클릭시 좋아요 delete -->
+						<c:when test="${ likeList > 0 }">	<!-- notice_like 테이블에 empNo가 있는지? 있으면 채워진 하트 ; 클릭시 좋아요 delete -->
 							<i class="fa-solid fa-heart fa-2xl" onclick="likeCheck()" data-no=${ list.noticeNo }></i>
 						</c:when>
 						<c:otherwise>	<!-- 없으면 빈 하트 : 클릭시 좋아요 insert -->
