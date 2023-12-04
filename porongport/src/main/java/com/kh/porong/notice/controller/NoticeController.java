@@ -230,13 +230,13 @@ public class NoticeController implements IFileHandler {
 	 * @Date : 2023. 11. 30
 	 */
 	@PostMapping("deleteNotice")
-	public String deleteNotice(int nno, String changeFileName[],
+	public String deleteNotice(int nno,
+							   String changeFileName[],
 							   // MultipartFile[] multiFileList,
 							   HttpSession session,
 							   @SessionAttribute(name="loginUser", required=false) Employee loginUser) {
 		
 		int empNo = loginUser.getEmpNo();
-		
 		Map<String, Integer> map = new HashMap<String, Integer>();
 		map.put("noticeWriter", empNo);
 		map.put("noticeNo", nno);
@@ -352,7 +352,6 @@ public class NoticeController implements IFileHandler {
 			if(newFile.getOriginalFilename().equals(""))	// 파일 첨부 안하는 경우 / 로 넘어옴
 				continue;
 			
-			// 1) 기존 첨부파일 삭제
 			for(String file : changeFileName) {
 				// 첨부파일 공백인경우 continue 
 				if(file.equals("/"))
@@ -374,9 +373,9 @@ public class NoticeController implements IFileHandler {
 			attach.setFilePath(fullPath.getParent().toString());
 			attach.setNoticeNo(n.getNoticeNo());
 			
-			System.out.println("수정getParent : " + fullPath.getParent());
-			System.out.println("수정getFileName : " + fullPath.getFileName());
-			System.out.println("attach객체 나오나? : " + attach);
+//			System.out.println("수정getParent : " + fullPath.getParent());
+//			System.out.println("수정getFileName : " + fullPath.getFileName());
+//			System.out.println("attach객체 나오나? : " + attach);
 			
 			// 추가정보를 담은 attach 객체 넘기면서 파일 insert
 			// noticeService.insertAttachment(attach);

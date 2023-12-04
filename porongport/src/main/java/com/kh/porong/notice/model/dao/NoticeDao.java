@@ -201,7 +201,7 @@ public class NoticeDao {
 	/**
 	 * 9) 공지사항 게시글 삭제
 	 * @param sqlSession
-	 * @param map - empNo(로그인한 사용자의 사원번호), noticeNo(공지사항 번호), changeFileName(첨부되어 있는 파일명)
+	 * @param map - empNo(로그인한 사용자의 사원번호), noticeNo(공지사항 번호), changeFileName(첨부되어 있는 파일명), noticeFileNo(첨부파일SEQ)
 	 * @return 공지사항 번호에 해당하는 글 삭제 성공 여부 반환
 	 * @author JH
 	 * @Date : 2023. 11. 30
@@ -213,7 +213,7 @@ public class NoticeDao {
 	/**
 	 * 10) 공지사항 게시글 첨부파일 삭제
 	 * @param sqlSession
-	 * @param map - empNo(로그인한 사용자의 사원번호), noticeNo(공지사항 번호), changeFileName(첨부되어 있는 파일명)
+	 * @param map - empNo(로그인한 사용자의 사원번호), noticeNo(공지사항 번호), changeFileName(첨부되어 있는 파일명), noticeFileNo(첨부파일SEQ)
 	 * @return 공지사항 번호에 해당하는 글의 첨부파일 삭제 성공 여부 반환
 	 * @author JH
 	 * @Date : 2023. 11. 30
