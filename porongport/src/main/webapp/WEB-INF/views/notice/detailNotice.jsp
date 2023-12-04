@@ -28,7 +28,6 @@
 		<div class="header">
 			<div class="h-title">
 				${ list.noticeTitle }
-				(${profile.refEmpNo})
 			</div>
 		</div>	<!-- header  -->
 		
