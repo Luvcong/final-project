@@ -28,6 +28,7 @@
 		<div class="header">
 			<div class="h-title">
 				${ list.noticeTitle }
+				(${profile.refEmpNo})
 			</div>
 		</div>	<!-- header  -->
 		
@@ -56,10 +57,10 @@
       	<div class="notice-profile">
       		<div>
       		    <div class="profile-img">
-					<img id="profile-notice" src="resources/images/20231106.png"  alt="프로필사진">
+					<img class="profile-notice" src="resources/upProfiles/${ profile.changeFileName }"  alt="프로필사진">
 	   			</div>
 	   			<div class="profile-info">
-	   				<p>${ list.empList[0].empName } ${ list.empList[0].jobName } / ${ list.empList[0].deptName }</p>
+	   				<p>${ list.empList[0].empName } ${ list.empList[0].jobName } [ ${ list.empList[0].deptName } ]</p>
 	   				<p class="n-write-date">작성일 : ${ list.createDate }<c:if test="${ not empty list.modifyDate }"> / 수정일 : ${ list.modifyDate }</c:if></p>
 	   			</div>
       		</div>
@@ -255,6 +256,7 @@
 	// 공지사항 댓글 조회 ajax
 	// ------------------------------------------------------------------
 	function selectReplyList(){
+		
 		$.ajax({
 			url : 'noticeReplyList',
 			type : 'post',
@@ -264,8 +266,8 @@
 				
 				let value = '';
 				for(let list of replyList) {
-					value += '<tr style="line-height:40px">' 
-						   + '<td style="width:75px;">' + '<img id="profile-notice" src="resources/images/20231106.png"  alt="프로필사진">' + '</td>'
+					value += '<tr style="line-height:40px">'
+						   + '<td style="width:75px;">' + '<img src="resources/images/20231106.png" alt="프로필사진" class="profile-notice">' + '</td>'
 						   + '<td style="width:250px;">' + list.empList[0].empName + list.empList[0].jobName + ' / ' + list.empList[0].deptName + '</td>'
 						   + '<td>' + list.replyContent + '</td>'
 						   + '<td style="width:170px;">' + list.replyDate + '</td>';

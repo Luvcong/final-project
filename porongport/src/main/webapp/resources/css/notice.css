@@ -47,6 +47,11 @@
 }
 	
 /* 상세보기 관련 */
+.profile-notice{
+	border-radius: 50%;
+	width: 50px;
+}
+
 #editor, #readEditor{
 	resize: none;
 	background-color: white;
@@ -65,11 +70,6 @@
 }
 .ck-editor__editable p {
 	margin: 0
-}
-
-#profile-notice{
-	border-radius: 50%;
-	width: 50px;
 }
 
 .notice-check{
