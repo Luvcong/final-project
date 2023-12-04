@@ -1,4 +1,8 @@
-package com.kh.porong.reply.vo;
+package com.kh.porong.reply.model.vo;
+
+import java.util.List;
+
+import com.kh.porong.employee.model.vo.Employee;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,5 +18,9 @@ public class Reply {
 	private String replyContent;
 	private String replyDate;
 	private String replyStatus;
+	
+	private List<Employee> empList;
 
+	
+	
 }	// end class

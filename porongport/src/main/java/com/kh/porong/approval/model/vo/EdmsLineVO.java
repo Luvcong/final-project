@@ -15,6 +15,6 @@ public class EdmsLineVO {
 	private Date approvalDate;
 	private Date acceptanceDate;
 	private String paymentStatus;
-	private int demsRownum;
+	private int edmsRownum;
 
 }

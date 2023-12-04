@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.kh.porong.common.controller.FileControllerBase;
+import com.kh.porong.common.controller.IFileHandler;
 import com.kh.porong.common.model.vo.PageInfo;
 import com.kh.porong.common.template.Pagination;
 import com.kh.porong.employee.model.vo.Employee;
@@ -21,7 +21,7 @@ import com.kh.porong.message.model.service.MessageService;
 import com.kh.porong.message.model.vo.Message;
 
 @Controller
-public class MessageController extends FileControllerBase {
+public class MessageController implements IFileHandler {
 	
 	@Autowired
 	private MessageService messageService;
@@ -130,24 +130,6 @@ public class MessageController extends FileControllerBase {
 		model.addAttribute("userList", messageService.selectAllEmployee());
 		
 		
-		
-		/*
-		 * if(keyword != null) { Map<String, String> map = new HashMap<String,
-		 * String>(); map.put("condition", condition);
-		 * 
-		 * map.put("keyword", keyword);
-		 * 
-		 * PageInfo keywordPage =
-		 * Pagination.getPageInfo(messageService.searchReceivedListCount(map),
-		 * currentPage, boardLimit, pageLimit);
-		 * 
-		 * model.addAttribute("list", messageService.searchReceivedMessage(map,
-		 * keywordPage)); model.addAttribute("pi", keywordPage);
-		 * model.addAttribute("condition", condition); model.addAttribute("keyword",
-		 * keyword); }
-		 */
-		 
-		
 		return "message/receivedMessage";
 	}	// messageReceived
 	
@@ -175,7 +157,7 @@ public class MessageController extends FileControllerBase {
 		map.put("keyword", keyword);
 		map.put("empNo", loginUser.getEmpNo());
 		
-		System.out.println(map);
+		// System.out.println(map);
 		
 		PageInfo pi = Pagination.getPageInfo(messageService.searchReceivedCount(map), currentPage, 10, 10);
 		
@@ -214,6 +196,7 @@ public class MessageController extends FileControllerBase {
 		
 		model.addAttribute("list", messageService.receivedStorageList(pi, empNo));
 		model.addAttribute("pi", pi);
+		model.addAttribute("userList", messageService.selectAllEmployee());
 		
 		return "message/receivedStorageMessage";
 	}	// receivedStorageMessage
@@ -283,6 +266,7 @@ public class MessageController extends FileControllerBase {
 		
 		model.addAttribute("list", messageService.sendMessageList(pi, empNo));
 		model.addAttribute("pi", pi);
+		model.addAttribute("userList", messageService.selectAllEmployee());
 		
 		return "message/sendMessage";
 	}	// sendMessage
@@ -348,6 +332,7 @@ public class MessageController extends FileControllerBase {
 			
 			model.addAttribute("list", messageService.sendStorageList(pi, empNo));
 			model.addAttribute("pi", pi);
+			model.addAttribute("userList", messageService.selectAllEmployee());
 			
 			return "message/sendStorageMessage";
 		}	// sendStorageMessage
@@ -416,6 +401,7 @@ public class MessageController extends FileControllerBase {
 		
 		model.addAttribute("list", messageService.deleteMessageBoxList(pi, empNo));
 		model.addAttribute("pi", pi);
+		model.addAttribute("userList", messageService.selectAllEmployee());
 		
 		return "message/deleteMessageBox";
 	}	// deleteMessageBox

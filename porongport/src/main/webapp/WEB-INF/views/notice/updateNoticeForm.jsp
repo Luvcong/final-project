@@ -6,7 +6,7 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<title>[포롱포트] 공지사항 작성</title>
+<title>[포롱포트] 공지사항 수정</title>
 
 <link rel="stylesheet" href="resources/css/notice.css">
 <!-- ckeditor5 -->
@@ -29,22 +29,23 @@
 	
 	
 	<div class="pp-content">
-	
-	<div class="header">
+		<div class="header">
 			<div class="h-title">
-				공지사항 작성
+				공지사항 수정
 			</div>
 	</div>	<!-- header  -->
     
-    <form action="insertNotice" method="post" enctype="multipart/form-data">
+    <form action="updateNotice" method="post" enctype="multipart/form-data">
+	    <input type="hidden" name="changeFileName" value="${ at.filePath }/${ at.changeFileName }">
+	    <input type="hidden" name="noticeNo" value="${ list.noticeNo }">
 	    <table id="tb-notice-form" class="table table-sm">
 	   		<tr>
 	   			<th>제목</th>
-	   			<td><input class="form-control form-control-sm" name="noticeTitle" required></td>
+	   			<td><input class="form-control form-control-sm" name="noticeTitle" required value="${ list.noticeTitle }"></td>
 	   			<td >
 	   			<div class="form-check form-switch notice-check">
 				  <label>
-				  <input class="form-check-input" type="checkbox" name="noticeTypeTmp">
+				  <input class="form-check-input" type="checkbox" name="noticeTypeTmp" checked="${ list.noticeType }">
 				  <input type="hidden" name="noticeType"/>
 				  중요공지 설정
 				  </label>
@@ -53,20 +54,42 @@
 	   		</tr>
 	   		<tr>
 	   			<th>첨부파일</th>
-	   			<td><input type="file" name="multiFile" multiple></td>
+	   			<td><input type="file" name="reUpMultiFile" multiple></td>
+	   		</tr>
+	   		<tr>
+	   			<th>기존파일</th>
+	   			<td>
+					<c:forEach var="at" items="${ attachList }">
+	   				<c:choose>
+	   					<c:when test="${ empty at.originFileName }">
+	   						<input class="form-control form-control-sm detail-input" readonly placeholder="기존 첨부파일이 존재하지 않습니다.">
+	      				</c:when>
+	      				<c:otherwise>
+	      				<div>
+	      					<i class="fa-solid fa-circle-minus"></i>
+			      		    <a class="detail-input upload-name" 
+			      			   href="${ at.filePath }/${ at.changeFileName }" download="${ at.originFileName }">
+			      				<i class="fa-regular fa-floppy-disk"></i> ${ at.originFileName }
+		      			    </a>
+	      				</div>
+		      			   
+	      				</c:otherwise>
+	      			</c:choose>
+   				</c:forEach>
+	   			</td>
 	   		</tr>
 	   		<tr>
 	   			<th>내용</th>
 	   			<td>
-	   			<div>
-	   				<textarea id="editor" name="noticeContent" required></textarea>
-	   			</div>
+		   			<div>
+		   				<textarea id="editor" name="noticeContent" required>${ list.noticeContent }</textarea>
+		   			</div>
 	   			</td>
 	   		</tr>
 	   	</table>
 				    	
 		<div id="btnDiv">
-		    <button type="submit" class="btn btn-sm btn-primary" onclick="insertNotice()">작성하기</button>
+		    <button type="submit" class="btn btn-sm btn-primary" onclick="updateNotice()">수정하기</button>
 		    <button type="button" class="btn btn-sm btn-outline-primary" onclick="location.href='${path}/noticeList'">목록으로</button>
 		</div>
     </form>
@@ -96,21 +119,23 @@
  	    
  	    
  		// ------------------------------------------------------------------
- 		// 공지사항 게시글 작성
- 		// ------------------------------------------------------------------ 
- 	   function insertNotice() {
- 		   let content = document.getElementById('editor'); 
- 		   content.value = editor.getData();
- 		   console.log(content.value);
+ 		// 공지사항 게시글 수정
+ 		// ------------------------------------------------------------------
+ 		function updateNotice(){
+			let content = document.getElementById('editor'); 
+			content.value = editor.getData();
  		   
- 		  let table = document.getElementById('tb-notice-form');
- 		  let is_checked = table.querySelector('input[name="noticeTypeTmp"]').checked;
- 		  
- 		  let type = table.querySelector('input[name="noticeType"]');
- 		  type.value = is_checked ? 'Y' : 'N';
- 		  
- 		  $(this).submit();
- 	   }
+			let table = document.getElementById('tb-notice-form');
+			let is_checked = table.querySelector('input[name="noticeTypeTmp"]').checked;
+			console.log(is_checked);
+			
+			let type = table.querySelector('input[name="noticeType"]');
+			console.log(type);
+			type.value = is_checked ? 'Y' : 'N';
+ 		   
+ 		   $(this).submit();
+ 			
+ 		}	// updateNotice
  	   
 	</script>
 	    

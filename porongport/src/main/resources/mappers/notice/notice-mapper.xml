@@ -5,47 +5,7 @@
 
 <mapper namespace="noticeMapper">
 
-	<resultMap id="noticeResultSet" type="notice">
-		<result column="NOTICE_NO" property="noticeNo" />
-		<result column="NOTICE_WRITER" property="noticeWriter" />
-		<result column="NOTICE_TITLE" property="noticeTitle" />
-		<result column="NOTICE_CONTENT" property="noticeContent" />
-		<result column="CREATE_DATE" property="createDate" />
-		<result column="MODIFY_DATE" property="updateDate" />	<!--아직 미추가 -->
-		<result column="NOTICE_STATUS" property="noticeStatus" />
-		<result column="NOTICE_COUNT" property="noticeCount" />
-		<result column="NOTICE_TYPE" property="noticeType" />
-		<result column="DEPT_NAME" property="deptName" />
-		<result column="NOTICE_REPLY_CNT" property="replyCount" />
-		<result column="EMP_NO" property="empNo" />
-		<result column="EMP_NAME" property="empName" />
-		<result column="JOB_NAME" property="jobName" />
-		<result column="NOTICE_ORIGIN_FILENAME" property="originFileName" />
-		<result column="NOTICE_CHANGE_FILENAME" property="changeFileName" />
-		<result column="NOTICE_LIKE_CNT" property="noticeLikeCount" />
-		<result column="NOTICE_FILE_PATH" property="filePath" />
-		<result column="NOTICE_ATT_CNT" property="attCount" />
-	</resultMap>
-	
-	<resultMap id="noticeAttResultSet" type="noticeAttachment">
-		<result column="NOTICE_FILE_NO" property="noticeFileNo" />
-		<result column="NOTICE_ORIGIN_FILENAME" property="originFileName" />
-		<result column="NOTICE_CHANGE_FILENAME" property="changeFileName" />
-		<result column="NOTICE_FILE_PATH" property="filePath" />
-		<result column="NOTICE_UPLOAD_DATE" property="uploadDate" />
-		<result column="NOTICE_NO" property="noticeNo" />
-	</resultMap>
-	
-	<resultMap id="noticeLikeResultSet" type="noticeLike">
-		<result column="NOTICE_LIKE_NO" property="noticeLikeNo" />
-		<result column="NOTICE_NO" property="noticeNo" />
-		<result column="EMP_NO" property="empNo" />
-		<result column="NOTICE_LIKE" property="noticeLike" />
-	</resultMap>
-	
-	<!-- ********************************************************* -->
-	<!-- 1) 공지사항 리스트 전체 조회 -->
-	<select id="noticeList" resultMap="noticeResultSet" parameterType="notice">
+	<sql id="noticeSql">
 		SELECT
 				DISTINCT N.NOTICE_TYPE,
 				N.NOTICE_NO,
@@ -55,11 +15,13 @@
 				D.DEPT_NAME,
 				N.CREATE_DATE,
 				NVL(NN.NOTICE_ATT_CNT, 0) AS NOTICE_ATT_CNT,
-				N.NOTICE_COUNT, NVL(RR.NOTICE_REPLY_CNT, 0) AS NOTICE_REPLY_CNT
+				N.NOTICE_COUNT,
+				NVL(RR.NOTICE_REPLY_CNT, 0) AS NOTICE_REPLY_CNT
 	  	 FROM
 	  			(
 	      		SELECT NOTICE_NO, COUNT(*) AS NOTICE_REPLY_CNT
 	        	  FROM REPLY
+                 WHERE REPLY_STATUS = 'Y'
 	       		 GROUP BY NOTICE_NO) RR,
                 (
                 SELECT NOTICE_NO, COUNT(*) AS NOTICE_ATT_CNT
@@ -80,9 +42,99 @@
 		   		N.NOTICE_NO = RR.NOTICE_NO(+)
            AND
            		N.NOTICE_NO = NN.NOTICE_NO(+)
+	</sql>
+
+	<!-- ********************************************************* -->
+	<!-- 공지사항 관련 resultMap-->
+<!-- 	<resultMap id="noticeResultSet" type="notice">
+		<result column="NOTICE_NO" property="noticeNo" />
+		<result column="NOTICE_WRITER" property="noticeWriter" />
+		<result column="NOTICE_TITLE" property="noticeTitle" />
+		<result column="NOTICE_CONTENT" property="noticeContent" />
+		<result column="CREATE_DATE" property="createDate" />
+		<result column="MODIFY_DATE" property="modifyDate" />
+		<result column="NOTICE_STATUS" property="noticeStatus" />
+		<result column="NOTICE_COUNT" property="noticeCount" />
+		<result column="NOTICE_TYPE" property="noticeType" />
+		<result column="NOTICE_REPLY_CNT" property="replyCount" />
+		<result column="NOTICE_LIKE_CNT" property="noticeLikeCount" />
+		<result column="NOTICE_ATT_CNT" property="attCount" />
+		<result column="EMP_NO" property="empNo" />
+		<result column="DEPT_NAME" property="deptName" />
+		<result column="EMP_NAME" property="empName" />
+		<result column="JOB_NAME" property="jobName" />
+	</resultMap> -->
+	
+	<resultMap id="noticeAndEmp" type="notice">
+		<result column="NOTICE_NO" property="noticeNo" />
+		<result column="NOTICE_WRITER" property="noticeWriter" />
+		<result column="NOTICE_TITLE" property="noticeTitle" />
+		<result column="NOTICE_CONTENT" property="noticeContent" />
+		<result column="CREATE_DATE" property="createDate" />
+		<result column="MODIFY_DATE" property="modifyDate" />
+		<result column="NOTICE_STATUS" property="noticeStatus" />
+		<result column="NOTICE_COUNT" property="noticeCount" />
+		<result column="NOTICE_TYPE" property="noticeType" />
+		<result column="NOTICE_REPLY_CNT" property="replyCount" />
+		<result column="NOTICE_LIKE_CNT" property="noticeLikeCount" />
+		<result column="NOTICE_ATT_CNT" property="attCount" />
+		<collection property="empList" resultMap="empMap"></collection>
+	</resultMap>
+	
+	<resultMap id="noticeAttResultSet" type="noticeAttachment">
+		<result column="NOTICE_FILE_NO" property="noticeFileNo" />
+		<result column="NOTICE_ORIGIN_FILENAME" property="originFileName" />
+		<result column="NOTICE_CHANGE_FILENAME" property="changeFileName" />
+		<result column="NOTICE_FILE_PATH" property="filePath" />
+		<result column="NOTICE_NO" property="noticeNo" />
+	</resultMap>
+	
+	<resultMap id="noticeLikeResultSet" type="noticeLike">
+		<result column="NOTICE_LIKE_NO" property="noticeLikeNo" />
+		<result column="NOTICE_NO" property="noticeNo" />
+		<result column="EMP_NO" property="empNo" />
+		<result column="NOTICE_LIKE" property="noticeLike" />
+	</resultMap>
+	
+	<!-- ********************************************************* -->
+	<!-- 댓글 관련 resultMap-->
+	<resultMap id="replyResultSet" type="reply">
+		<result column="REPLY_NO" property="replyNo" />
+		<result column="NOTICE_NO" property="noticeNo" />
+		<result column="BOARD_NO" property="boardNo" />
+		<result column="REPLY_WRITER" property="replyWriter" />
+		<result column="REPLY_CONTENT" property="replyContent" />
+		<result column="REPLY_DATE" property="replyDate" />
+		<result column="REPLY_STATUS" property="replyStatus" />
+	</resultMap>
+	
+	<resultMap id="replyAndEmp" type="reply">
+		<result column="REPLY_NO" property="replyNo" />
+		<result column="NOTICE_NO" property="noticeNo" />
+		<result column="BOARD_NO" property="boardNo" />
+		<result column="REPLY_WRITER" property="replyWriter" />
+		<result column="REPLY_CONTENT" property="replyContent" />
+		<result column="REPLY_DATE" property="replyDate" />
+		<result column="REPLY_STATUS" property="replyStatus" />
+		<collection property="empList" resultMap="empMap"></collection>
+	</resultMap>
+	
+	<resultMap id="empMap" type="emp">
+		<result column="EMP_NO" property="empNo" />
+		<result column="EMP_NAME" property="empName" />
+		<result column="DEPT_NAME" property="deptName" />
+		<result column="JOB_NAME" property="jobName" />
+	</resultMap>
+	
+	
+	<!-- ********************************************************* -->
+	<!-- 1) 공지사항 리스트 전체 조회 -->
+	<select id="noticeList" resultMap="noticeAndEmp" parameterType="notice">
+	
+		<include refid="noticeSql" />
 		 ORDER
 		    BY
-		    	N.NOTICE_NO DESC
+		    	N.NOTICE_TYPE DESC, N.NOTICE_NO DESC
 	</select>
 	
 	<!-- 2) 공지사항 전체 리스트 개수 조회 -->
@@ -93,6 +145,71 @@
 		  		NOTICE
   		 WHERE
   		 		NOTICE_STATUS = 'Y'
+	</select>
+	
+	<!-- 3) 공지사항 게시글 검색 리스트 조회 -->
+	<select id="searchNoticeList" resultMap="noticeAndEmp" parameterType="hashmap">
+		
+		<include refid="noticeSql" />
+		
+		<choose>
+	  	 	<when test="condition == 'userName'">
+	  	   		AND
+	  	 			E.EMP_NAME
+	  	 	</when>
+	  	 	<when test="condition == 'jobName'">
+	  	   		AND
+	  	   			J.JOB_NAME
+	  	 	</when>
+	  	 	<when test="condition == 'deptName'">
+				AND
+					D.DEPT_NAME
+	  	 	</when>
+	  	 	<otherwise>
+	  	   		AND
+	  	 			N.NOTICE_CONTENT
+	  	 	</otherwise>
+	  	</choose>
+		LIKE '%' || #{ keyword } || '%'
+		ORDER
+		   BY
+		   		N.NOTICE_TYPE DESC, N.NOTICE_NO DESC
+	</select>
+	
+	<!-- 4) 공지사항 게시글 검색 개수 조회 -->
+	<select id="searchNoticeCount" resultType="_int">
+	
+		SELECT
+				COUNT(*)
+		  FROM
+		 		NOTICE N, EMPLOYEE E, JOB J, DEPARTMENT D
+		 WHERE
+		       N.NOTICE_WRITER = E.EMP_NO
+		   AND
+		       E.DEPT_CODE = D.DEPT_CODE
+		   AND
+		       E.JOB_CODE = J.JOB_CODE
+		   AND
+		       N.NOTICE_STATUS = 'Y'
+		 <choose>
+	  	 	<when test="condition == 'userName'">
+	  	   		AND
+	  	 			E.EMP_NAME
+	  	 	</when>
+	  	 	<when test="condition == 'jobName'">
+	  	   		AND
+	  	   			J.JOB_NAME
+	  	 	</when>
+	  	 	<when test="condition == 'deptName'">
+				AND
+					D.DEPT_NAME
+	  	 	</when>
+	  	 	<otherwise>
+	  	   		AND
+	  	 			N.NOTICE_CONTENT
+	  	 	</otherwise>
+	  	 </choose>
+	  	 LIKE '%' || #{ keyword } || '%'
 	</select>
 	
 	<!-- ********************************************************* -->
@@ -114,7 +231,7 @@
 	    VALUES
 	    		(
 	            SEQ_NOTICE_NO.NEXTVAL,
-	            #{ empNo },
+	            #{ noticeWriter },
 	            #{ noticeTitle },
 	            #{ noticeContent },
 	            SYSDATE,
@@ -134,7 +251,6 @@
 	            NOTICE_ORIGIN_FILENAME,
 	            NOTICE_CHANGE_FILENAME,
 	            NOTICE_FILE_PATH,
-	            NOTICE_UPLOAD_DATE,
 	            NOTICE_NO
 	            )
 	     VALUES
@@ -143,32 +259,35 @@
 	            #{ originFileName },
 	            #{ changeFileName },
 	            #{ filePath },
-	            SYSDATE,
+	            <if test="noticeNo == 0">
 	            SEQ_NOTICE_NO.CURRVAL
+	            </if>
+	            <if test="noticeNo > 0">
+	            #{ noticeNo }
+	            </if>
 				)
 	</insert>
 	
 	<!-- ********************************************************* -->
 	<!-- 1) 공지사항 상세보기 -->
-	<select id="detailNotice" resultMap="noticeResultSet" parameterType="hashmap">
+	<select id="detailNotice" resultMap="noticeAndEmp" parameterType="hashmap">
 		SELECT
 				N.NOTICE_NO,
 				N.NOTICE_TITLE,
 				N.CREATE_DATE,
+				N.MODIFY_DATE,
 				E.EMP_NAME,
-				E.EMP_NO,
+				N.NOTICE_WRITER,
 				D.DEPT_NAME,
 				J.JOB_NAME,
 				N.NOTICE_CONTENT,
-				AT.NOTICE_ORIGIN_FILENAME,
-				AT.NOTICE_CHANGE_FILENAME,
-				AT.NOTICE_FILE_PATH,
+				N.NOTICE_TYPE,
 		        NVL(L.NOTICE_LIKE_CNT, 0) AS NOTICE_LIKE_CNT
 		  FROM (
 		        SELECT NOTICE_NO, COUNT(NOTICE_NO) AS NOTICE_LIKE_CNT
 		          FROM NOTICE_LIKE
 		         GROUP BY NOTICE_NO) L,
-		        NOTICE N, EMPLOYEE E, DEPARTMENT D, JOB J, NOTICE_ATTACHMENT AT
+		        NOTICE N, EMPLOYEE E, DEPARTMENT D, JOB J
 		 WHERE
 		 		N.NOTICE_WRITER = E.EMP_NO
 		   AND
@@ -176,14 +295,28 @@
 		   AND
 		   		E.JOB_CODE = J.JOB_CODE
 		   AND
-		   		N.NOTICE_NO = AT.NOTICE_NO(+)
-		   AND
 		   		N.NOTICE_NO = L.NOTICE_NO(+)
 		   AND
 		   		N.NOTICE_NO = #{ noticeNo }
 	</select>
 	
-	<!-- 2) 공지사항 좋아요 여부 체크 -->
+	<!-- 2) 공지사항 첨부파일 상세조회 -->
+	<select id="selectAttachment" resultMap="noticeAttResultSet">
+		SELECT
+				NOTICE_FILE_NO,
+	   			NOTICE_ORIGIN_FILENAME,
+	    		NOTICE_CHANGE_FILENAME,
+	    		NOTICE_FILE_PATH,
+	    		NOTICE_NO
+  		  FROM
+  		  		NOTICE_ATTACHMENT
+	     WHERE
+                NOTICE_NO = #{ noticeNo }
+  		 ORDER
+  		    BY  NOTICE_FILE_NO DESC
+	</select>
+	
+	<!-- 3) 공지사항 좋아요 여부 체크 -->
 	<select id="checkNoticeLike" resultType="_int">
    		SELECT
    				COUNT(*)
@@ -195,7 +328,7 @@
    		   		EMP_NO = #{ empNo }	
 	</select>
 	
-	<!-- 3) 공지사항 좋아요 취소(삭제) -->
+	<!-- 4) 공지사항 좋아요 취소(삭제) -->
 	<delete id="deleteNoticeLike" parameterType="hashmap">
 		DELETE
 				NOTICE_LIKE
@@ -205,7 +338,7 @@
 		   		EMP_NO = #{ empNo }
 	</delete>
 	
-	<!-- 4) 공지사항 좋아요 추가 -->
+	<!-- 5) 공지사항 좋아요 추가 -->
 	<insert id="insertNoticeLike" parameterType="hashmap">
 		INSERT
 		  INTO
@@ -214,7 +347,7 @@
 				NOTICE_LIKE_NO,
 				NOTICE_NO,
 				EMP_NO,
-				NOTICE_LIKE_DATE	<!-- 날짜컬럼 삭제해도 될 듯? -->
+				NOTICE_LIKE_DATE
 				)
 				VALUES
 				(
@@ -225,7 +358,7 @@
 				)	
 	</insert>
 	
-	<!-- 5) 공지사항 조회수 증가 -->
+	<!-- 6) 공지사항 조회수 증가 -->
 	<update id="increaseCount" parameterType="_int">
 		UPDATE
 				NOTICE
@@ -235,19 +368,47 @@
 		 		NOTICE_NO = #{ noticeNo }
 	</update>
 	
-	<!-- 7) 공지사항 게시글 삭제 -->
+	<!-- 7) 공지사항 게시글 수정 -->
+	<update id="updateNotice" parameterType="notice">
+		UPDATE
+				NOTICE
+		   SET
+		   		NOTICE_TITLE = #{ noticeTitle },
+		   		NOTICE_CONTENT = #{ noticeContent },
+		   		NOTICE_TYPE = #{ noticeType },
+		   		MODIFY_DATE = SYSDATE
+		 WHERE
+		 		NOTICE_NO = #{ noticeNo }
+		   AND
+		   		NOTICE_WRITER = #{ noticeWriter }
+	</update>
+	
+	<!-- 8) 공지사항 첨부파일 수정 -->
+	<!-- 삭제? ****************************** -->
+	<update id="updateAttachment" parameterType="noticeAttachment">
+		UPDATE
+				NOTICE_ATTACHMENT
+		   SET
+		   		NOTICE_ORIGIN_FILENAME = #{ originFileName },
+		   		NOTICE_CHANGE_FILENAME = #{ changeFileName },
+		   		NOTICE_FILE_PATH = #{ filePath }
+		 WHERE
+		 		NOTICE_NO = #{ noticeNo }
+	</update>
+	
+	<!-- 9) 공지사항 게시글 삭제 -->
 	<update id="deleteNotice" parameterType="_int">
 		UPDATE
 				NOTICE
 		   SET
 		   		NOTICE_STATUS = 'N'
 		 WHERE
-		 		NOTICE_WRITER = #{ empNo }
+		 		NOTICE_WRITER = #{ noticeWriter }
 		   AND
 		   		NOTICE_NO = #{ noticeNo }
 	</update>
 	
-	<!-- 8) 공지사항 게시글 첨부파일 삭제 -->
+	<!-- 10) 공지사항 게시글 첨부파일 삭제 -->
 	<delete id="deleteNoticeAttach" parameterType="_int">
 		DELETE
 		  FROM
@@ -255,6 +416,75 @@
 		 WHERE
 		 		NOTICE_NO = #{ noticeNo }
 	</delete>
+	
+	<!-- 공지사항 게시글 댓글 작성 -->
+	<insert id="insertReply" parameterType="reply">
+		INSERT
+		  INTO
+		  		REPLY
+		  		(
+		        REPLY_NO,
+		        NOTICE_NO,
+		        BOARD_NO,
+		        REPLY_WRITER,
+		        REPLY_CONTENT,
+		        REPLY_DATE,
+		        REPLY_STATUS
+		        )
+		VALUES
+				(
+		        SEQ_REPLY_NO.NEXTVAL,
+		        #{ noticeNo },
+		        NULL,
+		        #{ replyWriter },
+		        #{ replyContent },
+		        SYSDATE,
+		        DEFAULT
+		        )
+	</insert>
+	
+	<!-- 공지사항 게시글 댓글 조회 -->
+	<select id="selectReplyList" resultMap="replyAndEmp">
+		SELECT
+				REPLY_NO,
+				NOTICE_NO,
+				BOARD_NO,
+                EMP_NAME,
+                JOB_NAME,
+                DEPT_NAME,
+				REPLY_WRITER,
+				REPLY_CONTENT,
+				REPLY_DATE,
+				REPLY_STATUS
+	  	  FROM
+	  	  		REPLY R, EMPLOYEE E, DEPARTMENT D, JOB J
+	 	 WHERE 
+	 	 		NOTICE_NO = #{ noticeNo }
+           AND
+                R.REPLY_WRITER = E.EMP_NO
+           AND
+                E.JOB_CODE = J.JOB_CODE
+           AND
+                E.DEPT_CODE = D.DEPT_CODE
+           AND
+           		R.REPLY_STATUS = 'Y'
+	 	 ORDER
+	 	    BY
+	 	    	REPLY_NO DESC
+	</select>
+	
+	<!-- 공지사항 댓글 삭제 -->
+	<update id="deleteReply" parameterType="_int">
+		UPDATE
+				REPLY
+		   SET
+		   		REPLY_STATUS = 'N'
+		 WHERE 
+		 		REPLY_NO = #{ replyNo } 
+	</update>
+	
+	
+	
 	
 	
 </mapper>

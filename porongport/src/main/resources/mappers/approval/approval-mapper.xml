@@ -16,7 +16,25 @@
 		<result column="GEN_CONTENT" property="genContent" />
  	</resultMap>
  	
- 
+ 	<resultMap id="edmsLineResultSet" type="edmsLine">
+ 		<result column="EDMS_NO" property="edmsNo" />
+ 		<result column="EMP_NO" property="empNo" />
+ 		<result column="APPROVAL_DATE" property="approvalDate" />
+ 		<result column="ACCEPTANCE_DATE" property="acceptanceDate" />
+ 		<result column="PAYMENT_STATUS" property="paymentStatus" />
+ 		<result column="DEMS_ROWNUM" property="demsRownum" />
+ 	</resultMap>
+ 	
+ 	<resultMap id="edmsResultSet" type="edms">
+ 		<result column="EDMS_NO" property="edmsNo" />
+ 		<result column="EMP_NO" property="empNo" />
+ 		<result column="EDMS_TITLE" property="edmsTitle" />
+ 		<result column="EDMS_DATE" property="edmsDate" />
+ 		<result column="EDMS_CATEGORY" property="edmsCategory" />
+ 		<result column="EDMS_REASON" property="edmsReason" />
+ 	</resultMap>
+ 	
+ 	
  	
  	
  	<!-- 조직도 조회 -->
@@ -110,10 +128,36 @@
 		</if>
 	</select>
 	
+	<insert id="insertEdms" parameterType="edms">
+		INSERT INTO EDMS(EDMS_NO, EMP_NO, EDMS_TITLE, EDMS_DATE, EDMS_CATEGORY, EDMS_REASON)
+		VALUES (SEQ_EDMS_NO.NEXTVAL, #{empNo}, #{edmsTitle}, SYSDATE, #{edmsCategory}, #{edmsReason})
+	</insert>
+	<!-- #{edmsCategory} -->
+	
 	<insert id="insertGeneralDocument" parameterType="general">
 		INSERT INTO GENERAL(GEN_NO, EDMS_CATEGORY, GEN_TITLE, GEN_CONTENT)
-		VALUES (SEQ_GEN_NO.NEXTVAL, #{edmsCategory}, #{genTitle}, #{genContent})
+		VALUES (SEQ_GEN_NO.NEXTVAL, #{edmsCategory}, #{edmsTitle}, #{genContent})
 	</insert>
+	
+	<insert id="insertFirstEdmsLine" parameterType="edmsLine">
+		INSERT INTO EDMS_LINE(EDMS_NO, EMP_NO, APPROVAL_DATE, ACCEPTANCE_DATE, PAYMENT_STATUS, EDMS_ROWNUM)
+		VALUES (SEQ_EDMS_NO.NEXTVAL, #{empNo}, #{approvalDate}, #{acceptanceDate}, #{paymentStatus}, #{edmsRownum})
+	</insert>
+	
+	<insert id="insertSecondEdmsLine" parameterType="edmsLine">
+		INSERT INTO EDMS_LINE(EDMS_NO, EMP_NO, APPROVAL_DATE, ACCEPTANCE_DATE, PAYMENT_STATUS, EDMS_ROWNUM)
+		VALUES (SEQ_EDMS_NO.NEXTVAL, #{empNo}, #{approvalDate}, #{acceptanceDate}, #{paymentStatus}, #{edmsRownum})
+	</insert>
+	
+	<insert id="insertThirdEdmsLine" parameterType="edmsLine">
+		INSERT INTO EDMS_LINE(EDMS_NO, EMP_NO, APPROVAL_DATE, ACCEPTANCE_DATE, PAYMENT_STATUS, EDMS_ROWNUM)
+		VALUES (SEQ_EDMS_NO.CURRVAL, #{empNo}, #{approvalDate}, #{acceptanceDate}, #{paymentStatus}, #{edmsRownum})
+	</insert>
+	
+	
+	
+
+	
 	
 
 </mapper>

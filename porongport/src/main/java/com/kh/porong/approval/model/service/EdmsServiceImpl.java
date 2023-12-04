@@ -1,12 +1,14 @@
 package com.kh.porong.approval.model.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.porong.approval.model.dao.EdmsDao;
+import com.kh.porong.approval.model.vo.EdmsLineVO;
 import com.kh.porong.approval.model.vo.EdmsVO;
 import com.kh.porong.approval.model.vo.GeneralVO;
 import com.kh.porong.approval.model.vo.VacationVO;
@@ -61,9 +63,31 @@ public class EdmsServiceImpl implements EdmsService{
 	}
 
 	@Override
+	public int insertEdms(EdmsVO ed) {
+		return EdmsDao.insertEdms(sqlSession, ed);
+	}
+	
+	@Override
 	public int insertGeneralDocument(GeneralVO general) {
 		return EdmsDao.insertGeneralDocument(sqlSession, general);
 	}
+
+	@Override
+	public int insertFirstEdmsLine(EdmsLineVO el) {
+		return EdmsDao.insertSecondEdmsLine(sqlSession, el);
+	}
+	
+	@Override
+	public int insertSecondEdmsLine(EdmsLineVO el) {
+		return EdmsDao.insertSecondEdmsLine(sqlSession, el);
+	}
+
+	@Override
+	public int insertThirdEdmsLine(EdmsLineVO el) {
+		return EdmsDao.insertThirdEdmsLine(sqlSession, el);
+	}
+
+
 
 
 

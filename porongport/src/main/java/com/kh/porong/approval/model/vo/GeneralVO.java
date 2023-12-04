@@ -14,5 +14,9 @@ public class GeneralVO {
 	private String edmsCategory;
 	private String genTitle;
 	private String genContent;
+	private int empNo;
+	private String edmsTitle;
+	private Date edmsDate;
+	private String edmsReason;
 
 }
