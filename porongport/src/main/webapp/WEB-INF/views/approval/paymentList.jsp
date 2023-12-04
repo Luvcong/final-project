@@ -50,21 +50,16 @@
     <div class="pp-content">
         <br><br>
         <div class="innerOuter" style="padding:5% 10%;">
-            <h2>공지사항</h2>
+            <h2>결제진행함</h2>
             <br>
-            <!-- 로그인 후 상태일 경우만 보여지는 글쓰기 버튼 -->
-            <c:if test="${sessionScope.loginUser.userId eq 'admin'}">
-            	<a class="btn btn-secondary" style="float:right;" href="enrollForm.no">글쓰기</a>
-            </c:if>
             <br>
             <br>
             <table id="noticeList" class="table table-hover" align="center">
                 <thead>
                     <tr>
-                        <th>글번호</th>
+                        <th>문서번호</th>
                         <th>제목</th>
-                        <th>작성자</th>
-                        <th>작성일</th>
+                        <th>결재상태</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -92,7 +87,6 @@
                 <ul class="pagination">
                 	<c:choose>
                 		<c:when test="${pi.currentPage eq 1 }">
-                    		<li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
                     	</c:when>
                     	<c:otherwise>
                     		<li class="page-item"><a class="page-link" href="list.no?cPage=${pi.currentPage-1}">Previous</a></li>
@@ -103,7 +97,6 @@
                     </c:forEach>
                     <c:choose>
                     	<c:when test="${pi.endPage eq pi.maxPage}">
-                    		<li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
                     	</c:when>
                     	<c:otherwise>
                     		<li class="page-item"><a class="page-link" href="list.no?cPage=${pi.currentPage+11}">Next</a></li>

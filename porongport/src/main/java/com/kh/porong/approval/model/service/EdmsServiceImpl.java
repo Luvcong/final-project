@@ -74,7 +74,7 @@ public class EdmsServiceImpl implements EdmsService{
 
 	@Override
 	public int insertFirstEdmsLine(EdmsLineVO el) {
-		return EdmsDao.insertSecondEdmsLine(sqlSession, el);
+		return EdmsDao.insertFirstEdmsLine(sqlSession, el);
 	}
 	
 	@Override
@@ -85,6 +85,11 @@ public class EdmsServiceImpl implements EdmsService{
 	@Override
 	public int insertThirdEdmsLine(EdmsLineVO el) {
 		return EdmsDao.insertThirdEdmsLine(sqlSession, el);
+	}
+
+	@Override
+	public int updateEdmsLine(EdmsLineVO el) {
+		return EdmsDao.updateEdmsLine(sqlSession, el);
 	}
 
 

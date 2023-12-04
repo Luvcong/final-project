@@ -12,6 +12,7 @@ import com.kh.porong.approval.model.service.EdmsService;
 import com.kh.porong.approval.model.vo.EdmsLineVO;
 import com.kh.porong.approval.model.vo.EdmsVO;
 import com.kh.porong.approval.model.vo.GeneralVO;
+import com.kh.porong.calendar.model.vo.ScheduleVO;
 
 @Controller
 public class PersonalDepartmentController {
@@ -25,13 +26,16 @@ public class PersonalDepartmentController {
 		return "approval/personalDepartmentForm";
 	}
 	
+	@RequestMapping("document1")
+	public String insertDocument() {
+		
+		return "approval/personalDepartmentForm";
+	}
+	
 	@ResponseBody
 	@PostMapping(value="insertEdms", produces="application/json; charset=UTF-8")
 	public String insertEdms(EdmsLineVO el, EdmsVO ed, GeneralVO ge, HttpSession session, String empNo1, String empNo2, String empNo3) {
-		
-//		System.out.println(empNo1);
-//		System.out.println(empNo2);
-//		System.out.println(empNo3);
+	
 		
 //		System.out.println(ed);
 //		System.out.println(ge);
@@ -42,11 +46,19 @@ public class PersonalDepartmentController {
 			
 			if(edmsService.insertGeneralDocument(ge) > 0) {
 				
+				el.setEmpNo1(Integer.valueOf(empNo1));
+				
 				edmsService.insertFirstEdmsLine(el);
+				
+				el.setEmpNo2(Integer.valueOf(empNo2));
 				edmsService.insertSecondEdmsLine(el);
+				
+				el.setEmpNo3(Integer.valueOf(empNo3));
 				edmsService.insertThirdEdmsLine(el);
 				
-				System.out.println(el);
+				//System.out.println(empNo1);
+				//System.out.println(empNo2);
+				//System.out.println(empNo3);
 				
 			}
 			
@@ -57,6 +69,18 @@ public class PersonalDepartmentController {
 	      }
 		return "redirect:department";
 	   }
+	
+	@RequestMapping("document2")
+	public String updateEdmsLine(EdmsLineVO el, HttpSession session) {
+		
+		if(edmsService.updateEdmsLine(el) > 0) {
+			session.setAttribute("alertMsg", "수정이 완료되었습니다.");
+			return "approval/paymentList";
+		}else {
+			session.setAttribute("errorMsg", "수정에 실패하였습니다.");
+			return "common/errorPage";
+		}
+	}
 	
 
 }

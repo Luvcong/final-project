@@ -39,6 +39,7 @@ public interface EdmsService {
 	int insertSecondEdmsLine(EdmsLineVO el);
 	int insertThirdEdmsLine(EdmsLineVO el);
 	
+	int updateEdmsLine(EdmsLineVO el);
 	
 
 

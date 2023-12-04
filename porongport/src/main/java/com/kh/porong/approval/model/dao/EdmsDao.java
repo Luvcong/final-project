@@ -47,5 +47,9 @@ public class EdmsDao {
 		return sqlSession.insert("approvalMapper.insertThirdEdmsLine", el);
 	}
 	
+	public int updateEdmsLine(SqlSessionTemplate sqlSession, EdmsLineVO el) {
+		return sqlSession.update("approvalMapper.updateEdmsLine", el);
+	}
+	
 
 }

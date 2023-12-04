@@ -11,7 +11,9 @@ import lombok.ToString;
 public class EdmsLineVO {
 	
 	private int edmsNo;
-	private int empNo;
+	private int empNo1;
+	private int empNo2;
+	private int empNo3;
 	private Date approvalDate;
 	private Date acceptanceDate;
 	private String paymentStatus;
