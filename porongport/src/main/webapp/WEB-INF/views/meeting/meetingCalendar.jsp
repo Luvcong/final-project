@@ -22,12 +22,27 @@ html, body {
 	margin: 40px auto;
 	height: 230px;
 }
+
+
+<!-- 여기가 시간데별 색주는곳
+
+ /*
+  td.fc-timeline-slot.fc-timeline-slot-lane.fc-timeline-slot-minor{
+ background-color: black;
+ }
+ 
+ td.fc-timeline-slot.fc-timeline-slot-lane.fc-timeline-slot-major{
+ background-color: black;
+ } 
+ */
+
+
 </style>
 
 
 
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar-scheduler@6.1.9/index.global.min.js"></script>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <link rel="stylesheet" href="resources/css/meeting.css">
 
 
@@ -112,8 +127,8 @@ html, body {
      		var result2 = result.substr(0, 8);
      		var result3 = meetEndTime.substr(11, 18);
      		var result4 = result3.substr(0, 8);
-     		console.log(result2);
-     		console.log(result4);
+  //  		console.log(result2);
+  //   		console.log(result4);
      		var meetStartDay = info.startStr;
      		var meetEndDay = info.endStr;
      		
@@ -294,26 +309,38 @@ html, body {
 
 								</table>
 								
-								<script>
+								
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="submit" class="btn btn-sm btn-secondary btn-rigth disabled">예약신청</button>
+					</div>
+					<!-- modal footer -->
+					
+					<script>
 						    	$(function(){
-						    		const $meetStartDay = $('#meetStartDay').val();
+						    		const $timeInput = $('#times');
+						    		
+						    	    const $meetStartDay = $('#meetStartDay').val();
 						    		const $meetStartTime = $('#meetStartTime').val();
 						    		const $meetStart = $meetStartDay+'T'+$meetStartTime;
-						    		console.log($meetStart);
+						    		console.log($meetStartDay);
+						    		console.log($meetStartTime);
+						   // 		console.log($timeInput);
+						   // 		console.log("뭐야;;");
+						    		
 						    		const $checkResult = $('#checkResult');
 						    		const $enrollFormSubmit = $('#insertMeeting :submit');
 						    		
-						    		
-						    		$timeInput.mouseup(function(){
+						    	$(document).on('click',$timeInput,function(){
 						    			if($timeInput.val().length >=0){
 						    				$.ajax({
 						    					url : 'dbtimeCheck',
 						    					data : {checkId : $timeInput.val()},
 						    					success : function(result){
-						    						console.log(result.substr(0));
 						    						console.log(result);
 						    						
-						    						if(result.substr(0)==='N'){
+						    						if(result =='N'){
 						    							$checkResult.show().css('color','crimson').text('중복된 예약이 존재합니다');
 						    							$enrollFormSubmit.attr('disabled', true);
 						    						}else {
@@ -334,12 +361,8 @@ html, body {
 						    		
 						    	})
 								</script>
-						</div>
-					</div>
-					<div class="modal-footer">
-						<button type="submit" class="btn btn-sm btn-secondary btn-rigth">예약신청</button>
-					</div>
-					<!-- modal footer -->
+				 	
+					
 					</div>
 					<!-- modal-body -->
 					</form>

@@ -109,25 +109,18 @@
 	</select>	
 	
 	 <select id="dbtimeCheck" parameterType="string" resultType="_int">
-	
-	 
 	 	SELECT 
 	 		COUNT(*)
 		FROM 
 			MEETING_ROOM
 		WHERE (#{meetStart} <![CDATA[>]]>= MEET_START AND #{meetStart} <![CDATA[<]]>= MEET_END)
 		AND   (#{meetEnd} <![CDATA[>]]>= MEET_START AND #{meetEnd} <![CDATA[<]]>= MEET_END)
-
 		OR    (#{meetStart} <![CDATA[<]]>= MEET_START AND #{meetStart} <![CDATA[<]]>= MEET_END)
 		AND   (#{meetEnd} <![CDATA[>]]>  MEET_START AND #{meetEnd} <![CDATA[<]]>= MEET_END)
-		
 		OR    (#{meetStart} <![CDATA[>]]>= MEET_START AND #{meetStart} <![CDATA[<]]>  MEET_END)
 		AND   (#{meetEnd} <![CDATA[>]]>= MEET_START AND #{meetEnd} <![CDATA[>]]>= MEET_END)
-
 		OR    (#{meetStart} <![CDATA[<]]>= MEET_START AND #{meetStart} <![CDATA[<]]>= MEET_END)
 		AND   (#{meetEnd} <![CDATA[>]]>= MEET_START AND #{meetEnd} <![CDATA[>]]>= MEET_END)
-		
-	 	
 	</select>
 	
 	
