@@ -66,7 +66,7 @@
 	      				</c:when>
 	      				<c:otherwise>
 	      				<div>
-	      					<i class="fa-solid fa-circle-minus"></i>
+	      					<i class="fa-solid fa-circle-minus" onclick="deleteFile(${ at.noticeFileNo })"></i>
 			      		    <a class="detail-input upload-name" 
 			      			   href="${ at.filePath }/${ at.changeFileName }" download="${ at.originFileName }">
 			      				<i class="fa-regular fa-floppy-disk"></i> ${ at.originFileName }
@@ -136,6 +136,54 @@
  		   $(this).submit();
  			
  		}	// updateNotice
+ 		
+		
+ 		// ------------------------------------------------------------------
+ 		// 공지사항 게시글 파일 삭제 ajax
+ 		// ------------------------------------------------------------------
+ 		function deleteFile(noticeFileNo){
+ 			console.log(noticeFileNo);
+			
+ 			let file = event.currentTarget.parentElement;
+ 			console.log(file);
+ 			
+  			Swal.fire({
+			title: "파일을 삭제하시겠습니까?",
+			text : "※ 삭제된 파일은 복원이 불가합니다.",
+			icon: 'warning',
+			showCancelButton: true,
+			confirmButtonColor: "#DD6B55",
+			confirmButtonText: "삭제",
+			cancelButtonText: "취소"
+			}).then((result) => {
+			if (!result.isConfirmed) {
+				  return;
+				}
+ 		
+ 			$.ajax({
+				url : 'deleteFile',
+				type : 'post',
+				data : { 
+						noticeFileNo : noticeFileNo,
+						noticeNo : ${ list.noticeNo }
+						},
+				success : result => {
+					
+					if(result === 'success'){
+						file.remove();
+					}
+					
+				},	// success
+				error : () => {
+					console.log('AJAX 파일 삭제 실패!');
+				}	// error
+			});	// 	// ajax
+			 
+			});		// confrim
+ 		}	// deleteFile
+ 			
+
+ 		
  	   
 	</script>
 	    

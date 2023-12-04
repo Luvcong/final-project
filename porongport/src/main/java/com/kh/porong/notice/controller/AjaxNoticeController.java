@@ -29,6 +29,7 @@ import org.springframework.web.multipart.support.DefaultMultipartHttpServletRequ
 import com.google.gson.Gson;
 import com.kh.porong.employee.model.vo.Employee;
 import com.kh.porong.notice.model.service.NoticeService;
+import com.kh.porong.notice.model.vo.NoticeAttachment;
 import com.kh.porong.reply.model.vo.Reply;
 
 
@@ -209,6 +210,25 @@ public class AjaxNoticeController {
 	public String deleteReply(int replyNo) {
 		return noticeService.deleteReply(replyNo) > 0 ? "success" : "fail";
 	}	// deleteReply
+	
+	
+	/**
+	 * 공지사항 게시글 수정시 파일 삭제
+	 * @param changeFileName : 삭제하려는 파일 이름
+	 * @return 파일 삭제 성공 여부 반환
+	 * @author JH
+	 * @Date : 2023. 12. 4
+	 */
+	@ResponseBody
+	@PostMapping("deleteFile")
+	public String deleteFile(int noticeNo, int noticeFileNo) {
+		
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		map.put("noticeNo", noticeNo);
+		map.put("noticeFileNo", noticeFileNo);
+		
+		return noticeService.deleteNoticeAttach(map) > 0 ? "success" : "fail";
+	}	// deleteFile
 	
 	
 	
