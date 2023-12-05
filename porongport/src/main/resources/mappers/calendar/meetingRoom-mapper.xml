@@ -46,7 +46,7 @@
 			#{meetStart},
 			#{meetEnd},
 			'Y',
-			'Y'
+			'S'
 	)
 </insert>
 
@@ -106,6 +106,9 @@
 		   JOIN DEPARTMENT USING (DEPT_CODE)
 		   JOIN JOB USING(JOB_CODE)
 		  WHERE MEET_STATUS = 'Y'
+		  ORDER
+			BY
+				MEET_NO DESC
 	</select>	
 	
 	 <select id="dbtimeCheck" parameterType="string" resultType="_int">
@@ -123,5 +126,30 @@
 		AND   (#{meetEnd} <![CDATA[>]]>= MEET_START AND #{meetEnd} <![CDATA[>]]>= MEET_END)
 	</select>
 	
+	
+	<select id="selectDetailReservation"  parameterType="_int" resultMap="meetingroomResultSet">
+	SELECT
+  		MEET_NO,
+  		EMP_NO,
+  		MEET_TITLE,
+  		MEET_CONTENT,
+  		MEET_PNUM,
+  		MEET_START,
+  		MEET_END,
+  		MEET_PNUM
+  	FROM
+  		MEETING_ROOM
+  	WHERE
+  		MEET_NO= #{meetNo}
+  </select>
+  
+	<update id="updatemeet" parameterType="_int">
+		UPDATE
+		MEETING_ROOM
+		SET
+		MEET_APPROVAL='Y'
+		WHERE
+		MEET_NO =#{meetNo}
+	</update>
 	
 </mapper>

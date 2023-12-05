@@ -26,7 +26,7 @@ public interface MeetingRoomService {
 	ArrayList<MeetingRoomVO> selectApprovalList(MeetingRoomVO room);
 	
 	// <예약현황목록>디테일뷰
-	MeetingRoomVO selectDetailReservation(MeetingRoomVO room);
+	MeetingRoomVO selectDetailReservation(int mno);
 	
 	//<예약승인목록>디테일뷰
 	MeetingRoomVO selectDetailApprovalList(MeetingRoomVO room);
@@ -49,6 +49,10 @@ public interface MeetingRoomService {
 	int selectListCount();
 
 	ArrayList<MeetingRoomVO> selectList(PageInfo pi);
+
+	int updatemeet(int mno);
+
+
 
 	
 }

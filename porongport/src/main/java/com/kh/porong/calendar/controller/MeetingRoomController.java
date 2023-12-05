@@ -8,9 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 import com.kh.porong.calendar.model.service.MeetingRoomService;
@@ -39,7 +41,6 @@ public class MeetingRoomController {
 	
 	@RequestMapping("insertMeeting")
 	public String insertmeeting(MeetingRoomVO mr, HttpSession session) {
-		
 		String meetStartDay = mr.getMeetStartDay();
 		String meetStartTime = mr.getMeetStartTime();
 		
@@ -52,10 +53,13 @@ public class MeetingRoomController {
 		}
 		if(meetingRoomService.insertMeetingRoom(mr) > 0) {
 			session.setAttribute("alertMsg", "일정추가성공");
+			session.setAttribute("mr", mr);
 			return "redirect:reservation";
+			
 		}else {
 			session.setAttribute("alertMsg", "일정추가실패");
 			return "redirect:reservation";
+			
 		}
 	}
 	@ResponseBody
@@ -69,13 +73,33 @@ public class MeetingRoomController {
 	public String reservationList(@RequestParam(value="cPage", defaultValue="1") int currentPage, Model model) {
 		
 		PageInfo pi = Pagination.getPageInfo(meetingRoomService.selectListCount(), currentPage, 5, 5);
-		System.out.println(meetingRoomService.selectListCount());
 		
 		model.addAttribute("list", meetingRoomService.selectList(pi));
-		System.out.println(meetingRoomService.selectList(pi));
 		
 		model.addAttribute("pi", pi);
 		return "meeting/reservationStatus";
+	}
+	
+
+/*	@RequestMapping("detailmeet")
+	public ModelAndView selectDetailReservation(int mno, ModelAndView mv) {
+		if(MeetingRoomService != null) {
+			mv.addObject("m",MeetingRoomService.selectDetailReservation(mno)).setViewName("meeting/reservationDetail");
+		} else {
+			mv.addObject("errorMsg", "회의실 예약목록 상세조회 실패").setViewName("common/errorPage");
+		}
+		return mv;
+	}
+	*/
+	@RequestMapping("detailReservation")
+	public ModelAndView selectDetailReservation(int mno, ModelAndView mv) {
+//		int형으로 작성했더니 알아서파싱
+		if(mno > 0) {
+			mv.addObject("mr",meetingRoomService.selectDetailReservation(mno)).setViewName("meeting/reservationDetail");
+		} else {
+			mv.addObject("errorMsg", "예약목록 상세조회 실패").setViewName("common/errorPage");
+		}
+		return mv;
 	}
 	
 	@ResponseBody
@@ -84,6 +108,17 @@ public class MeetingRoomController {
 
 		 return meetingRoomService.dbtimeCheck(checkId) > 0 ? "N" : "Y";
 	}
-
 	
+	
+	@RequestMapping("updateForm")
+	public String updatemeet(int mno, HttpSession session) {
+		if(meetingRoomService.updatemeet(mno) > 0) {
+			session.setAttribute("alertMsg","예약승인 완료");
+			return "redirect:reservationStatus";
+		}else {
+			session.setAttribute("errorMsg","실패" );
+			return "redirect:reservationStatus";
+		}
+	}
+
 }

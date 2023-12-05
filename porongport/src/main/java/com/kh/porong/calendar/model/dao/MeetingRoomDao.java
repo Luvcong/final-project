@@ -34,4 +34,17 @@ public class MeetingRoomDao {
 	public int dbtimeCheck(SqlSessionTemplate sqlSession, String checkId) {
 		return sqlSession.selectOne("meetingRoomMapper.dbtimeCheck",checkId);
 	}
+
+	public MeetingRoomVO selectDetailApprovalList(SqlSessionTemplate sqlSession, int mno) {
+		return null;
+	}
+
+	public MeetingRoomVO selectDetailReservation(SqlSessionTemplate sqlSession, int mno) {
+		return sqlSession.selectOne("meetingRoomMapper.selectDetailReservation", mno);
+		
+	}
+	public int updatemeet(SqlSessionTemplate sqlSession, int mno) {
+		return sqlSession.update("meetingRoomMapper.updatemeet", mno);
+	}
+	
 }

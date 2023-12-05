@@ -54,16 +54,13 @@ public class MeetingRoomServiceImpl implements MeetingRoomService {
 		return null;
 	}
 
-
 	@Override
-	public MeetingRoomVO selectDetailReservation(MeetingRoomVO room) {
-		// TODO Auto-generated method stub
-		return null;
+	public MeetingRoomVO selectDetailReservation(int mno) {
+		return MeetingRoomDao.selectDetailReservation(sqlSession, mno);
 	}
 
 	@Override
 	public MeetingRoomVO selectDetailApprovalList(MeetingRoomVO room) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -96,6 +93,12 @@ public class MeetingRoomServiceImpl implements MeetingRoomService {
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
 		return MeetingRoomDao.selectList(sqlSession, rowBounds);
 	}
+
+	@Override
+	public int updatemeet(int mno) {
+		return MeetingRoomDao.updatemeet(sqlSession,mno);
+	}
+
 
 
 	
