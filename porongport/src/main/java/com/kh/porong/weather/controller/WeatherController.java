@@ -24,10 +24,10 @@ public class WeatherController {
 	@RequestMapping(value="weather", produces="application/json; charset=UTF-8")
 	public String weather() throws IOException {
 		String url = "https://api.openweathermap.org/data/2.5/weather";
-		url += "?lat=37.5683";//서울 경도
-		url += "&lon=126.9778";//서울 위도
+		url += "?lat=37.5683";
+		url += "&lon=126.9778";
 		url += "&lang=kr";
-		url += "&units=metric";//섭씨온도로 바꿈
+		url += "&units=metric";
 		url += "&appid="+SERVICEKEY;
 		
 		URL requestUrl = new URL(url);
