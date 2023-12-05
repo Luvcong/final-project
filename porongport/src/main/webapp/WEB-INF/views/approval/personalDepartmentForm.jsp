@@ -629,7 +629,7 @@
                                         + '<td>' + data[i].empNo 	+ '</td>'
                                         + '<td>' + data[i].deptName + '</td>'
                                         + '<td>' + data[i].empName 	+ '</td>'
-                                        + '<td>' + data[i].jobName	 + '</td>'
+                                        + '<td>' + data[i].jobName	+ '</td>'
                                         + '</tr>'
                               }
                               $('#job_table').html(value);
