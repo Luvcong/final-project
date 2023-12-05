@@ -36,12 +36,6 @@ public class PersonalDepartmentController {
 	@PostMapping(value="insertEdms", produces="application/json; charset=UTF-8")
 	public String insertEdms(EdmsLineVO el, EdmsVO ed, GeneralVO ge, HttpSession session, String empNo1, String empNo2, String empNo3) {
 	
-		
-//		System.out.println(ed);
-//		System.out.println(ge);
-		
-		
-		
 		if (edmsService.insertEdms(ed) > 0) {
 			
 			if(edmsService.insertGeneralDocument(ge) > 0) {
