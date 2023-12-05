@@ -540,9 +540,9 @@
                 <div class="row card-body vertical-scroll">
 
                   <div class="col-lg-6" style="width: 1000px; height: 500px;">
-                    <!-- 왼쪽 컨텐츠 내용 -->
-                    <h3>부서 목록</h3>
-                    <table class="table table-striped table-bordered">
+           <!-- 왼쪽 컨텐츠 내용 -->
+            <h3>부서 목록</h3>
+               <table class="table table-striped table-bordered">
                <thead>
                   <tr>
                   <ul>
@@ -558,8 +558,7 @@
                            <th>직급</th>
                         </tr>
                </thead>
-               <tbody id="job_table">
-               </tbody>
+               <tbody id="job_table"></tbody>
                   <div class="gm_box">
             <table class="table table-bordered app_jojigdo" id="appCheck">
              </table>

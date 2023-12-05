@@ -56,10 +56,6 @@ public class PersonalDepartmentController {
 				el.setEmpNo3(Integer.valueOf(empNo3));
 				edmsService.insertThirdEdmsLine(el);
 				
-				//System.out.println(empNo1);
-				//System.out.println(empNo2);
-				//System.out.println(empNo3);
-				
 			}
 			
 			
