@@ -99,6 +99,11 @@ public class MeetingRoomServiceImpl implements MeetingRoomService {
 		return MeetingRoomDao.updatemeet(sqlSession,mno);
 	}
 
+	@Override
+	public int notupdatemeet(int mno) {
+		return MeetingRoomDao.notupdatemeet(sqlSession,mno);
+	}
+
 
 
 	

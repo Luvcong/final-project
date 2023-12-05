@@ -47,4 +47,9 @@ public class MeetingRoomDao {
 		return sqlSession.update("meetingRoomMapper.updatemeet", mno);
 	}
 	
+	public int notupdatemeet(SqlSessionTemplate sqlSession, int mno) {
+		return sqlSession.update("meetingRoomMapper.notupdatemeet", mno);
+	}
+	
+	
 }

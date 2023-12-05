@@ -52,6 +52,8 @@ public interface MeetingRoomService {
 
 	int updatemeet(int mno);
 
+	int notupdatemeet(int mno);
+
 
 
 	
