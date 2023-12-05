@@ -31,7 +31,8 @@ public class MeetingRoomController {
 		return "meeting/meetingCalendar";
 	}
 	@RequestMapping("adminMeetingRoom")
-	public String adminMeetingRoom() {
+	public String adminMeetingRoom(MeetingRoomVO mr, HttpSession session) {
+		session.setAttribute("mr", mr);
 		return "meeting/adminView";
 	}
 	@RequestMapping("reservationApprove")
@@ -52,7 +53,7 @@ public class MeetingRoomController {
 			mr.setMeetEnd(meetEndDay+'T'+meetEndTime);
 		}
 		if(meetingRoomService.insertMeetingRoom(mr) > 0) {
-			session.setAttribute("alertMsg", "일정추가성공");
+			session.setAttribute("alertMsg", "회의실 예약 신청완료");
 			session.setAttribute("mr", mr);
 			return "redirect:reservation";
 			
@@ -120,5 +121,16 @@ public class MeetingRoomController {
 			return "redirect:reservationStatus";
 		}
 	}
+	@RequestMapping("notupdateForm")
+	public String notupdatemeet(int mno, HttpSession session) {
+		if(meetingRoomService.notupdatemeet(mno) > 0) {
+			session.setAttribute("alertMsg","예약반려");
+			return "redirect:reservationStatus";
+		}else {
+			session.setAttribute("errorMsg","예약 반려실패" );
+			return "redirect:reservationStatus";
+		}
+	}
+
 
 }

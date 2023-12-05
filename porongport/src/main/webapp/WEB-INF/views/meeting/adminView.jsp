@@ -50,24 +50,7 @@
 				
 				<br><br><br>
 				
-				<div class="calendar-table-right">
-					<table class="borderTable">
-						<tr>
-							<th>&nbsp;&nbsp;&nbsp;예약승인</th>
-							<td><a href="reservationApprove" class="btn">+&nbsp;&nbsp;</a></td>
-						</tr>
-						<tr>
-							<td>
-								<ul>
-									<li>[신청] 2023-11-27 10:00~12:00 | 인사부: 김유저 대리</li>
-									<li>[신청] 2023-11-26 11:00~12:00 | 비품부: 이유저 과장</li>
-									<li>[신청] 2023-11-25 14:00~15:00 | 영업부: 홍유저 사원</li>
-									<li>[신청] 2023-11-25 14:00~15:00 | 영업부: 홍유저 사원</li>
-								</ul>
-							</td>
-						</tr>
-					</table>
-				</div>
+				
 				
 			</div>
 		

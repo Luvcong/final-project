@@ -152,4 +152,13 @@
 		MEET_NO =#{meetNo}
 	</update>
 	
+	<update id="notupdatemeet" parameterType="_int">
+		UPDATE
+		MEETING_ROOM
+		SET
+		MEET_APPROVAL='N'
+		WHERE
+		MEET_NO =#{meetNo}
+	</update>
+	
 </mapper>
