@@ -155,14 +155,10 @@
             	    else{
 						var endTime = (((selectEndDate.getHours()-9)) < 10 ? "0" + ((selectEndDate.getHours()-9)) : ((selectEndDate.getHours()-9))) +':'
 			  						+((selectEndDate.getMinutes()) < 10 ? "0" + (selectEndDate.getMinutes()) : (selectEndDate.getMinutes()));
-	
 					}
             	    
-            	    var startTimeCut = startTime.substr(0, 2);	// 오후 3시가 넘어가면 다음날로 넘어감 > 15
-            	    var endTimeCut = endTime.substr(0, 2);	// 오전 시간이면 전날로 체크됨 < 12
-            	    
-            	   //console.log(startTimeCut);
-            	   //console.log(endTimeCut);
+            	    var startTimeCut = startTime.substr(0, 2);
+            	    var endTimeCut = endTime.substr(0, 2);
 					
             	   	if(endTimeCut<12){
             	   		var endDate = selectEndDate.getFullYear()+'-'
