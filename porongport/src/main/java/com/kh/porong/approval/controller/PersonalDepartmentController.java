@@ -51,8 +51,6 @@ public class PersonalDepartmentController {
 				edmsService.insertThirdEdmsLine(el);
 				
 			}
-			
-			
 			 session.setAttribute("alertMsg", "서류작성성공");
 	      } else { 
 	    	  session.setAttribute("alertMsg", "서류작성실패");
