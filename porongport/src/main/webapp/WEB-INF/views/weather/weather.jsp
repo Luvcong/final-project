@@ -66,14 +66,14 @@
 					//https://openweathermap.org/img/wn/10d@2x.png
 					
 					var icon = 'https://openweathermap.org/img/wn/'+data.weather[0].icon+'@2x.png';
-					var weather = data.weather[0].description;//날씨
-					var temp = data.main.temp+'°C';//현재온도
-					var minTemp = '최저 '+data.main.temp_min +' °C ';//최저
-					var maxTemp = '최고 '+data.main.temp_max +' °C ';//최고
-					var fellTemp = '체감 '+data.main.feels_like +' °C ';//체감
-					var humidity = '습도 '+ data.main.humidity +' % '; //습도
-					var clouds =  '구름양 '+data.clouds.all +' % ';//구름양
-					var wind = '풍속 '+ data.wind.speed + ' m/s ';//풍속
+					var weather = data.weather[0].description;
+					var temp = data.main.temp+'°C';
+					var minTemp = '최저 '+data.main.temp_min +' °C ';
+					var maxTemp = '최고 '+data.main.temp_max +' °C ';
+					var fellTemp = '체감 '+data.main.feels_like +' °C ';
+					var humidity = '습도 '+ data.main.humidity +' % '; 
+					var clouds =  '구름양 '+data.clouds.all +' % ';
+					var wind = '풍속 '+ data.wind.speed + ' m/s ';
 					
 					//console.log(icon);
 					

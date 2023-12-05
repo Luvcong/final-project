@@ -415,6 +415,10 @@
 		  		NOTICE_ATTACHMENT
 		 WHERE
 		 		NOTICE_NO = #{ noticeNo }
+		 		<if test="noticeFileNo > 0">
+	 	   AND
+		 		NOTICE_FILE_NO = #{ noticeFileNo }
+		 		</if>
 	</delete>
 	
 	<!-- 공지사항 게시글 댓글 작성 -->
