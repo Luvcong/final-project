@@ -157,15 +157,10 @@
 
    <script>
       function apSubmit(e){
-         //console.log($(e).children()[0]);
-         //console.log($(e).children()[1]);
          
          var empId = $(e).children()[0].textContent;
          var empName = $(e).children()[2].textContent;
       
-          //console.log(empId);
-          //console.dir(empId);
-         
            // 오른쪽 화살표 첫번째 버튼 동작 구현
            $('#rightArrowButtonFirst').click(function() {
                const memberIdInputFirst = $('.memberIdInputFirst');
