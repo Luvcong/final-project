@@ -627,10 +627,10 @@
                               for(i=0; i<data.length; i++){
                                  value += '<tr onclick="apSubmit(this);">'
                                         + '<td>' + data[i].empNo + '</td>'
-                                          + '<td>' + data[i].deptName + '</td>'
-                                          + '<td>' + data[i].empName + '</td>'
-                                           + '<td>' + data[i].jobName + '</td>'
-                                          + '</tr>'
+                                        + '<td>' + data[i].deptName + '</td>'
+                                        + '<td>' + data[i].empName + '</td>'
+                                        + '<td>' + data[i].jobName + '</td>'
+                                        + '</tr>'
                               }
                               $('#job_table').html(value);
                            },
