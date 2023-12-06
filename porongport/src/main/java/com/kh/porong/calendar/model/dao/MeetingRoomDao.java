@@ -50,6 +50,11 @@ public class MeetingRoomDao {
 	public int notupdatemeet(SqlSessionTemplate sqlSession, int mno) {
 		return sqlSession.update("meetingRoomMapper.notupdatemeet", mno);
 	}
+
+	public ArrayList<MeetingRoomVO> selectTopMeet(SqlSessionTemplate sqlSession) {
+		return (ArrayList)sqlSession.selectList("meetingRoomMapper.selectTopMeet");
+	}
+
 	
 	
 }

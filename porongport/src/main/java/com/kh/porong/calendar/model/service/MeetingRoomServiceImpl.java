@@ -104,6 +104,11 @@ public class MeetingRoomServiceImpl implements MeetingRoomService {
 		return MeetingRoomDao.notupdatemeet(sqlSession,mno);
 	}
 
+	@Override
+	public ArrayList<MeetingRoomVO> selectTopMeet() {
+		return MeetingRoomDao.selectTopMeet(sqlSession);
+	}
+
 
 
 	

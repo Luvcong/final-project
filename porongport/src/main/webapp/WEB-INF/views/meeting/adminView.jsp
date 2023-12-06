@@ -30,29 +30,60 @@
 		
 			<div class="insertCalendarForm insertForm-rigth insertForm-position-department">
 				<div class="calendar-table-right">
-					<table class="borderTable">
+					<table class="borderTable" id="meetList" style="width:630px">
+					<thead>
 						<tr>
 							<th>&nbsp;&nbsp;&nbsp;예약현황</th>
-							<td><a href="reservationStatus" class="btn">+&nbsp;&nbsp;</button></a>
+							<td><a href="reservationStatus" class="btn" style="float:right;">+&nbsp;&nbsp;</button></a>
 						</tr>
+						</thead>
+						<tbody>
 						<tr>
 							<td>
-								<ul>
-									<li>[확정] 2023-11-27 10:00~12:00 | 인사부: 김유저 대리</li>
-									<li>[확정] 2023-11-26 11:00~12:00 | 비품부: 이유저 과장</li>
-									<li>[확정] 2023-11-25 14:00~15:00 | 영업부: 홍유저 사원</li>
-									<li>[확정] 2023-11-25 14:00~15:00 | 영업부: 홍유저 사원</li>
-								</ul>
+							
 							</td>
 						</tr>
+						</tbody>
+						
+						<script>
+		$(function(){
+			topMeetList();
+			$(document).on('click', '#meetList > tbody > tr', function(){
+				location.href = 'detailReservation?mno=' +$(this).children().eq(0).text();
+			})
+		})
+		
+		function topMeetList(){
+			
+			$.ajax({
+				
+				url : 'meetingList',
+				success : function(result){
+					console.log(result);
+					
+					let value ='';
+					for(let i in result){
+						value += '<tr>'
+						+'<td>'+ result[i].meetNo +'</td>'+'<td>'+ result[i].meetStart +' ~ '+ result[i].meetEnd +' / '+ result[i].deptName +' / '+ result[i].empName +' / '+ result[i].jobName +'</td>'
+						+'</tr>'
+					}
+					$('#meetList>tbody').html(value);
+				},
+				error : function(){
+					console.log('실패');
+				}
+			});
+		}
+	</script>
 					</table>
 				</div>
 				<br><br><br>
+				</div>
+				</div>
+				</div>
+				</div>
 				
 			</div>
-		
-		</div>
-	</div>
 
 </body>
 </html>

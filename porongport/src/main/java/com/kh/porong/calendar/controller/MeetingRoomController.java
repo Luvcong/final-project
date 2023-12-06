@@ -131,6 +131,11 @@ public class MeetingRoomController {
 			return "redirect:reservationStatus";
 		}
 	}
-
+	
+	@ResponseBody
+	@GetMapping(value = "meetingList", produces = "application/json; charset=UTF-8")
+	public String ajaxTopMeet() {
+		return new Gson().toJson(meetingRoomService.selectTopMeet());
+	}
 
 }

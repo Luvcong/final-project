@@ -2,6 +2,7 @@ package com.kh.porong.calendar.model.service;
 
 import java.util.ArrayList;
 
+import com.google.gson.JsonElement;
 import com.kh.porong.calendar.model.vo.MeetingRoomVO;
 import com.kh.porong.common.model.vo.PageInfo;
 
@@ -53,6 +54,8 @@ public interface MeetingRoomService {
 	int updatemeet(int mno);
 
 	int notupdatemeet(int mno);
+
+	ArrayList<MeetingRoomVO> selectTopMeet();
 
 
 

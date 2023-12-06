@@ -161,4 +161,28 @@
 		MEET_NO =#{meetNo}
 	</update>
 	
+	 <select resultMap="meetingroomResultSet" id = "selectTopMeet">
+	SELECT A.*
+	FROM(
+		SELECT
+			MEET_NO,
+			MEET_START,
+			MEET_END,
+			DEPT_NAME,
+			EMP_NAME,
+			JOB_NAME
+		FROM
+			MEETING_ROOM
+           JOIN EMPLOYEE  USING (EMP_NO)
+		   JOIN DEPARTMENT USING (DEPT_CODE)
+		   JOIN JOB USING(JOB_CODE)
+		WHERE
+            MEET_STATUS = 'Y'
+		ORDER
+		BY
+			MEET_NO DESC
+		) A
+			WHERE ROWNUM BETWEEN 1 AND 4
+  </select>
+	
 </mapper>
