@@ -36,12 +36,6 @@ public class PersonalDepartmentController {
 	@PostMapping(value="insertEdms", produces="application/json; charset=UTF-8")
 	public String insertEdms(EdmsLineVO el, EdmsVO ed, GeneralVO ge, HttpSession session, String empNo1, String empNo2, String empNo3) {
 	
-		
-//		System.out.println(ed);
-//		System.out.println(ge);
-		
-		
-		
 		if (edmsService.insertEdms(ed) > 0) {
 			
 			if(edmsService.insertGeneralDocument(ge) > 0) {
@@ -56,13 +50,7 @@ public class PersonalDepartmentController {
 				el.setEmpNo3(Integer.valueOf(empNo3));
 				edmsService.insertThirdEdmsLine(el);
 				
-				//System.out.println(empNo1);
-				//System.out.println(empNo2);
-				//System.out.println(empNo3);
-				
 			}
-			
-			
 			 session.setAttribute("alertMsg", "서류작성성공");
 	      } else { 
 	    	  session.setAttribute("alertMsg", "서류작성실패");

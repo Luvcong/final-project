@@ -157,15 +157,10 @@
 
    <script>
       function apSubmit(e){
-         //console.log($(e).children()[0]);
-         //console.log($(e).children()[1]);
          
          var empId = $(e).children()[0].textContent;
          var empName = $(e).children()[2].textContent;
       
-          //console.log(empId);
-          //console.dir(empId);
-         
            // 오른쪽 화살표 첫번째 버튼 동작 구현
            $('#rightArrowButtonFirst').click(function() {
                const memberIdInputFirst = $('.memberIdInputFirst');
@@ -391,9 +386,9 @@
                                                <div class="col-sm-11">
                                                   <!-- 선택된 결재자 정보를 표시할 HTML 요소 -->
                                              <div id="selectedApprovers">
-                                                 <p>첫 번째 결재자: <span id="firstApproverName"></span> <input type="hidden" id="firstApproverNo" name="empNo1" value=""></p>
-                                                 <p>두 번째 결재자: <span id="secondApproverName"></span> <input type="hidden" id="secondApproverNo" name="empNo2" value=""></p>
-                                                 <p>세 번째 결재자: <span id="thirdApproverName"></span> <input type="hidden" id="thirdApproverNo" name="empNo3" value=""></p>
+                                                 <p>첫 번째 결재자: <span id="firstApproverName"></span> <input type="hidden" id="firstApproverNo" name="empNo1"></p>
+                                                 <p>두 번째 결재자: <span id="secondApproverName"></span> <input type="hidden" id="secondApproverNo" name="empNo2"></p>
+                                                 <p>세 번째 결재자: <span id="thirdApproverName"></span> <input type="hidden" id="thirdApproverNo" name="empNo3"></p>
                                              </div>
                                                 </div>
                                             </div>
@@ -545,9 +540,9 @@
                 <div class="row card-body vertical-scroll">
 
                   <div class="col-lg-6" style="width: 1000px; height: 500px;">
-                    <!-- 왼쪽 컨텐츠 내용 -->
-                    <h3>부서 목록</h3>
-                    <table class="table table-striped table-bordered">
+           <!-- 왼쪽 컨텐츠 내용 -->
+            <h3>부서 목록</h3>
+               <table class="table table-striped table-bordered">
                <thead>
                   <tr>
                   <ul>
@@ -557,13 +552,13 @@
                   </ul>
                   </tr>
                         <tr>
+                           <th>사번</th>
                            <th>부서</th>
                            <th>성명</th>
                            <th>직급</th>
                         </tr>
                </thead>
-               <tbody id="job_table">
-               </tbody>
+               <tbody id="job_table"></tbody>
                   <div class="gm_box">
             <table class="table table-bordered app_jojigdo" id="appCheck">
              </table>
@@ -625,11 +620,11 @@
                               let value = '';
                               for(i=0; i<data.length; i++){
                                  value += '<tr onclick="apSubmit(this);">'
-                                        + '<td>' + data[i].empNo + '</td>'
-                                          + '<td>' + data[i].deptName + '</td>'
-                                          + '<td>' + data[i].empName + '</td>'
-                                           + '<td>' + data[i].jobName + '</td>'
-                                          + '</tr>'
+                                        + '<td>' + data[i].empNo 	+ '</td>'
+                                        + '<td>' + data[i].deptName + '</td>'
+                                        + '<td>' + data[i].empName 	+ '</td>'
+                                        + '<td>' + data[i].jobName	+ '</td>'
+                                        + '</tr>'
                               }
                               $('#job_table').html(value);
                            },
