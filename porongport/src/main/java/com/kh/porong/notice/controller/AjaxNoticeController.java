@@ -36,6 +36,9 @@ import com.kh.porong.reply.model.vo.Reply;
 @Controller
 public class AjaxNoticeController {
 	
+	public static final int BUFFER_SIZE = 4 * 1024;
+	
+	
 	@Autowired
 	private NoticeService noticeService;
 	
@@ -46,27 +49,31 @@ public class AjaxNoticeController {
 	 * @param request
 	 * @param response
 	 * @author JH
+	 * @throws IOException 
 	 * @Date : 2023. 11. 27
 	 */
 	@GetMapping("fileView")
 	public void viewFile(String name, HttpServletRequest request, HttpServletResponse response) {
-		// 서버에 저장된 이미지 경로
-        Path fullPath = Paths.get(request.getSession().getServletContext().getRealPath("/resources/uploadFiles/notice"), name);
-        
-        // 사진 이미지를 찾지 못하는 경우 예외처리 > 빈 이미지 파일을 설정
-        File file = fullPath.toFile();
-        if(file.isFile() == false)
-        	return;
-        
+		if(name == null || name.equals(""))
+			return;
+		
         // 파일 크기 설정 4K
-        byte[] buf = new byte[4*1024];
+        byte[] buf   = new byte[BUFFER_SIZE];
         int readByte = 0;
         
-        FileInputStream inputStream = null;			// fis, fin
+        FileInputStream inputStream   = null;		// fis, fin
         ServletOutputStream outStream = null;		// sos, sout
         
+        Path fullPath = Paths.get(request.getSession()
+        							.getServletContext()
+        							.getRealPath("/resources/uploadFiles/notice")
+        							, name);
+        
+        if(!Files.exists(fullPath))
+        	return;
+        
         try{
-            inputStream = new FileInputStream(file);
+        	inputStream = new FileInputStream(fullPath.toString());
             outStream = response.getOutputStream();
             
             while((readByte = inputStream.read(buf)) != -1){
@@ -77,8 +84,9 @@ public class AjaxNoticeController {
             outStream.close();
         }
         catch(IOException e){
+        	e.fillInStackTrace(); 
         }
-    }	// viewFile
+    }	// fileView
 	
 	
 	/**
