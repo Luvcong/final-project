@@ -146,41 +146,45 @@ html, body {
  	    },
 	    
 	    eventClick: (calEvent, jsEvent, view) => {
+	    	
     		
             $('#meetNo').val(calEvent.event._def.publicId);
             
             $('#eventModalLabel').text(calEvent.event._def.title);
     	    
-    	    var selectMeetStartDay = calEvent.el.fcSeg.eventRange.instance.range.start;
+    	    var smsd = calEvent.el.fcSeg.eventRange.instance.range.start; //selectMeetStartDay
+    	    var smed = calEvent.el.fcSeg.eventRange.instance.range.end; //selectMeetEndDay
     	    
-    	    var meetStartDay = selectMeetStartDay.getFullYear()+'-'
-	 		+((selectMeetStartDay.getMonth()+1) < 10 ? "0" + (selectMeetStartDay.getMonth()+1) : (selectMeetStartDay.getMonth()+1))+'-'
-	 		+((selectMeetStartDay.getDate()) < 10 ? "0" + (selectMeetStartDay.getDate()) : (selectMeetStartDay.getDate()));
+    	    
+    	    
+    	    
+    	    var smsd = smsd.getFullYear()+'-'
+	 		+((smsd.getMonth()+1) < 10 ? "0" + (smsd.getMonth()+1) : (smsd.getMonth()+1))+'-'
+	 		+((smsd.getDate()) < 10 ? "0" + (smsd.getDate()) : (smsd.getDate()));
 
     	  
-    	    if((selectMeetStartDay.getHours()-9)<0){
-    	    	var meetStartTime = (((selectMeetStartDay.getHours()-9)+24) < 10 ? "0" + ((selectMeetStartDay.getHours()-9)+24) : ((selectMeetStartDay.getHours()-9)+24)) +':'
-								+((selectMeetStartDay.getMinutes()) < 9 ? "0" + (selectMeetStartDay.getMinutes()) : (selectMeetStartDay.getMinutes()));
+    	    if((smsd.getHours()-9)<0){
+    	    	var meetStartTime = (((smsd.getHours()-9)+24) < 10 ? "0" + ((smsd.getHours()-9)+24) : ((smsd.getHours()-9)+24)) +':'
+								+((smsd.getMinutes()) < 9 ? "0" + (smsd.getMinutes()) : (smsd.getMinutes()));
     	    }
     	    else{
-    	    	 var startTime = (((selectMeetStartDay.getHours()-9)) < 10 ? "0" + ((selectMeetStartDay.getHours()-9)) : ((selectMeetStartDay.getHours()-9))) +':'
- 								+((selectMeetStartDay.getMinutes()) < 9 ? "0" + (selectMeetStartDay.getMinutes()) : (selectMeetStartDay.getMinutes()));
+    	    	 var startTime = (((smsd.getHours()-9)) < 10 ? "0" + ((smsd.getHours()-9)) : ((smsd.getHours()-9))) +':'
+ 								+((smsd.getMinutes()) < 9 ? "0" + (smsd.getMinutes()) : (smsd.getMinutes()));
     	    }
     	    
-    	    var selectMeetEndDay = calEvent.el.fcSeg.eventRange.instance.range.end;
     	    
-    	    var meetEndDay = selectMeetEndDay.getFullYear()+'-'
-	 		+((selectMeetEndDay.getMonth()+1) < 10 ? "0" + (selectMeetEndDay.getMonth()+1) : (selectMeetEndDay.getMonth()+1))+'-'
-	 		+((selectMeetEndDay.getDate()) < 10 ? "0" + (selectMeetEndDay.getDate()) : (selectMeetEndDay.getDate()));
+    	    var smed = smed.getFullYear()+'-'
+	 		+((smed.getMonth()+1) < 10 ? "0" + (smed.getMonth()+1) : (smed.getMonth()+1))+'-'
+	 		+((smed.getDate()) < 10 ? "0" + (smed.getDate()) : (smed.getDate()));
 
     	    
-    	      	    if((selectMeetEndDay.getHours()-9)<0){
-    	    	var endTime = (((selectMeetEndDaye.getHours()-9)+24) < 10 ? "0" + ((selectMeetEndDay.getHours()-9)+24) : ((selectMeetEndDay.getHours()-9)+24)) +':'
-								+((selectMeetEndDay.getMinutes()) < 10 ? "0" + (selectMeetEndDay.getMinutes()) : (selectMeetEndDay.getMinutes()));
+    	      	    if((smed.getHours()-9)<0){
+    	    	var endTime = (((smed.getHours()-9)+24) < 10 ? "0" + ((smed.getHours()-9)+24) : ((smed.getHours()-9)+24)) +':'
+								+((smed.getMinutes()) < 10 ? "0" + (smed.getMinutes()) : (smed.getMinutes()));
     	    }
     	    else{
-    	    	var meetEndTime = (((selectMeetEndDay.getHours()-9)) < 10 ? "0" + ((selectMeetEndDay.getHours()-9)) : ((selectMeetEndDay.getHours()-9))) +':'
-							 +((selectMeetEndDay.getMinutes()) < 10 ? "0" + (selectMeetEndDay.getMinutes()) : (selectMeetEndDay.getMinutes()));
+    	    	var meetEndTime = (((smed.getHours()-9)) < 10 ? "0" + ((smed.getHours()-9)) : ((smed.getHours()-9))) +':'
+							 +((smed.getMinutes()) < 10 ? "0" + (smed.getMinutes()) : (smed.getMinutes()));
     	    }
     	      	    
     	    $("#meetStartTime").val(meetStartTime);
@@ -316,7 +320,7 @@ html, body {
 						<button type="submit" class="btn btn-sm btn-secondary btn-rigth disabled">예약신청</button>
 					</div>
 					<!-- modal footer -->
-					
+		<!-- 			
 					<script>
 						    	$(function(){
 						    		const $timeInput = $('#times');
@@ -364,9 +368,10 @@ html, body {
 				 	
 					
 					</div>
-					<!-- modal-body -->
-					</form>
 					
+					</form>
+				<!-- modal-body -->	
+				
 				
 			</div>
 			
