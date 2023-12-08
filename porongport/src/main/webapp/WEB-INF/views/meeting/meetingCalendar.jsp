@@ -195,16 +195,6 @@ html, body {
         },
     	
         height: '160px',
-
-        eventDidMount: function(info) {
-            var tooltip = new Tooltip(info.el, {
-              title: info.event.extendedProps.description,
-              minDate: '0',
-              placement: 'top',
-              trigger: 'hover',
-              container: 'body'
-            });
-        },
         
         customButtons: {
     		meetingroomButton: { 
