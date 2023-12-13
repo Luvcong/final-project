@@ -126,7 +126,7 @@ public class AjaxMessageController {
 	 */
 	@ResponseBody
 	@GetMapping("readMessage")
-	public boolean readMsg(@RequestParam(value="message_no_list[]") List<Integer> messageList, boolean readYN) {
+	public boolean readMsg(@RequestParam(value="messageNoList[]") List<Integer> messageList, boolean readYN) {
 		int result    = 0;
 		
 		Map<String, Object> map = new HashMap<String, Object>();
