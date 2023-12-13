@@ -27,23 +27,26 @@ public class AjaxMessageController {
 	/**
 	 * 1) 메시지 북마크 설정
 	 * @param messageNo : 북마크하려고 하는 메시지 번호
-	 * @param bookmarkYN : 선택한 메시지 번호의 북마크 설정 유무 여부 (Y : 북마크 설정 / N : 북마크 미설정)
+	 * @param bookmarkYN : 선택한 메시지 번호의 북마크 설정 여부 (Y : 북마크 설정 / N : 북마크 미설정)
 	 * @return 메시지 북마크 설정 성공 여부
 	 * @author JH
 	 * @Date : 2023. 11. 20
 	 */
 	@ResponseBody
 	@GetMapping("bookmarkMsg")
-	public boolean bookmarkMsg(int messageNo, boolean bookmarkYN) {
+	public boolean bookmarkMsg(@RequestParam(value="message_no") int messageNo,
+							   @RequestParam(value="bookmark_yn") boolean bookmarkYN) {
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("messageNo", messageNo);
 		map.put("bookmarkYN", bookmarkYN ? "N" : "Y");
-		// System.out.println(bookmarkYN ? "N" : "Y");
+		
 		messageService.bookmarkMsg(map);
 		
 		return !bookmarkYN;
-	}	// bookmarkMsg
+	}
+	
+	
 	
 	/**
 	 * 2) 메시지 삭제 - 휴지통 이동
@@ -115,7 +118,7 @@ public class AjaxMessageController {
 	
 	/**
 	 * 5) 메시지 읽음 설정
-	 * @param messageNo : 읽음 유무 설정하려는 메시지 번호
+	 * @param messageNo  : 읽음 유무 설정하려는 메시지 번호
 	 * @param bookmarkYN : 선택한 메시지 번호의 읽음 설정 유무 여부 (Y : 읽음 설정 / N : 안읽음 미설정)
 	 * @return 메시지 북마크 설정 성공 여부
 	 * @author JH
@@ -123,17 +126,14 @@ public class AjaxMessageController {
 	 */
 	@ResponseBody
 	@GetMapping("readMessage")
-	public boolean readMsg(@RequestParam(value="messageNoList[]") List<Integer> messageList, boolean readYN) {
-		
-		int messageNo = 0;
+	public boolean readMsg(@RequestParam(value="message_no_list[]") List<Integer> messageList, boolean readYN) {
 		int result    = 0;
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("readYN", readYN ? "Y" : "N");
 		
 		for(int arr : messageList) {
-			messageNo = arr;
-			map.put("messageNo", messageNo);
+			map.put("messageNo", arr);
 			result += messageService.readMsg(map);
 		}
 		

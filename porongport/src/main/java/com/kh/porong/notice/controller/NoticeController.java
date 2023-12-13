@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.kh.porong.common.controller.IFileHandler;
+import com.kh.porong.common.controller.fileHandler;
 import com.kh.porong.common.model.vo.PageInfo;
 import com.kh.porong.common.template.Pagination;
 import com.kh.porong.employee.model.vo.Employee;
@@ -32,7 +32,7 @@ import com.kh.porong.notice.model.vo.NoticeAttachment;
 import com.kh.porong.notice.model.vo.NoticeLike;
 
 @Controller
-public class NoticeController implements IFileHandler {
+public class NoticeController implements fileHandler {
 	
 	@Autowired
 	private NoticeService noticeService;
@@ -316,11 +316,10 @@ public class NoticeController implements IFileHandler {
 	
 	/**
 	 * 공지사항 게시글 수정
-	 * @param n : 공지사항 게시글 정보가 담겨있는 Notice VO 객체
+	 * @param n 			 : 공지사항 게시글 정보가 담겨있는 Notice VO 객체
 	 * @param changeFileName : 수정 공지사항 번호에 첨부되어 있는 첨부파일명
-	 * @param multiFileList : 수정시 새롭게 첨부한 파일 리스트
-	 * @param loginUser : 현재 로그인한 사용자의 정보
-	 * @param session
+	 * @param multiFileList  : 수정시 새롭게 첨부한 파일 리스트
+	 * @param loginUser 	 : 현재 로그인한 사용자의 정보
 	 * @return 공지사항 게시글 수정 성공 여부 및 수정 내용 반환
 	 * @author JH
 	 * @Date : 2023. 12. 1
@@ -360,7 +359,6 @@ public class NoticeController implements IFileHandler {
 				new File(request.getSession().getServletContext().getRealPath(file)).delete();
 			}
 			
-			java.util.Arrays.toString(multiFileList[0].getOriginalFilename().toCharArray());
 			// 1) 파일이 기존에 있던 말던 현재 파일 삭제 기능이 없기 때문에
 			// multiFileList에 파일이 있는 경우 무조건 isnert 처리 진행
 			Path fullPath = Paths.get(saveFile(newFile, request.getSession(), "notice/"));	// 파일의 수정파일명 풀경로 구하기
@@ -387,6 +385,7 @@ public class NoticeController implements IFileHandler {
 			request.getSession().setAttribute("successMsg", "공지사항 작성에 성공했습니다!");
 			return "redirect:detailNotice?nno=" + n.getNoticeNo();
 	}	// updateNotice
+	
 	
 	
 	
