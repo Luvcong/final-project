@@ -83,7 +83,7 @@
 			<div id=readEditor class="form-control form-control-sm form-control-notice">${ list.noticeContent }</div>
 		</div>
 		<div class="notice-file">
-			<span>첨부파일 ${at.originFileName }</span>
+			<span>첨부파일 </span>
 			<c:if test="${ empty attachList }">
 				<input class="form-control form-control-sm detail-input" readonly placeholder="첨부파일이 존재하지 않습니다.">
 			</c:if>
