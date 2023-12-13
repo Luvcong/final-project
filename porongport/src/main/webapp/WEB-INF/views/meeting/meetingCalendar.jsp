@@ -116,27 +116,27 @@ html, body {
 		
 	  var calendar = new FullCalendar.Calendar(calendarEl, {
 	    selectable: true,
-	    slotMinTime: '09:00',
-	    slotMaxTime: '18:00',
+	    slotMinTime: '09:00', // 회의실 예약이 가능한 시작시간
+	    slotMaxTime: '18:00', // 회의실 예약이 가능한 마지막시간
 
     	 select : info=>{
- 	    	var meetStartTime = info.startStr;
-     		var meetEndTime = info.endStr;
-     		
-     		var result = meetStartTime.substr(11, 18);
-     		var result2 = result.substr(0, 8);
-     		var result3 = meetEndTime.substr(11, 18);
-     		var result4 = result3.substr(0, 8);
-  //  		console.log(result2);
-  //   		console.log(result4);
+ 	    	var meetStartTime = info.startStr; //회의실 시작시간
+     		var meetEndTime = info.endStr;     //회의실 끝나는시간
+    //풀캘린더에서 제공하는 날짜형식은 2023-12-11T00:00:00+09:00 으로 제공하기 때문에
+     		var starttime = meetStartTime.substr(11, 8); 
+	//					11번째부터 8자리로 시작시간을 뽑는다
+     		var endtime = meetEndTime.substr(11, 8);
+	//					11번째부터 8자리로 끝시간을 뽑는다
+	
      		var meetStartDay = info.startStr;
      		var meetEndDay = info.endStr;
      		
      		var startday = meetStartDay.substr(0,10);
+	//					0~8자리로 시작날짜를 뽑는다
      		var endday = meetEndDay.substr(0,10);
-     		
-     		$('#meetStartTime').val(result2);
-     		$('#meetEndTime').val(result4);
+	//					0~8자리로 끝날짜를 뽑는다 		
+     		$('#meetStartTime').val(starttime);
+     		$('#meetEndTime').val(endtime);
      		
      		$('#meetStartDay').val(startday);
     		$('#meetEndDay').val(endday);
@@ -155,13 +155,9 @@ html, body {
     	    var smsd = calEvent.el.fcSeg.eventRange.instance.range.start; //selectMeetStartDay
     	    var smed = calEvent.el.fcSeg.eventRange.instance.range.end; //selectMeetEndDay
     	    
-    	    
-    	    
-    	    
     	    var smsd = smsd.getFullYear()+'-'
 	 		+((smsd.getMonth()+1) < 10 ? "0" + (smsd.getMonth()+1) : (smsd.getMonth()+1))+'-'
 	 		+((smsd.getDate()) < 10 ? "0" + (smsd.getDate()) : (smsd.getDate()));
-
     	  
     	    if((smsd.getHours()-9)<0){
     	    	var meetStartTime = (((smsd.getHours()-9)+24) < 10 ? "0" + ((smsd.getHours()-9)+24) : ((smsd.getHours()-9)+24)) +':'
@@ -189,7 +185,6 @@ html, body {
     	      	    
     	    $("#meetStartTime").val(meetStartTime);
     	    $("#meetEndTime").val(meetEndTime);
-
     	    
     	    $('#eventModal').modal();
         },

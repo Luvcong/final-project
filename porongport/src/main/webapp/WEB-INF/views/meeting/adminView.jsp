@@ -64,7 +64,9 @@
 					let value ='';
 					for(let i in result){
 						value += '<tr>'
-						+'<td>'+ result[i].meetNo +'</td>'+'<td>'+ result[i].meetStart +' ~ '+ result[i].meetEnd +' / '+ result[i].deptName +' / '+ result[i].empName +' / '+ result[i].jobName +'</td>'
+						+'<td>'+ result[i].meetNo +'</td>'+'<td>'+ result[i].meetStart +' ~ '
+						+ result[i].meetEnd +' / '+ result[i].deptName +' / '+ result[i].empName +' / '
+						+ result[i].jobName +'</td>'
 						+'</tr>'
 					}
 					$('#meetList>tbody').html(value);
